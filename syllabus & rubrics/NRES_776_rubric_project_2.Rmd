@@ -1,7 +1,7 @@
 ---
 title: "NRES 776 Rubric for Project 2"
 author: "Lisa Koetke"
-date: "Fall 2032"
+date: "Fall 2023"
 output: html_document
 ---
 

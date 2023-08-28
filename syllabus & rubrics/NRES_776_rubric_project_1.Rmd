@@ -1,7 +1,7 @@
 ---
 title: "NRES776 Rubric for Project 1"
 author: "Sunny Tseng"
-date: "2023-07-28"
+date: "Fall 2023"
 output: html_document
 ---
 

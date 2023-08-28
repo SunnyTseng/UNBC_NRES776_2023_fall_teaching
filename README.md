@@ -1,2 +1,2 @@
 # UNBC_NRES776_2023_fall_teaching
-This will be the main teaching folder for the NRES 776 course in the 2023 fall semester
+This is the website materials for the lectures and labs for NRES 776 at UNBC.

@@ -24,7 +24,7 @@ Leading the discussion should include activities such as asking prompting questi
 
 Leading a discussion can be harder than it seems, especially online where technology can make facilitation difficult. It’s also difficult (or impossible) to read and respond to social cues like facial expressions that would normally help keep discussions on track. I understand these challenges and that we’re all learning how to work in an online environment. Given these challenges, I encourage all of us to be bold (in terms of trying new approaches), supportive, patient, and compassionate during class discussions this term. I’m happy to discuss ways of facilitating an online discussion and will do my best to help with the technology (which I’m still learning too)! 
 
-###Rubric
+### Rubric
 
 ```{r echo = FALSE, results = "asis", message=FALSE}
 rubric <- tibble(Dimension = c("Paper summary", "Discussion questions", "Facilitation", ""), 
