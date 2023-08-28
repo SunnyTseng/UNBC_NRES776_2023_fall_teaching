@@ -1,0 +1,106 @@
+---
+title: "NRES 776 Rubric for Discussion"
+author: "Lisa Koetke & Sunny Tseng"
+date: "Fall 2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(knitr)
+```
+
+### Description
+
+Leading a lab paper discussion will make up 10% of your total grade. During your assigned lab period, you will have 5 mins to present a discussion paper and then lead a 20 mins discussion based on the papers. You can sign up for the paper you would like to present. 
+
+All students are expected to read the discussion paper before each lab and participate in the discussion. This will contribute towards your participation points, which makes up 5% of your total grade.
+
+### Guidelines
+
+Leading the discussion should include activities such as asking prompting questions, creating break-out groups, and giving directions on how to participate (i.e., raising hand, chatting, etc.). To help you prepare for leading a Discussion, here is a link to some useful guidelines by Julia Baum at the University of Victoria: http://baumlab.weebly.com/uploads/1/2/4/4/12445281/462_2016_tutorial1_howtoleaddiscussion.pdf 
+
+Leading a discussion can be harder than it seems, especially online where technology can make facilitation difficult. It’s also difficult (or impossible) to read and respond to social cues like facial expressions that would normally help keep discussions on track. I understand these challenges and that we’re all learning how to work in an online environment. Given these challenges, I encourage all of us to be bold (in terms of trying new approaches), supportive, patient, and compassionate during class discussions this term. I’m happy to discuss ways of facilitating an online discussion and will do my best to help with the technology (which I’m still learning too)! 
+
+###Rubric
+
+```{r echo = FALSE, results = "asis", message=FALSE}
+rubric <- tibble(Dimension = c("Paper summary", "Discussion questions", "Facilitation", ""), 
+                 Qualities = c("Concisely summarizes papers and key issues. Situates papers in broader context or issues in statistics. Provide enough detail, but not too much.", "Clarify or expand on concepts in paper. Thought-provocking, understandable. Encourage participation. Encourage students to refer to or expand on readings.", "Give directions for how to participate. Clear plan. Keep discussion on track, ends on time. Summarize, paraphrases, redirects, or addresses questions as needed. ENds with a summary of the discussion. Facilitation shared by co-leads", ""),
+                 Points = c("5", "5", "5", "TOTAL 15"))
+kable(rubric)
+```
+
+### Discussion papers
+
+- Presenting data graphically 
+
+  - Vandemeulebroecke et al. 2019. Effective Visual Communication for the Quantitative Scientist. CPT
+Pharmacometrics Syst. Pharmacol. 8: 705-719.
+https://prxy.lib.unbc.ca/login?url=https://doi.org/10.1002/psp4.12455
+ 
+  - Midway, S. 2020. Principles of Effective Data Visualization. Patterns 1: 100141. DOI:
+https://prxy.lib.unbc.ca/login?url=https://doi.org/10.1016/j.patter.2020.100141
+
+
+
+- Presenting statistical results
+
+  - Parker, T.H., Griffith, S.C., Bronstein, J.L. et al. Empowering peer reviewers with a checklist to improve
+transparency. Nat Ecol Evol 2, 929–935 (2018).
+https://prxy.lib.unbc.ca/login?url=https://doi.org/10.1038/s41559-018-0545-z
+
+  - Shoemaker, L. G., Walter, J. A., Gherardi, L. A., DeSiervo, M. H., and Wisnoski, N. I. 2021. Writing mathematical
+ecology: A guide for authors and readers. Ecosphere 12( 8):e03701. 10.1002/ecs2.3701.
+https://prxy.lib.unbc.ca/login?url=https://doi.org/10.1002/ecs2.3701
+
+
+
+- Hypothesis testing
+
+  - Browner, W., Newman, T., and Hulley, S. 2013. Getting Ready to Estimate Sample Size: Hypotheses and
+Underlying Principles. Chapter 5 In Hulley SB, Cummings SR, Browner WS et al., Eds. Designing Clinical Research,
+4th ed. Philadelphia: Lippincott, Williams & Wilkins. Pp 43-54. (in Blackboard)
+  - Betts, MG, Hadley, AS, Frey, DW, et al. When are hypotheses useful in ecology and evolution? Ecol Evol. 2021; 11: 5762– 5776. https://prxy.lib.unbc.ca/login?url=https://doi.org/10.1002/ece3.7365
+
+
+- Problems with p-values 
+
+  - Lee, J., McShane, B. B., Gelman, A., Colquhoun, D., Nuijten, M., Goodman, S.N. 2017. Five ways to fix statistics.Nature 551:557-559. doi: 10.1038/d41586-017-07522-z https://prxy.lib.unbc.ca/login?url=http://dx.doi.org/10.1038/d41586-017-07522-z
+
+  - Amrhein, V. Greenland, S., McShane, B. 2019. Retire statistical significance. Nature 567: 305-307.
+https://prxy.lib.unbc.ca/login?url=http://dx.doi.org/10.1038/d41586-019-00857-9
+  
+
+- Questionable research practices
+
+  - Fraser, H., Parker, T., Nakagawa, S., Barnett, A., and Fidler, F. 2018. Questionable research practices in ecology and evolution. PLoS One 13(7): e0200303. https://doi.org/10.1371/journal.pone.0200303 https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0200303
+
+  - Bissonette, J.A. 2021. Big Data, Exploratory Data Analyses and Questionable Research Practices: Suggestion for a Foundational Principle. Wildl. Soc. Bull. https://prxy.lib.unbc.ca/login?url=https://doi.org/10.1002/wsb.1201
+
+
+- Model selection
+
+  - Anderson, DR, Burnham, KP, Thompson, WL. 2000. Null hypothesis testing: problems, prevalence, and an alternative. Journal of Wildlife Management 64(4): 912-923.
+http://prxy.lib.unbc.ca/login?url=https://www-jstor-org.prxy.lib.unbc.ca/stable/3803199
+
+  - Guthery, FS, Brennan, LA, Peterson, MJ, and Lusk, JJ. 2005. Information theory in wildlife science: critique and
+viewpoint. Journal of Wildlife Management 69: 457-465. https://wildlife-onlinelibrary-wiley-com.prxy.lib.unbc.ca/doi/10.2193/0022-541X%282005%29069%5B0457%3AITIWSC%5D2.0.CO%3B2
+
+  - https://prxy.lib.unbc.ca/login?url=https://doi.org/10.2193/0022-541X(2005)069[0457:ITIWSC]2.0.CO;2
+
+
+- Generalized linear models
+
+  - Harrison XA, Donaldson L, Correa-Cano ME, Evans J, Fisher DN, Goodwin CED, Robinson BS, Hodgson DJ, Inger R. 2018. A brief introduction to mixed effects modelling and multi-model inference in ecology. PeerJ 6:e4794
+https://doi.org/10.7717/peerj.4794
+
+  - Tredennick, A. T., Hooker, G., Ellner, S. P., and Adler, P. B. 2021. A practical guide to selecting models for exploration, inference, and prediction in ecology. Ecology 102( 6):e03336. 10.1002/ecy.3336 https://prxy.lib.unbc.ca/login?url=https://doi.org/10.1002/ecy.3336
+
+- Decolonizing quantitative research
+
+  - Latulippe, N. & Klenk, N. 2020. Making room and moving over: knowledge co-production, Indigenous knowledge sovereignty and the politics of global environmental change decision-making. Current Opinion in Environmental Sustainability, 42, 7-14. https://prxy.lib.unbc.ca/login?url=https://doi.org/10.1016/j.cosust.2019.10.010
+
+  - Hayward, A., Wodtke, L., Craft, A., Robin, T., Smylie, J., McConkey, S., Nychuk, A., Healy, C., Star, L. & Cidro, J. (2021) Addressing the need for indigenous and decolonized quantitative research methods in Canada. SSM - Population Health, 100899. https://prxy.lib.unbc.ca/login?url=https://doi.org/10.1016/j.ssmph.2021.100899

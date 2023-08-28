@@ -1,0 +1,13 @@
+Date,Lab ID,Content ,Instructor,Location,Discussion,Note
+"Sept 14, Thu.",Lab 1,Intro to R,Sunny,Virtual,,
+"Sept 21, Thu.",Lab 2,Data visualization,Sunny,Virtual,Presenting data graphically,Lab 1 due
+"Sept 28, Thu.",Lab 3,Data summarizing,Sunny,Virtual,Presenting statistical results,Lab 2 due
+"Oct 5, Thu.",Lab 4,Comparing two means,Lisa,In Person,Hypothesis testing ,Lab 3 due
+"Oct. 12, Thu.",Lab 5,Comparing more than two means,Lisa,In Person,Problems with p-values ,Lab 4 due
+"Oct. 19, Thu.",Lab 6,Project 1 presentation,Sunny,Virtual,,Project 1 due
+"Oct. 26, Thu.",Lab 7,Multiple regression,Lisa,In Person,Questionable research practices,Lab 5 due
+"Nov. 2, Thu.",Lab 8,Model selection,Lisa,In Person,Model selection ,Lab 7 due
+"Nov 9, Thu.",Lab 9,Generalized linear models,Sunny,Virtual,Generalized linear models ,Lab 8 due
+"Nov. 16, Thu.",Lab 10,Generalized linear models,Sunny,Virtual,Generalized linear models ,Lab 9 due
+"Nov. 23, Thu.",Lab 11,Mixed-effect models,Lisa,In Person,Decolonizing quantitative research ,Lab 10 due
+"Nov. 30, Thu.",Lab 12,Multivariate analyses,Lisa,In Person,,Lab 11 due; Project 2 due

@@ -1,0 +1,59 @@
+---
+title: "NRES 776 Rubric for Project 2"
+author: "Lisa Koetke"
+date: "Fall 2032"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(knitr)
+library(here)
+```
+
+### Description
+
+This project will make up 20% of your total grade and will build off of Project 1. Using the same dataset, you will answer your research questions and test your hypotheses using methods learned in the second portion of the semester. This project will consist of a 5-minute presentation and a written report of your methods and results. Please prepare a PowerPoint to use during your presentation. 
+
+### Guidelines
+
+Analysis for this report must include:
+
+- Comparison of means
+  - The type of test must be appropriate for the hypothesis and data type
+- Multiple regression
+  - Must test for assumptions of the regression used
+  - May require a transformation
+- Generalized linear regression
+  - The type of GLM must be appropriate for the hypothesis and data type
+
+Types of figures and tables which must be included in results:
+
+- Table of model selection (i.e., AIC) results
+- Figure of model coefficients
+- Figure depicting relationship(s) between predictor variable(s) and response variable(s)
+
+### Rubric
+
+Your report and presentation should include the following:
+```{r echo = FALSE, results = "asis", message=FALSE}
+rubric <- tibble(Dimension = c("Introduction", 
+                               "Methods", 
+                               "Results",
+                               "Implications",
+                               "Appendix",
+                               "Presentation",
+                               ""),
+                 Qualities = c("Very concise background information to provide context for your scientific question. Lay out your research questions, hypotheses, and predictions.", 
+                               "Clearly describe the data collection (sampling design) and analysis methods. These should be detailed enough that they are reproducible but should remain concise. See published academic papers for examples.", 
+                               "Describe the results of your analysis. This section must include figure(s) and table(s) visually displaying your results.",
+                               "Concisely describe the ecological implications of the results, focusing on the interpretation of your analysis. This does not need to be a complete discussion section and does not need to include supporting literature.",
+                               "In an effort towards reproducibility, please include your R Code in an Appendix.",
+                               "Prepare a PowerPoint presentation and present your research to your peers. Presentations should summarize the background, methods, results, and discussion from your project. They should be about 5 minutes in length.",
+                               ""),
+                 Points = c("15", "20", "30", "15", "10", "10", "TOTAL 100"))
+kable(rubric)
+```
+
