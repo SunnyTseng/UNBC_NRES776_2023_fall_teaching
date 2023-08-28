@@ -2,7 +2,7 @@
 title: "NRES 776 Syllabus"
 author: "Lisa Koetke & Sunny Tseng"
 date: "Fall 2023"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
