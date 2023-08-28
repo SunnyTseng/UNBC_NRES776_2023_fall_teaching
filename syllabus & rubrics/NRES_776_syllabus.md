@@ -5,12 +5,11 @@ Fall 2023
 
 ### Advanced statistical analyses for natural resource sciences
 
-- Lecture: Tuesday and Thursday 12:30 - 13:20 pm
-- Lab: Thursday 8:00 - 10:50 am
-- Location: In person (<span style="color: red;">TBD</span>); Virtual
-  ([zoom
-  link](https://unbc.zoom.us/j/64078816232?pwd=TytUa2pnR1AyTmFYd2p5TXcrajhuZz09))
-- Course website: <span style="color: red;">TBD</span>
+- **Lecture**: Tuesday and Thursday 12:30 - 13:20 pm
+- **Lab**: Thursday 8:00 - 10:50 am
+- **Location**: In person: 5-177 Lecture & 8-362 Lab; Virtual: [zoom
+  link](https://unbc.zoom.us/j/64078816232?pwd=TytUa2pnR1AyTmFYd2p5TXcrajhuZz09)
+- **Course website**: UNBC Moodle (everything is there!)
 
 This course provides advanced, practical training in the analysis of
 quantitative data. The course focuses primarily on advanced univariate
@@ -24,67 +23,10 @@ analyze data.
 
 ### Instructors
 
-| name        | email                 | office                                                                   | office hour |
-|:------------|:----------------------|:-------------------------------------------------------------------------|:------------|
-| Lisa Koetke | <lisa.koetke@unbc.ca> | 10-2086                                                                  | TBD         |
-| Sunny Tseng | <stseng@unbc.ca>      | <https://unbc.zoom.us/j/6088522970?pwd=cjJhOVRqMmk0bkJ1N2tJajJrTWNYdz09> | TBD         |
-
-### Assessments of learning
-
-#### Grade distribution
-
-| Letter  | A+           | A           | A-          | B+          | B           | B-          | C+          | C           | C-          | D+          | D           | D-          | F      |
-|:--------|:-------------|:------------|:------------|:------------|:------------|:------------|:------------|:------------|:------------|:------------|:------------|:------------|:-------|
-| Percent | 90.0 - 100.0 | 85.0 - 89.9 | 80.0 - 84.9 | 77.0 - 79.9 | 73.0 - 76.9 | 70.0 - 72.9 | 67.0 - 69.9 | 63.0 - 66.9 | 60.0 - 62.9 | 57.0 - 59.9 | 53.0 - 56.9 | 50.0 - 52.9 | \<50.0 |
-
-#### Project 1 (15%)
-
-- Due: Oct.19 at midnight
-- Submission: oral presentation, a PDF file named as
-  “NRES776\_*lastname*\_project_1.pdf” submitted to course website.
-- Description: Working with the instructor, students will develop an
-  analysis strategy to examine data relevant to their research area. You
-  will develop the project starting with a research question, data
-  visualization, and list hypotheses. Making it as a research proposal
-  that you are going to apply funding with. There will be a 5 mins
-  presentation component as well as a 2-pages report.
-
-#### Project 2 (20%)
-
-- Due: Dec. 7 at midnight
-- Submission: oral presentation during lecture times Nov. 28 to Dec. 5,
-  a PDF file named as “NRES776\_*lastname*\_project_2.pdf” submitted to
-  course website.
-- Description: Your second project will build off of Project 1. Using
-  the same dataset, you will answer your research questions and test
-  your hypotheses using methods learned in the second portion of the
-  semester. This project will include a 5-minute presentation and a
-  written report of your methods and results.
-
-#### Lab assignments (50%)
-
-- Due: every Thu. midnight
-- Submission: a R file named as “NRES776\_*lastname*\_lab\_*X*.R”.
-  Submit to course website.
-- Description: For these assignments, you will analyze data sets using a
-  variety of techniques learned in class. A demonstration of lab
-  assignments will be included in the beginning of each lab. Students
-  are encouraged to finish the lab during the course lab time.
-
-#### Discussion paper presentation (10%)
-
-- Due: one of the lab session
-- Submission: oral presentation
-- Description: You will have 5 mins to present a discussion paper during
-  the lab period and lead a 20 mins discussion based on the papers. You
-  can sign up for the paper you would like to present. All students are
-  expected to read the discussion paper before each lab and participate
-  discussion. Guidelines on leading a discussion will be provided.
-
-#### General participation (5%)
-
-- Description: You will be evaluated by your involvement in course
-  discussion, and providing feedback to other students’ presentation.
+| name        | email                 | office                                                                   | office hour        |
+|:------------|:----------------------|:-------------------------------------------------------------------------|:-------------------|
+| Lisa Koetke | <lisa.koetke@unbc.ca> | 10-2086                                                                  | Tue. 13:30 - 14:30 |
+| Sunny Tseng | <stseng@unbc.ca>      | <https://unbc.zoom.us/j/6088522970?pwd=cjJhOVRqMmk0bkJ1N2tJajJrTWNYdz09> | Tue. 13:30 - 14:30 |
 
 ### Schedules
 
@@ -138,13 +80,70 @@ will be done using R Statistical Software.
 | Sept 28, Thu. | Lab 3  | Data summarizing              | Sunny      | Virtual   | Presenting statistical results     | Lab 2 due                 |
 | Oct 5, Thu.   | Lab 4  | Comparing two means           | Lisa       | In Person | Hypothesis testing                 | Lab 3 due                 |
 | Oct. 12, Thu. | Lab 5  | Comparing more than two means | Lisa       | In Person | Problems with p-values             | Lab 4 due                 |
-| Oct. 19, Thu. | Lab 6  | Project 1 presentation        | Sunny      | Virtual   | NA                                 | Project 1 due             |
+| Oct. 19, Thu. | Lab 6  | Project 1 presentation        | Sunny      | In Person | NA                                 | Project 1 due             |
 | Oct. 26, Thu. | Lab 7  | Multiple regression           | Lisa       | In Person | Questionable research practices    | Lab 5 due                 |
 | Nov. 2, Thu.  | Lab 8  | Model selection               | Lisa       | In Person | Model selection                    | Lab 7 due                 |
 | Nov 9, Thu.   | Lab 9  | Generalized linear models     | Sunny      | Virtual   | Generalized linear models          | Lab 8 due                 |
 | Nov. 16, Thu. | Lab 10 | Generalized linear models     | Sunny      | Virtual   | Generalized linear models          | Lab 9 due                 |
 | Nov. 23, Thu. | Lab 11 | Mixed-effect models           | Lisa       | In Person | Decolonizing quantitative research | Lab 10 due                |
 | Nov. 30, Thu. | Lab 12 | Multivariate analyses         | Lisa       | In Person | NA                                 | Lab 11 due; Project 2 due |
+
+### Assessments of learning
+
+#### Grade distribution
+
+| Letter  | A+           | A           | A-          | B+          | B           | B-          | C+          | C           | C-          | D+          | D           | D-          | F      |
+|:--------|:-------------|:------------|:------------|:------------|:------------|:------------|:------------|:------------|:------------|:------------|:------------|:------------|:-------|
+| Percent | 90.0 - 100.0 | 85.0 - 89.9 | 80.0 - 84.9 | 77.0 - 79.9 | 73.0 - 76.9 | 70.0 - 72.9 | 67.0 - 69.9 | 63.0 - 66.9 | 60.0 - 62.9 | 57.0 - 59.9 | 53.0 - 56.9 | 50.0 - 52.9 | \<50.0 |
+
+#### Lab assignments (50%)
+
+- Due: every Thu. midnight
+- Submission: a R file named as “NRES776\_*lastname*\_lab\_*X*.R”.
+  Submit to course website.
+- Description: For these assignments, you will analyze data sets using a
+  variety of techniques learned in class. A demonstration of lab
+  assignments will be included in the beginning of each lab. Students
+  are encouraged to finish the lab during the course lab time.
+
+#### Project 1 (15%)
+
+- Due: Oct.19 at midnight
+- Submission: oral presentation, a PDF file named as
+  “NRES776\_*lastname*\_project_1.pdf” submitted to course website.
+- Description: Working with the instructor, students will develop an
+  analysis strategy to examine data relevant to their research area. You
+  will develop the project starting with a research question, data
+  visualization, and list hypotheses. Making it as a research proposal
+  that you are going to apply funding with. There will be a 5 mins
+  presentation component as well as a 2-pages report.
+
+#### Project 2 (20%)
+
+- Due: Dec. 7 at midnight
+- Submission: oral presentation during lecture times Nov. 28 to Dec. 5,
+  a PDF file named as “NRES776\_*lastname*\_project_2.pdf” submitted to
+  course website.
+- Description: Your second project will build off of Project 1. Using
+  the same dataset, you will answer your research questions and test
+  your hypotheses using methods learned in the second portion of the
+  semester. This project will include a 5-minute presentation and a
+  written report of your methods and results.
+
+#### Discussion paper presentation (10%)
+
+- Due: one of the lab session
+- Submission: oral presentation
+- Description: You will have 5 mins to present a discussion paper during
+  the lab period and lead a 20 mins discussion based on the papers. You
+  can sign up for the paper you would like to present. All students are
+  expected to read the discussion paper before each lab and participate
+  discussion. Guidelines on leading a discussion will be provided.
+
+#### General participation (5%)
+
+- Description: You will be evaluated by your involvement in course
+  discussion, and providing feedback to other students’ presentation.
 
 ### Resources
 
