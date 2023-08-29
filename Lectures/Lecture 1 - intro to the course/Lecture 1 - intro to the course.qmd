@@ -92,6 +92,10 @@ Thur. 8:00 - 10:50
 Artwork by @allison_horst
 :::
 
+## Course materials on Moodle
+
+Screen shot of Moodle
+
 ## Evaluation
 
 -   Lab assignments (50%)
@@ -190,3 +194,4 @@ Don't have any data?
 ### Next time
 
 -   Next Tue. lecture, Virtual on zoom, with Sunny
+-   Discussion paper presentation schedule
