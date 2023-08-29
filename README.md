@@ -12,3 +12,5 @@ This is the website materials for the lectures and labs for NRES 776 at UNBC.
 - [Lab designs by Heather](https://github.com/SunnyTseng/UNBC_NRES776_2023_fall_teaching/tree/main/Old%20files%20for%20reference/Lectures)
 
 - [Allison Horst's artwork](https://allisonhorst.com/allison-horst)
+
+- [Quarto slides documentation](https://quarto.org/docs/presentations/revealjs/)
