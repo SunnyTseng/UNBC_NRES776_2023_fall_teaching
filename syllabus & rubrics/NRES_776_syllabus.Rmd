@@ -2,7 +2,7 @@
 title: "NRES 776 Syllabus"
 author: "Lisa Koetke & Sunny Tseng"
 date: "Fall 2023"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -116,8 +116,6 @@ data sets using a variety of techniques learned in class. A demonstration of lab
 
 ### Resources
 
-There is no required textbooks for this course. If you would like to have stats books on hand, here are a few useful ones. There are also many free, open source resources available for learning statistics online. 
-
 #### Books
 
 - Whitlock, MC and Schluter, D. 2015. The Analysis of Biological Data. 3rd Edition. Roberts and Company
@@ -144,10 +142,26 @@ https://bookdown.org/home/tags/statistics/
 UNBC is located on and serves diverse traditional territories that are home to numerous First Nations and other Aboriginal groups. The Prince George campus is situated on the traditional territory of the Lheidli T’enneh, part of the Dakelh (Carrier) First Nations. For further information about Territories on which UNBC campuses are located, please see: https://www2.unbc.ca/indigenous-resource-dati/traditional-territory-acknowledgement
 
 
-### Academic accommodations
+### Access resource centre
 
-Students with diverse learning styles and needs are welcome in this course. If you have a disability or health condition that may require accommodations, please feel free to approach me and/or the UNBC Access Resource Centre (ARC) as soon as possible. The Access Resource Centre (ARC) provides service to students with documented disabilities or health conditions, ranging from permanent to temporary, including but not limited to chronic health issues, hearing and visual impairments, learning disabilities and attention deficit/hyperactivity disorders, mental health and neurological disabilities, and mobility and other physical disabilities. ARC staff are available by appointment to assess specific needs, provide referrals, and arrange appropriate academic accommodations to assist students in achieving their academic goals. Students who may have a need for academic accommodation are encouraged to contact ARC by email at arc@unbc.ca, by phone at 250-960-5682 (toll free 1-888-960-5682), or in person at 5- 157. For more information, please visit the Access Resource Centre website.
+The Access Resource Centre (ARC) provides services to students with documented health conditions and/or disabilities. The conditions can range from temporary to permanent and include but are not limited to:
+
+- chronic health issues (e.g., Crohn’s, Diabetes, HIV, Lupus)
+- hearing and visual impairments
+- learning disabilities
+- mental health challenges (e.g., anxiety disorder, borderline personality disorder, depression disorder)
+- neurological disabilities (e.g., ADHD/ADD, Autism Spectrum Disorder, Epilepsy, Concussion, Migraines, Multiple Sclerosis)
+- mobility and other physical disabilities.
+
+ARC staff are available, by appointment, to meet with you to determine which academic accommodations can be put in place to support you in achieving their academic goals, provide referrals, and help advocate for you. Students who may have a need for academic accommodation are encouraged to contact ARC:
+
+- Email at arc@unbc.ca,
+- Phone at 250-960-5682 (toll free 1-888-960-5682), or
+- Stop by 5-157.
+
+More details are available at the Access Resource Centre website.
+
 
 ### Academic dishonesty
 
-University regulations strictly forbid academic dishonesty of any type, including plagiarism, cheating during exams, or misrepresenting the nature of your involvement in any assigned work. Students involved in such acts may receive an automatic F in the course. Please consult the “Regulations and Policies” section of the UNBC Undergraduate Calendar if you are unfamiliar with definitions of any of the Academic Offences. Note that ignorance of these policies will not be accepted as a defense. Students guilty of such activities may receive a zero on the particular assignment/exam/lab in question. If deemed sufficiently severe by the instructor, the offense could lead to sanctions that include reprimand, reduction of grade, or suspension. All matters of Academic Misconduct at UNBC require instructors to submit a formal report to the Chair and Office of Registrar, which will be placed in the student’s academic file.
+Do NOT do Copying and Pasting! While it may seem a quick way to answer an exam or assignment question, this constitutes plagiarism – whether the text is from an online source (including AI systems like ChatGPT), another student’s assignment, or even another assignment of yours! Students who fail to put their answers into their own words will automatically receive 0% on the particular assignment/lab/exam in question. If the nature of the act is considered serious, recommendations for further disciplinary action will be forwarded to the Dean. Please ask the instructor for more information if you do not understand this prohibition. Note that ignorance of these policies will not be accepted as a defense. Students guilty of such activities may receive a zero on the particular assignment/exam/lab in question. If deemed sufficiently severe by the instructor, the offense could lead to sanctions that include reprimand, reduction of grade, or suspension. All matters of Academic Misconduct at UNBC require instructors to submit a formal report to the Chair and Office of Registrar, which will be placed in the student’s academic file.
