@@ -2,7 +2,7 @@
 title: "NRES 776 Syllabus"
 author: "Lisa Koetke & Sunny Tseng"
 date: "Fall 2023"
-output: word_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -16,7 +16,7 @@ library(here)
 
 - **Lecture**: Tuesday and Thursday 12:30 - 13:20 pm
 - **Lab**: Thursday 8:00 - 10:50 am
-- **Location**: In person: 5-177 Lecture & 8-362 Lab; Virtual: [zoom link](https://unbc.zoom.us/j/64078816232?pwd=TytUa2pnR1AyTmFYd2p5TXcrajhuZz09)
+- **Location**: In person: 5-177 (Lecture) & 8-362 (Lab); Virtual: [zoom link](https://unbc.zoom.us/j/64078816232?pwd=TytUa2pnR1AyTmFYd2p5TXcrajhuZz09)
 - **Course website**: UNBC Moodle (everything is there!)
 
 
@@ -87,30 +87,27 @@ kable(grades)
 
 
 #### Lab assignments (50%)
-- Due: every Thu. midnight
-- Submission: a R file named as "NRES776_*lastname*_lab_*X*.R". Submit to course website.
-- Description: For these assignments, you will analyze
-data sets using a variety of techniques learned in class. A demonstration of lab assignments will be included in the beginning of each lab. Students are encouraged to finish the lab during the course lab time.
+- Due: every Wed. 23:59 pm **Late submission won't be graded**
+- Submission: R file named as "NRES776_*lastname*_lab_*X*.R". Submit to Moodle.
+- Description: For these assignments, you will analyze data sets using a variety of techniques learned in class. We will begin each lab with a demonstration of techniques used in each lab assignment. 
 
 #### Project 1 (15%)
-- Due: Oct.19 at midnight
-- Submission: oral presentation, a PDF file named as "NRES776_*lastname*_project_1.pdf" submitted to course website.
-- Description: Working with the instructor, students will develop an analysis strategy to examine data relevant to their research area. You will develop the project starting with a research question, data visualization, and list hypotheses. Making it as a research proposal that you are going to apply funding with. There will be a 5 mins presentation component as well as a 2-pages report.
+- Due: Oct.19 at 23:59 pm
+- Submission: oral presentation on lab time Oct.19, a PDF file named as "NRES776_*lastname*_project_1.pdf" submitted to Moodle.
 
 
 #### Project 2 (20%)
-- Due: Dec. 7 at midnight
-- Submission: oral presentation during lecture times Nov. 28 to Dec. 5, a PDF file named as "NRES776_*lastname*_project_2.pdf" submitted to course website.
-- Description: Your second project will build off of Project 1. Using the same dataset, you will answer your research questions and test your hypotheses using methods learned in the second portion of the semester. This project will include a 5-minute presentation and a written report of your methods and results.
+- Due: Dec. 6 at 23:59 pm
+- Submission: oral presentation during lecture times Nov. 28 to Dec. 5, a PDF file named as "NRES776_*lastname*_project_2.pdf" submitted to Moodle.
 
 
 #### Discussion paper presentation (10%)
-- Due: one of the lab session
+- Due: One of the lab sessions (sign-up)
 - Submission: oral presentation
-- Description: You will have 5 mins to present a discussion paper during the lab period and lead a 20 mins discussion based on the papers. You can sign up for the paper you would like to present. All students are expected to read the discussion paper before each lab and participate discussion. Guidelines on leading a discussion will be provided.
+
 
 #### General participation (5%)
-- Description: You will be evaluated by your involvement in course discussion, and providing feedback to other students' presentation. 
+- Description: You will be evaluated on your involvement in course discussion, and providing feedback to other students' presentations. 
 
 
 
@@ -164,4 +161,9 @@ More details are available at the Access Resource Centre website.
 
 ### Academic dishonesty
 
-Do NOT do Copying and Pasting! While it may seem a quick way to answer an exam or assignment question, this constitutes plagiarism – whether the text is from an online source (including AI systems like ChatGPT), another student’s assignment, or even another assignment of yours! Students who fail to put their answers into their own words will automatically receive 0% on the particular assignment/lab/exam in question. If the nature of the act is considered serious, recommendations for further disciplinary action will be forwarded to the Dean. Please ask the instructor for more information if you do not understand this prohibition. Note that ignorance of these policies will not be accepted as a defense. Students guilty of such activities may receive a zero on the particular assignment/exam/lab in question. If deemed sufficiently severe by the instructor, the offense could lead to sanctions that include reprimand, reduction of grade, or suspension. All matters of Academic Misconduct at UNBC require instructors to submit a formal report to the Chair and Office of Registrar, which will be placed in the student’s academic file.
+Do NOT copy and paste! This constitutes plagiarism – whether the text is from an online source (including AI systems like ChatGPT), another student’s assignment, or even another assignment of yours! Students who fail to put their answers into their own words will automatically receive 0% on the particular assignment/lab/exam in question. If the nature of the act is considered serious, recommendations for further disciplinary action will be forwarded to the Department Chair and potentially to the Dean. Please ask the instructor for more information if you do not understand this prohibition. Note that ignorance of these policies will not be accepted as a defense. 
+
+
+Please consult the “Regulations and Policies” section of the UNBC Undergraduate Calendar if you are unfamiliar with definitions of any of the Academic Offences. Note that ignorance of these policies will not be accepted as a defense. Students guilty of such activities may receive a zero on the particular assignment/exam/lab in question. If deemed sufficiently severe by the instructor, the offense could lead to sanctions that include reprimand, reduction of grade, or suspension. All matters of Academic Misconduct at UNBC require instructors to submit a formal report to the Chair and Office of Registrar, which will be placed in the student’s academic file.
+
+

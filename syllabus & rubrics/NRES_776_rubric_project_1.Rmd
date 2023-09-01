@@ -2,7 +2,7 @@
 title: "NRES776 Rubric for Project 1"
 author: "Sunny Tseng"
 date: "Fall 2023"
-output: word_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -15,7 +15,8 @@ library(here)
 
 ### Description
 
-This project will make up 15% of your total grade. Base on a research dataset, you will draft a research proposal with research title, background, hypothesis, methods, and expected outcome. Make this project as a research proposal that you are going to apply funding with. There will be a 5-minutes presentation component as well as a 2-pages report.
+Working with the instructor , students will develop an analysis strategy to examine data relevant to their research area. You will draft a research proposal with research title, background, hypothesis, methods, and expected outcome. Make this project as a research proposal that you are going to apply funding with.You will write a 2-page research proposal for a funding application and deliver a 5-minute presentation to the class. 
+
 
 ### Guidelines 
 

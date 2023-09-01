@@ -2,7 +2,7 @@
 title: "NRES 776 Rubric for Discussion"
 author: "Lisa Koetke & Sunny Tseng"
 date: "Fall 2023"
-output: word_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -14,7 +14,7 @@ library(knitr)
 
 ### Description
 
-Leading a lab paper discussion will make up 10% of your total grade. During your assigned lab period, you will have 5 mins to present a discussion paper and then lead a 20 mins discussion based on the papers. You can sign up for the paper you would like to present. 
+During your assigned lab period, you will have 5 mins to present a discussion paper and then lead a 20 mins discussion based on the papers. You can sign up for the paper you would like to present. 
 
 All students are expected to read the discussion paper before each lab and participate in the discussion. This will contribute towards your participation points, which makes up 5% of your total grade.
 

@@ -2,7 +2,7 @@
 title: "NRES 776 Rubric for Project 2"
 author: "Lisa Koetke"
 date: "Fall 2023"
-output: word_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
