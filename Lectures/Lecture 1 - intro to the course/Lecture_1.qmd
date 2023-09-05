@@ -1,0 +1,197 @@
+---
+title: "NRES 776 Lecture 1"
+subtitle: "Introduction to the course"
+author: Sunny Tseng & Lisa Koetke
+format:
+  revealjs: 
+    slide-number: true
+    preview-links: auto
+    css: styles.css
+    #footer: <https://quarto.org>
+    theme: [default, styles.scss]
+    #smaller: true
+    scrollable: true
+    incremental: true
+    embed-resources: true
+editor: visual
+---
+
+# Welcome back to school!
+
+## First day of the course
+
+-   people in this course (15 min)
+-   lecture and lab (10 min)
+-   evaluation method (20 mins)
+-   wrap-up (5 mins)
+
+## These are instructors - Sunny and Lisa
+
+::: columns
+::: {.column width="50%"}
+Avian acoustics
+
+Vancouver
+
+![](images/IMG_2387-01.JPG){width="405"}
+:::
+
+::: {.column width="50%"}
+Ungulate ecology
+
+Prince George
+
+![](images/316999340_670431728069117_4358657380641502186_n.jpg){width="402"}
+:::
+:::
+
+## And why Lisa is not here today
+
+## What about you?
+
+-   Name
+-   Background (Area of study, interest, etc.)
+-   Familiarity with R or programming
+-   Creatures (furry, feathery, scaley, green or otherwise)?
+
+## About this course {.smaller}
+
+We want you to feel powered...
+
+![](images/4300fc9c-9665-4b4c-a7aa-7e3cee0eccd4.png){fig-align="center" width="800"}
+
+::: footer
+Artwork by @allison_horst
+:::
+
+## About this course {.smaller}
+
+Everything mentioned here is summarized in [syllabus](https://moodle.unbc.ca/mod/resource/view.php?id=99168).
+
+::: columns
+::: {.column width="50%"}
+Lectures (5-177 or zoom)
+
+Tue. & Thur. 12:30 - 13:20
+
+Tue. 13:30 - 14:30 office hours
+
+![](images/7ae925e1-60bb-4b2c-ba7f-13c46b1848fa-01.png){width="465"}
+:::
+
+::: {.column width="50%"}
+Labs (8-362 or zoom)
+
+Thur. 8:00 - 10:50
+
+![](images/ef5356a8-a9ee-4a54-9b62-7e1c4cb9f723-01.png){width="383"}
+:::
+:::
+
+::: footer
+Artwork by @allison_horst
+:::
+
+## Course materials on Moodle
+
+Screen shot of Moodle
+
+## Evaluation
+
+-   Lab assignments (50%)
+
+-   Projects (15% + 20%)
+
+-   Discussion paper presentation (10%)
+
+-   General participation (5%)
+
+*Yes! We don't have midterms and finals! Ya!*
+
+## Evaluation {auto-animate="true"}
+
+### Lab assignments (50%)
+
+-   10 labs, due by the next week lab
+
+-   R coding - we expect you to finish during the lab
+
+-   Submit to Moodle course website
+
+``` r
+# Finish the R code to import my_data.csv
+library(tidyverse)
+library(here)
+data <- read_csv(
+)
+```
+
+## Evaluation {auto-animate="true"}
+
+### Lab assignments (50%)
+
+::: nonincremental
+-   10 labs, due by the next week lab
+
+-   R coding - we expect you to finish during the lab
+
+-   Submit to Moodle course website
+:::
+
+``` r
+# Finish the R code to import my_data.csv
+library(tidyverse)
+library(here)
+data <- read_csv(
+  here("data", "my_data.csv")
+)
+```
+
+## Evaluation {.smaller auto-animate="true"}
+
+### Projects (15% + 20%)
+
+-   Two steps projects for a big research topic, preferably relevant to your graduate study!
+
+-   [Project 1](https://moodle.unbc.ca/mod/resource/view.php?id=99177) - research proposal (Oct.19), [Project 2](https://moodle.unbc.ca/mod/resource/view.php?id=99178) - full analysis report (Dec. 7)
+
+-   You will need a dataset
+
+Don't have any data?
+
+-   Ask your supervisor for things related to your project
+
+-   Ask your fellow students
+
+-   Check open-sourced data
+
+-   Ask Sunny or Lisa with a brief description of your study interest and study design, and we will figure something out
+
+## Evaluation {.smaller auto-animate="true"}
+
+### Discussion paper presentation (10%)
+
+-   Check [rubric](https://moodle.unbc.ca/mod/resource/view.php?id=99181) for more details
+
+-   Give a 5 mins presentation in one of the lab session, with a given topic, given readings
+
+-   3 spots available for each lab session, first come first served
+
+-   Save your spot by filling [this form](https://forms.gle/R8s8wheF82DAoYeW6)!
+
+![](images/Capture.PNG){fig-align="center"}
+
+## Wrap up
+
+### Before we meet again
+
+-   Check out Moodle (syllabus and rubrics)
+
+-   Save your spot for discussion paper presentation
+
+-   Think about your project and dataset
+
+### Next time
+
+-   Next Tue. lecture, Virtual on zoom, with Sunny
+-   Discussion paper presentation schedule
