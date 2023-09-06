@@ -45,20 +45,22 @@ Prince George
 :::
 :::
 
-## And why Lisa is not here today
+## And why Lisa is not here today ❤️
+
+![](images/WHUQE1165.JPG){fig-align="center"}
 
 ## What about you?
 
 -   Name
 -   Background (Area of study, interest, etc.)
 -   Familiarity with R or programming
--   Creatures (furry, feathery, scaley, green or otherwise)?
+-   One thing you did during summer?
 
 ## About this course {.smaller}
 
 We want you to feel powered...
 
-![](images/4300fc9c-9665-4b4c-a7aa-7e3cee0eccd4.png){fig-align="center" width="800"}
+![](images/4300fc9c-9665-4b4c-a7aa-7e3cee0eccd4.png){fig-align="center" width="681"}
 
 ::: footer
 Artwork by @allison_horst
@@ -76,7 +78,7 @@ Tue. & Thur. 12:30 - 13:20
 
 Tue. 13:30 - 14:30 office hours
 
-![](images/7ae925e1-60bb-4b2c-ba7f-13c46b1848fa-01.png){width="465"}
+![](images/7ae925e1-60bb-4b2c-ba7f-13c46b1848fa-01.png){width="433"}
 :::
 
 ::: {.column width="50%"}
@@ -84,7 +86,7 @@ Labs (8-362 or zoom)
 
 Thur. 8:00 - 10:50
 
-![](images/ef5356a8-a9ee-4a54-9b62-7e1c4cb9f723-01.png){width="383"}
+![](images/ef5356a8-a9ee-4a54-9b62-7e1c4cb9f723-01.png){width="347"}
 :::
 :::
 
@@ -94,7 +96,13 @@ Artwork by @allison_horst
 
 ## Course materials on Moodle
 
-Screen shot of Moodle
+![](images/Capture-01.PNG){fig-align="center"}
+
+-   Syllabus, rubrics has been uploaded
+
+-   Lecture notes will be shared after each lecture
+
+-   Lab assignments submission, etc.
 
 ## Evaluation
 
@@ -153,7 +161,7 @@ data <- read_csv(
 
 -   Two steps projects for a big research topic, preferably relevant to your graduate study!
 
--   [Project 1](https://moodle.unbc.ca/mod/resource/view.php?id=99177) - research proposal (Oct.19), [Project 2](https://moodle.unbc.ca/mod/resource/view.php?id=99178) - full analysis report (Dec. 7)
+-   [Project 1](https://moodle.unbc.ca/mod/resource/view.php?id=99177) - research proposal, [Project 2](https://moodle.unbc.ca/mod/resource/view.php?id=99178) - full analysis report
 
 -   You will need a dataset
 
@@ -180,6 +188,12 @@ Don't have any data?
 -   Save your spot by filling [this form](https://forms.gle/R8s8wheF82DAoYeW6)!
 
 ![](images/Capture.PNG){fig-align="center"}
+
+## Use of AI in the course {.smaller}
+
+![](images/Capture-02.PNG){fig-align="center"}
+
+We will talk more about it during our first lab.
 
 ## Wrap up
 

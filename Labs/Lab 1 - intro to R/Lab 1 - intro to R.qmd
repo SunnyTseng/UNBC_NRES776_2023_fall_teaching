@@ -12,7 +12,7 @@ format:
     smaller: true
     scrollable: true
     incremental: true
-    embed-resources: true
+    #embed-resources: true
 editor: visual
 ---
 
@@ -30,13 +30,13 @@ editor: visual
 
 ## About these labs
 
-### Format 
+### Format
 
 ### R is hard: But we are here together!
 
 ## ImpostR Syndrome
 
-## Why R? 
+## Why R?
 
 R is hard - but powerful, beautiful, reproducible, and free
 
@@ -48,7 +48,7 @@ R is hard - but powerful, beautiful, reproducible, and free
 
 ## What is R Studio?
 
-## Let's get started with RStudio! 
+## Let's get started with RStudio!
 
 ## Your first R code!
 
