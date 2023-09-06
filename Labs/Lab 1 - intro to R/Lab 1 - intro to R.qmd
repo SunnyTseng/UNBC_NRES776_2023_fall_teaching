@@ -12,7 +12,7 @@ format:
     smaller: true
     scrollable: true
     incremental: true
-    #embed-resources: true
+    embed-resources: true
 editor: visual
 ---
 
@@ -24,7 +24,7 @@ editor: visual
 
 -   Lab intro (10 min)
 
--   Intro to R, R studio, and little things you need to know (60 min)
+-   Intro to R, R studio, and gentle intro to programming (60 min)
 
 -   Quiet time for practice (60 min)
 
@@ -32,7 +32,13 @@ editor: visual
 
 ### Format
 
+-   
+
 ### R is hard: But we are here together!
+
+-   Don't expect to remember everything (language learning)
+
+-   Be expose to the language
 
 ## ImpostR Syndrome
 
@@ -42,11 +48,18 @@ R is hard - but powerful, beautiful, reproducible, and free
 
 -   A lot of observations
 
--   I used Quarto to make the slides
+-   I used R Quarto to make the slides
 
 ## What is R?
 
 ## What is R Studio?
+
+-   R Studio is not R, RStudio is a Graphic User Interfaces (GUI)
+
+-   You can only use R console to program, but RStudio makes your life easier
+
+-   Think it as a
+
 
 ## Let's get started with RStudio!
 
