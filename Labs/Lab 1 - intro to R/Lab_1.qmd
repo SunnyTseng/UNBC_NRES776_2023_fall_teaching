@@ -32,23 +32,21 @@ editor: visual
 
 ### Consider keeping your video on
 
+-   For showing lovely pets
 -   Ultimately, you need to be comfortable (and you have the right to privacy)
+-   Feel free to unmute and ask questions!
 
 ### Format
 
 -   I will provide you tools and workflow to get started with R
 
--   I will go over specific functions (how to run and interpret)
-
--   We will have demonstration, hands-on, and free time
+-   We will have lectures, demonstration, hands-on, and free time
 
 ### R is hard: But we have no fear
 
 -   Don't expect to remember everything
 
 -   Copy/Paste is your friend
-
--   Feel free to interrupt me
 
 ## Imposte**R** Syndrome
 
@@ -120,35 +118,110 @@ for (i in 101:180) {
 
 R is hard - but powerful
 
+![](images/Capture-01.PNG){fig-align="center"}
+
+-   When data is beyond your ability to manage in excels
+
+-   I used R Quarto to make these slides, and R markdown for the course syllabus
+
 ## Why R?
 
 R is hard - but beautiful
 
+```{r}
+
+library(palmerpenguins)
+library(ggplot2)
+ggplot2::theme_set(ggplot2::theme_minimal())
+
+mass_flipper <- ggplot(data = penguins, 
+                       aes(x = flipper_length_mm,
+                           y = body_mass_g)) +
+  geom_point(aes(color = species, 
+                 shape = species),
+             size = 3,
+             alpha = 0.8) +
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +
+  labs(title = "Penguin size, Palmer Station LTER",
+       subtitle = "Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins",
+       x = "Flipper length (mm)",
+       y = "Body mass (g)",
+       color = "Penguin species",
+       shape = "Penguin species") +
+  theme(legend.position = c(0.2, 0.7),
+        plot.title.position = "plot",
+        plot.caption = element_text(hjust = 0, face= "italic"),
+        plot.caption.position = "plot")
+
+print(mass_flipper)
+#> Warning: Removed 2 rows containing missing values (geom_point).
+```
+
 ## Why R?
 
-R is hard - but reproducible
+R is hard - but reproducible and free!
 
-## Why R?
+![](images/CaptureR.PNG){fig-align="center"}
 
-R is hard - but free
+## R vs RStudio
 
--   A lot of observations
+::: columns
+::: {.column width="50%"}
+![](images/R_logo.svg.png){fig-align="center" width="333"}
+:::
 
--   I used R Quarto to make the slides
+::: {.column width="50%"}
+![](images/download.jpg){fig-align="center" width="599"}
+:::
+:::
 
-## What is R?
+-   RStudio is not R, RStudio is a Graphic User Interfaces (GUI)
 
-## What is R Studio?
+-   Which means you can code with R without RStudio
 
--   R Studio is not R, RStudio is a Graphic User Interfaces (GUI)
+-   But! RStudio makes programming with R easier
 
--   You can only use R console to program, but RStudio makes your life easier
-
--   Think it as a
+-   And it will make your life easier
 
 ## Let's get started with RStudio!
 
+### Changing options: Tools \> Global Options
+
+-   General \> Restore RData into workspace at startup (NO!)
+
+-   General \> Save workspace to on exit (No!)
+
+-   Appearance \> Theme and font size (Personal preference)
+
+### Start a project: File \> New Project \> New Directory \> New Project
+
+-   Name the project as you like (e.g., NRES776_lab_1)
+
+-   Save the project as you wish (e.g., in your desktop)
+
+-   You will find a new folder created in the directory that you provided
+
+-   R project can help handling directories, and organizes your work
+
+## Demonstration {background-color="#DDF1FF"}
+
+### Let's take a look at RStudio
+
+-   The layout of the windows (console, objects, files/plots)
+
+-   Create a project for this lab
+
+-   Create a new script (New File \> R Script)
+
+-   Save the Script to the project folder
+
+### 
+
 ## Your first R code!
+
+# Lab assignment
+
+## Use of ChatGPT, or stackflow, or other sources
 
 ## Wrap up
 
