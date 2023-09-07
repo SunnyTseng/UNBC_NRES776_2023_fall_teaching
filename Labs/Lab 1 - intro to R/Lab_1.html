@@ -403,6 +403,11 @@
 <li class="fragment"><p>Intro to R, R studio, and gentle intro to programming (60 min)</p></li>
 <li class="fragment"><p>Quiet time for practice (60 min)</p></li>
 </ul>
+</section></section>
+<section>
+<section id="lab-intro" class="title-slide slide level1 center">
+<h1>Lab intro</h1>
+
 </section>
 <section id="about-these-labs" class="slide level2">
 <h2>About these labs</h2>
@@ -527,6 +532,11 @@
 <li class="fragment"><p>But! RStudio makes programming with R easier</p></li>
 <li class="fragment"><p>And it will make your life easier</p></li>
 </ul>
+</section></section>
+<section>
+<section id="programming-with-r" class="title-slide slide level1 center">
+<h1>Programming with R</h1>
+
 </section>
 <section id="lets-get-started-with-rstudio" class="slide level2">
 <h2>Let’s get started with RStudio!</h2>
@@ -557,7 +567,77 @@
 </section>
 <section id="your-first-r-code" class="slide level2">
 <h2>Your first R code!</h2>
-</section></section>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># First load the package</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co"># Now create the figure</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="fu">ggplot</span>(<span class="at">data =</span> msleep, <span class="fu">aes</span>(<span class="at">x =</span> sleep_total, <span class="at">y =</span> sleep_rem, <span class="at">colour =</span> vore)) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li class="fragment"><p>Copy/Paste or type this into the script window in RStudio</p></li>
+<li class="fragment"><p>Click anywhere on the first line of the code</p></li>
+<li class="fragment"><p>Use the <strong>Run</strong> button to run this code, or use the short-cut <code>Ctrl-Enter</code></p>
+<ul>
+<li class="fragment">And repeat this until you ran all the codes</li>
+</ul></li>
+</ul>
+</section>
+<section id="your-first-r-code-1" class="slide level2">
+<h2>Your first R code!</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># First load the package</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># Now create the figure</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="fu">ggplot</span>(<span class="at">data =</span> msleep, <span class="fu">aes</span>(<span class="at">x =</span> sleep_total, <span class="at">y =</span> sleep_rem, <span class="at">colour =</span> vore)) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="Lab_1_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"></section>
+<section id="your-first-r-code-2" class="slide level2">
+<h2>Your first R code!</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># First load the package</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co"># Now create the figure</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="fu">ggplot</span>(<span class="at">data =</span> msleep, <span class="fu">aes</span>(<span class="at">x =</span> sleep_total, <span class="at">y =</span> sleep_rem, <span class="at">colour =</span> vore)) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="Lab_1_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section></section>
+<section id="r-basic-objects" class="title-slide slide level1 center">
+<h1>R basic: Objects</h1>
+
+</section>
+
+<section id="r-basic-workspace" class="title-slide slide level1 center">
+<h1>R basic: Workspace</h1>
+
+</section>
+
+<section id="r-basic-functions" class="title-slide slide level1 center">
+<h1>R basic: Functions</h1>
+
+</section>
+
+<section id="r-basic-variable-names" class="title-slide slide level1 center">
+<h1>R basic: Variable names</h1>
+
+</section>
+
+<section id="r-basic-data-types" class="title-slide slide level1 center">
+<h1>R basic: Data types</h1>
+
+</section>
+
+<section id="section-1" class="title-slide slide level1 center">
+<h1></h1>
+
+</section>
+
 <section>
 <section id="lab-assignment" class="title-slide slide level1 center">
 <h1>Lab assignment</h1>

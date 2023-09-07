@@ -47,7 +47,7 @@ Prince George
 
 ## And why Lisa is not here today ❤️
 
-![](images/WHUQE1165.JPG){fig-align="center"}
+![](images/INEAE7616.JPG){fig-align="center"}
 
 ## What about you?
 
@@ -120,9 +120,9 @@ Artwork by @allison_horst
 
 ### Lab assignments (50%)
 
--   10 labs, due by the next week lab
+-   10 labs, due by the next week lab (Wed. 23:59 pm)
 
--   R coding - we expect you to finish during the lab
+-   R coding
 
 -   Submit to Moodle course website
 
@@ -191,7 +191,7 @@ Don't have any data?
 
 ## Use of AI in the course {.smaller}
 
-![](images/Capture-02.PNG){fig-align="center"}
+![](images/Capture-02.PNG){fig-align="center" width="435"}
 
 We will talk more about it during our first lab.
 

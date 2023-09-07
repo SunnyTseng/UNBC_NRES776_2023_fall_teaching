@@ -28,6 +28,8 @@ editor: visual
 
 -   Quiet time for practice (60 min)
 
+# Lab intro
+
 ## About these labs
 
 ### Consider keeping your video on
@@ -183,6 +185,8 @@ R is hard - but reproducible and free!
 
 -   And it will make your life easier
 
+# Programming with R
+
 ## Let's get started with RStudio!
 
 ### Changing options: Tools \> Global Options
@@ -218,6 +222,60 @@ R is hard - but reproducible and free!
 ### 
 
 ## Your first R code!
+
+```{r, echo = TRUE, eval = FALSE}
+# First load the package
+library(tidyverse)
+
+# Now create the figure
+ggplot(data = msleep, aes(x = sleep_total, y = sleep_rem, colour = vore)) +
+  geom_point(size = 2)
+
+```
+
+-   Copy/Paste or type this into the script window in RStudio
+
+-   Click anywhere on the first line of the code
+
+-   Use the **Run** button to run this code, or use the short-cut `Ctrl-Enter`
+
+    -   And repeat this until you ran all the codes
+
+## Your first R code!
+
+```{r, echo = TRUE}
+# First load the package
+library(tidyverse)
+
+# Now create the figure
+ggplot(data = msleep, aes(x = sleep_total, y = sleep_rem, colour = vore)) +
+  geom_point(size = 2)
+
+```
+
+## Your first R code!
+
+```{r, echo = TRUE}
+# First load the package
+library(tidyverse)
+
+# Now create the figure
+ggplot(data = msleep, aes(x = sleep_total, y = sleep_rem, colour = vore)) +
+  geom_point(size = 2)
+
+```
+
+# R basic: Objects
+
+# R basic: Workspace
+
+# R basic: Functions
+
+# R basic: Variable names
+
+# R basic: Data types
+
+# 
 
 # Lab assignment
 
