@@ -211,7 +211,7 @@ R is hard - but reproducible and free!
 
 ### Let's take a look at RStudio
 
--   The layout of the windows (console, objects, files/plots)
+-   The layout of the windows
 
 -   Create a project for this lab
 
@@ -219,7 +219,13 @@ R is hard - but reproducible and free!
 
 -   Save the Script to the project folder
 
-### 
+### Script (top left)
+
+### Console (bottom left)
+
+### Global environment (top right)
+
+### Files/plots output (bottom right)
 
 ## Your first R code!
 
@@ -265,15 +271,154 @@ ggplot(data = msleep, aes(x = sleep_total, y = sleep_rem, colour = vore)) +
 
 ```
 
+-   Code (the way you communicate with the computer)
+
+-   Script (a whole bunch of code)
+
+-   Output
+
 # R basic: Objects
 
-# R basic: Workspace
+## Concept of object
 
-# R basic: Functions
+> Everything in R is an object. These objects can be almost anything, from a single number to a character string, or a plot, or a dataframe. Objects in R are often called **variables**.
 
-# R basic: Variable names
+```{r, echo = TRUE}
+
+# this is an object called a, and its content is 1
+a <- 1 
+```
+
+```{r}
+# this is an object called b, and its content is "I love stats"
+b <- "I love stats"
+```
+
+```{r}
+# this is an object called c, and its content is a vector (2,3,4,5)
+c <- c(2,3,4,5)
+```
+
+## Creating objects
+
+> To create an object we simply give the object a name. We can then assign a value to this object using the *assignment operator* `<-` (sometimes called the *gets operator*). The assignment operator is a composite symbol comprised of a 'less than' symbol `<` and a hyphen `-` .
+
+-   To create an object:
+
+```{r, echo = TRUE}
+my_obj <- "I am hungry"
+```
+
+-   To call, or view the content of the object:
+
+```{r, echo = TRUE}
+my_obj
+```
+
+## The objects live in your Global Environment
+
+> All of the objects you create will be stored and you can view them in RStudio by clicking on the 'Environment' tab in the top right hand pane.
+
+## The art of naming objects
+
+> Naming your objects is one of the most difficult things you will do in R (seriously).
+
+**To do**
+
+-   Keep it short
+
+-   Keep it informative
+
+-   Use either underscores or capitalize different words
+
+## The art of naming objects
+
+> Naming your objects is one of the most difficult things you will do in R (seriously).
+
+**Not to do**
+
+-   Start with a number (`2my_variable`)
+
+-   Start with a dot followed by a number (`.2my_variable`)
+
+-   Use non-alphanumeric characters (i.e. &, \^, /, ! etc)
+
+-   Use space
+
+-   Name your objects with reserved words (i.e. `TRUE`, `NA`)
+
+One that crops up more times than we can remember is:
+
+```{r, eval = FALSE, echo = TRUE}
+data <- read.table("mydatafile", header = TRUE) #data is a function!
+```
+
+# R basic: Operators
+
+## Arithmetic operators
+
+> To perform common mathematical operations.
+
+| Operator   | Name                              |
+|------------|-----------------------------------|
+| \+         | Addition                          |
+| \-         | Subtraction                       |
+| \*         | Multiplication                    |
+| /          | Division                          |
+| \^ or \*\* | Exponent                          |
+| %%         | Modulus (remainder from division) |
+| %/%        | Integer Division                  |
+
+```{r, echo = TRUE}
+10 + 5
+```
+
+```{r, echo = TRUE}
+a <- 10
+b <- 5
+
+a + b
+```
+
+## Comparison operators
+
+> To compare two values.
+
+| Operator | Name                     |
+|----------|--------------------------|
+| ==       | Equal                    |
+| !=       | Not equal                |
+| \>       | Greater than             |
+| \<       | Less than                |
+| \>=      | Greater than or equal to |
+| \<=      | Less than or equal to    |
+
+## 
+
+## Logical operators
+
+> To combine conditional statements
+
+| Operator | Description                                    |
+|----------|------------------------------------------------|
+| &        | Returns TRUE if both elements are TRUE         |
+| &&       | Returns TRUE if both statements are TRUE       |
+| \| or II | Returns TRUE if one of the statement is TRUE   |
+| !        | Returns FALSE if statement is TRUE, vice versa |
+
+## Miscellaneous operators
+
+> Very useful in manipulating data!
+
+| Operator | Description                                |
+|----------|--------------------------------------------|
+| :        | Creates a series of numbers in a sequence  |
+| %in%     | Find out if an element belongs to a vector |
+| %\*%     | Matrix Multiplication                      |
 
 # R basic: Data types
+
+# R basic: Functions
 
 # 
 

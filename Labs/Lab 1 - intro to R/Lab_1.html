@@ -558,12 +558,15 @@
 <h2>Demonstration</h2>
 <h3 id="lets-take-a-look-at-rstudio">Let’s take a look at RStudio</h3>
 <ul>
-<li class="fragment"><p>The layout of the windows (console, objects, files/plots)</p></li>
+<li class="fragment"><p>The layout of the windows</p></li>
 <li class="fragment"><p>Create a project for this lab</p></li>
 <li class="fragment"><p>Create a new script (New File &gt; R Script)</p></li>
 <li class="fragment"><p>Save the Script to the project folder</p></li>
 </ul>
-<h3 id="section"></h3>
+<h3 id="script-top-left">Script (top left)</h3>
+<h3 id="console-bottom-left">Console (bottom left)</h3>
+<h3 id="global-environment-top-right">Global environment (top right)</h3>
+<h3 id="filesplots-output-bottom-right">Files/plots output (bottom right)</h3>
 </section>
 <section id="your-first-r-code" class="slide level2">
 <h2>Your first R code!</h2>
@@ -607,29 +610,264 @@
 <span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="Lab_1_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section></section>
+<img data-src="Lab_1_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"><ul>
+<li class="fragment"><p>Code (the way you communicate with the computer)</p></li>
+<li class="fragment"><p>Script (a whole bunch of code)</p></li>
+<li class="fragment"><p>Output</p></li>
+</ul>
+</section></section>
+<section>
 <section id="r-basic-objects" class="title-slide slide level1 center">
 <h1>R basic: Objects</h1>
 
 </section>
+<section id="concept-of-object" class="slide level2">
+<h2>Concept of object</h2>
+<blockquote>
+<p>Everything in R is an object. These objects can be almost anything, from a single number to a character string, or a plot, or a dataframe. Objects in R are often called <strong>variables</strong>.</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># this is an object called a, and its content is 1</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
 
-<section id="r-basic-workspace" class="title-slide slide level1 center">
-<h1>R basic: Workspace</h1>
+</div>
+<div class="cell">
+
+</div>
+</section>
+<section id="creating-objects" class="slide level2">
+<h2>Creating objects</h2>
+<blockquote>
+<p>To create an object we simply give the object a name. We can then assign a value to this object using the <em>assignment operator</em> <code>&lt;-</code> (sometimes called the <em>gets operator</em>). The assignment operator is a composite symbol comprised of a ‘less than’ symbol <code>&lt;</code> and a hyphen <code>-</code> .</p>
+</blockquote>
+<ul>
+<li class="fragment">To create an object:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>my_obj <span class="ot">&lt;-</span> <span class="st">"I am hungry"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li class="fragment">To call, or view the content of the object:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>my_obj</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "I am hungry"</code></pre>
+</div>
+</div>
+</section>
+<section id="the-objects-live-in-your-global-environment" class="slide level2">
+<h2>The objects live in your Global Environment</h2>
+<blockquote>
+<p>All of the objects you create will be stored and you can view them in RStudio by clicking on the ‘Environment’ tab in the top right hand pane.</p>
+</blockquote>
+</section>
+<section id="the-art-of-naming-objects" class="slide level2">
+<h2>The art of naming objects</h2>
+<blockquote>
+<p>Naming your objects is one of the most difficult things you will do in R (seriously).</p>
+</blockquote>
+<p><strong>To do</strong></p>
+<ul>
+<li class="fragment"><p>Keep it short</p></li>
+<li class="fragment"><p>Keep it informative</p></li>
+<li class="fragment"><p>Use either underscores or capitalize different words</p></li>
+</ul>
+</section>
+<section id="the-art-of-naming-objects-1" class="slide level2">
+<h2>The art of naming objects</h2>
+<blockquote>
+<p>Naming your objects is one of the most difficult things you will do in R (seriously).</p>
+</blockquote>
+<p><strong>Not to do</strong></p>
+<ul>
+<li class="fragment"><p>Start with a number (<code>2my_variable</code>)</p></li>
+<li class="fragment"><p>Start with a dot followed by a number (<code>.2my_variable</code>)</p></li>
+<li class="fragment"><p>Use non-alphanumeric characters (i.e.&nbsp;&amp;, ^, /, ! etc)</p></li>
+<li class="fragment"><p>Use space</p></li>
+<li class="fragment"><p>Name your objects with reserved words (i.e.&nbsp;<code>TRUE</code>, <code>NA</code>)</p></li>
+</ul>
+<p>One that crops up more times than we can remember is:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"mydatafile"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>) <span class="co">#data is a function!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section>
+<section>
+<section id="r-basic-operators" class="title-slide slide level1 center">
+<h1>R basic: Operators</h1>
+
+</section>
+<section id="arithmetic-operators" class="slide level2">
+<h2>Arithmetic operators</h2>
+<blockquote>
+<p>To perform common mathematical operations.</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>+</td>
+<td>Addition</td>
+</tr>
+<tr class="even">
+<td>-</td>
+<td>Subtraction</td>
+</tr>
+<tr class="odd">
+<td>*</td>
+<td>Multiplication</td>
+</tr>
+<tr class="even">
+<td>/</td>
+<td>Division</td>
+</tr>
+<tr class="odd">
+<td>^ or **</td>
+<td>Exponent</td>
+</tr>
+<tr class="even">
+<td>%%</td>
+<td>Modulus (remainder from division)</td>
+</tr>
+<tr class="odd">
+<td>%/%</td>
+<td>Integer Division</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="dv">10</span> <span class="sc">+</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>a <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>b <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a></span>
+<span id="cb14-4"><a href="#cb14-4"></a>a <span class="sc">+</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
+</div>
+</div>
+</section>
+<section id="comparison-operators" class="slide level2">
+<h2>Comparison operators</h2>
+<blockquote>
+<p>To compare two values.</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>==</td>
+<td>Equal</td>
+</tr>
+<tr class="even">
+<td>!=</td>
+<td>Not equal</td>
+</tr>
+<tr class="odd">
+<td>&gt;</td>
+<td>Greater than</td>
+</tr>
+<tr class="even">
+<td>&lt;</td>
+<td>Less than</td>
+</tr>
+<tr class="odd">
+<td>&gt;=</td>
+<td>Greater than or equal to</td>
+</tr>
+<tr class="even">
+<td>&lt;=</td>
+<td>Less than or equal to</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+</section>
+<section id="logical-operators" class="slide level2">
+<h2>Logical operators</h2>
+<blockquote>
+<p>To combine conditional statements</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&amp;</td>
+<td>Returns TRUE if both elements are TRUE</td>
+</tr>
+<tr class="even">
+<td>&amp;&amp;</td>
+<td>Returns TRUE if both statements are TRUE</td>
+</tr>
+<tr class="odd">
+<td>| or II</td>
+<td>Returns TRUE if one of the statement is TRUE</td>
+</tr>
+<tr class="even">
+<td>!</td>
+<td>Returns FALSE if statement is TRUE, vice versa</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="miscellaneous-operators" class="slide level2">
+<h2>Miscellaneous operators</h2>
+<blockquote>
+<p>Very useful in manipulating data!</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>:</td>
+<td>Creates a series of numbers in a sequence</td>
+</tr>
+<tr class="even">
+<td>%in%</td>
+<td>Find out if an element belongs to a vector</td>
+</tr>
+<tr class="odd">
+<td>%*%</td>
+<td>Matrix Multiplication</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section id="r-basic-data-types" class="title-slide slide level1 center">
+<h1>R basic: Data types</h1>
 
 </section>
 
 <section id="r-basic-functions" class="title-slide slide level1 center">
 <h1>R basic: Functions</h1>
-
-</section>
-
-<section id="r-basic-variable-names" class="title-slide slide level1 center">
-<h1>R basic: Variable names</h1>
-
-</section>
-
-<section id="r-basic-data-types" class="title-slide slide level1 center">
-<h1>R basic: Data types</h1>
 
 </section>
 
