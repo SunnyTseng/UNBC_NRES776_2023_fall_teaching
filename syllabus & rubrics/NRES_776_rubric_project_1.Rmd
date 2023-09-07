@@ -70,6 +70,6 @@ You are highly encouraged to use your own dataset, so that this project can cont
 
 
 ### Written project example
-Yi-Chin (Sunny) Tseng. 2018. [Automatic Bird Sound Detection in Audio by Spectral Features](./docs/BirdID_vogel_Sunny_20180209.pdf){width=75%}.
+Yi-Chin (Sunny) Tseng. 2018. [Automatic Bird Sound Detection in Audio by Spectral Features](https://drive.google.com/file/d/1DQnJ7STz_9LduGHoExgFCeVupfZrEdpc/view?usp=sharing){width=75%}.
 
 
