@@ -34,9 +34,9 @@ editor: visual
 
 ### Consider keeping your video on
 
--   For showing lovely pets
+-   Food? Pets? Other creatures? We would love to see them!
 -   Ultimately, you need to be comfortable (and you have the right to privacy)
--   Feel free to unmute and ask questions!
+-   Feel free to unmute and ask questions
 
 ### Format
 
@@ -430,8 +430,12 @@ a + b
 
 ### Before we meet again
 
--   
+-   Have a nice food intake
+
+-   Have a nap
+
+-   Have a good break
 
 ### Next time
 
--   Next Tue. lecture, Virtual on zoom, with Sunny
+-   Will see you in 1.5 hours on zoom!
