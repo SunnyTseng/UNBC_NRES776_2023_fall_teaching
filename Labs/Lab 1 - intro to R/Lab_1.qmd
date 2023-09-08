@@ -185,7 +185,7 @@ R is hard - but reproducible and free!
 
 -   And it will make your life easier
 
-# Programming with R
+# Dip your toes in
 
 ## Let's get started with RStudio!
 
@@ -451,9 +451,77 @@ Do different kinds of sampling using what we learned.
 1.  Import data (working directory, set objects, import data, n, data_penguin)
 2.  Calculation the population mean and standard deviation
     -   Simple random sampling (mean, standard deviation) (save as simple_random vector)
-    -   Systematic sampling (mean, standard deviation) (save as systematic vector)
     -   Stratified sampling (mean, standard deviation) (save as stratified vector)
 3.  Create a dataframe named sampling_stat with column names as "type", "mean", "sd"
+
+## Lab 1 answer key
+
+```{r, echo = TRUE, eval = FALSE}
+
+### library
+library(palmerpenguins)
+library(tidyverse)
+
+### set.seed for the randomization
+set.seed(100)
+
+### remove NAs from the flipper_length_mm
+penguins_no_na <- drop_na(penguins)
+
+
+### population
+p_df <- penguins_no_na
+
+p_mean <- mean(p_df$flipper_length_mm)
+p_sd <- sd(p_df$flipper_length_mm)
+p_cor <- cor(p_df$flipper_length_mm, p_df$bill_length_mm)
+
+p_vector <- c(p_mean, p_sd, p_cor)
+
+
+### simple random sampling
+srs_df <- slice_sample(.data = penguins_no_na, n = 30)
+
+srs_mean <- mean(srs_df$flipper_length_mm)
+srs_sd <- sd(srs_df$flipper_length_mm)
+srs_cor <- cor(srs_df$flipper_length_mm, srs_df$bill_length_mm)
+
+srs_vector <- c(srs_mean, srs_sd, srs_cor)
+
+### stratified sampling
+ss_df <- slice_sample(.data = penguins_no_na, n = 10, by = species)
+
+ss_mean <- mean(ss_df$flipper_length_mm)
+ss_sd <- sd(ss_df$flipper_length_mm)
+ss_cor <- cor(ss_df$flipper_length_mm, ss_df$bill_length_mm)
+
+ss_vector <- c(ss_mean, ss_sd, ss_cor)
+
+### combine everything together
+final <- tibble(statistics = c("mean", "sd", "cor"), 
+               population = p_vector, 
+               simple_random = srs_vector, 
+               stratified = ss_vector)
+```
+
+## Lab 1 answer key (advanced)
+
+```{r, echo = TRUE, eval = FALSE}
+### population
+p_df <- penguins_no_na
+
+p_mean <- mean(p_df$flipper_length_mm)
+p_sd <- sd(p_df$flipper_length_mm)
+p_cor <- cor(p_df$flipper_length_mm, p_df$bill_length_mm)
+
+p_vector <- c(p_mean, p_sd, p_cor)
+
+### population
+p_vector <- penguins_no_na %>%
+  summarize(p_mean = mean(flipper_length_mm),
+            p_sd = sd(flipper_length_mm),
+            p_cor = cor(flipper_length_mm, bill_length_mm)) 
+```
 
 ## Use of ChatGPT, stackflow, or...
 
