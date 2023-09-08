@@ -42,21 +42,7 @@ Artwork by @allison_horst
 
     ![](images/Snapseed.jpg){width="549"}
 
-## Why we need statistics?
-
-Just for fun? For making life harder?
-
-1.  How many moose are there in the research forest?
-
-    -   Find all the moose, and count them, in the forest
-
-2.  How many bird species are in mature forest vs clear cut?
-
-    -   Stand there 24 hours, 365 days, and count all the bird species
-
-3.  Dominant tree species in the Forest of the World?
-
-4.  Caribou herd is healthier with supplemental feeding?
+# Why we need statistics?
 
 ## Population is often...
 
@@ -88,7 +74,7 @@ Just for fun? For making life harder?
 
 ::: columns
 ::: {.column width="50%"}
-Population parameters
+**Population parameters**
 
 (Greek letters)
 
@@ -106,7 +92,7 @@ Population parameters
 :::
 
 ::: {.column width="50%"}
-Sample statistics
+**Sample statistics**
 
 (Roman letters)
 
@@ -124,6 +110,38 @@ Sample statistics
 :::
 :::
 
+# Descriptive statistics
+
+## Mean 
+
+## Standard deviation
+
+## Variance 
+
+## Correlation coefficient 
+
+## Other commenly used descriptive statistics
+
+-   Number of items in sample (n)
+
+-   Most commonly occured value (mode)
+
+-   Maximum value (max)
+
+-   Minimum value (min)
+
+-   Range of values (range)
+
+# Magic of random sampling 
+
+## Accuracy and precision 
+
+## Simple random sampling (i.i.d)
+
+## Systematic sampling
+
+## Stratified sampling
+
 ## What we learned
 
 -   Population (parameters) vs Sample (statistics)
@@ -131,7 +149,7 @@ Sample statistics
 ```{=html}
 <!-- -->
 ```
--   Different types of variables (continuous vs categorical)
+-   Descriptive statistics
 
 -   Different types of random sampling
 
@@ -146,5 +164,4 @@ Sample statistics
 ### Next time
 
 -   Thur. 8am lab, virtual on zoom
--   With your morning coffee and nice breakfast
--   And a relaxed mood
+-   With your morning coffee/tea and relaxed mood
