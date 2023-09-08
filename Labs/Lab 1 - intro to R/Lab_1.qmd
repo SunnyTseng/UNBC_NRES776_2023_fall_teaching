@@ -277,6 +277,14 @@ ggplot(data = msleep, aes(x = sleep_total, y = sleep_rem, colour = vore)) +
 
 -   Output
 
+## How are you doing? 
+
+![](images/31e5b53b-32b2-4a1f-b966-31fb14d1867e.png){fig-align="center"}
+
+::: footer
+Artwork by @allison_horst
+:::
+
 # R basic: Objects
 
 ## Concept of object
@@ -323,13 +331,29 @@ my_obj
 
 > Naming your objects is one of the most difficult things you will do in R (seriously).
 
+::: columns
+::: {.column width="30%"}
 **To do**
 
 -   Keep it short
 
 -   Keep it informative
 
--   Use either underscores or capitalize different words
+-   Use `camelCase`
+
+-   `snake_case`
+
+-   or `PascalCase`
+:::
+
+::: {.column width="70%"}
+![](images/dbb99049-2916-4bc8-824f-1816f5c4f06d-01.png){fig-align="center" width="969"}
+:::
+:::
+
+::: footer
+Artwork by @allison_horst
+:::
 
 ## The art of naming objects
 
@@ -393,8 +417,6 @@ a + b
 | \>=      | Greater than or equal to |
 | \<=      | Less than or equal to    |
 
-## 
-
 ## Logical operators
 
 > To combine conditional statements
@@ -420,11 +442,52 @@ a + b
 
 # R basic: Functions
 
-# 
-
 # Lab assignment
 
-## Use of ChatGPT, or stackflow, or other sources
+## Your task
+
+Do different kinds of sampling using what we learned.
+
+1.  Import data (working directory, set objects, import data, n, data_penguin)
+2.  Calculation the population mean and standard deviation
+    -   Simple random sampling (mean, standard deviation) (save as simple_random vector)
+    -   Systematic sampling (mean, standard deviation) (save as systematic vector)
+    -   Stratified sampling (mean, standard deviation) (save as stratified vector)
+3.  Create a dataframe named sampling_stat with column names as "type", "mean", "sd"
+
+## Use of ChatGPT, stackflow, or...
+
+-   Copy/Paste is your friend! (and never apologize for it!)
+
+-   But be sure you understand **why** the codes are doing what they are doing
+
+-   So that you form some new neuron connections in the brain
+
+-   Then you will know how to speak R more fluently and independently next time
+
+-   Eventually, it's you deciding how and what you want to learn, and where you want to be
+
+## Submission 
+
+### Due next Wednesday 23:59 pm, Moodle
+
+### Evaluation
+
+-   File format (names.R) (50%)
+
+-   Accuracy of the code (15%, 20%, 15%)
+
+-   Bonus points (10%)
+
+## Enjoy the errors and after the errors
+
+![](images/d6b4f8cb-53bf-49d5-822c-e45cd01204a4.png){fig-align="center" width="867"}
+
+::: footer
+Artwork by @allison_horst
+:::
+
+# Quiet/Noisy room 
 
 ## Wrap up
 

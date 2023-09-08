@@ -1,0 +1,150 @@
+---
+title: "NRES 776 Lecture 2"
+subtitle: "Descriptive statistics and sampling methods"
+author: Sunny Tseng & Lisa Koetke
+format:
+  revealjs: 
+    slide-number: true
+    preview-links: auto
+    css: styles.css
+    #footer: <https://quarto.org>
+    theme: [default, styles.scss]
+    #smaller: true
+    scrollable: true
+    incremental: true
+    embed-resources: true
+editor: visual
+---
+
+# Our first (official) lecture!
+
+## What we want to chat today
+
+-   Announcement (5 min)
+-   Population vs sample (5 min)
+-   Descriptive statistics and types of variables (20 min)
+-   Sampling (15 min)
+-   wrap-up (5 mins)
+
+::: footer
+Artwork by @allison_horst
+:::
+
+## Announcement {.smaller}
+
+-   Sign up for discussion paper presentation by Sep. 14
+
+-   Or I will do it for you 😃
+
+-   Considering keep the video on (but you have absolute right for privacy)!
+
+-   How was your week? smoke, school life?
+
+    ![](images/Snapseed.jpg){width="549"}
+
+## Why we need statistics?
+
+Just for fun? For making life harder?
+
+1.  How many moose are there in the research forest?
+
+    -   Find all the moose, and count them, in the forest
+
+2.  How many bird species are in mature forest vs clear cut?
+
+    -   Stand there 24 hours, 365 days, and count all the bird species
+
+3.  Dominant tree species in the Forest of the World?
+
+4.  Caribou herd is healthier with supplemental feeding?
+
+## Population is often...
+
+### Too big, too many, and unrealistic to measure
+
+-   How many moose are there in the research forest?
+
+    -   Find all the moose, and count them, in the forest
+
+    -   Mark-recapture **estimate**
+
+-   How many bird species are in mature forest versus clear cut?
+
+    -   Stand there 24 hours, 365 days, and count all the bird species
+
+    -   Standardized point counts for **estimation** on both habitats
+
+## We need estimates to ...
+
+### Get more understanding about the population
+
+-   The estimation is never "true"
+
+-   But we can make sure the estimation is close enough to the true value
+
+-   So that we can make actions in real life (conservation, medical purposes)
+
+## Attributes
+
+::: columns
+::: {.column width="50%"}
+Population parameters
+
+(Greek letters)
+
+-   mean ($\mu$)
+
+-   standard deviation ($\sigma$)
+
+-   variance ($\sigma^2$)
+
+-   correlation coefficient ($\rho$)
+
+-   number of elements ($N$)
+
+-   ...
+:::
+
+::: {.column width="50%"}
+Sample statistics
+
+(Roman letters)
+
+-   mean ($\bar{x}$)
+
+-   standard deviation ($s$)
+
+-   variance ($s^2$)
+
+-   correlation coefficient ($r$)
+
+-   number of elements ($n$)
+
+-   ...
+:::
+:::
+
+## What we learned
+
+-   Population (parameters) vs Sample (statistics)
+
+```{=html}
+<!-- -->
+```
+-   Different types of variables (continuous vs categorical)
+
+-   Different types of random sampling
+
+## Wrap up
+
+### Before we meet again
+
+-   Install R and RStudio
+
+-   Play with RStudio to make sure it opens properly
+
+### Next time
+
+-   Thur. 8am lab, virtual on zoom
+-   With your morning coffee and nice breakfast
+-   And a relaxed mood
