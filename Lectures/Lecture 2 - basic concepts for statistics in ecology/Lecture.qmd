@@ -18,23 +18,7 @@ editor: visual
 
 # Our first (official) lecture!
 
-## What we want to chat today
-
--   Announcement (5 min)
--   Population vs sample (5 min)
--   Descriptive statistics and types of variables (20 min)
--   Sampling (15 min)
--   wrap-up (5 mins)
-
-::: footer
-Artwork by @allison_horst
-:::
-
 ## Announcement {.smaller}
-
--   Sign up for discussion paper presentation by Sep. 14
-
--   Or I will do it for you 😃
 
 -   Considering keep the video on (but you have absolute right for privacy)!
 
@@ -247,15 +231,59 @@ $$
 Image from https://www.mathsisfun.com/data/correlation.html
 :::
 
-# Magic of random sampling
+# Magic of sampling
 
-How to select samples from a population to make the estimates as close to the true value as possible
+How to select samples from a population to make the sampling statistics as close to the population parameters?
 
 ## Accuracy and precision
 
+> Accuracy refers to how close a measurement is to the true value. Precision refers to how close measurements of the same item are to each other.
+
+![](https://www.antarcticglaciers.org/wp-content/uploads/2013/11/precision_accuracy.png){fig-align="center"}
+
+We need a sampling method that is both accurate and precise.
+
 ## Simple random sampling (i.i.d)
 
+> A subset of a statistical population in which each each unit has an equal probability of being chosen. Each unit has independent identical distribution (i.i.d)
+
+![](images/paste-198994EE.png)
+
+::: footer
+Image from https://prepnuggets.com/glossary/simple-random-sampling/
+:::
+
 ## Stratified sampling
+
+> Stratification is the process of dividing members of the population into homogeneous subgroups before sampling.
+
+![](https://www.scribbr.com/wp-content/uploads/2020/09/stratified-sample-7.png){fig-align="center"}
+
+::: footer
+Image from https://www.scribbr.com/methodology/stratified-sampling/
+:::
+
+## When to use what?
+
+### Simple random sampling
+
+When the population is relatively homogeneous or uniform
+
+-   Select 20 sites from a forest, regardless of their forest type
+
+-   Select 20 recordings from a day, regardless of the time of recording
+
+-   Select 40 trees from a plot, regardless of their species
+
+### Stratified sampling
+
+When a population\'s characteristics are diverse and you want to ensure that every characteristic is properly represented in the sample.
+
+-   Select 20 sites out of 4 forest types
+
+-   Select 20 recordings from morning and night
+
+-   Select 40 trees with equal number of trees of each species
 
 ## What we learned
 
@@ -267,9 +295,13 @@ How to select samples from a population to make the estimates as close to the tr
 
 ### Before we meet again
 
--   Install R and RStudio
+-   Install R ([Window](http://cran.r-project.org/bin/windows/base/), [Mac](http://cran.r-project.org/bin/macosx/)) and [RStudio](http://www.rstudio.com/products/rstudio/download/)
 
 -   Play with RStudio to make sure it opens properly
+
+-   [Sign up](https://forms.gle/6nk5isVMbBJCmvfZ8) for discussion paper presentation by Sep. 14
+
+-   Or I will do it for you 😃
 
 ### Next time
 

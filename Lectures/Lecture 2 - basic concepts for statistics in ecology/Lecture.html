@@ -9,7 +9,7 @@
 <link href="Lecture_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.0.36">
 
-  <meta name="author" content="Sunny Tseng &amp; Lisa Koetke">
+  <meta name="author" content="Sunny Tseng">
   <title>NRES 776 Lecture 2</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -323,7 +323,7 @@
 <section id="title-slide" class="center">
   <h1 class="title">NRES 776 Lecture 2</h1>
   <p class="subtitle">Descriptive statistics and sampling methods</p>
-  <p class="author">Sunny Tseng &amp; Lisa Koetke</p>
+  <p class="author">Sunny Tseng</p>
 </section>
 
 <section>
@@ -331,24 +331,9 @@
 <h1>Our first (official) lecture!</h1>
 
 </section>
-<section id="what-we-want-to-chat-today" class="slide level2">
-<h2>What we want to chat today</h2>
-<ul>
-<li class="fragment">Announcement (5 min)</li>
-<li class="fragment">Population vs sample (5 min)</li>
-<li class="fragment">Descriptive statistics and types of variables (20 min)</li>
-<li class="fragment">Sampling (15 min)</li>
-<li class="fragment">wrap-up (5 mins)</li>
-</ul>
-<div class="footer">
-<p>Artwork by <span class="citation" data-cites="allison_horst">@allison_horst</span></p>
-</div>
-</section>
 <section id="announcement" class="slide level2 smaller">
 <h2>Announcement</h2>
 <ul>
-<li class="fragment"><p>Sign up for discussion paper presentation by Sep.&nbsp;14</p></li>
-<li class="fragment"><p>Or I will do it for you 😃</p></li>
 <li class="fragment"><p>Considering keep the video on (but you have absolute right for privacy)!</p></li>
 <li class="fragment"><p>How was your week? smoke, school life?</p>
 <p><img data-src="images/Snapseed.jpg" width="549"></p></li>
@@ -552,23 +537,56 @@ r(x, y) = \frac{cov(x, y)}{S_x S_y} = \frac{\Sigma_{i=1}^n (x_i - \bar{x}) (y_i 
 <img data-src="images/paste-C2B858CD.png" class="r-stretch quarto-figure-center"><div class="footer">
 <p>Image from https://www.mathsisfun.com/data/correlation.html</p>
 </div>
-</section>
-<section id="section" class="slide level2">
-<h2></h2>
 </section></section>
 <section>
-<section id="magic-of-random-sampling" class="title-slide slide level1 center">
-<h1>Magic of random sampling</h1>
-<p>How to select samples from a population to make the estimates as close to the true value as possible</p>
+<section id="magic-of-sampling" class="title-slide slide level1 center">
+<h1>Magic of sampling</h1>
+<p>How to select samples from a population to make the sampling statistics as close to the population parameters?</p>
 </section>
 <section id="accuracy-and-precision" class="slide level2">
 <h2>Accuracy and precision</h2>
+<blockquote>
+<p>Accuracy refers to how close a measurement is to the true value. Precision refers to how close measurements of the same item are to each other.</p>
+</blockquote>
+
+<img data-src="https://www.antarcticglaciers.org/wp-content/uploads/2013/11/precision_accuracy.png" class="r-stretch quarto-figure-center"><p>We need a sampling method that is both accurate and precise.</p>
 </section>
 <section id="simple-random-sampling-i.i.d" class="slide level2">
 <h2>Simple random sampling (i.i.d)</h2>
+<blockquote>
+<p>A subset of a statistical population in which each each unit has an equal probability of being chosen. Each unit has independent identical distribution (i.i.d)</p>
+</blockquote>
+
+<img data-src="images/paste-198994EE.png" class="r-stretch"><div class="footer">
+<p>Image from https://prepnuggets.com/glossary/simple-random-sampling/</p>
+</div>
 </section>
 <section id="stratified-sampling" class="slide level2">
 <h2>Stratified sampling</h2>
+<blockquote>
+<p>Stratification is the process of dividing members of the population into homogeneous subgroups before sampling.</p>
+</blockquote>
+
+<img data-src="https://www.scribbr.com/wp-content/uploads/2020/09/stratified-sample-7.png" class="r-stretch quarto-figure-center"><div class="footer">
+<p>Image from https://www.scribbr.com/methodology/stratified-sampling/</p>
+</div>
+</section>
+<section id="when-to-use-what" class="slide level2">
+<h2>When to use what?</h2>
+<h3 id="simple-random-sampling">Simple random sampling</h3>
+<p>When the population is relatively homogeneous or uniform</p>
+<ul>
+<li class="fragment"><p>Select 20 sites from a forest, regardless of their forest type</p></li>
+<li class="fragment"><p>Select 20 recordings from a day, regardless of the time of recording</p></li>
+<li class="fragment"><p>Select 40 trees from a plot, regardless of their species</p></li>
+</ul>
+<h3 id="stratified-sampling-1">Stratified sampling</h3>
+<p>When a population's characteristics are diverse and you want to ensure that every characteristic is properly represented in the sample.</p>
+<ul>
+<li class="fragment"><p>Select 20 sites out of 4 forest types</p></li>
+<li class="fragment"><p>Select 20 recordings from morning and night</p></li>
+<li class="fragment"><p>Select 40 trees with equal number of trees of each species</p></li>
+</ul>
 </section>
 <section id="what-we-learned" class="slide level2">
 <h2>What we learned</h2>
@@ -582,8 +600,10 @@ r(x, y) = \frac{cov(x, y)}{S_x S_y} = \frac{\Sigma_{i=1}^n (x_i - \bar{x}) (y_i 
 <h2>Wrap up</h2>
 <h3 id="before-we-meet-again">Before we meet again</h3>
 <ul>
-<li class="fragment"><p>Install R and RStudio</p></li>
+<li class="fragment"><p>Install R (<a href="http://cran.r-project.org/bin/windows/base/">Window</a>, <a href="http://cran.r-project.org/bin/macosx/">Mac</a>) and <a href="http://www.rstudio.com/products/rstudio/download/">RStudio</a></p></li>
 <li class="fragment"><p>Play with RStudio to make sure it opens properly</p></li>
+<li class="fragment"><p><a href="https://forms.gle/6nk5isVMbBJCmvfZ8">Sign up</a> for discussion paper presentation by Sep.&nbsp;14</p></li>
+<li class="fragment"><p>Or I will do it for you 😃</p></li>
 </ul>
 <h3 id="next-time">Next time</h3>
 <ul>
