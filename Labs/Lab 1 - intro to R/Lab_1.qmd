@@ -277,7 +277,7 @@ ggplot(data = msleep, aes(x = sleep_total, y = sleep_rem, colour = vore)) +
 
 -   Output
 
-## How are you doing? 
+## How are you doing?
 
 ![](images/31e5b53b-32b2-4a1f-b966-31fb14d1867e.png){fig-align="center"}
 
@@ -535,7 +535,7 @@ p_vector <- penguins_no_na %>%
 
 -   Eventually, it's you deciding how and what you want to learn, and where you want to be
 
-## Submission 
+## Submission
 
 ### Due next Wednesday 23:59 pm, Moodle
 
@@ -555,7 +555,7 @@ p_vector <- penguins_no_na %>%
 Artwork by @allison_horst
 :::
 
-# Quiet/Noisy room 
+# Quiet/Noisy room
 
 ## Wrap up
 

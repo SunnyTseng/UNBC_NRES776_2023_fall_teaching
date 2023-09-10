@@ -1,7 +1,7 @@
 ---
 title: "NRES 776 Lecture 2"
 subtitle: "Descriptive statistics and sampling methods"
-author: Sunny Tseng & Lisa Koetke
+author: Sunny Tseng
 format:
   revealjs: 
     slide-number: true
@@ -9,7 +9,7 @@ format:
     css: styles.css
     #footer: <https://quarto.org>
     theme: [default, styles.scss]
-    #smaller: true
+    smaller: true
     scrollable: true
     incremental: true
     embed-resources: true
@@ -42,7 +42,11 @@ Artwork by @allison_horst
 
     ![](images/Snapseed.jpg){width="549"}
 
-# Why we need statistics?
+# *There are three kinds of lies: 'Lies, damned lies, and statistics' -- Mark Twain.*
+
+# Why we need statistics
+
+To make our life harder?
 
 ## Population is often...
 
@@ -60,17 +64,27 @@ Artwork by @allison_horst
 
     -   Standardized point counts for **estimation** on both habitats
 
-## We need estimates to ...
+## We need samples to ...
 
 ### Get more understanding about the population
 
--   The estimation is never "true"
+![](images/paste-D622D911.png){fig-align="center"}
 
--   But we can make sure the estimation is close enough to the true value
+::: footer
+Image from <https://www.omniconvert.com/what-is/sample-size/>
+:::
+
+> Statistics: a branch of mathematics dealing with collection, analysis, interpretation, presentation of (sampled) data
+
+-   We can make sure the estimation is close enough to the true value
 
 -   So that we can make actions in real life (conservation, medical purposes)
 
-## Attributes
+# Descriptive statistics
+
+Summarize data into several numbers to provide you with an idea what the data look like.
+
+## Attributes in Population vs Sample
 
 ::: columns
 ::: {.column width="50%"}
@@ -110,47 +124,143 @@ Artwork by @allison_horst
 :::
 :::
 
-# Descriptive statistics
+## Mean
 
-## Mean 
+> Or average, refers to the central value of a set of numbers. The most common one is the Arthmetic mean
+
+$$
+\bar{x} = \frac{x_1 + x_2 + ... + x_n}{n} = \frac{\Sigma_{i = 1}^n x_i}{n}
+$$
+
+-   unit: the same as $x$
+
+-   population parameter: $\mu$
+
+## Median
+
+> The number separating the higher half of a set of data from the lower half (50% of data above the median; 50% lower)
+
+In the set of data `1, 2, 3, 5, 7, 8, 9`, the median is `5`
+
+![](images/paste-51B239CC.png){fig-align="center" width="427"}
+
+## Mode
+
+> The value that appears with highest frequency
+
+In the set of data `3, 4, 4, 5, 4, 6, 7, 8` , the mode value is `4`
+
+- unit: the same as $x$
+
+![](images/paste-9F5865CB.png)
+
+## Variance
+
+> Measures how far a set of numbers is spread out
+
+$$
+var(x) = S_x^2 = \frac{\Sigma_{i = 1}^n (x_i - \bar{x})^2}{n -1}
+$$
+
+::: columns
+::: {.column width="40%"}
+1.  $(x_i - \bar{x})$: distance between each value and mean
+
+2.  square: make everything positive
+
+3.  sum: total distance square
+
+4.  $n-1$: mean distance square
+:::
+
+::: {.column width="50%"}
+![](images/paste-A9F5C9EA.png)
+:::
+:::
+
+-   unit: squared $x$
+
+-   population parameter: $\sigma^2$
 
 ## Standard deviation
 
-## Variance 
+> Square root of variance (i.e., mean distance between each value and mean)
 
-## Correlation coefficient 
+$$
+S_x = \sqrt{\frac{\Sigma_{i = 1}^n (x_i - \bar{x})^2}{n - 1}}
+$$
 
-## Other commenly used descriptive statistics
+::: columns
+::: {.column width="50%"}
+-   unit: the same as $x$
 
--   Number of items in sample (n)
+-   population parameter: $\sigma$
+:::
 
--   Most commonly occured value (mode)
+::: {.column width="50%"}
+![](images/paste-B9E0635C.png){fig-align="center"}
+:::
+:::
 
--   Maximum value (max)
+## Covariance
 
--   Minimum value (min)
+> A measure of how much two sets of data associated
 
--   Range of values (range)
+$$
+cov(x, y) = \frac{\Sigma_{i = 1}^n (x_i - \bar{x})(y_i - \bar{y})}{n-1}
+$$
 
-# Magic of random sampling 
+::: columns
+::: {.column width="50%"}
+-   similar to the equation of the variance!
 
-## Accuracy and precision 
+-   linear relationship -\> covariance
+
+```{=html}
+<!-- -->
+```
+-   It may be difficult to tell the magnitude of cov between two sets of data because of the unit difference
+:::
+
+::: {.column width="50%"}
+![](images/paste-2D57ED78.png){fig-align="center"}
+:::
+:::
+
+## Correlation coefficient
+
+> Standardized covariance
+
+$$
+r(x, y) = \frac{cov(x, y)}{S_x S_y} = \frac{\Sigma_{i=1}^n (x_i - \bar{x}) (y_i - \bar{y})}{\sqrt{\Sigma_{i = 1}^n (x_i - \bar{x})^2} \sqrt{\Sigma_{i = 1}^n (y_i - \bar{y})^2}}
+$$
+
+-   unit: no unit
+
+-   population parameter: $\rho$
+
+-   **value always between -1 to 1**
+
+![](images/paste-C2B858CD.png){fig-align="center"}
+
+::: footer
+Image from https://www.mathsisfun.com/data/correlation.html
+:::
+
+# Magic of random sampling
+
+How to select samples from a population to make the estimates as close to the true value as possible
+
+## Accuracy and precision
 
 ## Simple random sampling (i.i.d)
-
-## Systematic sampling
 
 ## Stratified sampling
 
 ## What we learned
 
 -   Population (parameters) vs Sample (statistics)
-
-```{=html}
-<!-- -->
-```
 -   Descriptive statistics
-
 -   Different types of random sampling
 
 ## Wrap up
