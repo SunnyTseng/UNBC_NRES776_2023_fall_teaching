@@ -10,9 +10,10 @@ format:
     #footer: <https://quarto.org>
     theme: [default, styles.scss]
     smaller: true
-    scrollable: true
-    incremental: true
+    #scrollable: true
+    #incremental: true
     embed-resources: true
+    width: 1200
 editor: visual
 ---
 
@@ -20,11 +21,11 @@ editor: visual
 
 ## Our schedule today
 
--   Discussion paper presentation (30 min)
-
 -   Lab intro (10 min)
 
--   Intro to R, R studio, and gentle intro to programming (60 min)
+-   Intro to R, R studio (20 min)
+
+-   Gentle intro to programming (60 min)
 
 -   Quiet time for practice (60 min)
 
@@ -243,9 +244,13 @@ ggplot(data = msleep, aes(x = sleep_total, y = sleep_rem, colour = vore)) +
 
 -   Click anywhere on the first line of the code
 
--   Use the **Run** button to run this code, or use the short-cut `Ctrl-Enter`
+-   Run the code
 
-    -   And repeat this until you ran all the codes
+    -   Use the **Run** button to run single chunk, and repeat this until you ran all the codes
+
+    -   Use `Ctrl-Enter` to run single chunk, and repeat this until you ran all the codes
+
+    -   Highlight the codes you want to run, and use **Run** button or `Ctrl-Enter`
 
 ## Your first R code!
 
@@ -285,39 +290,46 @@ ggplot(data = msleep, aes(x = sleep_total, y = sleep_rem, colour = vore)) +
 Artwork by @allison_horst
 :::
 
-# R basic: Objects
+# R Basics: Objects
 
 ## Concept of object
 
-> Everything in R is an object. These objects can be almost anything, from a single number to a character string, or a plot, or a dataframe. Objects in R are often called **variables**.
+> Everything in R is an object, or variable. These objects can be almost anything, from a single number to a character string, or a plot, or a dataframe.
+
+-   This is an object called a, and its content is 1
 
 ```{r, echo = TRUE}
-
-# this is an object called a, and its content is 1
 a <- 1 
+a
 ```
 
-```{r}
-# this is an object called b, and its content is "I love stats"
+-   This is an object called b, and its content is "I love stats"
+
+```{r, echo = TRUE}
 b <- "I love stats"
+b
 ```
 
-```{r}
-# this is an object called c, and its content is a vector (2,3,4,5)
+-   This is an object called c, and its content is a vector (2,3,4,5)
+
+```{r, echo = TRUE}
 c <- c(2,3,4,5)
+c
 ```
 
 ## Creating objects
 
-> To create an object we simply give the object a name. We can then assign a value to this object using the *assignment operator* `<-` (sometimes called the *gets operator*). The assignment operator is a composite symbol comprised of a 'less than' symbol `<` and a hyphen `-` .
+> To create an object we simply give the object a name, and assign it with a value, using assignment operator `<-`.
 
--   To create an object:
+-   To create an object, whose name is `my_obj` and value as `"I am hungry"`:
 
 ```{r, echo = TRUE}
+
+# object_name <- object_content
 my_obj <- "I am hungry"
 ```
 
--   To call, or view the content of the object:
+-   To call, or view the content of the object, simply type the object name:
 
 ```{r, echo = TRUE}
 my_obj
@@ -325,7 +337,9 @@ my_obj
 
 ## The objects live in your Global Environment
 
-> All of the objects you create will be stored and you can view them in RStudio by clicking on the 'Environment' tab in the top right hand pane.
+> All of the objects you create will be stored and you can view them in RStudio by clicking on the 'Environment' tab in the top right window.
+
+![](images/paste-88DA8292.png){fig-align="center"}
 
 ## The art of naming objects
 
@@ -335,15 +349,13 @@ my_obj
 ::: {.column width="30%"}
 **To do**
 
--   Keep it short
+-   Keep it short and informative
 
--   Keep it informative
+-   `camelCase` (e.g., myPlot)
 
--   Use `camelCase`
+-   `snake_case` (e.g., my_plot)
 
--   `snake_case`
-
--   or `PascalCase`
+-   `PascalCase` (e.g., MyPlot)
 :::
 
 ::: {.column width="70%"}
@@ -377,12 +389,14 @@ One that crops up more times than we can remember is:
 data <- read.table("mydatafile", header = TRUE) #data is a function!
 ```
 
-# R basic: Operators
+# R Basic: Operators
 
 ## Arithmetic operators
 
 > To perform common mathematical operations.
 
+::: columns
+::: {.column width="50%"}
 | Operator   | Name                              |
 |------------|-----------------------------------|
 | \+         | Addition                          |
@@ -392,22 +406,32 @@ data <- read.table("mydatafile", header = TRUE) #data is a function!
 | \^ or \*\* | Exponent                          |
 | %%         | Modulus (remainder from division) |
 | %/%        | Integer Division                  |
+:::
 
-```{r, echo = TRUE}
-10 + 5
-```
-
+::: {.column width="50%"}
 ```{r, echo = TRUE}
 a <- 10
-b <- 5
+b <- 3
+```
+
+```{r, echo = TRUE}
 
 a + b
+a - b
+a * b
+
 ```
+
+> **Q**: What do you get by running `a^b`?
+:::
+:::
 
 ## Comparison operators
 
-> To compare two values.
+> To compare two values, particularly useful when running `if` loop.
 
+::: columns
+::: {.column width="50%"}
 | Operator | Name                     |
 |----------|--------------------------|
 | ==       | Equal                    |
@@ -416,124 +440,417 @@ a + b
 | \<       | Less than                |
 | \>=      | Greater than or equal to |
 | \<=      | Less than or equal to    |
+:::
+
+::: {.column width="50%"}
+```{r, echo = TRUE}
+a <- 10
+b <- 3
+
+```
+
+```{r, echo = TRUE}
+a == b
+a != b
+a <= b
+```
+
+> **Q**: What do you get by running `a>=b`?
+:::
+:::
 
 ## Logical operators
 
 > To combine conditional statements
 
+::: columns
+::: {.column width="50%"}
 | Operator | Description                                    |
 |----------|------------------------------------------------|
-| &        | Returns TRUE if both elements are TRUE         |
-| &&       | Returns TRUE if both statements are TRUE       |
+| & or &&  | Returns TRUE if both elements are TRUE         |
 | \| or II | Returns TRUE if one of the statement is TRUE   |
 | !        | Returns FALSE if statement is TRUE, vice versa |
+:::
+
+::: {.column width="50%"}
+```{r, echo = TRUE}
+a <- 9
+b <- 3
+
+```
+
+```{r, echo = TRUE}
+
+(a > b) & (a > b)
+(a < b) | (a > b)
+
+```
+
+> **Q**: What do you get by running
+>
+> `!((a>b) & (a>b))`?
+:::
+:::
 
 ## Miscellaneous operators
 
 > Very useful in manipulating data!
 
+::: columns
+::: {.column width="50%"}
 | Operator | Description                                |
 |----------|--------------------------------------------|
 | :        | Creates a series of numbers in a sequence  |
 | %in%     | Find out if an element belongs to a vector |
 | %\*%     | Matrix Multiplication                      |
+:::
 
-# R basic: Data types
+::: {.column width="50%"}
+```{r, echo = TRUE}
 
-# R basic: Functions
+1:9
+
+9 %in% c(1, 2, 4, 6)
+
+"moose" %in% c("moose", "elk", "deer")
+
+```
+:::
+:::
+
+> **Q**: What do you get by running `"lynx" %in% c("moose", "elk", "deer")`?
+
+# R Basic: Functions
+
+## Functions()
+
+> A sequence of code that performs a specific task.
+
+![](https://www.mathwarehouse.com/algebra/relation/images2/evaluating-functions/function-machine-picture.webp){fig-align="center"}
+
+For example:
+
+```{r, echo = TRUE}
+a <- 5
+b <- 10
+c <- 7
+```
+
+::: columns
+::: {.column width="50%"}
+You can find the mean manually:
+
+```{r, echo = TRUE}
+(a + b + c)/3
+```
+:::
+
+::: {.column width="50%"}
+Or use a built-in function:
+
+```{r, echo = TRUE}
+mean(c(a, b, c))
+```
+:::
+:::
+
+`mean()` is a function, and we put `c(a, b, c)` as its input.
+
+## What do functions do?
+
+### Do something, return something
+
+e.g., input numbers, output the mean
+
+```{r, echo = TRUE, eval = FALSE}
+mean(c(1:11))
+```
+
+e.g., input data, output a plot
+
+```{r, echo = TRUE, eval = FALSE}
+plot(x = mtcars$mpg, y = mtcars$cyl)
+```
+
+### Do something, return nothing
+
+e.g., input data, save data to a csv file
+
+```{r, echo = TRUE, eval = FALSE}
+write_csv(data = mtcars, path = "./mtcars.csv")
+```
+
+## Functions take arguments to work I
+
+### Arguments are input, or options
+
+Such as the `x` and `y` in the `plot()` function
+
+```{r, eval = FALSE, echo = TRUE}
+plot(x = mtcars$mpg, y = mtcars$cyl)
+```
+
+Such as `x` and `na.rm` in the `mean()` function
+
+```{r, eval = FALSE, echo = TRUE}
+mean(x = c(1, 5, 6, NA, 2), na.rm = TRUE)
+```
+
+### Can be defined by name or order
+
+::: columns
+::: {.column width="50%"}
+By name:
+
+```{r, echo = TRUE, eval = FALSE}
+plot(x = mtcars$mpg, y = mtcars$cyl)
+```
+:::
+
+::: {.column width="50%"}
+By order:
+
+```{r, echo = TRUE, eval = FALSE}
+plot(mtcars$mpg, mtcars$cyl)
+```
+:::
+:::
+
+With correct position, do not need to specify by name
+
+## Functions take arguments to work II
+
+### Some are necessary, some are optional
+
+::: columns
+::: {.column width="50%"}
+Necessary:
+
+```{r, eval = FALSE, echo = TRUE}
+mean()
+
+```
+
+The above line would throw you an error.
+
+```{r, eval = TRUE, echo = TRUE}
+mean(x = c(2, 4, 5, 6, 7, NA))
+
+```
+:::
+
+::: {.column width="50%"}
+Optional
+
+```{r, eval = TRUE, echo = TRUE}
+mean(x = c(2, 4, 5, 6, 7, NA))
+```
+
+The code ran, but not the result we wanted.
+
+```{r, eval = TRUE, echo = TRUE}
+mean(x = c(2, 4, 5, 6, 7, NA), 
+     na.rm = TRUE)
+```
+:::
+:::
+
+### How can I know the arguments of a function?
+
+Take advantage of the help function!
+
+```{r, eval = FALSE, echo = TRUE}
+
+?mean()
+?plot()
+?sd()
+```
+
+## Functions 
+
+::: columns
+::: {.column width="20%"}
+```{r, eval = FALSE, echo = TRUE}
+?mean()
+
+```
+:::
+
+::: {.column width="80%"}
+![](images/paste-29E3A03A.png)
+:::
+:::
+
+## Package
+
+> A collection of functions for a specific task. Once you install/call the package, you can use all the functions inside that package.
+
+-   `dplyr`: for data wrangling
+
+-   `ggplot2`: for data visualization
+
+-   `terra`: for spatial analysis
+
+### Install and call a package in your environment
+
+::: columns
+::: {.column width="50%"}
+Install package: only need do it once in your liftetime
+
+```{r, eval = FALSE, echo = TRUE}
+
+install.packages("dplyr")
+install.packages("ggplot2")
+
+```
+:::
+
+::: {.column width="50%"}
+Call package: need to do it everytime when you reopen R
+
+```{r, eval = FALSE, echo = TRUE}
+
+library(dplyr)
+library(ggplot2)
+
+```
+:::
+:::
+
+## Advanced : create your own function I
+
+![](https://www.rforecology.com/functions_image0_new.png)
+
+## Advanced : create your own function II
+
+```{r, echo = TRUE}
+
+standard_error <- function(data){
+  n <- length(data)
+  sd <- sd(data)
+  se <- sd/sqrt(n)
+  
+  return(se)
+}
+
+se_my_data <- standard_error(c(2, 5, 8, 7, 9, 8, 9, 1, 5, 4))
+se_my_data
+```
+
+# R Basic: Data types
+
+Remember we learned about objects, which can store contents? The contents can be a variety of data types.
+
+## Each object has a data type
+
+::: columns
+::: {.column width="50%"}
+Common data types
+
+| Type        | Example            |
+|-------------|--------------------|
+| `numeric`   | 5, 7.6, 8.3        |
+| `integer`   | 1, 5, 6, 9         |
+| `character` | "Hi", "I am tired" |
+| `factor`    | "L", "M", "H"      |
+| `logical`   | TRUE or FALSE      |
+:::
+
+::: {.column width="50%"}
+To create
+
+```{r, echo = TRUE}
+a <- "hi"
+b <- "56.4"
+```
+
+To check
+
+```{r, echo = TRUE}
+class(b)
+```
+
+To change
+
+```{r, echo = TRUE}
+as.numeric(b)
+```
+:::
+:::
+
+To change the data type of an object, there are also `as.character()`, `as.factor()`, `as.integer()`, etc...
+
+## Store data
+
+We usually store data as `vectors` or `dataframs/tibbles`
+
+::: columns
+::: {.column width="30%"}
+Vector (1 dimension)
+
+```{r, echo = TRUE}
+
+a <- c("a", "b", "c")
+a
+
+```
+:::
+
+::: {.column width="70%"}
+Data frame (2 dimensions)
+
+```{r, echo = TRUE}
+
+d <- tibble(letters = c("a", "b", "c"),
+            numbers = c(1, 3, 4),
+            treat = c("control", "control", "control"))
+d
+
+```
+:::
+:::
+
+# R Others: Miscellaneous
+
+Here is some advanced materials if you are comfortable and familiar with the content above
+
+## Improving code readability
+
+-   Space
+
+-   Line breaks
+
+## 
 
 # Lab assignment
 
-## Your task
+## Your task I
 
-Do different kinds of sampling using what we learned.
+1.  Call two packages `palmerpenguins` and `tidyverse`
+2.  Take a look at the dataframe `penguin`
+    -   Check the dimension, how many penguins are there, what kind of measurements?
 
-1.  Import data (working directory, set objects, import data, n, data_penguin)
-2.  Calculation the population mean and standard deviation
-    -   Simple random sampling (mean, standard deviation) (save as simple_random vector)
-    -   Stratified sampling (mean, standard deviation) (save as stratified vector)
-3.  Create a dataframe named sampling_stat with column names as "type", "mean", "sd"
+    -   What are the measurements of the first penguin?
 
-## Lab 1 answer key
+    -   What are all the `flipper_length_mm` measurements?
 
-```{r, echo = TRUE, eval = FALSE}
+![](images/paste-B35E8558.png)
 
-### library
-library(palmerpenguins)
-library(tidyverse)
+## Your task II
 
-### set.seed for the randomization
-set.seed(100)
+3.  Create a subset of data `penguin_sub`, with 60 individuals random sampled from `penguin`
+4.  Find the mean and standard deviation of the flipper length, using `penguin_sub`
+5.  Save these two values as `flipper_length_mean` and `flipper_length_sd`
+6.  (Bonus) Instead of simple random sampling, use stratified sampling based on penguin species to select 60 penguins (20 penguins each speceis). Calculate the mean and standard deviation of the flipper length based on this new sample.
 
-### remove NAs from the flipper_length_mm
-penguins_no_na <- drop_na(penguins)
+### Hints 
 
-
-### population
-p_df <- penguins_no_na
-
-p_mean <- mean(p_df$flipper_length_mm)
-p_sd <- sd(p_df$flipper_length_mm)
-p_cor <- cor(p_df$flipper_length_mm, p_df$bill_length_mm)
-
-p_vector <- c(p_mean, p_sd, p_cor)
-
-
-### simple random sampling
-srs_df <- slice_sample(.data = penguins_no_na, n = 30)
-
-srs_mean <- mean(srs_df$flipper_length_mm)
-srs_sd <- sd(srs_df$flipper_length_mm)
-srs_cor <- cor(srs_df$flipper_length_mm, srs_df$bill_length_mm)
-
-srs_vector <- c(srs_mean, srs_sd, srs_cor)
-
-### stratified sampling
-ss_df <- slice_sample(.data = penguins_no_na, n = 10, by = species)
-
-ss_mean <- mean(ss_df$flipper_length_mm)
-ss_sd <- sd(ss_df$flipper_length_mm)
-ss_cor <- cor(ss_df$flipper_length_mm, ss_df$bill_length_mm)
-
-ss_vector <- c(ss_mean, ss_sd, ss_cor)
-
-### combine everything together
-final <- tibble(statistics = c("mean", "sd", "cor"), 
-               population = p_vector, 
-               simple_random = srs_vector, 
-               stratified = ss_vector)
-```
-
-## Lab 1 answer key (advanced)
-
-```{r, echo = TRUE, eval = FALSE}
-### population
-p_df <- penguins_no_na
-
-p_mean <- mean(p_df$flipper_length_mm)
-p_sd <- sd(p_df$flipper_length_mm)
-p_cor <- cor(p_df$flipper_length_mm, p_df$bill_length_mm)
-
-p_vector <- c(p_mean, p_sd, p_cor)
-
-### population
-p_vector <- penguins_no_na %>%
-  summarize(p_mean = mean(flipper_length_mm),
-            p_sd = sd(flipper_length_mm),
-            p_cor = cor(flipper_length_mm, bill_length_mm)) 
-```
-
-## Use of ChatGPT, stackflow, or...
-
--   Copy/Paste is your friend! (and never apologize for it!)
-
--   But be sure you understand **why** the codes are doing what they are doing
-
--   So that you form some new neuron connections in the brain
-
--   Then you will know how to speak R more fluently and independently next time
-
--   Eventually, it's you deciding how and what you want to learn, and where you want to be
+1.  use `install.packages()` and `library()`
+2.  `penguin` is an object that stores a tibble, use `dim()` and `view()`
+3.  use `slice_sample()`
+4.  use `mean()` and `sd()`
+5.  use `<-`
+6.  use `slice_sample()`, check the function arguments
 
 ## Submission
 
@@ -541,21 +858,27 @@ p_vector <- penguins_no_na %>%
 
 ### Evaluation
 
--   File format (names.R) (50%)
+-   File format (names.R) (40%)
 
--   Accuracy of the code (15%, 20%, 15%)
+-   Accuracy of the code (10%, 10%, 10%, 20%, 10%)
 
--   Bonus points (10%)
+-   Bonus points for extra question, readable code, efficient programming (30%)
 
-## Enjoy the errors and after the errors
+### Use of ChatGPT, stackflow, or...
+
+-   Copy/Paste is your friend! (and never apologize for it!) 😍
+
+-   But be sure you understand **why** the codes are doing what they are doing 🧑‍🎓
+
+-   So that you form some new neuron connections in the brain 🧠
+
+## Quiet/Noisy room
 
 ![](images/d6b4f8cb-53bf-49d5-822c-e45cd01204a4.png){fig-align="center" width="867"}
 
 ::: footer
 Artwork by @allison_horst
 :::
-
-# Quiet/Noisy room
 
 ## Wrap up
 

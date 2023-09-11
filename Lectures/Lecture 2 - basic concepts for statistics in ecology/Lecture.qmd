@@ -18,6 +18,18 @@ editor: visual
 
 # Our first (official) lecture!
 
+## Our schedule today
+
+-   Announcement (5 min)
+
+-   Population vs Sample (10 min)
+
+-   Descriptive statistics (20 min)
+
+-   Sampling methods (10 min)
+
+-   Wrap up (5 min)
+
 ## Announcement {.smaller}
 
 -   Considering keep the video on (but you have absolute right for privacy)!
@@ -138,7 +150,7 @@ In the set of data `1, 2, 3, 5, 7, 8, 9`, the median is `5`
 
 In the set of data `3, 4, 4, 5, 4, 6, 7, 8` , the mode value is `4`
 
-- unit: the same as $x$
+-   unit: the same as $x$
 
 ![](images/paste-9F5865CB.png)
 
@@ -204,9 +216,8 @@ $$
 
 -   linear relationship -\> covariance
 
-```{=html}
 <!-- -->
-```
+
 -   It may be difficult to tell the magnitude of cov between two sets of data because of the unit difference
 :::
 
@@ -281,7 +292,7 @@ When the population is relatively homogeneous or uniform
 
 ### Stratified sampling
 
-When a population\'s characteristics are diverse and you want to ensure that every characteristic is properly represented in the sample.
+When a population's characteristics are diverse and you want to ensure that every characteristic is properly represented in the sample.
 
 -   Select 20 sites out of 4 forest types
 
@@ -293,7 +304,7 @@ When a population\'s characteristics are diverse and you want to ensure that eve
 
 -   Population (parameters) vs Sample (statistics)
 -   Descriptive statistics
--   Different types of random sampling
+-   Different types of sampling
 
 ## Wrap up
 
