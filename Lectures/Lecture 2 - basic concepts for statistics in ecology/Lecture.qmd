@@ -22,6 +22,10 @@ editor: visual
 
 -   Considering keep the video on (but you have absolute right for privacy)!
 
+-   UNBC [Applied Analysis Hub](https://unbcaah.opened.ca/ta-office-hours/)
+
+-   Workshop: use R to create study area map (Sep. 19th 15:00 - 16:30pm)
+
 -   How was your week? smoke, school life?
 
     ![](images/Snapseed.jpg){width="549"}
