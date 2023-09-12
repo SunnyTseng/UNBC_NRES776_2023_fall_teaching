@@ -10,7 +10,7 @@ format:
     #footer: <https://quarto.org>
     theme: [default, styles.scss]
     smaller: true
-    scrollable: true
+    #scrollable: true
     incremental: true
     embed-resources: true
 editor: visual
@@ -34,6 +34,8 @@ editor: visual
 
 -   Considering keep the video on (but you have absolute right for privacy)!
 
+-   Will be recording the lecture today
+
 -   UNBC [Applied Analysis Hub](https://unbcaah.opened.ca/ta-office-hours/)
 
 -   Workshop: use R to create study area map (Sep. 19th 15:00 - 16:30pm)
@@ -41,8 +43,6 @@ editor: visual
 -   How was your week? smoke, school life?
 
     ![](images/Snapseed.jpg){width="549"}
-
-# *There are three kinds of lies: 'Lies, damned lies, and statistics' -- Mark Twain.*
 
 # Why we need statistics
 
@@ -214,11 +214,15 @@ $$
 ::: {.column width="50%"}
 -   similar to the equation of the variance!
 
--   linear relationship -\> covariance
+-   sum of the area, positive and negative
 
-<!-- -->
+-   very positive: positively related
 
--   It may be difficult to tell the magnitude of cov between two sets of data because of the unit difference
+-   very negative: negatively related
+
+-   0: no linear relationship
+
+-   hard to tell the magnitude of relationship because of the unit difference
 :::
 
 ::: {.column width="50%"}
@@ -238,7 +242,7 @@ $$
 
 -   population parameter: $\rho$
 
--   **value always between -1 to 1**
+-   **value always between 1 to -1**
 
 ![](images/paste-C2B858CD.png){fig-align="center"}
 
@@ -248,7 +252,7 @@ Image from https://www.mathsisfun.com/data/correlation.html
 
 # Magic of sampling
 
-How to select samples from a population to make the sampling statistics as close to the population parameters?
+How to select samples from a population to make the sampling statistics close to the population parameters?
 
 ## Accuracy and precision
 
@@ -258,9 +262,9 @@ How to select samples from a population to make the sampling statistics as close
 
 We need a sampling method that is both accurate and precise.
 
-## Simple random sampling (i.i.d)
+## Simple random sampling
 
-> A subset of a statistical population in which each each unit has an equal probability of being chosen. Each unit has independent identical distribution (i.i.d)
+> A subset of a statistical population where each unit has an equal probability of being chosen. Each unit has independent identical distribution (i.i.d)
 
 ![](images/paste-198994EE.png)
 
@@ -314,7 +318,7 @@ When a population's characteristics are diverse and you want to ensure that ever
 
 -   Play with RStudio to make sure it opens properly
 
--   [Sign up](https://forms.gle/6nk5isVMbBJCmvfZ8) for discussion paper presentation by Sep. 14
+-   [Sign up](https://forms.gle/6nk5isVMbBJCmvfZ8) for discussion paper presentation
 
 -   Or I will do it for you 😃
 
