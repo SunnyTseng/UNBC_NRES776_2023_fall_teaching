@@ -1,0 +1,138 @@
+---
+title: "NRES 776 Lecture 3"
+subtitle: "Probability distributions"
+author: Sunny Tseng
+format:
+  revealjs: 
+    slide-number: true
+    preview-links: auto
+    css: styles.css
+    #footer: <https://quarto.org>
+    theme: [default, styles.scss]
+    smaller: true
+    #scrollable: true
+    incremental: true
+    embed-resources: true
+editor: visual
+---
+
+## Our schedule today
+
+-   Announcement (5 min)
+
+-   Different data types (15 min)
+
+-   Probability distribution (25 min)
+
+-   Wrap up (5 min)
+
+## Announcement
+
+-   Let's take this lecture easy...
+
+![](images/paste-22B16D7F.png){fig-align="center" width="608"}
+
+::: aside
+Artwork by @allison_horst
+:::
+
+# *Statistics is the grammar of science -- Karl Pearson.*
+
+# Understand your data type
+
+## Random variable
+
+> Random variable: a variable whose value has probability associated to each value of the set.
+
+e.g., age of a student in the class $X$
+
+::: columns
+::: {.column width="50%"}
+```{r, eval = TRUE, echo = FALSE}
+# load library rcompanion
+library(rcompanion)
+  
+# create data vector
+x= c(rnorm(n = 30, mean = 26, sd = 1.2))
+  
+# draw plot
+plotNormalHistogram(x, prob = TRUE,
+                      main = "Age of our class",
+                      length = 1000 )
+```
+:::
+
+::: {.column width="50%"}
+<div>
+
+The probability of $X$ being a certain value:
+
+$$
+P(X = 26) = 0.3
+$$
+
+</div>
+:::
+:::
+
+Random variable can be either continuous or categorical.
+
+## Continuous vs categorical
+
+![](images/paste-8AAA3711.png){fig-align="center" width="634"}
+
+::: aside
+Artwork by @allison_horst
+:::
+
+## Within categorical variable, there are:
+
+![](images/paste-8F12C5B9.png)
+
+::: aside
+Artwork by @allison_horst
+:::
+
+# Probability distribution
+
+The knowledge about distribution is essential to understand how modelling works!
+
+## Normal distribution 
+
+> Or Gaussian distribution. A bell-shaped curve, the tails on both side are continuous to infinity, Symmetric.
+
+## Z-distribution
+
+> Standardized normal distribution, that is $N(0, 1^2)$. To transform ANY $N(\mu, \sigma^2)$ to $N(0, 1^2)$:
+
+## t-distribution
+
+> A distribution of estimates sampling from normally distributed population when the sample size is small (n \< 30).
+
+## F-distribution
+
+> Use most notably in Analysis of Variance (ANOVA), which we will cover later in this course
+
+## $\chi^2$ -distribution
+
+> chi-squared test for goodness of fit of an observed distribution to a theoretical one
+
+## What we learned
+
+-   Definition and types of random variables
+-   Common distributions for a random variable
+
+## Wrap up
+
+### Before we meet again
+
+-   Review the two lectures
+
+-   Review and practice with the R coding
+
+-   Play with your own dataset
+
+### Next time
+
+-   Tue. 12:30, virtual on zoom
+-   Have a wonderful weekend
