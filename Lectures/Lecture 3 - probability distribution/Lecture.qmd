@@ -97,7 +97,7 @@ Artwork by @allison_horst
 
 The knowledge about distribution is essential to understand how modelling works!
 
-## Normal distribution 
+## Normal distribution
 
 > Or Gaussian distribution. A bell-shaped curve, the tails on both side are continuous to infinity, Symmetric.
 
