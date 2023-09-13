@@ -1,6 +1,6 @@
 ---
-title: "NRES 776 Lecture 2"
-subtitle: "Descriptive statistics and sampling methods"
+title: "NRES 776 Lecture 4"
+subtitle: "Data visualization"
 author: Sunny Tseng
 format:
   revealjs: 
@@ -16,17 +16,15 @@ format:
 editor: visual
 ---
 
-# Our first (official) lecture!
+# Happy Tuesday!
 
 ## Our schedule today
 
 -   Announcement (5 min)
 
--   Population vs Sample (10 min)
+-   Key concepts for scientific data visualization (10 min)
 
--   Descriptive statistics (20 min)
-
--   Sampling methods (10 min)
+-   Types of plots (30 min)
 
 -   Wrap up (5 min)
 
@@ -34,295 +32,142 @@ editor: visual
 
 -   Considering keep the video on (but you have absolute right for privacy)!
 
--   Will be recording the lecture today
+-   UNBC [Applied Analysis Hub](https://unbcaah.opened.ca/ta-office-hours/) workshop today!
 
--   UNBC [Applied Analysis Hub](https://unbcaah.opened.ca/ta-office-hours/)
+-   How was your week?
 
--   Workshop: use R to create study area map (Sep. 19th 15:00 - 16:30pm)
+### Recap
 
--   How was your week? smoke, school life?
+-   Concept of random variable
 
-    ![](images/Snapseed.jpg){width="549"}
+-   Different data types (continuous vs categorical)
 
-# Why we need statistics
+-   Probability distributions
 
-To make our life harder?
+# But in reality, how the data look like?
 
-## Population is often...
+Using visualization to convey your research results is a key skill to have!
 
-### Too big, too many, and unrealistic to measure
+## Data visualization
 
--   How many moose are there in the research forest?
+-   table vs figures: human's brain is lazy
 
-    -   Find all the moose, and count them, in the forest
+-   figures vs figures: use the figure best convey the message you want to elaborate
 
-    -   Mark-recapture **estimate**
+-   use of colour, shape, transparent, line type, etc.
 
--   How many bird species are in mature forest versus clear cut?
+-   Concise, Accurate, Interpretable
 
-    -   Stand there 24 hours, 365 days, and count all the bird species
+# Commonly used scientific plots
 
-    -   Standardized point counts for **estimation** on both habitats
+## Penguin data
 
-## We need samples to ...
+```{r}
+library(palmerpenguins)
+library(tidyverse)
+theme_set(theme_minimal())
+```
 
-### Get more understanding about the population
+```{r, echo = TRUE}
+glimpse(penguins)
+```
 
-![](images/paste-D622D911.png){fig-align="center"}
+-   3 categorical variables
 
-::: footer
-Image from <https://www.omniconvert.com/what-is/sample-size/>
+-   4 continuous variables
+
+![](images/lter_penguins.png){.absolute top="200" right="0" width="620" height="450"}
+
+::: aside
+Artwork by @allison_horst
 :::
 
-> Statistics: a branch of mathematics dealing with collection, analysis, interpretation, presentation of (sampled) data
+## Histogram (1var, continuous)
 
--   We can make sure the estimation is close enough to the true value
+> A histogram is an approximate representation of the distribution of numberical data
 
--   So that we can make actions in real life (conservation, medical purposes)
+```{r}
+# Histogram example: flipper length by species
+ggplot(data = penguins, aes(x = flipper_length_mm)) +
+  geom_histogram(alpha = 0.5, position = "identity") 
+```
 
-# Descriptive statistics
+## Histogram (1var, continuous)
 
-Summarize data into several numbers to provide you with an idea what the data look like.
+Add one more categorical variable by **facet** (e.g., `sex`)
 
-## Attributes in Population vs Sample
+```{r}
+# Histogram example: flipper length by gender
+ggplot(data = penguins %>% drop_na(sex), aes(x = flipper_length_mm)) +
+  geom_histogram(alpha = 0.5, position = "identity") +
+  facet_wrap(~sex)
+```
 
-::: columns
-::: {.column width="50%"}
-**Population parameters**
+Add one more categorical variable by changing **colour** (e.g., `species`)
 
-(Greek letters)
+```{r}
+# Histogram example: flipper length by species
+ggplot(data = penguins, aes(x = flipper_length_mm)) +
+  geom_histogram(aes(fill = species), alpha = 0.5, position = "identity") +
+  scale_fill_manual(values = c("darkorange","darkorchid","cyan4"))
+```
 
--   mean ($\mu$)
+## Bar plot (1var, categorical)
 
--   standard deviation ($\sigma$)
+> A bar plot, or bar chart, is a graph that presents categorical data with rectangular bars with heights or lengths proportional to the values that they represent
 
--   variance ($\sigma^2$)
+```{r}
+ggplot(penguins, aes(x = island)) +
+  geom_bar(alpha = 0.8) +
+  theme_minimal() +
+  coord_flip()
+```
 
--   correlation coefficient ($\rho$)
+## Bar plot (1var, categorical)
 
--   number of elements ($N$)
+Add one more categorical variable using **colour** and **facet** at the same time (e.g., `species`)
+
+```{r}
+ggplot(penguins, aes(x = island, fill = species)) +
+  geom_bar(alpha = 0.8) +
+  scale_fill_manual(values = c("darkorange","purple","cyan4"), 
+                    guide = FALSE) +
+  theme_minimal() +
+  facet_wrap(~species, ncol = 1) +
+  coord_flip()
+```
+
+## Scatter plot (2var, continuous x, continuous y)
+
+## Box plot (2var, discrete x, continuous y)
+
+## You can always add dimension by
+
+-   point shape
+
+-   point size (bubble plot)
+
+-   colour
+
+-   alpha
 
 -   ...
-:::
 
-::: {.column width="50%"}
-**Sample statistics**
-
-(Roman letters)
-
--   mean ($\bar{x}$)
-
--   standard deviation ($s$)
-
--   variance ($s^2$)
-
--   correlation coefficient ($r$)
-
--   number of elements ($n$)
-
--   ...
-:::
-:::
-
-## Mean
-
-> Or average, refers to the central value of a set of numbers. The most common one is the Arthmetic mean
-
-$$
-\bar{x} = \frac{x_1 + x_2 + ... + x_n}{n} = \frac{\Sigma_{i = 1}^n x_i}{n}
-$$
-
--   unit: the same as $x$
-
--   population parameter: $\mu$
-
-## Median
-
-> The number separating the higher half of a set of data from the lower half (50% of data above the median; 50% lower)
-
-In the set of data `1, 2, 3, 5, 7, 8, 9`, the median is `5`
-
-![](images/paste-51B239CC.png){fig-align="center" width="427"}
-
-## Mode
-
-> The value that appears with highest frequency
-
-In the set of data `3, 4, 4, 5, 4, 6, 7, 8` , the mode value is `4`
-
--   unit: the same as $x$
-
-![](images/paste-9F5865CB.png)
-
-## Variance
-
-> Measures how far a set of numbers is spread out
-
-$$
-var(x) = S_x^2 = \frac{\Sigma_{i = 1}^n (x_i - \bar{x})^2}{n -1}
-$$
-
-::: columns
-::: {.column width="40%"}
-1.  $(x_i - \bar{x})$: distance between each value and mean
-
-2.  square: make everything positive
-
-3.  sum: total distance square
-
-4.  $n-1$: mean distance square
-:::
-
-::: {.column width="50%"}
-![](images/paste-A9F5C9EA.png)
-:::
-:::
-
--   unit: squared $x$
-
--   population parameter: $\sigma^2$
-
-## Standard deviation
-
-> Square root of variance (i.e., mean distance between each value and mean)
-
-$$
-S_x = \sqrt{\frac{\Sigma_{i = 1}^n (x_i - \bar{x})^2}{n - 1}}
-$$
-
-::: columns
-::: {.column width="50%"}
--   unit: the same as $x$
-
--   population parameter: $\sigma$
-:::
-
-::: {.column width="50%"}
-![](images/paste-B9E0635C.png){fig-align="center"}
-:::
-:::
-
-## Covariance
-
-> A measure of how much two sets of data associated
-
-$$
-cov(x, y) = \frac{\Sigma_{i = 1}^n (x_i - \bar{x})(y_i - \bar{y})}{n-1}
-$$
-
-::: columns
-::: {.column width="50%"}
--   similar to the equation of the variance!
-
--   sum of the area, positive and negative
-
--   very positive: positively related
-
--   very negative: negatively related
-
--   0: no linear relationship
-
--   hard to tell the magnitude of relationship because of the unit difference
-:::
-
-::: {.column width="50%"}
-![](images/paste-2D57ED78.png){fig-align="center"}
-:::
-:::
-
-## Correlation coefficient
-
-> Standardized covariance
-
-$$
-r(x, y) = \frac{cov(x, y)}{S_x S_y} = \frac{\Sigma_{i=1}^n (x_i - \bar{x}) (y_i - \bar{y})}{\sqrt{\Sigma_{i = 1}^n (x_i - \bar{x})^2} \sqrt{\Sigma_{i = 1}^n (y_i - \bar{y})^2}}
-$$
-
--   unit: no unit
-
--   population parameter: $\rho$
-
--   **value always between 1 to -1**
-
-![](images/paste-C2B858CD.png){fig-align="center"}
-
-::: footer
-Image from https://www.mathsisfun.com/data/correlation.html
-:::
-
-# Magic of sampling
-
-How to select samples from a population to make the sampling statistics close to the population parameters?
-
-## Accuracy and precision
-
-> Accuracy refers to how close a measurement is to the true value. Precision refers to how close measurements of the same item are to each other.
-
-![](https://www.antarcticglaciers.org/wp-content/uploads/2013/11/precision_accuracy.png){fig-align="center"}
-
-We need a sampling method that is both accurate and precise.
-
-## Simple random sampling
-
-> A subset of a statistical population where each unit has an equal probability of being chosen. Each unit has independent identical distribution (i.i.d)
-
-![](images/paste-198994EE.png)
-
-::: footer
-Image from https://prepnuggets.com/glossary/simple-random-sampling/
-:::
-
-## Stratified sampling
-
-> Stratification is the process of dividing members of the population into homogeneous subgroups before sampling.
-
-![](https://www.scribbr.com/wp-content/uploads/2020/09/stratified-sample-7.png){fig-align="center"}
-
-::: footer
-Image from https://www.scribbr.com/methodology/stratified-sampling/
-:::
-
-## When to use what?
-
-### Simple random sampling
-
-When the population is relatively homogeneous or uniform
-
--   Select 20 sites from a forest, regardless of their forest type
-
--   Select 20 recordings from a day, regardless of the time of recording
-
--   Select 40 trees from a plot, regardless of their species
-
-### Stratified sampling
-
-When a population's characteristics are diverse and you want to ensure that every characteristic is properly represented in the sample.
-
--   Select 20 sites out of 4 forest types
-
--   Select 20 recordings from morning and night
-
--   Select 40 trees with equal number of trees of each species
+## Get inspired by other people's work
 
 ## What we learned
 
--   Population (parameters) vs Sample (statistics)
--   Descriptive statistics
--   Different types of sampling
+-   Key concepts for scientific plot
+-   Commonly used plot types (# of variables, type of variables)
 
 ## Wrap up
 
 ### Before we meet again
 
--   Install R ([Window](http://cran.r-project.org/bin/windows/base/), [Mac](http://cran.r-project.org/bin/macosx/)) and [RStudio](http://www.rstudio.com/products/rstudio/download/)
-
--   Play with RStudio to make sure it opens properly
-
--   [Sign up](https://forms.gle/6nk5isVMbBJCmvfZ8) for discussion paper presentation
-
--   Or I will do it for you 😃
+-   Submit your first lab on Moodle
 
 ### Next time
 
 -   Thur. 8am lab, virtual on zoom
 -   With your morning coffee/tea and relaxed mood
+-   We will have some fun making plots
