@@ -11,7 +11,7 @@ format:
     theme: [default, styles.scss]
     smaller: true
     #scrollable: true
-    #incremental: true
+    incremental: true
     embed-resources: true
     width: 1200
 editor: visual
@@ -20,6 +20,10 @@ editor: visual
 # Welcome to your first R lab!
 
 ## Our schedule today
+
+-   Announcements (1 min)
+
+    -   Discussion paper presentation schedule has been uploaded on Moodle
 
 -   Lab intro (10 min)
 
@@ -44,6 +48,8 @@ editor: visual
 -   I will provide you tools and workflow to get started with R
 
 -   We will have lectures, demonstration, hands-on, and free time
+
+-   Download the slides and practice along
 
 ### R is hard: But we have no fear
 
@@ -178,7 +184,7 @@ R is hard - but reproducible and free!
 :::
 :::
 
--   RStudio is not R, RStudio is a Graphic User Interfaces (GUI)
+-   RStudio is not R, RStudio is a integrated development environment (IDE)
 
 -   Which means you can code with R without RStudio
 
@@ -186,9 +192,9 @@ R is hard - but reproducible and free!
 
 -   And it will make your life easier
 
-# Dip your toes in
+# Let's get started with RStudio!
 
-## Let's get started with RStudio!
+## Open R Studio
 
 ### Changing options: Tools \> Global Options
 
@@ -220,23 +226,26 @@ R is hard - but reproducible and free!
 
 -   Save the Script to the project folder
 
-### Script (top left)
+#### Script (top left)
 
-### Console (bottom left)
+#### Console (bottom left)
 
-### Global environment (top right)
+#### Global environment (top right)
 
-### Files/plots output (bottom right)
+#### Files/plots output (bottom right)
 
 ## Your first R code!
 
 ```{r, echo = TRUE, eval = FALSE}
+# If you haven't done so, install tidyverse pacakge
+install.packages("tidyverse")
+
 # First load the package
-library(tidyverse)
+library(tidyverse) 
 
 # Now create the figure
 ggplot(data = msleep, aes(x = sleep_total, y = sleep_rem, colour = vore)) +
-  geom_point(size = 2)
+  geom_point(size = 3)
 
 ```
 
@@ -246,41 +255,43 @@ ggplot(data = msleep, aes(x = sleep_total, y = sleep_rem, colour = vore)) +
 
 -   Run the code
 
-    -   Use the **Run** button to run single chunk, and repeat this until you ran all the codes
+    -   Use the **Run** button to run single line, and repeat this until you ran all the codes
 
-    -   Use `Ctrl-Enter` to run single chunk, and repeat this until you ran all the codes
+    -   Use `Ctrl-Enter` to run single line, and repeat this until you ran all the codes
 
-    -   Highlight the codes you want to run, and use **Run** button or `Ctrl-Enter`
+    -   Highlight the lines you want to run, and use **Run** button or `Ctrl-Enter`
 
 ## Your first R code!
 
-```{r, echo = TRUE}
+```{r, echo = TRUE, eval = FALSE}
 # First load the package
 library(tidyverse)
 
 # Now create the figure
 ggplot(data = msleep, aes(x = sleep_total, y = sleep_rem, colour = vore)) +
-  geom_point(size = 2)
-
+  geom_point(size = 3)
 ```
 
-## Your first R code!
-
-```{r, echo = TRUE}
+::: columns
+::: {.column width="70%"}
+```{r}
 # First load the package
 library(tidyverse)
 
 # Now create the figure
 ggplot(data = msleep, aes(x = sleep_total, y = sleep_rem, colour = vore)) +
-  geom_point(size = 2)
-
+  geom_point(size = 3)
 ```
+:::
 
+::: {.column width="30%"}
 -   Code (the way you communicate with the computer)
 
 -   Script (a whole bunch of code)
 
 -   Output
+:::
+:::
 
 ## How are you doing?
 
@@ -461,7 +472,7 @@ a <= b
 
 ## Logical operators
 
-> To combine conditional statements
+> To combine conditional statements, particularly useful when running `if` loop.
 
 ::: columns
 ::: {.column width="50%"}
@@ -524,7 +535,7 @@ b <- 3
 
 ## Functions()
 
-> A sequence of code that performs a specific task.
+> A sequence of code that performs a specific task. Always come with a round bracket `()`.
 
 ![](https://www.mathwarehouse.com/algebra/relation/images2/evaluating-functions/function-machine-picture.webp){fig-align="center"}
 
@@ -558,7 +569,11 @@ mean(c(a, b, c))
 
 ## What do functions do?
 
+. . .
+
 ### Do something, return something
+
+. . .
 
 e.g., input numbers, output the mean
 
@@ -566,13 +581,19 @@ e.g., input numbers, output the mean
 mean(c(1:11))
 ```
 
+. . .
+
 e.g., input data, output a plot
 
 ```{r, echo = TRUE, eval = FALSE}
 plot(x = mtcars$mpg, y = mtcars$cyl)
 ```
 
+. . .
+
 ### Do something, return nothing
+
+. . .
 
 e.g., input data, save data to a csv file
 
@@ -582,7 +603,11 @@ write_csv(data = mtcars, path = "./mtcars.csv")
 
 ## Functions take arguments to work I
 
-### Arguments are input, or options
+. . .
+
+### Arguments are input, or options, saperated by `,`
+
+. . .
 
 Such as the `x` and `y` in the `plot()` function
 
@@ -590,11 +615,15 @@ Such as the `x` and `y` in the `plot()` function
 plot(x = mtcars$mpg, y = mtcars$cyl)
 ```
 
+. . .
+
 Such as `x` and `na.rm` in the `mean()` function
 
 ```{r, eval = FALSE, echo = TRUE}
 mean(x = c(1, 5, 6, NA, 2), na.rm = TRUE)
 ```
+
+. . .
 
 ### Can be defined by name or order
 
@@ -616,9 +645,13 @@ plot(mtcars$mpg, mtcars$cyl)
 :::
 :::
 
+. . .
+
 With correct position, do not need to specify by name
 
 ## Functions take arguments to work II
+
+. . .
 
 ### Some are necessary, some are optional
 
@@ -640,7 +673,7 @@ mean(x = c(2, 4, 5, 6, 7, NA))
 :::
 
 ::: {.column width="50%"}
-Optional
+Optional:
 
 ```{r, eval = TRUE, echo = TRUE}
 mean(x = c(2, 4, 5, 6, 7, NA))
@@ -654,6 +687,8 @@ mean(x = c(2, 4, 5, 6, 7, NA),
 ```
 :::
 :::
+
+. . .
 
 ### How can I know the arguments of a function?
 
@@ -680,6 +715,10 @@ Take advantage of the help function!
 ![](images/paste-29E3A03A.png)
 :::
 :::
+
+-   Arguments without default values are necessary -\> R will throw you errors if you don't define them
+
+-   Arguments with default values are optional -\> R will take default value if you don't give it a value
 
 ## Package
 
@@ -757,20 +796,20 @@ Common data types
 :::
 
 ::: {.column width="50%"}
-To create
+To create, use `<-` operator
 
 ```{r, echo = TRUE}
 a <- "hi"
 b <- "56.4"
 ```
 
-To check
+To check, use `class()` function
 
 ```{r, echo = TRUE}
 class(b)
 ```
 
-To change
+To change, use `as.numeric()` function
 
 ```{r, echo = TRUE}
 as.numeric(b)
@@ -786,7 +825,9 @@ We usually store data as `vectors` or `dataframs/tibbles`
 
 ::: columns
 ::: {.column width="30%"}
-### Vector (1 dimension)
+### Vector 
+
+### (1 dimension)
 
 ```{r, echo = TRUE}
 
@@ -797,7 +838,9 @@ a
 :::
 
 ::: {.column width="70%"}
-### Data frame (2 dimensions)
+### Data frame 
+
+### (2 dimensions)
 
 ```{r, echo = TRUE}
 
@@ -814,29 +857,90 @@ d
 
 ### To create
 
+-   Use `c()` and separate elements by `,`
+
+-   Vectors can only store one data type, no matter how hard you try
+
+```{r, echo = TRUE, eval = TRUE}
+
+a <- c(2, 3, 4, 6:8)
+class(a)
+
+b <- c("I", "Love", "R")
+class(b)
+
+c <- c("way", 2, "go")
+class(c)
+```
+
+## Vector
+
 ### To check
 
 -   `length(v)` How long is the vector?
 
--   `v[2]` What's the second value in the vector?
+```{r, echo = TRUE, eval = TRUE}
+length(a)
+```
+
+-   `v[2]` What's the second element in the vector?
+
+```{r, echo = TRUE, eval = TRUE}
+a[2]
+```
 
 -   `4 %in% v` Is 4 an element in the vector?
+
+```{r, echo = TRUE, eval = TRUE}
+4 %in% a
+```
+
+## Vector
 
 ### To add values
 
 -   `c(v, NEW_ELE)` Add some new elements
 
+```{r, echo = TRUE}
+d <- c(a, "here", "are", 5, "new", "values")
+d
+```
+
 ### To do math on vectors
+
+::: columns
+::: {.column width="50%"}
+-   What are the mean and sd?
+
+```{r, echo = TRUE}
+mean(a)
+sd(a)
+
+```
+:::
+
+::: {.column width="50%"}
+-   What are the max and min?
+
+```{r, echo = TRUE}
+max(a)
+min(a)
+
+```
+:::
+:::
 
 ## Dastaframe/tibble
 
 ### To create
 
--   Import csv file by `read_csv()`, excel file by `read_xlsx()`, or text file by `read_delim()`
+1.  Import csv file by `read_csv()`, excel file by `read_xlsx()`, or text file by `read_delim()`
 
-    -   we will learn how to import data in our second lab
+```{r, echo = TRUE, eval = FALSE}
+import_data <- read_csv("./example_data.csv")
+```
 
--   Use `tibble()` to create one from scratch
+2.  Use `tibble()` to create one from scratch
 
 ```{r, eval = TRUE, echo = TRUE}
 
@@ -849,7 +953,7 @@ df
 
 ### To create (con'd)
 
--   Use R built in data set such as `iris`
+3.  Use R built in data set such as `iris`
 
 ```{r, echo = TRUE, eval = FALSE}
 iris
@@ -859,7 +963,7 @@ iris
 iris %>% head(3)
 ```
 
--   Use data set that stored in packages, such as `penguin` in the `palmerpenguins` package
+4.  Use data set that stored in packages, such as `penguin` in the `palmerpenguins` package
 
 ```{r, echo = TRUE}
 library(palmerpenguins)
@@ -938,33 +1042,61 @@ iris[2, 3]
 
 -   `bind_col()` Add more columns
 
+### To joint two data frames
+
+-   `left_join()`
+
+-   `right_join()`
+
+-   `full_join()`
+
 ## Dastaframe/tibble
 
-### To sample (randomly select some rows)
+### To sample 
 
--   `slice_sample()`
+-   `slice_sample()` Select samples (rows) from a data frame
+
+::: columns
+::: {.column width="50%"}
+Simple random sampling
 
 ```{r, echo = TRUE}
+iris_sub <- slice_sample(iris, n = 15) 
 
-iris_sub <- slice_sample(iris, n = 15)
+table(iris_sub$Species)
 
-head(iris_sub)
 
-iris_sub <- slice_sample(iris, n = 15, by = "Species")
-
-head(iris_sub)
 ```
+:::
+
+::: {.column width="50%"}
+Stratified sampling
+
+```{r, echo = TRUE}
+iris_sub <- slice_sample(iris, n = 5, 
+                         by = "Species") 
+
+table(iris_sub$Species)
+
+```
+:::
+:::
 
 ## Dastaframe/tibble
 
 ### Descriptive statistics of data
 
-1.  Pull the column that you are interested
+1.  Pull the column that you are intereste
+
+```{r, echo = TRUE}
+iris_p_length <- pull(iris, "Petal.Length")
+```
+
 2.  Calculate the statistics
 
 ```{r, echo = TRUE}
 
-iris_p_length <- pull(iris, "Petal.Length")
+
 
 mean(iris_p_length)
 sd(iris_p_length)
@@ -978,11 +1110,40 @@ Here is some advanced materials if you are comfortable and familiar with the con
 
 ## Improving code readability
 
--   Space
+### Space
 
--   Line breaks
+Use space like you would in speaking
 
-## 
+```{r, echo = TRUE, eval = FALSE}
+a <- mean(c(4, 10, 13))
+```
+
+This is easier to read than
+
+```{r, echo = TRUE, eval = FALSE}
+a<-mean(c(4,10,13))
+
+```
+
+## Improving code readability
+
+### Line breaks
+
+Don't be afraid to break the lines. Do you like this?
+
+```{r, echo= TRUE, eval = FALSE}
+a <- tibble(exp = c("A", "B", "A", "B", "A", "B"),
+            sub = c("A1", "A1", "A2", "A2", "A3", "A3"),
+            res = c(10, 12, 45, 12, 12, 13))
+
+```
+
+Or this?
+
+```{r}
+a <- tibble(exp = c("A", "B", "A", "B", "A", "B"), sub = c("A1", "A1", "A2", "A2", "A3", "A3"), res = c(10, 12, 45, 12, 12, 13))
+
+```
 
 # Lab assignment
 
@@ -996,12 +1157,14 @@ Here is some advanced materials if you are comfortable and familiar with the con
 
     -   What are all the `flipper_length_mm` measurements?
 
-![](images/paste-B35E8558.png)
+    -   Is "King" one of the species that included in the `species` column?
+
+![](images/paste-B35E8558.png){fig-align="center"}
 
 ## Your task II
 
 3.  Create a subset of data `penguin_sub`, with 60 individuals random sampled from `penguin`
-4.  Find the mean and standard deviation of the flipper length, using `penguin_sub`
+4.  Find the mean and standard deviation of flipper length, using `penguin_sub`
 5.  Save these two values as `flipper_length_mean` and `flipper_length_sd`
 6.  (Bonus) Instead of simple random sampling, use stratified sampling based on penguin species to select 60 penguins (20 penguins each speceis). Calculate the mean and standard deviation of the flipper length based on this new sample.
 
@@ -1020,9 +1183,9 @@ Here is some advanced materials if you are comfortable and familiar with the con
 
 ### Evaluation
 
--   File format (names.R) (40%)
+-   File name and type (NRES776\_*firstname*\_*lastname*\_lab_1.R) (40%)
 
--   Accuracy of the code (10%, 10%, 10%, 20%, 10%)
+-   Accuracy of the code (5%, 20%, 10%, 20%, 5%)
 
 -   Bonus points for extra question, readable code, efficient programming (30%)
 
