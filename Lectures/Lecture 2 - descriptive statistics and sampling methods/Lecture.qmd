@@ -9,10 +9,12 @@ format:
     #css: styles.css
     #footer: <https://quarto.org>
     theme: [default, styles.scss]
-    smaller: true
+    #smaller: true
     #scrollable: true
     incremental: true
     embed-resources: true
+    width: 1200
+    fontsize: 1.7em
 editor: visual
 ---
 
@@ -174,7 +176,7 @@ $$
 :::
 
 ::: {.column width="50%"}
-![](images/paste-A9F5C9EA.png)
+![](images/paste-A9F5C9EA.png){fig-align="center"}
 :::
 :::
 
