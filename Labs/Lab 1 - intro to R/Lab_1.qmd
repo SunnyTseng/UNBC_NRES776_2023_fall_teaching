@@ -6,14 +6,15 @@ format:
   revealjs: 
     slide-number: true
     preview-links: auto
-    css: styles.css
+    #css: styles.css
     #footer: <https://quarto.org>
     theme: [default, styles.scss]
-    smaller: true
+    #smaller: true
     #scrollable: true
     incremental: true
-    width: 1200
     embed-resources: true
+    width: 1200
+    fontsize: 1.7em
 editor: visual
 ---
 

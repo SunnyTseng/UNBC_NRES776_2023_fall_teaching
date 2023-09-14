@@ -6,13 +6,15 @@ format:
   revealjs: 
     slide-number: true
     preview-links: auto
-    css: styles.css
+    #css: styles.css
     #footer: <https://quarto.org>
     theme: [default, styles.scss]
-    smaller: true
+    #smaller: true
     #scrollable: true
     incremental: true
     embed-resources: true
+    width: 1200
+    fontsize: 1.7em
 editor: visual
 ---
 
@@ -175,9 +177,8 @@ $$
 
 -   No parameter needed
 
-```{=html}
 <!-- -->
-```
+
 -   **Standardized normal is easier for us to find the corresponded probability of a value**
 :::
 
