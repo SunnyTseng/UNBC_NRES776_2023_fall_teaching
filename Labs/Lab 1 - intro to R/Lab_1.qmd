@@ -12,8 +12,8 @@ format:
     smaller: true
     #scrollable: true
     incremental: true
-    embed-resources: true
     width: 1200
+    embed-resources: true
 editor: visual
 ---
 
@@ -825,7 +825,7 @@ We usually store data as `vectors` or `dataframs/tibbles`
 
 ::: columns
 ::: {.column width="30%"}
-### Vector 
+### Vector
 
 ### (1 dimension)
 
@@ -838,7 +838,7 @@ a
 :::
 
 ::: {.column width="70%"}
-### Data frame 
+### Data frame
 
 ### (2 dimensions)
 
@@ -1052,7 +1052,7 @@ iris[2, 3]
 
 ## Dastaframe/tibble
 
-### To sample 
+### To sample
 
 -   `slice_sample()` Select samples (rows) from a data frame
 
