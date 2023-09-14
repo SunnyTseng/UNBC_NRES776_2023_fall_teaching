@@ -1122,20 +1122,20 @@
 <p>A collection of functions for a specific task. Once you install/call the package, you can use all the functions inside that package.</p>
 </blockquote>
 <ul>
-<li><p><code>dplyr</code>: for data wrangling</p></li>
-<li><p><code>ggplot2</code>: for data visualization</p></li>
-<li><p><code>terra</code>: for spatial analysis</p></li>
+<li><p><code>dplyr</code>: include functions for data wrangling</p></li>
+<li><p><code>ggplot2</code>: include functions for data visualization</p></li>
+<li><p><code>terra</code>: include functions for spatial analysis</p></li>
 </ul>
-<h3 id="install-and-call-a-package-in-your-environment">Install and call a package in your environment</h3>
+<h3 id="to-use-a-package-you-need-to-install-and-call">To use a package, you need to install and call</h3>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p>Install package: only need do it once in your liftetime</p>
+<p>Install package: only need do it once in your lifte time</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span>
 <span id="cb63-2"><a href="#cb63-2"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
-<p>Call package: need to do it everytime when you reopen R</p>
+<p>Call package: need to do it every time when you reopen R</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb64-2"><a href="#cb64-2"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1234,7 +1234,7 @@
 <p>We usually store data as <code>vectors</code> or <code>dataframs/tibbles</code></p>
 <div class="columns">
 <div class="column" style="width:30%;">
-<p>Vector (1 dimension)</p>
+<h3 id="vector-1-dimension">Vector (1 dimension)</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>)</span>
 <span id="cb72-2"><a href="#cb72-2"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1243,7 +1243,7 @@
 </div>
 </div>
 </div><div class="column" style="width:70%;">
-<p>Data frame (2 dimensions)</p>
+<h3 id="data-frame-2-dimensions">Data frame (2 dimensions)</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a>d <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">letters =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>),</span>
 <span id="cb74-2"><a href="#cb74-2"></a>            <span class="at">numbers =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
@@ -1258,6 +1258,249 @@
 3 c             4 control</code></pre>
 </div>
 </div>
+</div>
+</div>
+</section>
+<section id="vector" class="slide level2">
+<h2>Vector</h2>
+<h3 id="to-create">To create</h3>
+<h3 id="to-check">To check</h3>
+<ul>
+<li><p><code>length(v)</code> How long is the vector?</p></li>
+<li><p><code>v[2]</code> What’s the second value in the vector?</p></li>
+<li><p><code>4 %in% v</code> Is 4 an element in the vector?</p></li>
+</ul>
+<h3 id="to-add-values">To add values</h3>
+<ul>
+<li><code>c(v, NEW_ELE)</code> Add some new elements</li>
+</ul>
+<h3 id="to-do-math-on-vectors">To do math on vectors</h3>
+</section>
+<section id="dastaframetibble" class="slide level2">
+<h2>Dastaframe/tibble</h2>
+<h3 id="to-create-1">To create</h3>
+<ul>
+<li><p>Import csv file by <code>read_csv()</code>, excel file by <code>read_xlsx()</code>, or text file by <code>read_delim()</code></p>
+<ul>
+<li>we will learn how to import data in our second lab</li>
+</ul></li>
+<li><p>Use <code>tibble()</code> to create one from scratch</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Name =</span> <span class="fu">c</span>(<span class="st">"Jon"</span>, <span class="st">"Bill"</span>, <span class="st">"Maria"</span>, <span class="st">"Ben"</span>, <span class="st">"Tina"</span>),</span>
+<span id="cb76-2"><a href="#cb76-2"></a>             <span class="at">Age =</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">41</span>, <span class="dv">32</span>, <span class="dv">58</span>, <span class="dv">26</span>))</span>
+<span id="cb76-3"><a href="#cb76-3"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 2
+  Name    Age
+  &lt;chr&gt; &lt;dbl&gt;
+1 Jon      23
+2 Bill     41
+3 Maria    32
+4 Ben      58
+5 Tina     26</code></pre>
+</div>
+</div>
+</section>
+<section id="dastaframetibble-1" class="slide level2">
+<h2>Dastaframe/tibble</h2>
+<h3 id="to-create-cond">To create (con’d)</h3>
+<ul>
+<li>Use R built in data set such as <code>iris</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1"></a>iris</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa</code></pre>
+</div>
+</div>
+<ul>
+<li>Use data set that stored in packages, such as <code>penguin</code> in the <code>palmerpenguins</code> package</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb80-2"><a href="#cb80-2"></a>penguins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 x 8
+   species island    bill_length_mm bill_depth_mm flipper_~1 body_~2 sex    year
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;      &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7        181    3750 male   2007
+ 2 Adelie  Torgersen           39.5          17.4        186    3800 fema~  2007
+ 3 Adelie  Torgersen           40.3          18          195    3250 fema~  2007
+ 4 Adelie  Torgersen           NA            NA           NA      NA &lt;NA&gt;   2007
+ 5 Adelie  Torgersen           36.7          19.3        193    3450 fema~  2007
+ 6 Adelie  Torgersen           39.3          20.6        190    3650 male   2007
+ 7 Adelie  Torgersen           38.9          17.8        181    3625 fema~  2007
+ 8 Adelie  Torgersen           39.2          19.6        195    4675 male   2007
+ 9 Adelie  Torgersen           34.1          18.1        193    3475 &lt;NA&gt;   2007
+10 Adelie  Torgersen           42            20.2        190    4250 &lt;NA&gt;   2007
+# ... with 334 more rows, and abbreviated variable names 1: flipper_length_mm,
+#   2: body_mass_g</code></pre>
+</div>
+</div>
+</section>
+<section id="dastaframetibble-2" class="slide level2">
+<h2>Dastaframe/tibble</h2>
+<h3 id="to-check-1">To check</h3>
+<ul>
+<li><code>view()</code> How the dataset look like?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1"></a><span class="fu">view</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><code>head()</code> What is the first few rows (default = 6)?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1"></a><span class="fu">head</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa</code></pre>
+</div>
+</div>
+<ul>
+<li><code>dim()</code> Dimension of the data set</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1"></a><span class="fu">dim</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 150   5</code></pre>
+</div>
+</div>
+</section>
+<section id="dastaframetibble-3" class="slide level2">
+<h2>Dastaframe/tibble</h2>
+<h3 id="to-check-cond">To check (con’d)</h3>
+<ul>
+<li><code>colnames()</code> What are the variables measured (column names)?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1"></a><span class="fu">colnames</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"     </code></pre>
+</div>
+</div>
+<ul>
+<li><code>df[1, ]</code> What is the first row?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1"></a>iris[<span class="dv">1</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa</code></pre>
+</div>
+</div>
+<ul>
+<li><code>df[c(1, 5), ]</code> What are the first and fifth rows?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1"></a>iris[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa</code></pre>
+</div>
+</div>
+</section>
+<section id="dastaframetibble-4" class="slide level2">
+<h2>Dastaframe/tibble</h2>
+<h3 id="to-check-cond-1">To check (con’d)</h3>
+<ul>
+<li><code>df[ , 1]</code>, <code>df$col_name</code>, or <code>pull(df, col_name)</code> What is the first column?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1"></a>iris[ , <span class="dv">1</span>]</span>
+<span id="cb93-2"><a href="#cb93-2"></a></span>
+<span id="cb93-3"><a href="#cb93-3"></a>iris<span class="sc">$</span>Petal.Length</span>
+<span id="cb93-4"><a href="#cb93-4"></a></span>
+<span id="cb93-5"><a href="#cb93-5"></a><span class="fu">pull</span>(iris, <span class="st">"Petal.Length"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><code>df[2, 3]</code> What is the value in the 2nd row and 3rd column?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1"></a>iris[<span class="dv">2</span>, <span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.4</code></pre>
+</div>
+</div>
+</section>
+<section id="dastaframetibble-5" class="slide level2">
+<h2>Dastaframe/tibble</h2>
+<h3 id="to-add-rowscolumns">To add rows/columns</h3>
+<ul>
+<li><p><code>bind_row()</code> Add more rows</p></li>
+<li><p><code>bind_col()</code> Add more columns</p></li>
+</ul>
+</section>
+<section id="dastaframetibble-6" class="slide level2">
+<h2>Dastaframe/tibble</h2>
+<h3 id="to-sample-randomly-select-some-rows">To sample (randomly select some rows)</h3>
+<ul>
+<li><code>slice_sample()</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1"></a>iris_sub <span class="ot">&lt;-</span> <span class="fu">slice_sample</span>(iris, <span class="at">n =</span> <span class="dv">15</span>)</span>
+<span id="cb96-2"><a href="#cb96-2"></a></span>
+<span id="cb96-3"><a href="#cb96-3"></a><span class="fu">head</span>(iris_sub)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+1          6.4         3.2          5.3         2.3  virginica
+2          6.4         2.9          4.3         1.3 versicolor
+3          5.0         3.4          1.5         0.2     setosa
+4          5.8         2.7          4.1         1.0 versicolor
+5          4.3         3.0          1.1         0.1     setosa
+6          5.8         2.8          5.1         2.4  virginica</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1"></a>iris_sub <span class="ot">&lt;-</span> <span class="fu">slice_sample</span>(iris, <span class="at">n =</span> <span class="dv">15</span>, <span class="at">by =</span> <span class="st">"Species"</span>)</span>
+<span id="cb98-2"><a href="#cb98-2"></a></span>
+<span id="cb98-3"><a href="#cb98-3"></a><span class="fu">head</span>(iris_sub)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.8          1.6         0.2  setosa
+2          5.4         3.7          1.5         0.2  setosa
+3          5.0         3.6          1.4         0.2  setosa
+4          5.1         3.3          1.7         0.5  setosa
+5          4.4         3.2          1.3         0.2  setosa
+6          5.5         4.2          1.4         0.2  setosa</code></pre>
+</div>
+</div>
+</section>
+<section id="dastaframetibble-7" class="slide level2">
+<h2>Dastaframe/tibble</h2>
+<h3 id="descriptive-statistics-of-data">Descriptive statistics of data</h3>
+<ol type="1">
+<li>Pull the column that you are interested</li>
+<li>Calculate the statistics</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1"></a>iris_p_length <span class="ot">&lt;-</span> <span class="fu">pull</span>(iris, <span class="st">"Petal.Length"</span>)</span>
+<span id="cb100-2"><a href="#cb100-2"></a></span>
+<span id="cb100-3"><a href="#cb100-3"></a><span class="fu">mean</span>(iris_p_length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.758</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1"></a><span class="fu">sd</span>(iris_p_length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.765298</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1"></a><span class="fu">cor</span>(iris[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Sepal.Length Sepal.Width Petal.Length Petal.Width
+Sepal.Length    1.0000000  -0.1175698    0.8717538   0.8179411
+Sepal.Width    -0.1175698   1.0000000   -0.4284401  -0.3661259
+Petal.Length    0.8717538  -0.4284401    1.0000000   0.9628654
+Petal.Width     0.8179411  -0.3661259    0.9628654   1.0000000</code></pre>
 </div>
 </div>
 </section></section>
@@ -1312,16 +1555,6 @@
 <li>use <code>slice_sample()</code>, check the function arguments</li>
 </ol>
 </section>
-<section id="use-of-chatgpt-stackflow-or" class="slide level2">
-<h2>Use of ChatGPT, stackflow, or…</h2>
-<ul>
-<li><p>Copy/Paste is your friend! (and never apologize for it!)</p></li>
-<li><p>But be sure you understand <strong>why</strong> the codes are doing what they are doing</p></li>
-<li><p>So that you form some new neuron connections in the brain</p></li>
-<li><p>Then you will know how to speak R more fluently and independently next time</p></li>
-<li><p>Eventually, it’s you deciding how and what you want to learn.</p></li>
-</ul>
-</section>
 <section id="submission" class="slide level2">
 <h2>Submission</h2>
 <h3 id="due-next-wednesday-2359-pm-moodle">Due next Wednesday 23:59 pm, Moodle</h3>
@@ -1330,6 +1563,12 @@
 <li><p>File format (names.R) (40%)</p></li>
 <li><p>Accuracy of the code (10%, 10%, 10%, 20%, 10%)</p></li>
 <li><p>Bonus points for extra question, readable code, efficient programming (30%)</p></li>
+</ul>
+<h3 id="use-of-chatgpt-stackflow-or">Use of ChatGPT, stackflow, or…</h3>
+<ul>
+<li><p>Copy/Paste is your friend! (and never apologize for it!) 😍</p></li>
+<li><p>But be sure you understand <strong>why</strong> the codes are doing what they are doing 🧑‍🎓</p></li>
+<li><p>So that you form some new neuron connections in the brain 🧠</p></li>
 </ul>
 </section>
 <section id="quietnoisy-room" class="slide level2">
