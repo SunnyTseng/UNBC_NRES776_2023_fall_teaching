@@ -25,3 +25,30 @@ This is the website materials for the lectures and labs for NRES 776 at UNBC.
 - [R tutorial](https://www.w3schools.com/r/r_syntax.asp)
 
 - [Introduction to Data Science](https://rafalab.dfci.harvard.edu/dsbook/)
+
+## Teaching notes
+
+### Week 1
+- Took me 2 days to prepare the lecture slides for course instructions
+- And 1 morning to be nervous about it
+- The Yeti microphone is too complicated to set up (it echos if I am not using headphone)
+
+### Week 2
+- Started slides prep on the previous Fri. Worked full day on Sun., Mon., Wed.
+- Fri. lecture A and lab preparation
+- Sun.: lecture A and lab preparation
+- Mon.: lecture B preparation
+- Tue.: lecture A rehearsal and lecture A delivery
+- Wed.: lecture B preparation and lab rehearsal 
+- Thur.: lab delivery and lecture B delivery
+
+
+
+
+
+
+
+
+
+
+
