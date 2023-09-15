@@ -22,7 +22,7 @@ editor: visual
 
 ## Our schedule today
 
--   Announcement and recap (5 min)
+-   Announcements and recap (5 min)
 
 -   Data visualization background (10 min)
 
@@ -30,9 +30,11 @@ editor: visual
 
 -   Wrap up (5 min)
 
-## Announcement and recap
+## Announcements
 
--   Considering keep the video on (but you have absolute right for privacy)
+-   Plans for the lab discussion paper presentation on Thursday
+
+    -   3 presenters - 18 mins split room discussion - 2 mins wrap up
 
 -   UNBC [Applied Analysis Hub](https://unbcaah.opened.ca/ta-office-hours/) workshop today!
 
@@ -48,15 +50,27 @@ editor: visual
 
 -   Can we do more?
 
-## Data visualization
+# Data Visualization Background
 
 Data visualization is the representation of data through use of common graphics, such as charts, plots, infographics, and even animations.
 
-## The goal
+## Human brain is lazy
 
 > The goal of data visualization in data analysis is to improve understanding of the data.
 
-### 
+-   text \< table \<- plot
+
+## Choose the right type of plot
+
+## The art of choosing colours
+
+## Label and axes (font size, starting point, be present)
+
+## Correctness of your data (numbers add up and the proportion) 
+
+## Make the comparison easy
+
+## Keep it simple
 
 -   le vs figures: human's brain is lazy
 
@@ -90,7 +104,7 @@ glimpse(penguins)
 Artwork by @allison_horst
 :::
 
-# Histogram
+# Plot Types: Histogram
 
 ## Histogram: basic
 
@@ -126,7 +140,7 @@ ggplot(data = penguins, aes(x = flipper_length_mm)) +
   scale_fill_manual(values = c("darkorange","darkorchid","cyan4"))
 ```
 
-# Bar plot
+# Plot Types: Bar Plot
 
 ## Bar plot: basic with 
 
@@ -169,13 +183,13 @@ Add one more **categorical** variable using **colour**
 
 Add one more **categorical** variable using **colour**
 
-# Scatter plot
+# Plot Types: Scatter Plot
 
 ## Scatter plot: basic
 
 ### 2 continuous variables
 
-# Box plot
+# Plot Types: Box Plot
 
 ## Box plot: basic
 

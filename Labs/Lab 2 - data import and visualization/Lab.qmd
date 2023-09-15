@@ -1,6 +1,6 @@
 ---
-title: "NRES 776 Lab 1"
-subtitle: "Introduction to R"
+title: "NRES 776 Lab 2"
+subtitle: "Data I/O and visualization"
 author: Sunny Tseng
 format:
   revealjs: 
@@ -18,11 +18,13 @@ format:
 editor: visual
 ---
 
-# Welcome to your first R lab!
+# Welcome to your second R lab!
 
 ## Our schedule today
 
 -   Announcements (5 min)
+
+-   Discussion paper presentation (35 mins)
 
 -   Importing data in R (20 min)
 
@@ -30,13 +32,52 @@ editor: visual
 
 -   Quiet time for practice (60 min)
 
+# Discussion paper presentation
+
+-   Student names
+
 # Import (read) and Export (write) Data
 
 With various packages
 
-## Read excel files
+## Concept of working directory
 
-## Read Google sheets
+> You have to tell R **where** to find your data
+
+-   use read_csv() as an example, we need to specify the path
+
+-   where are you now? and where is your data?
+
+-   absolute path vs relative path
+
+## R project
+
+-   We have done this, but what this for?
+
+```{=html}
+<!-- -->
+```
+-   output .Rproj in a folder, for reading data
+
+-   set up fires in computer
+
+## R project step by step
+
+## Be a good project manager
+
+-   Create a project
+
+-   Create folder structure
+
+-   Save your R script and R project in the root
+
+-   Only need to read using "docs/my_data.csv"
+
+-   Try this for you lab
+
+-   Try this for your research project/chapter
+
+## Read excel files
 
 ## Read CSVs
 
