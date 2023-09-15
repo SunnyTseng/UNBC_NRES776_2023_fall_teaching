@@ -12,7 +12,7 @@ format:
     #smaller: true
     #scrollable: true
     incremental: true
-    embed-resources: true
+    #embed-resources: true
     width: 1200
     fontsize: 1.7em
 editor: visual
@@ -32,7 +32,7 @@ editor: visual
 
 ## Announcements
 
--   Plans for the lab discussion paper presentation on Thursday
+-   Plans for the discussion paper presentation on Thursday lab
 
     -   3 presenters - 18 mins split room discussion - 2 mins wrap up
 
@@ -56,31 +56,29 @@ Data visualization is the representation of data through use of common graphics,
 
 ## Human brain is lazy
 
-> The goal of data visualization in data analysis is to improve understanding of the data.
+> The goal of data visualization is to improve understanding of the data
 
 -   text \< table \<- plot
 
-## Choose the right type of plot
+## Right type of plot
 
-## The art of choosing colours
+> What's the message you want to say?
 
-## Label and axes (font size, starting point, be present)
+## Colours
 
-## Correctness of your data (numbers add up and the proportion) 
+> Colour blind audience, strong contrast but comfortable to read
 
-## Make the comparison easy
+## Label and axes
+
+> Font size, starting axis from 0, or do you even have it?
+
+## Correctness of your data
+
+> The numbers should add up to 100%. Proportion should reflect the size/length, etc.
 
 ## Keep it simple
 
--   le vs figures: human's brain is lazy
-
--   figures vs figures: use the figure best convey the message you want to elaborate
-
--   Make better use of colour, shape, transparent, line type, etc.
-
--   Concise, Accurate, Interpretable
-
--   Make them pretty! (selection of colour, size of the font, how to put several plots together, etc)
+> One purpose, or key message, per plot
 
 ## Penguin data
 
@@ -88,6 +86,9 @@ Data visualization is the representation of data through use of common graphics,
 library(palmerpenguins)
 library(tidyverse)
 theme_set(theme_minimal())
+
+penguins <- penguins %>%
+  mutate(year = as.factor(year))
 ```
 
 ```{r, echo = TRUE}
@@ -115,73 +116,188 @@ Artwork by @allison_horst
 ```{r}
 # Histogram example: flipper length by species
 ggplot(data = penguins, aes(x = flipper_length_mm)) +
-  geom_histogram(alpha = 0.5, position = "identity") 
-```
-
-## Histogram: add one more var
-
-### 1 continuous variable
-
-Add one more **categorical** variable by **facet** (e.g., `sex`)
-
-```{r}
-# Histogram example: flipper length by gender
-ggplot(data = penguins %>% drop_na(sex), aes(x = flipper_length_mm)) +
   geom_histogram(alpha = 0.5, position = "identity") +
-  facet_wrap(~sex)
+  theme(text = element_text(size = 24))
 ```
 
-Add one more **categorical** variable by changing **colour** (e.g., `species`)
+## Histogram: colour
 
+Add one more **categorical** variable using **colour** (e.g., `species`)
+
+::: columns
+::: {.column width="50%"}
+```{r}
+# Histogram example: flipper length by species 
+ggplot(data = penguins, aes(x = flipper_length_mm)) +   
+  geom_histogram(alpha = 0.5, position = "identity") +   
+  theme(text = element_text(size = 24))
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+# Histogram example: flipper length by species 
+ggplot(data = penguins, aes(x = flipper_length_mm)) +   
+  geom_histogram(aes(fill = species), 
+                 alpha = 0.5, 
+                 position = "identity") +   
+  scale_fill_manual(values = c("darkorange","darkorchid","cyan4")) +   
+  theme(text = element_text(size = 24))
+```
+:::
+:::
+
+## Histogram: facet
+
+Add one more **categorical** variable using **colour**, with **facet** (e.g., `species`)
+
+::: columns
+::: {.column width="50%"}
 ```{r}
 # Histogram example: flipper length by species
 ggplot(data = penguins, aes(x = flipper_length_mm)) +
-  geom_histogram(aes(fill = species), alpha = 0.5, position = "identity") +
-  scale_fill_manual(values = c("darkorange","darkorchid","cyan4"))
+  geom_histogram(alpha = 0.5, position = "identity") +
+  theme(text = element_text(size = 24))
 ```
+:::
+
+::: {.column width="50%"}
+```{r}
+# Histogram example: flipper length by gender
+ggplot(data = penguins %>% drop_na(sex), 
+       aes(x = flipper_length_mm)) +
+  geom_histogram(aes(fill = species), 
+                 alpha = 0.5, 
+                 position = "identity") +
+  scale_fill_manual(values = c("darkorange","darkorchid","cyan4")) +
+  facet_wrap(~species) +
+  theme(text = element_text(size = 24))
+```
+:::
+:::
 
 # Plot Types: Bar Plot
 
-## Bar plot: basic with 
+## Bar plot: basic
 
 ### 1 categorical variable
 
 > A bar plot, or bar chart, is a graph that presents categorical data with rectangular bars with heights or lengths proportional to the values that they represent
 
 ```{r}
-ggplot(penguins, aes(x = island)) +
+ggplot(penguins, aes(x = species)) +
   geom_bar(alpha = 0.8) +
   theme_minimal() +
-  coord_flip()
+  coord_flip() +
+  theme(text = element_text(size = 24))
 ```
 
-## Bar plot: add one more var by colour, grouped
+## Bar plot: grouped
 
-Add one more **categorical** variable using **colour** and **facet** at the same time (e.g., `species`)
+Add one more **categorical** variable using **colour**, with **grouped** bars (e.g., `year`)
 
+::: columns
+::: {.column width="50%"}
 ```{r}
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"), 
-                    guide = FALSE) +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
+ggplot(penguins, aes(x = species)) +   
+  geom_bar(alpha = 0.8) +   
+  theme_minimal() +   
+  coord_flip() +   
+  theme(text = element_text(size = 24))
 ```
+:::
 
-## Bar plot: add one more var by colour, facet
+::: {.column width="50%"}
+```{r}
+ggplot(penguins, aes(x = species, fill = year)) +   
+  geom_bar(alpha = 0.8, position = "dodge2") +   
+  #scale_fill_manual(values = c("darkorange","purple","cyan4"), guide = FALSE) +   
+  theme_minimal() +   
+  coord_flip() +   
+  theme(text = element_text(size = 24))
+```
+:::
+:::
 
-## Bar plot: add one more var by colour, stacked
+## Bar plot: stacked
 
-Add one more **categorical** variable using **colour**
+Add one more **categorical** variable using **colour**, with **stacked** bars (e.g., `year`)
 
-## Bar plot: add one more var by colour, stacked %
+::: columns
+::: {.column width="50%"}
+```{r}
+ggplot(penguins, aes(x = species)) +      
+  geom_bar(alpha = 0.8) +      
+  theme_minimal() +      
+  coord_flip() +      
+  theme(text = element_text(size = 24))
+```
+:::
 
-Add one more **categorical** variable using **colour**
+::: {.column width="50%"}
+```{r}
+ggplot(penguins, aes(x = species, fill = year)) +
+  geom_bar(alpha = 0.8, position = "stack") +      #scale_fill_manual(values = c("darkorange","purple","cyan4"), guide = FALSE) +      
+  theme_minimal() +      
+  coord_flip() +      
+  theme(text = element_text(size = 24))
+```
+:::
+:::
 
-## Bar plot: add group information, stacked with % 
+## Bar plot: filled
 
-Add one more **categorical** variable using **colour**
+Add one more **categorical** variable using **colour**, with **filled** bars (e.g., `year`)
+
+::: columns
+::: {.column width="50%"}
+```{r}
+ggplot(penguins, aes(x = species)) +         
+  geom_bar(alpha = 0.8) +         
+  theme_minimal() +         
+  coord_flip() +         
+  theme(text = element_text(size = 24))
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+ggplot(penguins, aes(x = species, fill = year)) +
+  geom_bar(alpha = 0.8, position = "fill") +      #scale_fill_manual(values = c("darkorange","purple","cyan4"), guide = FALSE) +      
+  theme_minimal() +      
+  coord_flip() +      
+  theme(text = element_text(size = 24))
+```
+:::
+:::
+
+## Bar plot: facet
+
+Add one more **categorical** variable using **colour**, with **facet** (e.g., `year`)
+
+::: columns
+::: {.column width="50%"}
+```{r}
+ggplot(penguins, aes(x = species)) +   
+  geom_bar(alpha = 0.8) +   
+  theme_minimal() +   
+  coord_flip() +   
+  theme(text = element_text(size = 24))
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+ggplot(penguins, aes(x = species, fill = year)) +   
+  geom_bar(alpha = 0.8) +   
+  # scale_fill_manual(values = c("darkorange","purple","cyan4"), guide = FALSE) +   
+  theme_minimal() +   
+  facet_wrap(~year, ncol = 1) +   
+  coord_flip() +   
+  theme(text = element_text(size = 24))
+```
+:::
+:::
 
 # Plot Types: Scatter Plot
 
@@ -189,11 +305,24 @@ Add one more **categorical** variable using **colour**
 
 ### 2 continuous variables
 
+> An explanation here
+
+```{r}
+# Scatterplot example 2: penguin bill length versus bill depth
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point(aes(color = species, 
+                 shape = species),
+             size = 2)  +
+  scale_color_manual(values = c("darkorange","darkorchid","cyan4"))
+```
+
 # Plot Types: Box Plot
 
 ## Box plot: basic
 
-## 1 categorical, and 1 continuous
+### 1 categorical, and 1 continuous variable
+
+> An explanation here
 
 ## Get inspired by other people's work
 
