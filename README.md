@@ -34,6 +34,8 @@ This is the website materials for the lectures and labs for NRES 776 at UNBC.
 - The Yeti microphone is too complicated to set up (it echos if I am not using headphone)
 
 ### Week 2
+
+#### Teaching load
 - Started slides prep on the previous Fri. Worked full day on Sun., Mon., Wed.
 - Fri. lecture A and lab preparation
 - Sun.: lecture A and lab preparation
@@ -42,7 +44,16 @@ This is the website materials for the lectures and labs for NRES 776 at UNBC.
 - Wed.: lecture B preparation and lab rehearsal 
 - Thur.: lab delivery and lecture B delivery
 
+#### Stress management
+- meditation
+- exercise (rock climbing, swimming, running)
+- movie
+- counselling
 
+#### During teaching
+- Ask students to share the answers - is there a better way to encourage participants?
+- Seems to be hard to speak up or share screen
+- How to make it fun
 
 
 
