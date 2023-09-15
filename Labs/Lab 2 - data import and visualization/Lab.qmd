@@ -1,0 +1,1237 @@
+---
+title: "NRES 776 Lab 1"
+subtitle: "Introduction to R"
+author: Sunny Tseng
+format:
+  revealjs: 
+    slide-number: true
+    preview-links: auto
+    #css: styles.css
+    #footer: <https://quarto.org>
+    theme: [default, styles.scss]
+    #smaller: true
+    #scrollable: true
+    incremental: true
+    embed-resources: true
+    width: 1200
+    fontsize: 1.7em
+editor: visual
+---
+
+# Welcome to your first R lab!
+
+## Our schedule today
+
+-   Announcements (5 min)
+
+-   Importing data in R (20 min)
+
+-   Data visualization with R (60 min)
+
+-   Quiet time for practice (60 min)
+
+# Import (read) and Export (write) Data
+
+With various packages
+
+## Read excel files
+
+## Read Google sheets
+
+## Read CSVs
+
+## Read TSVs or TXTs
+
+## Write CSVs
+
+# Data Visualization
+
+With `ggplot2` and `patchwork` package
+
+Using `palmerpenguins` as example
+
+# Lab intro
+
+## About these labs
+
+### Consider keeping your video on
+
+-   Food? Pets? Other creatures? We would love to see them!
+-   Ultimately, you need to be comfortable (and you have the right to privacy)
+-   Feel free to unmute and ask questions
+
+### Format
+
+-   I will provide you tools and workflow to get started with R
+
+-   We will have lectures, demonstration, hands-on, and free time
+
+-   Download the slides and practice along
+
+### R is hard: But we have no fear
+
+-   Don't expect to remember everything
+
+-   Copy/Paste is your friend
+
+## Imposte**R** Syndrome
+
+![](images/imposter.PNG){fig-align="center"}
+
+## Imposte**R** Syndrome
+
+![](images/imposter_1.PNG){fig-align="center"}
+
+## You might experience this during the course
+
+![](images/d65eb83f-66e4-4760-8c1f-29d336d1d6df.png){fig-align="center" width="430"}
+
+::: footer
+Artwork by @allison_horst
+:::
+
+## What is R?
+
+> A programming **language**, a way to give instructions in order to get a computer to do something
+
+-   We will learn together how to speak the language (i.e., writing the code)
+
+-   Computers can only read your code, but not your mind
+
+-   Spelling, punctuation, space, capitalization matter!
+
+### For example
+
+R, what is 78 times 87?
+
+```{r, echo = TRUE}
+
+78 * 87
+```
+
+## Why R?
+
+R is hard
+
+```{r, echo = TRUE, eval = FALSE}
+#| warning: false
+
+library(seewave)
+library(tuneR)
+
+dir <- "E:/Audio/2021_passerine"
+dataset <- read_csv(here("Ch1_BirdNET", "data", "2021_MacGillivray's Warbler_working.csv"))
+
+
+for (i in 101:180) {
+  site <- dataset$site[i]
+  recording <- dataset$recording[i]
+  start_s <- dataset$start_s[i]
+  end_s <- dataset$end_s[i]
+  
+  
+  song <- readWave(paste0(dir, "/", site, "/", recording, ".wav"), 
+                   from = start_s - 1, 
+                   to = end_s + 1, 
+                   units = "seconds")
+  
+  print(paste0("This is recording ", recording, " from ", start_s, " to ", end_s))
+  play(song, ... = "/play /close")
+}
+```
+
+## Why R?
+
+R is hard - but powerful
+
+![](images/Capture-01.PNG){fig-align="center"}
+
+-   When data is beyond your ability to manage in excels
+
+-   I used R Quarto to make these slides, and R markdown for the course syllabus
+
+## Why R?
+
+R is hard - but beautiful
+
+```{r}
+
+library(palmerpenguins)
+library(ggplot2)
+ggplot2::theme_set(ggplot2::theme_minimal())
+
+mass_flipper <- ggplot(data = penguins, 
+                       aes(x = flipper_length_mm,
+                           y = body_mass_g)) +
+  geom_point(aes(color = species, 
+                 shape = species),
+             size = 3,
+             alpha = 0.8) +
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +
+  labs(title = "Penguin size, Palmer Station LTER",
+       subtitle = "Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins",
+       x = "Flipper length (mm)",
+       y = "Body mass (g)",
+       color = "Penguin species",
+       shape = "Penguin species") +
+  theme(legend.position = c(0.2, 0.7),
+        plot.title.position = "plot",
+        plot.caption = element_text(hjust = 0, face= "italic"),
+        plot.caption.position = "plot")
+
+print(mass_flipper)
+#> Warning: Removed 2 rows containing missing values (geom_point).
+```
+
+## Why R?
+
+R is hard - but reproducible and free!
+
+![](images/CaptureR.PNG){fig-align="center"}
+
+## R vs RStudio
+
+::: columns
+::: {.column width="50%"}
+![](images/R_logo.svg.png){fig-align="center" width="333"}
+:::
+
+::: {.column width="50%"}
+![](images/download.jpg){fig-align="center" width="599"}
+:::
+:::
+
+-   RStudio is not R, RStudio is a integrated development environment (IDE)
+
+-   Which means you can code with R without RStudio
+
+-   But! RStudio makes programming with R easier
+
+-   And it will make your life easier
+
+# Let's get started with RStudio!
+
+## Open R Studio
+
+### Changing options: Tools \> Global Options
+
+-   General \> Restore RData into workspace at startup (NO!)
+
+-   General \> Save workspace to on exit (No!)
+
+-   Appearance \> Theme and font size (Personal preference)
+
+### Start a project: File \> New Project \> New Directory \> New Project
+
+-   Name the project as you like (e.g., NRES776_lab_1)
+
+-   Save the project as you wish (e.g., in your desktop)
+
+-   You will find a new folder created in the directory that you provided
+
+-   R project can help handling directories, and organizes your work
+
+## Demonstration {background-color="#DDF1FF"}
+
+### Let's take a look at RStudio
+
+-   The layout of the windows
+
+-   Create a project for this lab
+
+-   Create a new script (New File \> R Script)
+
+-   Save the Script to the project folder
+
+#### Script (top left)
+
+#### Console (bottom left)
+
+#### Global environment (top right)
+
+#### Files/plots output (bottom right)
+
+## Your first R code!
+
+```{r, echo = TRUE, eval = FALSE}
+# If you haven't done so, install tidyverse pacakge
+install.packages("tidyverse")
+
+# First load the package
+library(tidyverse) 
+
+# Now create the figure
+ggplot(data = msleep, aes(x = sleep_total, y = sleep_rem, colour = vore)) +
+  geom_point(size = 3)
+
+```
+
+-   Copy/Paste or type this into the script window in RStudio
+
+-   Click anywhere on the first line of the code
+
+-   Run the code
+
+    -   Use the **Run** button to run single line, and repeat this until you ran all the codes
+
+    -   Use `Ctrl-Enter` to run single line, and repeat this until you ran all the codes
+
+    -   Highlight the lines you want to run, and use **Run** button or `Ctrl-Enter`
+
+## Your first R code!
+
+```{r, echo = TRUE, eval = FALSE}
+# First load the package
+library(tidyverse)
+
+# Now create the figure
+ggplot(data = msleep, aes(x = sleep_total, y = sleep_rem, colour = vore)) +
+  geom_point(size = 3)
+```
+
+::: columns
+::: {.column width="70%"}
+```{r}
+# First load the package
+library(tidyverse)
+
+# Now create the figure
+ggplot(data = msleep, aes(x = sleep_total, y = sleep_rem, colour = vore)) +
+  geom_point(size = 3)
+```
+:::
+
+::: {.column width="30%"}
+-   Code (the way you communicate with the computer)
+
+-   Script (a whole bunch of code)
+
+-   Output
+:::
+:::
+
+## How are you doing?
+
+![](images/31e5b53b-32b2-4a1f-b966-31fb14d1867e.png){fig-align="center"}
+
+::: footer
+Artwork by @allison_horst
+:::
+
+# R Basics: Objects
+
+## Concept of object
+
+> Everything in R is an object, or variable. These objects can be almost anything, from a single number to a character string, or a plot, or a dataframe.
+
+-   This is an object called a, and its content is 1
+
+```{r, echo = TRUE}
+a <- 1 
+a
+```
+
+-   This is an object called b, and its content is "I love stats"
+
+```{r, echo = TRUE}
+b <- "I love stats"
+b
+```
+
+-   This is an object called c, and its content is a vector (2,3,4,5)
+
+```{r, echo = TRUE}
+c <- c(2,3,4,5)
+c
+```
+
+## Creating objects
+
+> To create an object we simply give the object a name, and assign it with a value, using assignment operator `<-`.
+
+-   To create an object, whose name is `my_obj` and value as `"I am hungry"`:
+
+```{r, echo = TRUE}
+
+# object_name <- object_content
+my_obj <- "I am hungry"
+```
+
+-   To call, or view the content of the object, simply type the object name:
+
+```{r, echo = TRUE}
+my_obj
+```
+
+## The objects live in your Global Environment
+
+> All of the objects you create will be stored and you can view them in RStudio by clicking on the 'Environment' tab in the top right window.
+
+![](images/paste-88DA8292.png){fig-align="center"}
+
+## The art of naming objects
+
+> Naming your objects is one of the most difficult things you will do in R (seriously).
+
+::: columns
+::: {.column width="30%"}
+**To do**
+
+-   Keep it short and informative
+
+-   `camelCase` (e.g., myPlot)
+
+-   `snake_case` (e.g., my_plot)
+
+-   `PascalCase` (e.g., MyPlot)
+:::
+
+::: {.column width="70%"}
+![](images/dbb99049-2916-4bc8-824f-1816f5c4f06d-01.png){fig-align="center" width="969"}
+:::
+:::
+
+::: footer
+Artwork by @allison_horst
+:::
+
+## The art of naming objects
+
+> Naming your objects is one of the most difficult things you will do in R (seriously).
+
+**Not to do**
+
+-   Start with a number (`2my_variable`)
+
+-   Start with a dot followed by a number (`.2my_variable`)
+
+-   Use non-alphanumeric characters (i.e. &, \^, /, ! etc)
+
+-   Use space
+
+-   Name your objects with reserved words (i.e. `TRUE`, `NA`)
+
+One that crops up more times than we can remember is:
+
+```{r, eval = FALSE, echo = TRUE}
+data <- read.table("mydatafile", header = TRUE) #data is a function!
+```
+
+# R Basic: Operators
+
+## Arithmetic operators
+
+> To perform common mathematical operations.
+
+::: columns
+::: {.column width="50%"}
+| Operator   | Name                              |
+|------------|-----------------------------------|
+| \+         | Addition                          |
+| \-         | Subtraction                       |
+| \*         | Multiplication                    |
+| /          | Division                          |
+| \^ or \*\* | Exponent                          |
+| %%         | Modulus (remainder from division) |
+| %/%        | Integer Division                  |
+:::
+
+::: {.column width="50%"}
+```{r, echo = TRUE}
+a <- 10
+b <- 3
+```
+
+```{r, echo = TRUE}
+
+a + b
+a - b
+a * b
+
+```
+
+> **Q**: What do you get by running `a^b`?
+:::
+:::
+
+## Comparison operators
+
+> To compare two values, particularly useful when running `if` loop.
+
+::: columns
+::: {.column width="50%"}
+| Operator | Name                     |
+|----------|--------------------------|
+| ==       | Equal                    |
+| !=       | Not equal                |
+| \>       | Greater than             |
+| \<       | Less than                |
+| \>=      | Greater than or equal to |
+| \<=      | Less than or equal to    |
+:::
+
+::: {.column width="50%"}
+```{r, echo = TRUE}
+a <- 10
+b <- 3
+
+```
+
+```{r, echo = TRUE}
+a == b
+a != b
+a <= b
+```
+
+> **Q**: What do you get by running `a>=b`?
+:::
+:::
+
+## Logical operators
+
+> To combine conditional statements, particularly useful when running `if` loop.
+
+::: columns
+::: {.column width="50%"}
+| Operator | Description                                    |
+|----------|------------------------------------------------|
+| & or &&  | Returns TRUE if both elements are TRUE         |
+| \| or II | Returns TRUE if one of the statement is TRUE   |
+| !        | Returns FALSE if statement is TRUE, vice versa |
+:::
+
+::: {.column width="50%"}
+```{r, echo = TRUE}
+a <- 9
+b <- 3
+
+```
+
+```{r, echo = TRUE}
+
+(a > b) & (a > b)
+(a < b) | (a > b)
+
+```
+
+> **Q**: What do you get by running
+>
+> `!((a>b) & (a>b))`?
+:::
+:::
+
+## Miscellaneous operators
+
+> Very useful in manipulating data!
+
+::: columns
+::: {.column width="50%"}
+| Operator | Description                                |
+|----------|--------------------------------------------|
+| :        | Creates a series of numbers in a sequence  |
+| %in%     | Find out if an element belongs to a vector |
+| %\*%     | Matrix Multiplication                      |
+:::
+
+::: {.column width="50%"}
+```{r, echo = TRUE}
+
+1:9
+
+9 %in% c(1, 2, 4, 6)
+
+"moose" %in% c("moose", "elk", "deer")
+
+```
+:::
+:::
+
+> **Q**: What do you get by running `"lynx" %in% c("moose", "elk", "deer")`?
+
+# R Basic: Functions
+
+## Functions()
+
+> A sequence of code that performs a specific task. Always come with a round bracket `()`.
+
+![](https://www.mathwarehouse.com/algebra/relation/images2/evaluating-functions/function-machine-picture.webp){fig-align="center"}
+
+For example:
+
+```{r, echo = TRUE}
+a <- 5
+b <- 10
+c <- 7
+```
+
+::: columns
+::: {.column width="50%"}
+You can find the mean manually:
+
+```{r, echo = TRUE}
+(a + b + c)/3
+```
+:::
+
+::: {.column width="50%"}
+Or use a built-in function:
+
+```{r, echo = TRUE}
+mean(c(a, b, c))
+```
+:::
+:::
+
+`mean()` is a function, and we put `c(a, b, c)` as its input.
+
+## What do functions do?
+
+. . .
+
+### Do something, return something
+
+. . .
+
+e.g., input numbers, output the mean
+
+```{r, echo = TRUE, eval = FALSE}
+mean(c(1:11))
+```
+
+. . .
+
+e.g., input data, output a plot
+
+```{r, echo = TRUE, eval = FALSE}
+plot(x = mtcars$mpg, y = mtcars$cyl)
+```
+
+. . .
+
+### Do something, return nothing
+
+. . .
+
+e.g., input data, save data to a csv file
+
+```{r, echo = TRUE, eval = FALSE}
+write_csv(data = mtcars, path = "./mtcars.csv")
+```
+
+## Functions take arguments to work I
+
+. . .
+
+### Arguments are input, or options, saperated by `,`
+
+. . .
+
+Such as the `x` and `y` in the `plot()` function
+
+```{r, eval = FALSE, echo = TRUE}
+plot(x = mtcars$mpg, y = mtcars$cyl)
+```
+
+. . .
+
+Such as `x` and `na.rm` in the `mean()` function
+
+```{r, eval = FALSE, echo = TRUE}
+mean(x = c(1, 5, 6, NA, 2), na.rm = TRUE)
+```
+
+. . .
+
+### Can be defined by name or order
+
+::: columns
+::: {.column width="50%"}
+By name:
+
+```{r, echo = TRUE, eval = FALSE}
+plot(x = mtcars$mpg, y = mtcars$cyl)
+```
+:::
+
+::: {.column width="50%"}
+By order:
+
+```{r, echo = TRUE, eval = FALSE}
+plot(mtcars$mpg, mtcars$cyl)
+```
+:::
+:::
+
+. . .
+
+With correct position, do not need to specify by name
+
+## Functions take arguments to work II
+
+. . .
+
+### Some are necessary, some are optional
+
+::: columns
+::: {.column width="50%"}
+Necessary:
+
+```{r, eval = FALSE, echo = TRUE}
+mean()
+
+```
+
+The above line would throw you an error.
+
+```{r, eval = TRUE, echo = TRUE}
+mean(x = c(2, 4, 5, 6, 7, NA))
+
+```
+:::
+
+::: {.column width="50%"}
+Optional:
+
+```{r, eval = TRUE, echo = TRUE}
+mean(x = c(2, 4, 5, 6, 7, NA))
+```
+
+The code ran, but not the result we wanted.
+
+```{r, eval = TRUE, echo = TRUE}
+mean(x = c(2, 4, 5, 6, 7, NA), 
+     na.rm = TRUE)
+```
+:::
+:::
+
+. . .
+
+### How can I know the arguments of a function?
+
+Take advantage of the help function!
+
+```{r, eval = FALSE, echo = TRUE}
+
+?mean()
+?plot()
+?sd()
+```
+
+## Functions
+
+::: columns
+::: {.column width="20%"}
+```{r, eval = FALSE, echo = TRUE}
+?mean()
+
+```
+:::
+
+::: {.column width="80%"}
+![](images/paste-29E3A03A.png)
+:::
+:::
+
+-   Arguments without default values are necessary -\> R will throw you errors if you don't define them
+
+-   Arguments with default values are optional -\> R will take default value if you don't give it a value
+
+## Package
+
+> A collection of functions for a specific task. Once you install/call the package, you can use all the functions inside that package.
+
+-   `dplyr`: include functions for data wrangling
+
+-   `ggplot2`: include functions for data visualization
+
+-   `terra`: include functions for spatial analysis
+
+### To use a package, you need to install and call
+
+::: columns
+::: {.column width="50%"}
+Install package: only need do it once in your lifte time
+
+```{r, eval = FALSE, echo = TRUE}
+
+install.packages("dplyr")
+install.packages("ggplot2")
+
+```
+:::
+
+::: {.column width="50%"}
+Call package: need to do it every time when you reopen R
+
+```{r, eval = FALSE, echo = TRUE}
+
+library(dplyr)
+library(ggplot2)
+
+```
+:::
+:::
+
+## Advanced : create your own function I
+
+![](https://www.rforecology.com/functions_image0_new.png)
+
+## Advanced : create your own function II
+
+```{r, echo = TRUE}
+
+standard_error <- function(data){
+  n <- length(data)
+  sd <- sd(data)
+  se <- sd/sqrt(n)
+  
+  return(se)
+}
+
+se_my_data <- standard_error(c(2, 5, 8, 7, 9, 8, 9, 1, 5, 4))
+se_my_data
+```
+
+# R Basic: Data types
+
+Remember we learned about objects, which can store contents? The contents can be a variety of data types.
+
+## Each object has a data type
+
+::: columns
+::: {.column width="50%"}
+Common data types
+
+| Type        | Example            |
+|-------------|--------------------|
+| `numeric`   | 5, 7.6, 8.3        |
+| `integer`   | 1, 5, 6, 9         |
+| `character` | "Hi", "I am tired" |
+| `factor`    | "L", "M", "H"      |
+| `logical`   | TRUE or FALSE      |
+:::
+
+::: {.column width="50%"}
+To create, use `<-` operator
+
+```{r, echo = TRUE}
+a <- "hi"
+b <- "56.4"
+```
+
+To check, use `class()` function
+
+```{r, echo = TRUE}
+class(b)
+```
+
+To change, use `as.numeric()` function
+
+```{r, echo = TRUE}
+as.numeric(b)
+```
+:::
+:::
+
+To change the data type of an object, there are also `as.character()`, `as.factor()`, `as.integer()`, etc...
+
+## Store data
+
+We usually store data as `vectors` or `dataframs/tibbles`
+
+::: columns
+::: {.column width="30%"}
+### Vector
+
+### (1 dimension)
+
+```{r, echo = TRUE}
+
+a <- c("a", "b", "c")
+a
+
+```
+:::
+
+::: {.column width="70%"}
+### Data frame
+
+### (2 dimensions)
+
+```{r, echo = TRUE}
+
+d <- tibble(letters = c("a", "b", "c"),
+            numbers = c(1, 3, 4),
+            treat = c("control", "control", "control"))
+d
+
+```
+:::
+:::
+
+## Vector
+
+### To create
+
+-   Use `c()` and separate elements by `,`
+
+-   Vectors can only store one data type, no matter how hard you try
+
+```{r, echo = TRUE, eval = TRUE}
+
+a <- c(2, 3, 4, 6:8)
+class(a)
+
+b <- c("I", "Love", "R")
+class(b)
+
+c <- c("way", 2, "go")
+class(c)
+```
+
+## Vector
+
+### To check
+
+-   `length(v)` How long is the vector?
+
+```{r, echo = TRUE, eval = TRUE}
+length(a)
+```
+
+-   `v[2]` What's the second element in the vector?
+
+```{r, echo = TRUE, eval = TRUE}
+a[2]
+```
+
+-   `4 %in% v` Is 4 an element in the vector?
+
+```{r, echo = TRUE, eval = TRUE}
+4 %in% a
+```
+
+## Vector
+
+### To add values
+
+-   `c(v, NEW_ELE)` Add some new elements
+
+```{r, echo = TRUE}
+d <- c(a, "here", "are", 5, "new", "values")
+d
+```
+
+### To do math on vectors
+
+::: columns
+::: {.column width="50%"}
+-   What are the mean and sd?
+
+```{r, echo = TRUE}
+mean(a)
+sd(a)
+
+```
+:::
+
+::: {.column width="50%"}
+-   What are the max and min?
+
+```{r, echo = TRUE}
+max(a)
+min(a)
+
+```
+:::
+:::
+
+## Dataframe/tibble
+
+### To create
+
+1.  Import csv file by `read_csv()`, excel file by `read_xlsx()`, or text file by `read_delim()`
+
+```{r, echo = TRUE, eval = FALSE}
+import_data <- read_csv("./example_data.csv")
+```
+
+2.  Use `tibble()` to create one from scratch
+
+```{r, eval = TRUE, echo = TRUE}
+
+df <- tibble(Name = c("Jon", "Bill", "Maria", "Ben", "Tina"),
+             Age = c(23, 41, 32, 58, 26))
+df
+```
+
+## Dataframe/tibble
+
+### To create (con'd)
+
+3.  Use R built in data set such as `iris`
+
+```{r, echo = TRUE, eval = FALSE}
+iris
+```
+
+```{r, echo = FALSE, eval = TRUE}
+iris %>% head(3)
+```
+
+4.  Use data set that stored in packages, such as `penguin` in the `palmerpenguins` package
+
+```{r, echo = TRUE}
+library(palmerpenguins)
+penguins
+```
+
+## Dataframe/tibble
+
+### To check
+
+-   `view()` How the dataset look like?
+
+```{r, echo = TRUE, eval = FALSE}
+view(iris)
+```
+
+-   `head()` What is the first few rows (default = 6)?
+
+```{r, echo = TRUE}
+head(iris)
+```
+
+-   `dim()` Dimension of the data set
+
+```{r, echo = TRUE}
+dim(iris)
+```
+
+## Dataframe/tibble
+
+### To check (con'd)
+
+-   `colnames()` What are the variables measured (column names)?
+
+```{r, echo = TRUE}
+colnames(iris)
+```
+
+-   `df[1, ]` What is the first row?
+
+```{r, echo = TRUE}
+iris[1, ]
+```
+
+-   `df[c(1, 5), ]` What are the first and fifth rows?
+
+```{r, echo = TRUE}
+iris[c(1, 5), ]
+```
+
+## Dataframe/tibble
+
+### To check (con'd)
+
+-   `df[ , 1]`, `df$col_name`, or `pull(df, col_name)` What is the first column?
+
+```{r, echo = TRUE, eval = FALSE}
+iris[ , 1]
+
+iris$Petal.Length
+
+pull(iris, "Petal.Length")
+```
+
+-   `df[2, 3]` What is the value in the 2nd row and 3rd column?
+
+```{r, echo = TRUE}
+iris[2, 3]
+```
+
+## Dataframe/tibble
+
+### To add rows/columns
+
+-   `bind_row()` Add more rows
+
+-   `bind_col()` Add more columns
+
+### To joint two data frames
+
+-   `left_join()`
+
+-   `right_join()`
+
+-   `full_join()`
+
+## Dataframe/tibble
+
+### To sample
+
+-   `slice_sample()` Select samples (rows) from a data frame
+
+::: columns
+::: {.column width="50%"}
+Simple random sampling
+
+```{r, echo = TRUE}
+iris_sub <- slice_sample(iris, n = 15) 
+
+table(iris_sub$Species)
+
+
+```
+:::
+
+::: {.column width="50%"}
+Stratified sampling
+
+```{r, echo = TRUE}
+iris_sub <- slice_sample(iris, n = 5, 
+                         by = "Species") 
+
+table(iris_sub$Species)
+
+```
+:::
+:::
+
+## Dataframe/tibble
+
+### Descriptive statistics of data
+
+1.  Pull the column that you are interested
+
+```{r, echo = TRUE}
+iris_p_length <- pull(iris, "Petal.Length")
+```
+
+2.  Calculate the statistics
+
+```{r, echo = TRUE}
+
+
+
+mean(iris_p_length)
+sd(iris_p_length)
+cor(iris[, 1:4])
+
+```
+
+# R Others: Miscellaneous
+
+Here is some advanced materials if you are comfortable and familiar with the content above
+
+## Improving code readability
+
+### Space
+
+Use space like you would in speaking
+
+```{r, echo = TRUE, eval = FALSE}
+a <- mean(c(4, 10, 13))
+```
+
+This is easier to read than
+
+```{r, echo = TRUE, eval = FALSE}
+a<-mean(c(4,10,13))
+
+```
+
+## Improving code readability
+
+### Line breaks
+
+Don't be afraid to break the lines. Do you like this?
+
+```{r, echo= TRUE, eval = FALSE}
+a <- tibble(exp = c("A", "B", "A", "B", "A", "B"),
+            sub = c("A1", "A1", "A2", "A2", "A3", "A3"),
+            res = c(10, 12, 45, 12, 12, 13))
+
+```
+
+Or this?
+
+```{r, echo = TRUE, eval = FALSE}
+a <- tibble(exp = c("A", "B", "A", "B", "A", "B"), sub = c("A1", "A1", "A2", "A2", "A3", "A3"), res = c(10, 12, 45, 12, 12, 13))
+
+```
+
+# Lab assignment
+
+## Your task I
+
+1.  Call two packages `palmerpenguins` and `tidyverse`
+2.  Take a look at the dataframe `penguin`
+    -   Check the dimension, how many penguins are there, what kind of measurements?
+
+    -   What are the measurements of the first penguin?
+
+    -   What are all the `flipper_length_mm` measurements?
+
+    -   Is "King" one of the species that included in the `species` column?
+
+![](images/paste-B35E8558.png){fig-align="center"}
+
+## Your task II
+
+3.  Create a subset of data `penguin_sub`, with 60 individuals random sampled from `penguin`
+4.  Find the mean and standard deviation of flipper length, using `penguin_sub`
+5.  Save these two values as `flipper_length_mean` and `flipper_length_sd`
+6.  (Bonus) Instead of simple random sampling, use stratified sampling based on penguin species to select 60 penguins (20 penguins each speceis). Calculate the mean and standard deviation of the flipper length based on this new sample.
+
+### Hints
+
+1.  use `install.packages()` and `library()`
+2.  `penguin` is an object that stores a tibble, use `dim()` and `view()`
+3.  use `slice_sample()`
+4.  use `mean()` and `sd()`
+5.  use `<-`
+6.  use `slice_sample()`, check the function arguments
+
+## Submission
+
+### Due next Wednesday 23:59 pm, Moodle
+
+### Evaluation
+
+-   File name and type (NRES776\_*firstname*\_*lastname*\_lab_1.R) (40%)
+
+-   Accuracy of the code (5%, 20%, 10%, 20%, 5%)
+
+-   Bonus points for extra question, readable code, efficient programming (30%)
+
+### Use of ChatGPT, stackflow, or...
+
+-   Copy/Paste is your friend! (and never apologize for it!) 😍
+
+-   But be sure you understand **why** the codes are doing what they are doing 🧑‍🎓
+
+-   So that you form some new neuron connections in the brain 🧠
+
+## Quiet/Noisy room
+
+![](images/d6b4f8cb-53bf-49d5-822c-e45cd01204a4.png){fig-align="center" width="867"}
+
+::: footer
+Artwork by @allison_horst
+:::
+
+## Wrap up
+
+### Before we meet again
+
+-   Have a nice food intake
+
+-   Have a nap
+
+-   Have a good break
+
+### Next time
+
+-   Will see you in 1.5 hours on zoom!

@@ -22,19 +22,17 @@ editor: visual
 
 ## Our schedule today
 
--   Announcement (5 min)
+-   Announcement and recap (5 min)
 
--   Key concepts for scientific data visualization (10 min)
+-   Data visualization background (10 min)
 
--   Types of plots (30 min)
+-   Plot types (30 min)
 
 -   Wrap up (5 min)
 
-## Announcements
+## Announcement and recap
 
 -   Considering keep the video on (but you have absolute right for privacy)
-
--   For lab 1, add `set.seed(100)` to your script as one line, so that you will have the same random selection all the time (I will get the same value as you reported)
 
 -   UNBC [Applied Analysis Hub](https://unbcaah.opened.ca/ta-office-hours/) workshop today!
 
@@ -42,23 +40,25 @@ editor: visual
 
 ### Recap
 
--   Concept of random variable
+-   We collect sample to understand population
 
--   Different data types (continuous vs categorical)
+-   We use data from samples to answer ecological questions
 
--   Probability distributions
+-   How can show data by descriptive statistics
 
-# How the data look like?
-
-Using visualization to convey your research results is a key skill to have!
+-   Can we do more?
 
 ## Data visualization
 
->
->
-> Data visualization is the representation of data through use of common graphics, such as charts, plots, infographics, and even animations.
+Data visualization is the representation of data through use of common graphics, such as charts, plots, infographics, and even animations.
 
--   table vs figures: human's brain is lazy
+## The goal
+
+> The goal of data visualization in data analysis is to improve understanding of the data.
+
+### 
+
+-   le vs figures: human's brain is lazy
 
 -   figures vs figures: use the figure best convey the message you want to elaborate
 
@@ -67,8 +67,6 @@ Using visualization to convey your research results is a key skill to have!
 -   Concise, Accurate, Interpretable
 
 -   Make them pretty! (selection of colour, size of the font, how to put several plots together, etc)
-
-# Commonly used scientific plots
 
 ## Penguin data
 
@@ -92,7 +90,11 @@ glimpse(penguins)
 Artwork by @allison_horst
 :::
 
-## Histogram (1 continuous var.)
+# Histogram
+
+## Histogram: basic
+
+### 1 continuous variable
 
 > A histogram is an approximate representation of the distribution of numberical data
 
@@ -102,7 +104,9 @@ ggplot(data = penguins, aes(x = flipper_length_mm)) +
   geom_histogram(alpha = 0.5, position = "identity") 
 ```
 
-## Histogram (1 continuous var.)
+## Histogram: add one more var
+
+### 1 continuous variable
 
 Add one more **categorical** variable by **facet** (e.g., `sex`)
 
@@ -122,7 +126,11 @@ ggplot(data = penguins, aes(x = flipper_length_mm)) +
   scale_fill_manual(values = c("darkorange","darkorchid","cyan4"))
 ```
 
-## Bar plot (1 categorical var.)
+# Bar plot
+
+## Bar plot: basic with 
+
+### 1 categorical variable
 
 > A bar plot, or bar chart, is a graph that presents categorical data with rectangular bars with heights or lengths proportional to the values that they represent
 
@@ -133,7 +141,7 @@ ggplot(penguins, aes(x = island)) +
   coord_flip()
 ```
 
-## Bar plot (1 categorical var.)
+## Bar plot: add one more var by colour, grouped
 
 Add one more **categorical** variable using **colour** and **facet** at the same time (e.g., `species`)
 
@@ -147,21 +155,31 @@ ggplot(penguins, aes(x = island, fill = species)) +
   coord_flip()
 ```
 
-## Scatter plot (continuous x, continuous y)
+## Bar plot: add one more var by colour, facet
 
-## Box plot (categorical x, continuous y)
+## Bar plot: add one more var by colour, stacked
 
-## You can always add variables by
+Add one more **categorical** variable using **colour**
 
--   point shape
+## Bar plot: add one more var by colour, stacked %
 
--   point size (bubble plot)
+Add one more **categorical** variable using **colour**
 
--   colour
+## Bar plot: add group information, stacked with % 
 
--   alpha
+Add one more **categorical** variable using **colour**
 
--   ...
+# Scatter plot
+
+## Scatter plot: basic
+
+### 2 continuous variables
+
+# Box plot
+
+## Box plot: basic
+
+## 1 categorical, and 1 continuous
 
 ## Get inspired by other people's work
 
