@@ -1392,8 +1392,8 @@
 </div>
 </div>
 </section>
-<section id="dastaframetibble" class="slide level2">
-<h2>Dastaframe/tibble</h2>
+<section id="dataframetibble" class="slide level2">
+<h2>Dataframe/tibble</h2>
 <h3 id="to-create-1">To create</h3>
 <ol type="1">
 <li class="fragment">Import csv file by <code>read_csv()</code>, excel file by <code>read_xlsx()</code>, or text file by <code>read_delim()</code></li>
@@ -1420,8 +1420,8 @@
 </div>
 </div>
 </section>
-<section id="dastaframetibble-1" class="slide level2">
-<h2>Dastaframe/tibble</h2>
+<section id="dataframetibble-1" class="slide level2">
+<h2>Dataframe/tibble</h2>
 <h3 id="to-create-cond">To create (con’d)</h3>
 <ol start="3" type="1">
 <li class="fragment">Use R built in data set such as <code>iris</code></li>
@@ -1462,8 +1462,8 @@
 </div>
 </div>
 </section>
-<section id="dastaframetibble-2" class="slide level2">
-<h2>Dastaframe/tibble</h2>
+<section id="dataframetibble-2" class="slide level2">
+<h2>Dataframe/tibble</h2>
 <h3 id="to-check-1">To check</h3>
 <ul>
 <li class="fragment"><code>view()</code> How the dataset look like?</li>
@@ -1496,8 +1496,8 @@
 </div>
 </div>
 </section>
-<section id="dastaframetibble-3" class="slide level2">
-<h2>Dastaframe/tibble</h2>
+<section id="dataframetibble-3" class="slide level2">
+<h2>Dataframe/tibble</h2>
 <h3 id="to-check-cond">To check (con’d)</h3>
 <ul>
 <li class="fragment"><code>colnames()</code> What are the variables measured (column names)?</li>
@@ -1530,8 +1530,8 @@
 </div>
 </div>
 </section>
-<section id="dastaframetibble-4" class="slide level2">
-<h2>Dastaframe/tibble</h2>
+<section id="dataframetibble-4" class="slide level2">
+<h2>Dataframe/tibble</h2>
 <h3 id="to-check-cond-1">To check (con’d)</h3>
 <ul>
 <li class="fragment"><code>df[ , 1]</code>, <code>df$col_name</code>, or <code>pull(df, col_name)</code> What is the first column?</li>
@@ -1553,8 +1553,8 @@
 </div>
 </div>
 </section>
-<section id="dastaframetibble-5" class="slide level2">
-<h2>Dastaframe/tibble</h2>
+<section id="dataframetibble-5" class="slide level2">
+<h2>Dataframe/tibble</h2>
 <h3 id="to-add-rowscolumns">To add rows/columns</h3>
 <ul>
 <li class="fragment"><p><code>bind_row()</code> Add more rows</p></li>
@@ -1567,8 +1567,8 @@
 <li class="fragment"><p><code>full_join()</code></p></li>
 </ul>
 </section>
-<section id="dastaframetibble-6" class="slide level2">
-<h2>Dastaframe/tibble</h2>
+<section id="dataframetibble-6" class="slide level2">
+<h2>Dataframe/tibble</h2>
 <h3 id="to-sample">To sample</h3>
 <ul>
 <li class="fragment"><code>slice_sample()</code> Select samples (rows) from a data frame</li>
@@ -1583,7 +1583,7 @@
 <div class="cell-output cell-output-stdout">
 <pre><code>
     setosa versicolor  virginica 
-         4          7          4 </code></pre>
+         4          6          5 </code></pre>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -1602,11 +1602,11 @@
 </div>
 </div>
 </section>
-<section id="dastaframetibble-7" class="slide level2">
-<h2>Dastaframe/tibble</h2>
+<section id="dataframetibble-7" class="slide level2">
+<h2>Dataframe/tibble</h2>
 <h3 id="descriptive-statistics-of-data">Descriptive statistics of data</h3>
 <ol type="1">
-<li class="fragment">Pull the column that you are intereste</li>
+<li class="fragment">Pull the column that you are interested</li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb122"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1"></a>iris_p_length <span class="ot">&lt;-</span> <span class="fu">pull</span>(iris, <span class="st">"Petal.Length"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1661,7 +1661,7 @@ Petal.Width     0.8179411  -0.3661259    0.9628654   1.0000000</code></pre>
 </div>
 <p>Or this?</p>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1"></a>a <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">exp =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>), <span class="at">sub =</span> <span class="fu">c</span>(<span class="st">"A1"</span>, <span class="st">"A1"</span>, <span class="st">"A2"</span>, <span class="st">"A2"</span>, <span class="st">"A3"</span>, <span class="st">"A3"</span>), <span class="at">res =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">45</span>, <span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">13</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>

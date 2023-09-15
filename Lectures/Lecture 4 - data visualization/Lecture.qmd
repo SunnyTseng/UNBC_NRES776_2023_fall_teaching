@@ -9,10 +9,12 @@ format:
     #css: styles.css
     #footer: <https://quarto.org>
     theme: [default, styles.scss]
-    smaller: true
+    #smaller: true
     #scrollable: true
     incremental: true
     embed-resources: true
+    width: 1200
+    fontsize: 1.7em
 editor: visual
 ---
 
@@ -28,9 +30,11 @@ editor: visual
 
 -   Wrap up (5 min)
 
-## Announcement {.smaller}
+## Announcements
 
--   Considering keep the video on (but you have absolute right for privacy)!
+-   Considering keep the video on (but you have absolute right for privacy)
+
+-   For lab 1, add `set.seed(100)` to your script as one line, so that you will have the same random selection all the time (I will get the same value as you reported)
 
 -   UNBC [Applied Analysis Hub](https://unbcaah.opened.ca/ta-office-hours/) workshop today!
 
@@ -44,19 +48,25 @@ editor: visual
 
 -   Probability distributions
 
-# But in reality, how the data look like?
+# How the data look like?
 
 Using visualization to convey your research results is a key skill to have!
 
 ## Data visualization
 
+>
+>
+> Data visualization is the representation of data through use of common graphics, such as charts, plots, infographics, and even animations.
+
 -   table vs figures: human's brain is lazy
 
 -   figures vs figures: use the figure best convey the message you want to elaborate
 
--   use of colour, shape, transparent, line type, etc.
+-   Make better use of colour, shape, transparent, line type, etc.
 
 -   Concise, Accurate, Interpretable
+
+-   Make them pretty! (selection of colour, size of the font, how to put several plots together, etc)
 
 # Commonly used scientific plots
 
@@ -82,7 +92,7 @@ glimpse(penguins)
 Artwork by @allison_horst
 :::
 
-## Histogram (1var, continuous)
+## Histogram (1 continuous var.)
 
 > A histogram is an approximate representation of the distribution of numberical data
 
@@ -92,9 +102,9 @@ ggplot(data = penguins, aes(x = flipper_length_mm)) +
   geom_histogram(alpha = 0.5, position = "identity") 
 ```
 
-## Histogram (1var, continuous)
+## Histogram (1 continuous var.)
 
-Add one more categorical variable by **facet** (e.g., `sex`)
+Add one more **categorical** variable by **facet** (e.g., `sex`)
 
 ```{r}
 # Histogram example: flipper length by gender
@@ -103,7 +113,7 @@ ggplot(data = penguins %>% drop_na(sex), aes(x = flipper_length_mm)) +
   facet_wrap(~sex)
 ```
 
-Add one more categorical variable by changing **colour** (e.g., `species`)
+Add one more **categorical** variable by changing **colour** (e.g., `species`)
 
 ```{r}
 # Histogram example: flipper length by species
@@ -112,7 +122,7 @@ ggplot(data = penguins, aes(x = flipper_length_mm)) +
   scale_fill_manual(values = c("darkorange","darkorchid","cyan4"))
 ```
 
-## Bar plot (1var, categorical)
+## Bar plot (1 categorical var.)
 
 > A bar plot, or bar chart, is a graph that presents categorical data with rectangular bars with heights or lengths proportional to the values that they represent
 
@@ -123,9 +133,9 @@ ggplot(penguins, aes(x = island)) +
   coord_flip()
 ```
 
-## Bar plot (1var, categorical)
+## Bar plot (1 categorical var.)
 
-Add one more categorical variable using **colour** and **facet** at the same time (e.g., `species`)
+Add one more **categorical** variable using **colour** and **facet** at the same time (e.g., `species`)
 
 ```{r}
 ggplot(penguins, aes(x = island, fill = species)) +
@@ -137,11 +147,11 @@ ggplot(penguins, aes(x = island, fill = species)) +
   coord_flip()
 ```
 
-## Scatter plot (2var, continuous x, continuous y)
+## Scatter plot (continuous x, continuous y)
 
-## Box plot (2var, discrete x, continuous y)
+## Box plot (categorical x, continuous y)
 
-## You can always add dimension by
+## You can always add variables by
 
 -   point shape
 

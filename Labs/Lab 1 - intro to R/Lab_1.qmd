@@ -931,7 +931,7 @@ min(a)
 :::
 :::
 
-## Dastaframe/tibble
+## Dataframe/tibble
 
 ### To create
 
@@ -950,7 +950,7 @@ df <- tibble(Name = c("Jon", "Bill", "Maria", "Ben", "Tina"),
 df
 ```
 
-## Dastaframe/tibble
+## Dataframe/tibble
 
 ### To create (con'd)
 
@@ -971,7 +971,7 @@ library(palmerpenguins)
 penguins
 ```
 
-## Dastaframe/tibble
+## Dataframe/tibble
 
 ### To check
 
@@ -993,7 +993,7 @@ head(iris)
 dim(iris)
 ```
 
-## Dastaframe/tibble
+## Dataframe/tibble
 
 ### To check (con'd)
 
@@ -1015,7 +1015,7 @@ iris[1, ]
 iris[c(1, 5), ]
 ```
 
-## Dastaframe/tibble
+## Dataframe/tibble
 
 ### To check (con'd)
 
@@ -1035,7 +1035,7 @@ pull(iris, "Petal.Length")
 iris[2, 3]
 ```
 
-## Dastaframe/tibble
+## Dataframe/tibble
 
 ### To add rows/columns
 
@@ -1051,7 +1051,7 @@ iris[2, 3]
 
 -   `full_join()`
 
-## Dastaframe/tibble
+## Dataframe/tibble
 
 ### To sample
 
@@ -1083,11 +1083,11 @@ table(iris_sub$Species)
 :::
 :::
 
-## Dastaframe/tibble
+## Dataframe/tibble
 
 ### Descriptive statistics of data
 
-1.  Pull the column that you are intereste
+1.  Pull the column that you are interested
 
 ```{r, echo = TRUE}
 iris_p_length <- pull(iris, "Petal.Length")
@@ -1141,7 +1141,7 @@ a <- tibble(exp = c("A", "B", "A", "B", "A", "B"),
 
 Or this?
 
-```{r}
+```{r, echo = TRUE, eval = FALSE}
 a <- tibble(exp = c("A", "B", "A", "B", "A", "B"), sub = c("A1", "A1", "A2", "A2", "A3", "A3"), res = c(10, 12, 45, 12, 12, 13))
 
 ```

@@ -1,18 +1,20 @@
 ---
-title: "NRES 776 Lecture 3"
-subtitle: "Probability distributions"
+title: "NRES 776 Lecture 5"
+subtitle: "Sampling distribution and central limit theorem"
 author: Sunny Tseng
 format:
   revealjs: 
     slide-number: true
     preview-links: auto
-    css: styles.css
+    #css: styles.css
     #footer: <https://quarto.org>
     theme: [default, styles.scss]
-    smaller: true
+    #smaller: true
     #scrollable: true
     incremental: true
     embed-resources: true
+    width: 1200
+    fontsize: 1.7em
 editor: visual
 ---
 
@@ -20,9 +22,9 @@ editor: visual
 
 -   Announcement (5 min)
 
--   Random variables (15 min)
+-   Concept of sampling distribution (20 min)
 
--   Probability distribution (25 min)
+-   Central limit theorem (20 min)
 
 -   Wrap up (5 min)
 
@@ -36,74 +38,13 @@ editor: visual
 Artwork by @allison_horst
 :::
 
-# Understand your variable
+# Sampling distribution
 
-## Random variable
+Just another type of probability distribution? No. It is not a type of probability distribution.
 
-> Random variable: a variable whose value has probability associated to each value of the set. A easier way to understnd: the value that you are interested in.
+## The distribution of the *samples*
 
-Always use capital letters like $X$, $Y$, or $Z$ to represent a random variable
-
-e.g., deer height, deer weight, number of trees in a plot
-
-e.g., age of a student in the class $X$
-
-::: columns
-::: {.column width="50%"}
-```{r, eval = TRUE, echo = FALSE}
-# load library rcompanion
-library(rcompanion)
-  
-# create data vector
-x= c(rnorm(n = 30, mean = 26, sd = 1.2))
-  
-# draw plot
-plotNormalHistogram(x, prob = TRUE,
-                      main = "Age of our class",
-                      length = 1000 )
-```
-:::
-
-::: {.column width="50%"}
-<div>
-
-The probability of $X$ being a certain value:
-
-$$
-P(X = 26) = 0.3
-$$
-
-</div>
-:::
-:::
-
-Random variable can be either continuous or categorical.
-
-## Continuous vs categorical
-
--   Continuous variable: can have infinite values within possible range `numeric()`
-
--   Categorical (discrete) variable: can only exist at limited values
-
-![](images/paste-8AAA3711.png){fig-align="center" width="634"}
-
-::: aside
-Artwork by @allison_horst
-:::
-
-## Within categorical variable, there are:
-
--   Nominal: unordered descriptions `character()`
-
--   Ordinal: ordered descriptions `factor()`
-
--   Binary: only 2 mutually exclusive outcomes `logical()`
-
-![](images/paste-8F12C5B9.png){fig-align="center" width="622"}
-
-::: aside
-Artwork by @allison_horst
-:::
+> A probability distribution of a statistic that is obtained through repeated sampling of a specific population.
 
 # Probability distribution
 
@@ -208,9 +149,8 @@ For example, there is a population $\sim N(0, 1^2)$
 
 -   sample A (n = 7) -\> $\bar{x_A} = 0.5$
 
-```{=html}
 <!-- -->
-```
+
 -   sample B (n = 7) -\> $\bar{x_B} = 1.2$
 
 -   ...
@@ -281,9 +221,11 @@ p + stat_function(fun = dchisq, args = list(df = 2), color = "#84CA72", size = 1
 
 ## What we learned
 
--   Random variable is the "thing" that you are interested in
--   Random variable can be continuous or categorical
--   Every random variable is associated with a probability distribution
+-   Concept of sampling distribution
+-   Central limit theorem tells us
+    -   mean of the sampling distribution is a good estimate of the population mean
+
+    -   sd of the sampling distribution is called standard error
 
 ## Wrap up
 
