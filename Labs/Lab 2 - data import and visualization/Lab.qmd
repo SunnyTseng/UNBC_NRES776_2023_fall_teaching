@@ -90,7 +90,7 @@ With `ggplot2` and `patchwork` package
 
 Using `palmerpenguins` as example
 
-## wow `ggplot()`! 
+## wow `ggplot()`!
 
 ## Plots are created in layers
 
@@ -106,13 +106,31 @@ Using `palmerpenguins` as example
 
 ## Selection of colours
 
-## Put figures together 
+## Put figures together
 
 ## Export figure
 
 -   By RStudio
 
 -   By save_image into different types
+
+# Error Shooting 
+
+## What's wrong?
+
+-   no installation of package
+
+-   no bracket
+
+-   wrong kind of bracket
+
+-   ggplot2 package but the function is ggplot haha
+
+-   no geom\_() specified
+
+-   the theme is not working because of the sequence
+
+-   fill and colour in bar plot!
 
 # R Others: Miscellaneous
 
@@ -155,7 +173,7 @@ a <- tibble(exp = c("A", "B", "A", "B", "A", "B"), sub = c("A1", "A1", "A2", "A2
 
 ```
 
-### Short cuts 
+### Short cuts
 
 -   Ctrl + Enter
 
