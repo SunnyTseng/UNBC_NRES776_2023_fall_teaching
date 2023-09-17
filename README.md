@@ -26,6 +26,8 @@ This is the website materials for the lectures and labs for NRES 776 at UNBC.
 
 - [Introduction to Data Science](https://rafalab.dfci.harvard.edu/dsbook/)
 
+- [Tidyverse Skills for Data Science](https://jhudatascience.org/tidyversecourse/)
+
 ## Teaching notes
 
 ### Week 1
