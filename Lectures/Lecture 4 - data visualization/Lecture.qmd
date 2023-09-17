@@ -18,25 +18,41 @@ format:
 editor: visual
 ---
 
+```{r setup, include = FALSE, cache=FALSE}
+library(palmerpenguins)
+library(tidyverse)
+theme_set(theme_minimal())
+```
+
 # Happy Tuesday!
 
 ## Our schedule today
 
--   Announcements and recap (5 min)
+::: columns
+::: {.column width="50%"}
+-   Announcements (5 min)
+
+<!-- -->
 
 -   Data visualization background (10 min)
 
 -   Plot types (30 min)
 
 -   Wrap up (5 min)
+:::
+:::
 
 ## Announcements
 
--   Plans for the discussion paper presentation on Thursday lab
+::: columns
+::: {.column width="50%"}
+-   Discussion paper presentation
 
-    -   3 presenters - 18 mins split room discussion - 2 mins wrap up
+    -   15 mins for 3 presenters
+    -   18 mins split room discussion
+    -   2 mins wrap up
 
--   UNBC [Applied Analysis Hub](https://unbcaah.opened.ca/ta-office-hours/) workshop today!
+-   UNBC [Applied Analysis Hub](https://unbcaah.opened.ca/workshops/) workshop today!
 
 -   How was your week?
 
@@ -49,6 +65,14 @@ editor: visual
 -   How can show data by descriptive statistics
 
 -   Can we do more?
+:::
+
+::: {.column width="50%"}
+![](images/AAH%20workshop-01.jpg)
+:::
+:::
+
+### 
 
 # Data Visualization Background
 
@@ -58,35 +82,83 @@ Data visualization is the representation of data through use of common graphics,
 
 > The goal of data visualization is to improve understanding of the data
 
--   text \< table \<- plot
+-   The island Biscoe has the most penguin individuals, followed by island Dream and island Biscoe
+-   The Torgersen island only has one penguin species
+
+::: columns
+::: {.column width="40%"}
+|           | Biscoe | Dream | Torgersen |
+|-----------|--------|-------|-----------|
+| Adelie    | 44     | 56    | 52        |
+| Chinstrap | 0      | 68    | 0         |
+| Gentoo    | 124    | 0     | 0         |
+:::
+
+::: {.column width="60%"}
+```{r}
+ggplot(penguins, aes(x = island)) +
+  geom_bar(alpha = 0.8, aes(fill = species)) +
+  theme_minimal() +
+  coord_flip() +
+  scale_fill_manual(values = c("darkorange","darkorchid","cyan4")) + 
+  theme(text = element_text(size = 24))
+```
+:::
+:::
 
 ## Right type of plot
 
-> What's the message you want to say?
+> Choose an appropriate plot for the data you are visualizing
+
+![](images/paste-64F95A87.png){fig-align="center" width="1127"}
+
+::: aside
+Figure from https://jhudatascience.org/tidyversecourse/dataviz.html#plot-types
+:::
 
 ## Colours
 
-> Colour blind audience, strong contrast but comfortable to read
+> Colour blind audience, strong contrast, comfortablility to read
+
+![](images/paste-39DFFA56.png){fig-align="center" width="696"}
+
+::: aside
+Figure from https://jhudatascience.org/tidyversecourse/dataviz.html#plot-types
+:::
 
 ## Label and axes
 
 > Font size, starting axis from 0, or do you even have it?
 
+![](images/paste-D8344785.png){fig-align="center" width="673"}
+
+::: aside
+Figure from https://jhudatascience.org/tidyversecourse/dataviz.html#plot-types
+:::
+
 ## Correctness of your data
 
 > The numbers should add up to 100%. Proportion should reflect the size/length, etc.
+
+![](images/paste-C2E420C1.png){fig-align="center" width="662"}
+
+::: aside
+Figure from https://jhudatascience.org/tidyversecourse/dataviz.html#plot-types
+:::
 
 ## Keep it simple
 
 > One purpose, or key message, per plot
 
+![](images/paste-C4A61F19.png){fig-align="center" width="554"}
+
+::: aside
+Figure from https://jhudatascience.org/tidyversecourse/dataviz.html#plot-types
+:::
+
 ## Penguin data
 
 ```{r}
-library(palmerpenguins)
-library(tidyverse)
-theme_set(theme_minimal())
-
 penguins <- penguins %>%
   mutate(year = as.factor(year))
 ```
@@ -95,11 +167,11 @@ penguins <- penguins %>%
 glimpse(penguins)
 ```
 
--   3 categorical variables
+-   4 categorical variables
 
 -   4 continuous variables
 
-![](images/lter_penguins.png){.absolute top="200" right="0" width="620" height="450"}
+![](images/lter_penguins.png){.absolute top="200" right="0" width="650" height="450"}
 
 ::: aside
 Artwork by @allison_horst
@@ -111,18 +183,28 @@ Artwork by @allison_horst
 
 ### 1 continuous variable
 
-> A histogram is an approximate representation of the distribution of numberical data
+> A histogram is used to study the distribution of one variable, by depicting the frequencies of observations occurring in certain ranges of values.
 
+::: columns
+::: {.column width="70%"}
 ```{r}
 # Histogram example: flipper length by species
 ggplot(data = penguins, aes(x = flipper_length_mm)) +
   geom_histogram(alpha = 0.5, position = "identity") +
   theme(text = element_text(size = 24))
 ```
+:::
 
-## Histogram: colour
+::: {.column width="30%"}
+-   x-axis: the bins that covers the range of a continuous variable
 
-Add one more **categorical** variable using **colour** (e.g., `species`)
+-   y-axis: the count, or frequency, of cases in each bin
+:::
+:::
+
+## Histogram: stacked
+
+Add one more **categorical** variable using **colour**, with **stacked** bins (e.g., `species`)
 
 ::: columns
 ::: {.column width="50%"}
@@ -139,13 +221,47 @@ ggplot(data = penguins, aes(x = flipper_length_mm)) +
 # Histogram example: flipper length by species 
 ggplot(data = penguins, aes(x = flipper_length_mm)) +   
   geom_histogram(aes(fill = species), 
-                 alpha = 0.5, 
+                 alpha = 0.5) +   
+  scale_fill_manual(values = c("darkorange","darkorchid","cyan4")) +   
+  theme(text = element_text(size = 24))
+```
+:::
+:::
+
+-   Separate three species by the **colour**
+
+-   The distribution of `flipper length` by `species`
+
+## Histogram: overlay
+
+Add one more **categorical** variable using **colour**, with **overlaid** bins (e.g., `species`)
+
+::: columns
+::: {.column width="50%"}
+```{r}
+# Histogram example: flipper length by species 
+ggplot(data = penguins, aes(x = flipper_length_mm)) +   
+  geom_histogram(alpha = 0.5, position = "identity") +   
+  theme(text = element_text(size = 24))
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+# Histogram example: flipper length by species 
+ggplot(data = penguins, aes(x = flipper_length_mm)) +   
+  geom_histogram(aes(fill = species), 
+                 alpha = 0.5,
                  position = "identity") +   
   scale_fill_manual(values = c("darkorange","darkorchid","cyan4")) +   
   theme(text = element_text(size = 24))
 ```
 :::
 :::
+
+-   Separate three species by the **colour**
+
+-   The distribution of `flipper length` by `species`
 
 ## Histogram: facet
 
@@ -176,6 +292,10 @@ ggplot(data = penguins %>% drop_na(sex),
 :::
 :::
 
+-   Separate three species by the **colour**
+
+-   The distribution of `flipper length` by `species`
+
 # Plot Types: Bar Plot
 
 ## Bar plot: basic
@@ -184,6 +304,8 @@ ggplot(data = penguins %>% drop_na(sex),
 
 > A bar plot, or bar chart, is a graph that presents categorical data with rectangular bars with heights or lengths proportional to the values that they represent
 
+::: columns
+::: {.column width="70%"}
 ```{r}
 ggplot(penguins, aes(x = species)) +
   geom_bar(alpha = 0.8) +
@@ -191,31 +313,14 @@ ggplot(penguins, aes(x = species)) +
   coord_flip() +
   theme(text = element_text(size = 24))
 ```
-
-## Bar plot: grouped
-
-Add one more **categorical** variable using **colour**, with **grouped** bars (e.g., `year`)
-
-::: columns
-::: {.column width="50%"}
-```{r}
-ggplot(penguins, aes(x = species)) +   
-  geom_bar(alpha = 0.8) +   
-  theme_minimal() +   
-  coord_flip() +   
-  theme(text = element_text(size = 24))
-```
 :::
 
-::: {.column width="50%"}
-```{r}
-ggplot(penguins, aes(x = species, fill = year)) +   
-  geom_bar(alpha = 0.8, position = "dodge2") +   
-  #scale_fill_manual(values = c("darkorange","purple","cyan4"), guide = FALSE) +   
-  theme_minimal() +   
-  coord_flip() +   
-  theme(text = element_text(size = 24))
-```
+::: {.column width="30%"}
+-   x-axis: the bars represents the categories of a categorical variable
+
+-   y-axis: the count, or frequency, of cases in each bar
+
+-   Different from histogram by the type of variables and the space between bins/bars
 :::
 :::
 
@@ -245,6 +350,10 @@ ggplot(penguins, aes(x = species, fill = year)) +
 :::
 :::
 
+-   Separate three species by the **colour**
+
+-   The count of `species` by `year`
+
 ## Bar plot: filled
 
 Add one more **categorical** variable using **colour**, with **filled** bars (e.g., `year`)
@@ -270,6 +379,41 @@ ggplot(penguins, aes(x = species, fill = year)) +
 ```
 :::
 :::
+
+-   Separate three species by the **colour**
+
+-   The proportion of individuals that collected in different `years`, by `species`
+
+## Bar plot: grouped
+
+Add one more **categorical** variable using **colour**, with **grouped** bars (e.g., `year`)
+
+::: columns
+::: {.column width="50%"}
+```{r}
+ggplot(penguins, aes(x = species)) +   
+  geom_bar(alpha = 0.8) +   
+  theme_minimal() +   
+  coord_flip() +   
+  theme(text = element_text(size = 24))
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+ggplot(penguins, aes(x = species, fill = year)) +   
+  geom_bar(alpha = 0.8, position = "dodge2") +   
+  #scale_fill_manual(values = c("darkorange","purple","cyan4"), guide = FALSE) +   
+  theme_minimal() +   
+  coord_flip() +   
+  theme(text = element_text(size = 24))
+```
+:::
+:::
+
+-   Separate three species by the **colour**
+
+-   The count of `species` by `year`
 
 ## Bar plot: facet
 
@@ -299,22 +443,130 @@ ggplot(penguins, aes(x = species, fill = year)) +
 :::
 :::
 
+-   Separate three species by the **colour**
+
+-   The count of `species` by `year`
+
 # Plot Types: Scatter Plot
 
 ## Scatter plot: basic
 
 ### 2 continuous variables
 
-> An explanation here
+> A scatter plot displays the relationship between 2 numeric variables. Each dot represents an observation.
 
+::: columns
+::: {.column width="70%"}
 ```{r}
 # Scatterplot example 2: penguin bill length versus bill depth
 ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
-  geom_point(aes(color = species, 
-                 shape = species),
-             size = 2)  +
-  scale_color_manual(values = c("darkorange","darkorchid","cyan4"))
+  geom_point(size = 4) +   
+  theme(text = element_text(size = 24))
+  #scale_color_manual(values = c("darkorange","darkorchid","cyan4"))
 ```
+:::
+
+::: {.column width="30%"}
+-   x-axis: one continuous variable (e.g., `bill length`)
+
+-   y-axis: another continuous variable (e.g., `bill depth`)
+
+-   Clusters, linear relationships
+:::
+:::
+
+## Scatter plot: add colour
+
+Add one more **categorical** variable using **colour** (e.g., `species`)
+
+::: columns
+::: {.column width="50%"}
+```{r}
+# Scatterplot example 2: penguin bill length versus bill depth
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point(size = 4) +   
+  theme(text = element_text(size = 24))
+  #scale_color_manual(values = c("darkorange","darkorchid","cyan4"))
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+# Scatterplot example 2: penguin bill length versus bill depth
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point(aes(color = species),
+             size = 4)  +
+  scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +   
+  theme(text = element_text(size = 24))
+```
+:::
+:::
+
+-   Separate three species by the **colour**
+
+-   The relationship of `bill length` and `bill depth` by `species`
+
+## Scatter plot: add trend lines
+
+Add one more **categorical** variable using **colour** (e.g., `species`)
+
+::: columns
+::: {.column width="50%"}
+```{r}
+# Scatterplot example 2: penguin bill length versus bill depth
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point(size = 4) +   
+  theme(text = element_text(size = 24))
+  #scale_color_manual(values = c("darkorange","darkorchid","cyan4"))
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+# Scatterplot example 2: penguin bill length versus bill depth
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_point(size = 4)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +   
+  theme(text = element_text(size = 24))
+```
+:::
+:::
+
+-   Separate three species by the **colour**
+
+-   The relationship of `bill length` and `bill depth` by `species`
+
+## Scatter plot: add lines and CI
+
+Add one more **categorical** variable using **colour** (e.g., `species`)
+
+::: columns
+::: {.column width="50%"}
+```{r}
+# Scatterplot example 2: penguin bill length versus bill depth
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point(size = 4) +   
+  theme(text = element_text(size = 24))
+  #scale_color_manual(values = c("darkorange","darkorchid","cyan4"))
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+# Scatterplot example 2: penguin bill length versus bill depth
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_point(size = 4)  +
+  geom_smooth(method = "lm") +
+  scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +   
+  theme(text = element_text(size = 24))
+```
+:::
+:::
+
+-   Separate three species by the **colour**
+
+-   The relationship of `bill length` and `bill depth` by `species`
 
 # Plot Types: Box Plot
 
@@ -322,20 +574,104 @@ ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
 
 ### 1 categorical, and 1 continuous variable
 
-> An explanation here
+> Shows the distribution and outliers of the data. The most common plot to compare distribution of several groups
+
+::: columns
+::: {.column width="70%"}
+```{r}
+# Jitter plot example: bill length by species
+ggplot(data = penguins, aes(x = species, y = bill_length_mm)) +
+  geom_jitter(width = 0.3, 
+              alpha = 0.2,
+              show.legend = FALSE) +
+  geom_boxplot(width = 0.4, 
+              alpha = 0.9,
+              show.legend = FALSE) +
+  scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +   
+  theme(text = element_text(size = 24))
+```
+:::
+
+::: {.column width="30%"}
+-   x-axis: one categorical variable
+
+-   y-axis: the distribution of a continuous variable, showing 25% percentile, median, and 75% percentile.
+
+-   50% of the data are within the range of the box
+:::
+:::
+
+## Box plot: add colour
+
+Add one more **categorical** variable using **colour** (e.g., `sex`)
+
+::: columns
+::: {.column width="50%"}
+```{r}
+# Jitter plot example: bill length by species
+ggplot(data = penguins, aes(x = species, y = bill_length_mm)) +
+  geom_jitter(width = 0.3, 
+              alpha = 0.2,
+              show.legend = FALSE) +
+  geom_boxplot(width = 0.4, 
+              alpha = 0.9,
+              show.legend = FALSE) +
+  scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +   
+  theme(text = element_text(size = 24))
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+# Jitter plot example: bill length by species
+ggplot(data = penguins %>% drop_na(sex), 
+       aes(x = species, y = bill_length_mm)) +
+  geom_jitter(aes(colour = sex),
+              width = 0.3, 
+              alpha = 0.2,
+              show.legend = FALSE) +
+  geom_boxplot(aes(colour = sex),
+               width = 0.4, 
+              alpha = 0.9) +
+  scale_color_manual(values = c("darkorange","darkorchid","cyan4")) + 
+  #facet_wrap(~sex) +   
+  theme(text = element_text(size = 24))
+```
+:::
+:::
+
+-   Separate two genders by the **colour**
+
+-   The comparison of `bill length` between `species` by `sex`
 
 ## Get inspired by other people's work
 
+### [The R Graph Gallery](https://r-graph-gallery.com/index.html)
+
+::: columns
+::: {.column width="50%"}
+![](images/paste-1E049537.png){width="519"}
+:::
+
+::: {.column width="50%"}
+![](images/paste-52252073.png){width="518"}
+:::
+:::
+
 ## What we learned
 
--   Key concepts for scientific plot
--   Commonly used plot types (# of variables, type of variables)
+-   Things to keep in mind for scientific plot
+-   Histogram, 1 con. var, distribution
+-   Bar plot, 1 cat. var, counts
+-   Scatter plot, 2 con. var, relationship
+-   Box plot, 1 con. var and 1 cat. var, comparison of distribution
 
 ## Wrap up
 
 ### Before we meet again
 
 -   Submit your first lab on Moodle
+-   Read discussion paper, can be found on discussion paper rubric
 
 ### Next time
 

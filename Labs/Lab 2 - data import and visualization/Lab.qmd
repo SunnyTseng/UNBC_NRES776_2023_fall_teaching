@@ -114,7 +114,7 @@ Using `palmerpenguins` as example
 
 -   By save_image into different types
 
-# Error Shooting 
+# Error Shooting
 
 ## What's wrong?
 
@@ -136,44 +136,9 @@ Using `palmerpenguins` as example
 
 Here is some advanced materials if you are comfortable and familiar with the content above
 
-## Improving code readability
+## Commenting your code
 
-### Space
-
-Use space like you would in speaking
-
-```{r, echo = TRUE, eval = FALSE}
-a <- mean(c(4, 10, 13))
-```
-
-This is easier to read than
-
-```{r, echo = TRUE, eval = FALSE}
-a<-mean(c(4,10,13))
-
-```
-
-## Improving code readability
-
-### Line breaks
-
-Don't be afraid to break the lines. Do you like this?
-
-```{r, echo= TRUE, eval = FALSE}
-a <- tibble(exp = c("A", "B", "A", "B", "A", "B"),
-            sub = c("A1", "A1", "A2", "A2", "A3", "A3"),
-            res = c(10, 12, 45, 12, 12, 13))
-
-```
-
-Or this?
-
-```{r, echo = TRUE, eval = FALSE}
-a <- tibble(exp = c("A", "B", "A", "B", "A", "B"), sub = c("A1", "A1", "A2", "A2", "A3", "A3"), res = c(10, 12, 45, 12, 12, 13))
-
-```
-
-### Short cuts
+## Short cuts
 
 -   Ctrl + Enter
 
