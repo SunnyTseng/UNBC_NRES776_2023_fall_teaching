@@ -12,11 +12,23 @@ format:
     #smaller: true
     #scrollable: true
     incremental: true
-    embed-resources: true
+    #embed-resources: true
     width: 1200
     fontsize: 1.7em
 editor: visual
 ---
+
+```{r setup, include = FALSE, cache=FALSE}
+#| column: screen
+#| out-width: 100%
+#| fig-format: svg
+library(palmerpenguins)
+library(tidyverse)
+
+knitr::opts_chunk$set(dpi = 150, fig.width = 8, out.width = "90%",
+                      fig.align = "center", fig.asp = 0.45)
+
+```
 
 # Welcome to your second R lab!
 
@@ -26,7 +38,7 @@ editor: visual
 
 -   Discussion paper presentation (35 mins)
 
--   Importing data in R (20 min)
+-   Importing and exporting data in R (20 min)
 
 -   Data visualization with R (60 min)
 
@@ -34,7 +46,9 @@ editor: visual
 
 # Discussion paper presentation
 
--   Student names
+-   Holly McVea
+-   Josh Green
+-   Carlie O'Brien
 
 # Import (read) and Export (write) Data
 
@@ -84,31 +98,124 @@ With various packages
 
 ## Write CSVs
 
-# Data Visualization
+# Data Visualization Background
 
 With `ggplot2` and `patchwork` package
 
 Using `palmerpenguins` as example
 
+## Our data set - Palmer Penguins!
+
+### Yes, I love penguin data a lot :)
+
+```{r}
+penguins <- penguins %>%
+  mutate(year = as.factor(year))
+```
+
+```{r, echo = TRUE}
+glimpse(penguins)
+```
+
+-   4 categorical variables
+
+-   4 continuous variables
+
+![](images/paste-5A763184.png){.absolute top="300" right="0" width="629"}
+
+::: aside
+Artwork by @allison_horst
+:::
+
+## Your first plot!
+
+```{r, echo = TRUE, eval = FALSE}
+library(palmerpenguins)
+library(ggplot2)
+
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point(size = 2)
+```
+
+-   Create a new script
+
+-   Copy/Paste or type this code to your script
+
+-   Run it, by clicking the **Run** button or `Ctrl + Enter`
+
+-   What do you get?
+
 ## wow `ggplot()`!
 
-## Plots are created in layers
+```{r, echo = TRUE}
+library(palmerpenguins)
+library(ggplot2)
+
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point(size = 2)
+```
+
+![](images/paste-1081014A.png){.absolute top="300" right="0" width="504"}
+
+::: aside
+Artwork by @allison_horst
+:::
 
 ## Piece by piece
 
 ## Create a canvas: `ggplot()`
 
-## Plot type: `geom_()`
+## Aesthetic mapping: `aes()`
 
-## Theme
+## Select plot type: `geom_*()`
 
-## Customized theme
+### Plot layers are combined by `+`
 
-## Selection of colours
+### The order matters, from bottom to up
 
-## Put figures together
+# Plot types
 
-## Export figure
+## What kind of plot types `geom_*()` in `ggplot2`
+
+## `geom_histogram()`: histogram
+
+## `geom_density()`: density plot
+
+## `geom_barplot()`: bar plot
+
+## `geom_point()`: scatter plot
+
+## `geom_box()`: box plot
+
+# Showing data by group
+
+## Mapping aesthetics
+
+-   group, colour, fill
+
+## `facet_warp()`
+
+## `facet_grid()`
+
+# Trend line / regression lines
+
+## `geom_smooth()`
+
+# Customizing plots
+
+## Labels
+
+## Built-in themes
+
+## Axes
+
+## Aesthetics
+
+## Legend placement
+
+# Combining plots
+
+# Saving plots
 
 -   By RStudio
 
@@ -135,6 +242,8 @@ Using `palmerpenguins` as example
 # R Others: Miscellaneous
 
 Here is some advanced materials if you are comfortable and familiar with the content above
+
+## R `ggplot()` cheatsheet
 
 ## Commenting your code
 

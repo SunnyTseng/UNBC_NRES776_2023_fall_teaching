@@ -399,12 +399,9 @@
 <div class="column" style="width:50%;">
 <ul>
 <li class="fragment">Announcements (5 min)</li>
-</ul>
-<!-- -->
-<ul>
-<li class="fragment"><p>Data visualization background (10 min)</p></li>
-<li class="fragment"><p>Plot types (30 min)</p></li>
-<li class="fragment"><p>Wrap up (5 min)</p></li>
+<li class="fragment">Data visualization background (10 min)</li>
+<li class="fragment">Plot types (30 min)</li>
+<li class="fragment">Wrap up (5 min)</li>
 </ul>
 </div>
 </div>
@@ -441,6 +438,30 @@
 <h1>Data Visualization Background</h1>
 <p>Data visualization is the representation of data through use of common graphics, such as charts, plots, infographics, and even animations.</p>
 </section>
+<section id="two-general-approaches" class="slide level2">
+<h2>Two general approaches</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Exploratory plots</strong></p>
+<p>To help you better understand and discover hidden patterns in the data you are working with.</p>
+<!-- -->
+<ul>
+<li class="fragment"><p>Quick to make</p></li>
+<li class="fragment"><p>A large number of them</p></li>
+<li class="fragment"><p>The axes and legends are cleaned up</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Explanatory plots</strong></p>
+<p>To communicate insights to others. This is often referred as “Publication ready plots”.</p>
+<!-- -->
+<ul>
+<li class="fragment"><p>Take a while to make</p></li>
+<li class="fragment"><p>Only a few for each research project</p></li>
+<li class="fragment"><p>Making sure the colours, labels and sizes are all perfect for your needs</p></li>
+</ul>
+</div>
+</div>
+</section>
 <section id="human-brain-is-lazy" class="slide level2">
 <h2>Human brain is lazy</h2>
 <blockquote>
@@ -450,6 +471,7 @@
 <li class="fragment">The island Biscoe has the most penguin individuals, followed by island Dream and island Biscoe</li>
 <li class="fragment">The Torgersen island only has one penguin species</li>
 </ul>
+<!-- -->
 <div class="columns">
 <div class="column" style="width:40%;">
 <table>
@@ -512,7 +534,7 @@
 </blockquote>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/paste-39DFFA56.png" width="696"></p>
+<p><img data-src="images/paste-39DFFA56.png" width="866"></p>
 </figure>
 </div>
 
@@ -526,7 +548,7 @@
 </blockquote>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/paste-D8344785.png" width="673"></p>
+<p><img data-src="images/paste-D8344785.png" width="830"></p>
 </figure>
 </div>
 
@@ -540,7 +562,7 @@
 </blockquote>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/paste-C2E420C1.png" width="662"></p>
+<p><img data-src="images/paste-C2E420C1.png" width="805"></p>
 </figure>
 </div>
 
@@ -554,7 +576,7 @@
 </blockquote>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/paste-C4A61F19.png" width="554"></p>
+<p><img data-src="images/paste-C4A61F19.png" width="700"></p>
 </figure>
 </div>
 
@@ -686,6 +708,33 @@ $ year              &lt;fct&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 </ul>
 </section></section>
 <section>
+<section id="plot-types-density-plot" class="title-slide slide level1 center">
+<h1>Plot Types: Density Plot</h1>
+
+</section>
+<section id="density-plot-basic" class="slide level2">
+<h2>Density plot: basic</h2>
+<h3 id="continuous-variable-1">1 continuous variable</h3>
+<blockquote>
+<p>A smoothed version of histograms, visualizing the distribution of a continuous variable.</p>
+</blockquote>
+<div class="columns">
+<div class="column" style="width:70%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
+</div>
+</div>
+</div><div class="column" style="width:30%;">
+<ul>
+<li class="fragment"><p>x-axis: the values that covers the range of a continuous variable</p></li>
+<li class="fragment"><p>y-axis: the count, or frequency, of cases in each bin</p></li>
+<li class="fragment"><p>The same information as histogram, with smoothed curves</p></li>
+</ul>
+</div>
+</div>
+</section></section>
+<section>
 <section id="plot-types-bar-plot" class="title-slide slide level1 center">
 <h1>Plot Types: Bar Plot</h1>
 
@@ -700,7 +749,7 @@ $ year              &lt;fct&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <div class="column" style="width:70%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-12-1.png" width="960"></p>
 </div>
 </div>
 </div><div class="column" style="width:30%;">
@@ -719,13 +768,13 @@ $ year              &lt;fct&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-12-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-14-1.png" width="960"></p>
 </div>
 </div>
 </div>
@@ -742,13 +791,13 @@ $ year              &lt;fct&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-14-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-15-1.png" width="960"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-15-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-16-1.png" width="960"></p>
 </div>
 </div>
 </div>
@@ -765,13 +814,13 @@ $ year              &lt;fct&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-16-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-17-1.png" width="960"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-17-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-18-1.png" width="960"></p>
 </div>
 </div>
 </div>
@@ -788,13 +837,13 @@ $ year              &lt;fct&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-18-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-19-1.png" width="960"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-19-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-20-1.png" width="960"></p>
 </div>
 </div>
 </div>
@@ -819,7 +868,7 @@ $ year              &lt;fct&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <div class="column" style="width:70%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-20-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-21-1.png" width="960"></p>
 </div>
 </div>
 </div><div class="column" style="width:30%;">
@@ -838,13 +887,13 @@ $ year              &lt;fct&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-21-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-22-1.png" width="960"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-22-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-23-1.png" width="960"></p>
 </div>
 </div>
 </div>
@@ -861,13 +910,13 @@ $ year              &lt;fct&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-23-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-24-1.png" width="960"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-24-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-25-1.png" width="960"></p>
 </div>
 </div>
 </div>
@@ -884,13 +933,13 @@ $ year              &lt;fct&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-25-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-26-1.png" width="960"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-26-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-27-1.png" width="960"></p>
 </div>
 </div>
 </div>
@@ -915,7 +964,7 @@ $ year              &lt;fct&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <div class="column" style="width:70%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-27-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-28-1.png" width="960"></p>
 </div>
 </div>
 </div><div class="column" style="width:30%;">
@@ -934,13 +983,13 @@ $ year              &lt;fct&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-28-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-29-1.png" width="960"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-29-1.png" width="960"></p>
+<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-30-1.png" width="960"></p>
 </div>
 </div>
 </div>

@@ -12,7 +12,7 @@ format:
     #smaller: true
     #scrollable: true
     incremental: true
-    #embed-resources: true
+    embed-resources: true
     width: 1200
     fontsize: 1.7em
 editor: visual
@@ -31,13 +31,8 @@ theme_set(theme_minimal())
 ::: columns
 ::: {.column width="50%"}
 -   Announcements (5 min)
-
-<!-- -->
-
 -   Data visualization background (10 min)
-
 -   Plot types (30 min)
-
 -   Wrap up (5 min)
 :::
 :::
@@ -78,12 +73,46 @@ theme_set(theme_minimal())
 
 Data visualization is the representation of data through use of common graphics, such as charts, plots, infographics, and even animations.
 
+## Two general approaches
+
+::: columns
+::: {.column width="50%"}
+**Exploratory plots**
+
+To help you better understand and discover hidden patterns in the data you are working with.
+
+<!-- -->
+
+-   Quick to make
+
+-   A large number of them
+
+-   The axes and legends are cleaned up
+:::
+
+::: {.column width="50%"}
+**Explanatory plots**
+
+To communicate insights to others. This is often referred as "Publication ready plots".
+
+<!-- -->
+
+-   Take a while to make
+
+-   Only a few for each research project
+
+-   Making sure the colours, labels and sizes are all perfect for your needs
+:::
+:::
+
 ## Human brain is lazy
 
 > The goal of data visualization is to improve understanding of the data
 
 -   The island Biscoe has the most penguin individuals, followed by island Dream and island Biscoe
 -   The Torgersen island only has one penguin species
+
+<!-- -->
 
 ::: columns
 ::: {.column width="40%"}
@@ -120,7 +149,7 @@ Figure from https://jhudatascience.org/tidyversecourse/dataviz.html#plot-types
 
 > Colour blind audience, strong contrast, comfortablility to read
 
-![](images/paste-39DFFA56.png){fig-align="center" width="696"}
+![](images/paste-39DFFA56.png){fig-align="center" width="866"}
 
 ::: aside
 Figure from https://jhudatascience.org/tidyversecourse/dataviz.html#plot-types
@@ -130,7 +159,7 @@ Figure from https://jhudatascience.org/tidyversecourse/dataviz.html#plot-types
 
 > Font size, starting axis from 0, or do you even have it?
 
-![](images/paste-D8344785.png){fig-align="center" width="673"}
+![](images/paste-D8344785.png){fig-align="center" width="830"}
 
 ::: aside
 Figure from https://jhudatascience.org/tidyversecourse/dataviz.html#plot-types
@@ -140,7 +169,7 @@ Figure from https://jhudatascience.org/tidyversecourse/dataviz.html#plot-types
 
 > The numbers should add up to 100%. Proportion should reflect the size/length, etc.
 
-![](images/paste-C2E420C1.png){fig-align="center" width="662"}
+![](images/paste-C2E420C1.png){fig-align="center" width="805"}
 
 ::: aside
 Figure from https://jhudatascience.org/tidyversecourse/dataviz.html#plot-types
@@ -150,7 +179,7 @@ Figure from https://jhudatascience.org/tidyversecourse/dataviz.html#plot-types
 
 > One purpose, or key message, per plot
 
-![](images/paste-C4A61F19.png){fig-align="center" width="554"}
+![](images/paste-C4A61F19.png){fig-align="center" width="700"}
 
 ::: aside
 Figure from https://jhudatascience.org/tidyversecourse/dataviz.html#plot-types
@@ -295,6 +324,36 @@ ggplot(data = penguins %>% drop_na(sex),
 -   Separate three species by the **colour**
 
 -   The distribution of `flipper length` by `species`
+
+# Plot Types: Density Plot
+
+## Density plot: basic
+
+### 1 continuous variable
+
+> A smoothed version of histograms, visualizing the distribution of a continuous variable.
+
+::: columns
+::: {.column width="70%"}
+```{r}
+# Histogram example: flipper length by species
+ggplot(data = penguins, 
+       aes(x = flipper_length_mm,
+           fill = species)) +
+  geom_density(alpha = 0.5, position = "identity") +
+  scale_fill_manual(values = c("darkorange","darkorchid","cyan4")) +
+  theme(text = element_text(size = 24))
+```
+:::
+
+::: {.column width="30%"}
+-   x-axis: the values that covers the range of a continuous variable
+
+-   y-axis: the count, or frequency, of cases in each bin
+
+-   The same information as histogram, with smoothed curves
+:::
+:::
 
 # Plot Types: Bar Plot
 
