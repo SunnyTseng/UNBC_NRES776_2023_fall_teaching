@@ -242,22 +242,22 @@ ggplot(data = penguins, aes(x = flipper_length_mm)) +
 Add one more **categorical** variable using **colour**, with **stacked** bins (e.g., `species`)
 
 ::: columns
-::: {.column width="50%"}
-```{r}
-# Histogram example: flipper length by species 
-ggplot(data = penguins, aes(x = flipper_length_mm)) +   
-  geom_histogram(alpha = 0.5, position = "identity") +   
-  theme(text = element_text(size = 24))
-```
-:::
-
-::: {.column width="50%"}
+::: {.column width="70%"}
 ```{r}
 # Histogram example: flipper length by species 
 ggplot(data = penguins, aes(x = flipper_length_mm)) +   
   geom_histogram(aes(fill = species), 
                  alpha = 0.5) +   
   scale_fill_manual(values = c("darkorange","darkorchid","cyan4")) +   
+  theme(text = element_text(size = 24))
+```
+:::
+
+::: {.column width="30%"}
+```{r}
+# Histogram example: flipper length by species 
+ggplot(data = penguins, aes(x = flipper_length_mm)) +   
+  geom_histogram(alpha = 0.5, position = "identity") +   
   theme(text = element_text(size = 24))
 ```
 :::
@@ -272,16 +272,7 @@ ggplot(data = penguins, aes(x = flipper_length_mm)) +
 Add one more **categorical** variable using **colour**, with **overlaid** bins (e.g., `species`)
 
 ::: columns
-::: {.column width="50%"}
-```{r}
-# Histogram example: flipper length by species 
-ggplot(data = penguins, aes(x = flipper_length_mm)) +   
-  geom_histogram(alpha = 0.5, position = "identity") +   
-  theme(text = element_text(size = 24))
-```
-:::
-
-::: {.column width="50%"}
+::: {.column width="70%"}
 ```{r}
 # Histogram example: flipper length by species 
 ggplot(data = penguins, aes(x = flipper_length_mm)) +   
@@ -289,6 +280,15 @@ ggplot(data = penguins, aes(x = flipper_length_mm)) +
                  alpha = 0.5,
                  position = "identity") +   
   scale_fill_manual(values = c("darkorange","darkorchid","cyan4")) +   
+  theme(text = element_text(size = 24))
+```
+:::
+
+::: {.column width="30%"}
+```{r}
+# Histogram example: flipper length by species 
+ggplot(data = penguins, aes(x = flipper_length_mm)) +   
+  geom_histogram(alpha = 0.5, position = "identity") +   
   theme(text = element_text(size = 24))
 ```
 :::
@@ -303,16 +303,7 @@ ggplot(data = penguins, aes(x = flipper_length_mm)) +
 Add one more **categorical** variable using **colour**, with **facet** (e.g., `species`)
 
 ::: columns
-::: {.column width="50%"}
-```{r}
-# Histogram example: flipper length by species
-ggplot(data = penguins, aes(x = flipper_length_mm)) +
-  geom_histogram(alpha = 0.5, position = "identity") +
-  theme(text = element_text(size = 24))
-```
-:::
-
-::: {.column width="50%"}
+::: {.column width="70%"}
 ```{r}
 # Histogram example: flipper length by gender
 ggplot(data = penguins %>% drop_na(sex), 
@@ -322,6 +313,15 @@ ggplot(data = penguins %>% drop_na(sex),
                  position = "identity") +
   scale_fill_manual(values = c("darkorange","darkorchid","cyan4")) +
   facet_wrap(~species) +
+  theme(text = element_text(size = 24))
+```
+:::
+
+::: {.column width="30%"}
+```{r}
+# Histogram example: flipper length by species
+ggplot(data = penguins, aes(x = flipper_length_mm)) +
+  geom_histogram(alpha = 0.5, position = "identity") +
   theme(text = element_text(size = 24))
 ```
 :::
@@ -394,20 +394,20 @@ ggplot(penguins, aes(x = species)) +
 Add one more **categorical** variable using **colour**, with **stacked** bars (e.g., `year`)
 
 ::: columns
-::: {.column width="50%"}
+::: {.column width="70%"}
 ```{r}
-ggplot(penguins, aes(x = species)) +      
-  geom_bar(alpha = 0.8) +      
+ggplot(penguins, aes(x = species, fill = year)) +
+  geom_bar(alpha = 0.8, position = "stack") +      #scale_fill_manual(values = c("darkorange","purple","cyan4"), guide = FALSE) +      
   theme_minimal() +      
   coord_flip() +      
   theme(text = element_text(size = 24))
 ```
 :::
 
-::: {.column width="50%"}
+::: {.column width="30%"}
 ```{r}
-ggplot(penguins, aes(x = species, fill = year)) +
-  geom_bar(alpha = 0.8, position = "stack") +      #scale_fill_manual(values = c("darkorange","purple","cyan4"), guide = FALSE) +      
+ggplot(penguins, aes(x = species)) +      
+  geom_bar(alpha = 0.8) +      
   theme_minimal() +      
   coord_flip() +      
   theme(text = element_text(size = 24))
@@ -424,22 +424,22 @@ ggplot(penguins, aes(x = species, fill = year)) +
 Add one more **categorical** variable using **colour**, with **filled** bars (e.g., `year`)
 
 ::: columns
-::: {.column width="50%"}
-```{r}
-ggplot(penguins, aes(x = species)) +         
-  geom_bar(alpha = 0.8) +         
-  theme_minimal() +         
-  coord_flip() +         
-  theme(text = element_text(size = 24))
-```
-:::
-
-::: {.column width="50%"}
+::: {.column width="70%"}
 ```{r}
 ggplot(penguins, aes(x = species, fill = year)) +
   geom_bar(alpha = 0.8, position = "fill") +      #scale_fill_manual(values = c("darkorange","purple","cyan4"), guide = FALSE) +      
   theme_minimal() +      
   coord_flip() +      
+  theme(text = element_text(size = 24))
+```
+:::
+
+::: {.column width="30%"}
+```{r}
+ggplot(penguins, aes(x = species)) +         
+  geom_bar(alpha = 0.8) +         
+  theme_minimal() +         
+  coord_flip() +         
   theme(text = element_text(size = 24))
 ```
 :::
@@ -454,21 +454,21 @@ ggplot(penguins, aes(x = species, fill = year)) +
 Add one more **categorical** variable using **colour**, with **grouped** bars (e.g., `year`)
 
 ::: columns
-::: {.column width="50%"}
+::: {.column width="70%"}
 ```{r}
-ggplot(penguins, aes(x = species)) +   
-  geom_bar(alpha = 0.8) +   
+ggplot(penguins, aes(x = species, fill = year)) +   
+  geom_bar(alpha = 0.8, position = "dodge2") +   
+  #scale_fill_manual(values = c("darkorange","purple","cyan4"), guide = FALSE) +   
   theme_minimal() +   
   coord_flip() +   
   theme(text = element_text(size = 24))
 ```
 :::
 
-::: {.column width="50%"}
+::: {.column width="30%"}
 ```{r}
-ggplot(penguins, aes(x = species, fill = year)) +   
-  geom_bar(alpha = 0.8, position = "dodge2") +   
-  #scale_fill_manual(values = c("darkorange","purple","cyan4"), guide = FALSE) +   
+ggplot(penguins, aes(x = species)) +   
+  geom_bar(alpha = 0.8) +   
   theme_minimal() +   
   coord_flip() +   
   theme(text = element_text(size = 24))
@@ -485,23 +485,23 @@ ggplot(penguins, aes(x = species, fill = year)) +
 Add one more **categorical** variable using **colour**, with **facet** (e.g., `year`)
 
 ::: columns
-::: {.column width="50%"}
-```{r}
-ggplot(penguins, aes(x = species)) +   
-  geom_bar(alpha = 0.8) +   
-  theme_minimal() +   
-  coord_flip() +   
-  theme(text = element_text(size = 24))
-```
-:::
-
-::: {.column width="50%"}
+::: {.column width="70%"}
 ```{r}
 ggplot(penguins, aes(x = species, fill = year)) +   
   geom_bar(alpha = 0.8) +   
   # scale_fill_manual(values = c("darkorange","purple","cyan4"), guide = FALSE) +   
   theme_minimal() +   
   facet_wrap(~year, ncol = 1) +   
+  coord_flip() +   
+  theme(text = element_text(size = 24))
+```
+:::
+
+::: {.column width="30%"}
+```{r}
+ggplot(penguins, aes(x = species)) +   
+  geom_bar(alpha = 0.8) +   
+  theme_minimal() +   
   coord_flip() +   
   theme(text = element_text(size = 24))
 ```
@@ -545,17 +545,7 @@ ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
 Add one more **categorical** variable using **colour** (e.g., `species`)
 
 ::: columns
-::: {.column width="50%"}
-```{r}
-# Scatterplot example 2: penguin bill length versus bill depth
-ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
-  geom_point(size = 4) +   
-  theme(text = element_text(size = 24))
-  #scale_color_manual(values = c("darkorange","darkorchid","cyan4"))
-```
-:::
-
-::: {.column width="50%"}
+::: {.column width="70%"}
 ```{r}
 # Scatterplot example 2: penguin bill length versus bill depth
 ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
@@ -563,6 +553,16 @@ ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
              size = 4)  +
   scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +   
   theme(text = element_text(size = 24))
+```
+:::
+
+::: {.column width="30%"}
+```{r}
+# Scatterplot example 2: penguin bill length versus bill depth
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point(size = 4) +   
+  theme(text = element_text(size = 24))
+  #scale_color_manual(values = c("darkorange","darkorchid","cyan4"))
 ```
 :::
 :::
@@ -576,17 +576,7 @@ ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
 Add one more **categorical** variable using **colour** (e.g., `species`)
 
 ::: columns
-::: {.column width="50%"}
-```{r}
-# Scatterplot example 2: penguin bill length versus bill depth
-ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
-  geom_point(size = 4) +   
-  theme(text = element_text(size = 24))
-  #scale_color_manual(values = c("darkorange","darkorchid","cyan4"))
-```
-:::
-
-::: {.column width="50%"}
+::: {.column width="70%"}
 ```{r}
 # Scatterplot example 2: penguin bill length versus bill depth
 ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
@@ -594,6 +584,16 @@ ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = speci
   geom_smooth(method = "lm", se = FALSE) +
   scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +   
   theme(text = element_text(size = 24))
+```
+:::
+
+::: {.column width="30%"}
+```{r}
+# Scatterplot example 2: penguin bill length versus bill depth
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point(size = 4) +   
+  theme(text = element_text(size = 24))
+  #scale_color_manual(values = c("darkorange","darkorchid","cyan4"))
 ```
 :::
 :::
@@ -607,17 +607,7 @@ ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = speci
 Add one more **categorical** variable using **colour** (e.g., `species`)
 
 ::: columns
-::: {.column width="50%"}
-```{r}
-# Scatterplot example 2: penguin bill length versus bill depth
-ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
-  geom_point(size = 4) +   
-  theme(text = element_text(size = 24))
-  #scale_color_manual(values = c("darkorange","darkorchid","cyan4"))
-```
-:::
-
-::: {.column width="50%"}
+::: {.column width="70%"}
 ```{r}
 # Scatterplot example 2: penguin bill length versus bill depth
 ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
@@ -625,6 +615,16 @@ ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = speci
   geom_smooth(method = "lm") +
   scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +   
   theme(text = element_text(size = 24))
+```
+:::
+
+::: {.column width="30%"}
+```{r}
+# Scatterplot example 2: penguin bill length versus bill depth
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point(size = 4) +   
+  theme(text = element_text(size = 24))
+  #scale_color_manual(values = c("darkorange","darkorchid","cyan4"))
 ```
 :::
 :::
@@ -671,22 +671,7 @@ ggplot(data = penguins, aes(x = species, y = bill_length_mm)) +
 Add one more **categorical** variable using **colour** (e.g., `sex`)
 
 ::: columns
-::: {.column width="50%"}
-```{r}
-# Jitter plot example: bill length by species
-ggplot(data = penguins, aes(x = species, y = bill_length_mm)) +
-  geom_jitter(width = 0.3, 
-              alpha = 0.2,
-              show.legend = FALSE) +
-  geom_boxplot(width = 0.4, 
-              alpha = 0.9,
-              show.legend = FALSE) +
-  scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +   
-  theme(text = element_text(size = 24))
-```
-:::
-
-::: {.column width="50%"}
+::: {.column width="70%"}
 ```{r}
 # Jitter plot example: bill length by species
 ggplot(data = penguins %>% drop_na(sex), 
@@ -703,6 +688,21 @@ ggplot(data = penguins %>% drop_na(sex),
   theme(text = element_text(size = 24))
 ```
 :::
+
+::: {.column width="30%"}
+```{r}
+# Jitter plot example: bill length by species
+ggplot(data = penguins, aes(x = species, y = bill_length_mm)) +
+  geom_jitter(width = 0.3, 
+              alpha = 0.2,
+              show.legend = FALSE) +
+  geom_boxplot(width = 0.4, 
+              alpha = 0.9,
+              show.legend = FALSE) +
+  scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +   
+  theme(text = element_text(size = 24))
+```
+:::
 :::
 
 -   Separate two genders by the **colour**
@@ -715,11 +715,11 @@ ggplot(data = penguins %>% drop_na(sex),
 
 ::: columns
 ::: {.column width="50%"}
-![](images/paste-1E049537.png){width="519"}
+![](images/paste-1E049537.png){width="471"}
 :::
 
 ::: {.column width="50%"}
-![](images/paste-52252073.png){width="518"}
+![](images/paste-52252073.png){width="471"}
 :::
 :::
 
