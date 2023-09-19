@@ -484,9 +484,9 @@
 <p>With <code>readr</code> and <code>readxl</code>, you will be able to use the following functions to read spreadsheets into R.</p>
 <table>
 <colgroup>
-<col style="width: 25%">
-<col style="width: 49%">
-<col style="width: 25%">
+<col style="width: 26%">
+<col style="width: 47%">
+<col style="width: 26%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1308,22 +1308,22 @@ $ year              &lt;fct&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 </section>
 <section id="put-all-together" class="slide level2">
 <h2>Put all together</h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins) <span class="sc">+</span></span>
-<span id="cb58-2"><a href="#cb58-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">colour =</span> species)) <span class="sc">+</span></span>
-<span id="cb58-3"><a href="#cb58-3"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bill Length vs. Bill Depth"</span>,</span>
-<span id="cb58-4"><a href="#cb58-4"></a>         <span class="at">x =</span> <span class="st">"Bill Length (mm)"</span>,</span>
-<span id="cb58-5"><a href="#cb58-5"></a>         <span class="at">y =</span> <span class="st">"Bill Depth (mm)"</span>,</span>
-<span id="cb58-6"><a href="#cb58-6"></a>         <span class="at">colour =</span> <span class="st">"Species"</span>) <span class="sc">+</span></span>
-<span id="cb58-7"><a href="#cb58-7"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">60</span>)) <span class="sc">+</span></span>
-<span id="cb58-8"><a href="#cb58-8"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">25</span>)) <span class="sc">+</span></span>
-<span id="cb58-9"><a href="#cb58-9"></a>  <span class="fu">scale_colour_viridis_d</span>() <span class="sc">+</span></span>
-<span id="cb58-10"><a href="#cb58-10"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb58-11"><a href="#cb58-11"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb58-12"><a href="#cb58-12"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="Lab_files/figure-revealjs/unnamed-chunk-56-1.png" style="width:90.0%" class="r-stretch quarto-figure-center"></section></section>
+<div class="sourceCode" id="cb58" data-code-line-numbers="|1|2-3|4-7|8-13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb58-2"><a href="#cb58-2"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb58-3"><a href="#cb58-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb58-4"><a href="#cb58-4"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bill Length vs. Bill Depth"</span>,</span>
+<span id="cb58-5"><a href="#cb58-5"></a>       <span class="at">x =</span> <span class="st">"Bill Length (mm)"</span>,</span>
+<span id="cb58-6"><a href="#cb58-6"></a>       <span class="at">y =</span> <span class="st">"Bill Depth (mm)"</span>,</span>
+<span id="cb58-7"><a href="#cb58-7"></a>       <span class="at">colour =</span> <span class="st">"Species"</span>) <span class="sc">+</span></span>
+<span id="cb58-8"><a href="#cb58-8"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">60</span>)) <span class="sc">+</span></span>
+<span id="cb58-9"><a href="#cb58-9"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">25</span>)) <span class="sc">+</span></span>
+<span id="cb58-10"><a href="#cb58-10"></a>  <span class="fu">scale_colour_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb58-11"><a href="#cb58-11"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb58-12"><a href="#cb58-12"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb58-13"><a href="#cb58-13"></a>        <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">0.3</span>))</span>
+<span id="cb58-14"><a href="#cb58-14"></a>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img data-src="images/paste-291168FA.png" class="absolute" style="top: 300px; right: 0px; width: 618px; "></p>
+</section></section>
 <section id="data-visualization-combining-plots" class="title-slide slide level1 center">
 <h1>Data visualization: Combining plots</h1>
 

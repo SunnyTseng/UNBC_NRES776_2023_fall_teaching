@@ -121,7 +121,7 @@ library(readxl)
 With `readr` and `readxl`, you will be able to use the following functions to read spreadsheets into R.
 
 | Function       | Format                                            | Typical suffix |
-|------------------|-----------------------------------|------------------|
+|-------------------|----------------------------------|-------------------|
 | `read_delim()` | general text file format, must define delimiter   | .txt           |
 | `read_csv()`   | comma separated values                            | .csv           |
 | `read_csv2()`  | semicolon separated values                        | .csv           |
@@ -687,7 +687,7 @@ g + scale_x_continuous(expand = c(0, 0)) # Space between axis and data
 
 ## Aesthetics for colour, fill, size
 
-### `scale` + (`colour`, `fill`, `size`) + (`continuous`, `discrete`, `manual`, `viridis_d`, `viridis_c`, etc)  
+### `scale` + (`colour`, `fill`, `size`) + (`continuous`, `discrete`, `manual`, `viridis_d`, `viridis_c`, etc)
 
 ::: columns
 ::: {.column width="50%"}
@@ -778,13 +778,14 @@ g + theme(legend.position = c(0.9, 0.2))
 
 ## Put all together
 
-```{r, echo = TRUE}
-ggplot(data = penguins) +
-  geom_point(aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) +
+``` {.r code-line-numbers="|1|2-3|4-7|8-13"}
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) +
+  geom_point(size = 2) +
+  geom_smooth(method = "lm", se = FALSE) +
   labs(title = "Bill Length vs. Bill Depth",
-         x = "Bill Length (mm)",
-         y = "Bill Depth (mm)",
-         colour = "Species") +
+       x = "Bill Length (mm)",
+       y = "Bill Depth (mm)",
+       colour = "Species") +
   scale_x_continuous(limits = c(30, 60)) +
   scale_y_continuous(limits = c(10, 25)) +
   scale_colour_viridis_d() +
@@ -794,9 +795,62 @@ ggplot(data = penguins) +
   
 ```
 
+![](images/paste-291168FA.png){.absolute top="300" right="0" width="618"}
+
 # Data visualization: Combining plots
 
+We will need `patchwork` package in this section
+
 ![](images/paste-446B990F.png)
+
+## Create some plots for us to demonstrate 
+
+```{r, echo = TRUE}
+library(patchwork)
+
+g1 <- ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) +
+  geom_point()
+
+g2 <- ggplot(data = penguins, aes(x = species, y = flipper_length_mm)) +
+  geom_boxplot()
+
+g3 <- ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = species)) +
+  geom_point()
+
+```
+
+## Side by side plots
+
+```{r, echo = TRUE}
+g1 + g2
+```
+
+## Stacked plots
+
+```{r, echo = TRUE}
+g1 / g2
+```
+
+## Complex arrangements 
+
+```{r, echo = TRUE}
+g2 + (g1 / g3)
+```
+
+## Complex arrangements 
+
+```{r, echo = TRUE}
+(g1 + g3 + plot_layout(guides = "collect")) / g2
+```
+
+## Annotate
+
+```{r, echo = TRUE}
+g2 / (g1 + g3 + plot_layout(guides = "collect")) +
+  plot_annotation(tag_levels = "A",
+                  tag_suffix = ")",
+                  caption = "Fig 1. Penguins Data Summary")
+```
 
 # Data visualization: Saving plots
 
@@ -846,28 +900,22 @@ Here is some advanced materials if you are comfortable and familiar with the con
 
 ## Your task I
 
-Using penguins data set
-
--   Create a histogram to show
-
--   Create a bar plot to show
-
--   Create a scatter plot to show
-
--   Create a box plot to show
-
-Use patchwork to combine four figures together (two up, two down)
-
-Bonus: Create one more figure from your own with a caption (what you try to convey) for it. Add it as the fifth plots in your patchwork
+1.  Using `penguins` data set, create plot(s) that best support the following statement" "The body mass of male penguins are larger than female penguins, regardless of species." - Figure A
+2.  Using `penguins` data set, create plot(s) that best support the following statement" "Regardless of species, we found a positive relationship between body mass and flipper length. And this finding holds true for both genders." - Figure B
 
 ![](images/paste-B35E8558.png){fig-align="center"}
 
+## Your task II
+
+3.  Use `patchwork` to combine plots together, and annotated well.
+4.  Bonus: Import your own data set, and create one plot from it. And put this at the same patchwork product above. - Figure C. Provide captions about this plot in the assignment submission box.
+
 ### Hints
 
-1.  use `geom_hist()`
-2.  use `geom_bar()`
-3.  use `geom_scatter()`
-4.  use `geom_box()`
+1.  Take a look at `penguins` data set and use `ggplot()`
+2.  Check `drop_na()` function if you want to remove NA values from a data set
+3.  `patchwork` package
+4.  use `read_csv()` to import data
 
 ## Submission
 
@@ -875,11 +923,13 @@ Bonus: Create one more figure from your own with a caption (what you try to conv
 
 ### Evaluation
 
--   File name and type (NRES776\_*firstname*\_*lastname*\_lab_2.png) (20%)
+-   File name and type (NRES776\_*firstname*\_*lastname*\_lab_2.**png**) (10%)
 
--   Quality of the figures (check lecture notes for data visualization background) (20%, 20%, 20%, 20%)
+-   Accuracy, 15%, and quality, 25%, of each two plots -\> (80%)
 
--   Bonus points for extra question, and general design of the figure layout (30%)
+-   Annotation of the final patchwork product (10%)
+
+-   Bonus points for extra question (30%)
 
 ### Use of ChatGPT, stackflow, or...
 
