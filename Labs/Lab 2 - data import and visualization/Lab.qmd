@@ -12,7 +12,7 @@ format:
     #smaller: true
     #scrollable: true
     incremental: true
-    #embed-resources: true
+    # embed-resources: true
     width: 1200
     fontsize: 1.7em
 editor: visual
@@ -24,6 +24,7 @@ editor: visual
 #| fig-format: svg
 library(palmerpenguins)
 library(tidyverse)
+library(here)
 
 knitr::opts_chunk$set(dpi = 150, fig.width = 8, out.width = "90%",
                       fig.align = "center", fig.asp = 0.45)
@@ -44,19 +45,23 @@ knitr::opts_chunk$set(dpi = 150, fig.width = 8, out.width = "90%",
 
 -   Quiet time for practice (60 min)
 
+## Announcements
+
+-   What do you have for your breakfast? 😺
+
 # Discussion paper presentation
 
 -   Holly McVea
 -   Josh Green
 -   Carlie O'Brien
 
-# Import (read) and Export (write) Data
+# Data I/O: Self-contained projects
 
-With various packages
+We will be using `here` package, combined with the concept of R project
 
-## Concept of working directory
+## Concept of a project
 
-> You have to tell R **where** to find your data
+> If the first line of your R script is `setwd("C:\Users\jenny\path\that\only\I\have")` I will come into your office and SET YOUR COMPUTER ON FIRE 🔥. - Jenny Bryan
 
 -   use read_csv() as an example, we need to specify the path
 
@@ -64,56 +69,144 @@ With various packages
 
 -   absolute path vs relative path
 
-## R project
+![](images/paste-58AC1017.png)
+
+## `here` package and R project
 
 -   We have done this, but what this for?
-
-<!-- -->
-
 -   output .Rproj in a folder, for reading data
-
 -   set up fires in computer
 
-## R project step by step
+![](images/paste-2092CCC6.png)
 
-## Be a good project manager
+## Let's start a good habit from this lab
 
--   Create a project
+-   Open R studio and create a R project
 
--   Create folder structure
+-   Create two folders: docs, data inside the project folder
 
--   Save your R script and R project in the root
+-   Create and save your R script (.R) in the root
 
--   Only need to read using "docs/my_data.csv"
+```{r, echo = TRUE, eval = FALSE}
 
--   Try this for you lab
+### Library
+library(here)
 
--   Try this for your research project/chapter
+### Import data
 
-## Read excel files
+### Data visualization
+
+### Main analysis
+```
+
+-   Next time you need to work on the project again
+
+    -   Clicking your R project file (.Rproj)
+
+    -   Use your R Studio panel to navigate and open your R script (.R)
+
+# Data I/O: Read and write spreadsheet data in R
+
+We will be using packages `readr` and `readxl`
+
+Practice files were posted on Moodle, download and save them to your data folder
+
+## Overview
+
+```{r, echo = TRUE}
+library(readr)
+library(readxl)
+```
+
+With `readr` and `readxl`, you will be able to use the following functions to read spreadsheets into R.
+
+| Function       | Format                                            | Typical suffix |
+|------------------|-----------------------------------|------------------|
+| `read_delim()` | general text file format, must define delimiter   | .txt           |
+| `read_csv()`   | comma separated values                            | .csv           |
+| `read_csv2()`  | semicolon separated values                        | .csv           |
+| `read_tsv()`   | tab delimited separated values                    | .tsv           |
+| `read_table()` | white space separated values                      | .txt           |
+| `read_excel()` | auto detect the format for Microsoft excel sheets | .xlsx or .xls  |
+
+::: aside
+Note: `readr` is one of the `tidyverse` core packages, so you don't need to load it separately if you already have `tidyverse`
+:::
 
 ## Read CSVs
 
+> `read_csv()` take one necessary argument, which is `file`, a path to a file.
+
+```{r, echo = TRUE}
+
+my_csv_data <- read_csv(file = here("data", "rock.csv"))
+
+my_csv_data
+```
+
+## Read excel files
+
+> `read_excel()` take one necessary argument, which is `path`, a path to a file. You will need to define `sheet` argument if you have more than one sheet in excel (default to first sheet).
+
+```{r, echo = TRUE}
+my_excel_data <- read_excel(path = here("data", "rock.xlsx"),
+                            sheet = 1)
+
+my_excel_data
+```
+
 ## Read TSVs or TXTs
+
+> `read_tsv()` take one necessary argument, which is `file`, a path to a file.
+
+```{r, echo = TRUE}
+my_tsv_data <- read_tsv(file = here("data", "rock.tsv"))
+
+my_tsv_data
+```
+
+## Read whatever
+
+> `read_delim()` take two necessary argument, which is `file`, a path to a file, and `delim`, the separator. It's the most flexible way to read in data.
+
+```{r, echo = TRUE}
+my_data <- read_delim(file = here("data", "rock.txt"),
+                      delim = "\t")
+
+my_data
+```
 
 ## Write CSVs
 
-# Data Visualization Background
+### csv is the most commonly used because of its simplicity and compatibility
+
+> `write_csv()` takes two necessary arguments `x`, the data frame object you want to export, and `file`, the path you want to save the file to.
+
+```{r, echo = TRUE}
+
+write_csv(x = my_data,
+          file = here("data", "my_data.csv"))
+```
+
+Now, check your folder, and you should find a file got saved with the name `my_data.csv`.
+
+![](images/paste-14D85C4A.png){fig-align="center"}
+
+# Data visualization: Background
 
 With `ggplot2` and `patchwork` package
 
-Using `palmerpenguins` as example
+And I will be using the data set in the package `palmerpenguins` as example
 
 ## Our data set - Palmer Penguins!
 
 ### Yes, I love penguin data a lot :)
 
-```{r}
-penguins <- penguins %>%
-  mutate(year = as.factor(year))
-```
-
 ```{r, echo = TRUE}
+library(palmerpenguins)
+
+penguins$year <- as.factor(penguins$year)
+
 glimpse(penguins)
 ```
 
@@ -133,11 +226,9 @@ Artwork by @allison_horst
 library(palmerpenguins)
 library(ggplot2)
 
-ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
-  geom_point(size = 2)
+ggplot(data = penguins) +
+  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
 ```
-
--   Create a new script
 
 -   Copy/Paste or type this code to your script
 
@@ -145,83 +236,577 @@ ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
 
 -   What do you get?
 
-## wow `ggplot()`!
-
-```{r, echo = TRUE}
-library(palmerpenguins)
-library(ggplot2)
-
-ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
-  geom_point(size = 2)
-```
-
 ![](images/paste-1081014A.png){.absolute top="300" right="0" width="504"}
 
 ::: aside
 Artwork by @allison_horst
 :::
 
+## wow!
+
+```{r, echo = TRUE}
+library(palmerpenguins)
+library(ggplot2)
+
+ggplot(data = penguins) +
+  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
+```
+
 ## Piece by piece
 
-## Create a canvas: `ggplot()`
+``` {.r code-line-numbers="1,2"}
+library(palmerpenguins)
+library(ggplot2)
 
-## Aesthetic mapping: `aes()`
+ggplot(data = penguins) +
+  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
+```
 
-## Select plot type: `geom_*()`
+::: columns
+::: {.column width="40%"}
+#### `library(palmergenguins)`
 
-### Plot layers are combined by `+`
+-   Load `palmerpenguins` package
 
-### The order matters, from bottom to up
+-   We can get the `penguins` data set
 
-# Plot types
+#### `library(ggplot2)`
 
-## What kind of plot types `geom_*()` in `ggplot2`
+-   Load `ggplot2` packages
+
+-   We can use the functions like `ggplot()`, `aes()`, `geom_point()`, etc.
+:::
+
+::: {.column width="60%"}
+```{r}
+ggplot(data = penguins) +
+  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
+```
+:::
+:::
+
+## Piece by piece
+
+``` {.r code-line-numbers="4"}
+library(palmerpenguins)
+library(ggplot2)
+
+ggplot(data = penguins) +
+  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
+```
+
+::: columns
+::: {.column width="40%"}
+#### `ggplot()`
+
+-   Set the attributes of your plot
+
+-   `data` = data set
+
+-   Think of this as your plot defaults
+
+-   Or like creating an empty canvas
+
+`+`
+
+-   ggplot layers are connected by `+`
+
+-   Plots are created in layers, from bottom to top
+:::
+
+::: {.column width="60%"}
+```{r}
+ggplot(data = penguins) +
+  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
+```
+:::
+:::
+
+## Piece by piece
+
+``` {.r code-line-numbers="5"}
+library(palmerpenguins)
+library(ggplot2)
+
+ggplot(data = penguins) +
+  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
+```
+
+::: columns
+::: {.column width="40%"}
+#### `geom_point()`
+
+-   Create scatter plots
+
+-   `aes()`: Aesthetics (how the data are used)
+
+-   Set the attributes of your plot (e.g., `size`)
+:::
+
+::: {.column width="60%"}
+```{r}
+ggplot(data = penguins) +
+  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
+```
+:::
+:::
+
+## Aesthetics can be inherited
+
+### The following two scripts produce the same plot
+
+-   You can put `aes()` in the `geom_point()`
+
+```{r, echo = TRUE, eval = FALSE}
+ggplot(data = penguins) +
+  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
+```
+
+-   Or put the `aes()` right in the `ggplot()`
+
+```{r, echo = TRUE}
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point(size = 2)
+```
+
+## Plots can be saved as objects
+
+::: columns
+::: {.column width="50%"}
+```{r, echo = TRUE}
+g <- ggplot(data = penguins)
+g
+```
+:::
+
+::: {.column width="50%"}
+```{r, echo = TRUE}
+g + geom_point(aes(x = bill_length_mm, 
+                   y = bill_depth_mm), 
+               size = 2)
+```
+:::
+:::
+
+# Data visualization: Plot types
 
 ## `geom_histogram()`: histogram
 
+```{r, echo = TRUE}
+ggplot(data = penguins) +
+  geom_histogram(aes(x = body_mass_g))
+```
+
+> **Q**: we only need 1 aesthetic here, do you know why?
+
 ## `geom_density()`: density plot
 
-## `geom_barplot()`: bar plot
+```{r, echo = TRUE}
+ggplot(data = penguins) +
+  geom_density(aes(x = body_mass_g))
+```
+
+> **Q**: we only need 1 aesthetic here, do you know why?
+
+## `geom_bar()`: bar plot
+
+### `ggplot()` can count the data for you
+
+```{r, echo = TRUE}
+ggplot(data = penguins) +
+  geom_bar(aes(x = sex))
+```
+
+## `geom_bar()`: bar plot
+
+### Or you can provide counted data
+
+```{r, echo = TRUE}
+species_counts <- data.frame(species = c("Adelie", 
+                                     "Chinstrap", 
+                                     "Gentoo"),
+                         n = c(152, 68, 124))
+
+ggplot(data = species_counts, aes(x = species, y = n)) +
+  geom_bar(stat = "identity")
+
+```
 
 ## `geom_point()`: scatter plot
 
-## `geom_box()`: box plot
+### Standard scatter plot
 
-# Showing data by group
+```{r, echo = TRUE}
+ggplot(data = penguins) +
+  geom_point(aes(x = body_mass_g, y = bill_length_mm))
+```
+
+> **Q**: we need 2 aesthetics here, do you know why?
+
+## `geom_point()`: scatter plot
+
+### Try different colours and point size
+
+::: columns
+::: {.column width="50%"}
+```{r, echo = TRUE}
+ggplot(data = penguins) +
+  geom_point(aes(x = body_mass_g, 
+                 y = bill_length_mm),
+             colour = "blue")
+```
+:::
+
+::: {.column width="50%"}
+```{r, echo = TRUE}
+ggplot(data = penguins) +
+  geom_point(aes(x = body_mass_g, 
+                 y = bill_length_mm),
+             size = 3)
+```
+:::
+:::
+
+-   Other tan `colour` and `size`, you can also change `alpha`, `fill`, `group`, `shape`, `stroke`
+
+-   Learn more about setting these aesthetics by `vignette("ggplot2-specs")`
+
+## `geom_boxplot()`: box plot
+
+```{r, echo = TRUE}
+ggplot(data = penguins) +
+  geom_boxplot(aes(x = species, y = bill_length_mm))
+```
+
+## Your turn
+
+### Try creating this plot
+
+```{r}
+ggplot(data = penguins) +
+  geom_boxplot(aes(x = island, y = bill_length_mm),
+               colour = "blue")
+```
+
+## Your turn
+
+### Try creating this plot
+
+```{r, echo = TRUE}
+ggplot(data = penguins) +
+  geom_boxplot(aes(x = island, y = bill_length_mm),
+               colour = "blue")
+```
+
+## Other `geom_*()` in `ggplot2`
+
+### Check `ggplot2` [CHEAT SHEET](https://github.com/rstudio/cheatsheets/blob/main/data-visualization-2.1.pdf)
+
+![](images/paste-6EA991D5.png){fig-align="center"}
+
+# Data visualization: Showing data by group
+
+This is what we mentioned in the lecture "adding categorical variables"
 
 ## Mapping aesthetics
 
--   group, colour, fill
+### Standard scatter plot
+
+```{r, echo = TRUE}
+ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_point()
+```
+
+## Mapping aesthetics
+
+### We can use colour aesthetic to show different `species`
+
+```{r, echo = TRUE}
+ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
+  geom_point()
+```
+
+## Mapping aesthetics
+
+### Or two aesthetics (e.g., colour and shape) for `species`
+
+```{r, echo = TRUE}
+ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = species, shape = species)) +
+  geom_point()
+```
 
 ## `facet_warp()`
 
+### Split plots by `one` grouping variable (e.g., `species`)
+
+```{r, echo = TRUE}
+ggplot(data = penguins, aes(x = bill_depth_mm, y = bill_length_mm, colour = species)) +
+  geom_point() +
+  facet_wrap( ~ species)
+```
+
 ## `facet_grid()`
 
-# Trend line / regression lines
+### Split plots by `two` grouping variables (e.g., `species` and `island`)
 
-## `geom_smooth()`
+```{r, echo = TRUE}
+ggplot(data = penguins, aes(x = bill_depth_mm, y = bill_length_mm, colour = species)) +
+  geom_point() +
+  facet_grid(island ~ species)
+```
 
-# Customizing plots
+## Your turn!
 
-## Labels
+### Try creating this plot
 
-## Built-in themes
+```{r, echo = TRUE, eval = FALSE}
+ggplot(data = penguins, aes(x = ___, y = ___, ___ = ___)) +
+  geom_boxplot() +
+  facet_wrap(~ ___)
+```
 
-## Axes
+```{r}
+ggplot(data = penguins, aes(x = species, y = bill_length_mm, fill = sex)) +
+  geom_boxplot() +
+  facet_wrap(~ sex)
+```
 
-## Aesthetics
+## Your turn!
 
-## Legend placement
+### Try creating this plot
 
-# Combining plots
+```{r, echo = TRUE}
+ggplot(data = penguins, aes(x = species, y = bill_length_mm, fill = sex)) +
+  geom_boxplot() +
+  facet_wrap(~ sex)
+```
 
-# Saving plots
+# Data visualization: Trend lines / regression lines
+
+## `geom_line()`: connecting points with lines
+
+### Which is not what we wanted
+
+```{r, echo = TRUE}
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point() +
+  geom_line()
+```
+
+## `geom_smooth()`: line plots
+
+### Add trend line by setting `lm` (linear model)
+
+```{r, echo = TRUE}
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+## `geom_smooth()`: line plots
+
+### Set `se` (stand error) to `FALSE`
+
+```{r, echo = TRUE}
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+## `geom_smooth()`: line plots with groups
+
+```{r, echo = TRUE}
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, group = species, colour = species)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+## Your turn!
+
+### Try creating this plot
+
+```{r, echo = TRUE, eval = FALSE}
+ggplot(data = penguins, aes(x = ___, y = ___, group = ___, colour = ___)) +
+  geom_point() +
+  geom_smooth(method = ___, ___ = ___) +
+  facet_grid(___ ~ .)
+```
+
+```{r}
+ggplot(data = penguins, aes(x = body_mass_g, y = flipper_length_mm, group = species, colour = species)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_grid(species ~ .)
+```
+
+## Your turn!
+
+### Try creating this plot
+
+```{r, echo = TRUE}
+ggplot(data = penguins, aes(x = body_mass_g, y = flipper_length_mm, group = species, colour = species)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_grid(species ~ .)
+```
+
+# Data visualization: Customizing plots
+
+## Let's get started with this plot
+
+```{r, echo = TRUE}
+g <- ggplot(data = penguins) +
+  geom_point(aes(x = bill_length_mm, y = bill_depth_mm, colour = species))
+g
+```
+
+## `labs()` for labels
+
+```{r, echo = TRUE}
+g + labs(title = "Bill Length vs. Bill Depth",
+         x = "Bill Length (mm)",
+         y = "Bill Depth (mm)",
+         colour = "Species")
+```
+
+## Aesthetics for axes
+
+### `scale` + (`x`, `y`) + (`continuous`, `discrete`, `date`, `datetime`)
+
+-   scale_x\_continuous()
+
+-   scale_y\_continuous()
+
+### Common arguments
+
+```{r, echo = TRUE, eval = FALSE}
+g + scale_x_continuous(breaks = seq(0, 20, 10)) # Tick breaks
+g + scale_x_continuous(limits = c(0, 15)) # xlim() is a shortcut for this
+g + scale_x_continuous(expand = c(0, 0)) # Space between axis and data
+```
+
+## Aesthetics for colour, fill, size
+
+### `scale` + (`colour`, `fill`, `size`) + (`continuous`, `discrete`, `manual`, `viridis_d`, `viridis_c`, etc)  
+
+::: columns
+::: {.column width="50%"}
+For manually select colours for aesthetics
+
+`scale_colour_manual()`
+
+```{r, echo = TRUE}
+g + 
+  scale_colour_manual(values = c("red", "purple", "yellow"))
+```
+:::
+
+::: {.column width="50%"}
+For colour-blind-friendly scale
+
+`scale_colour_viridis_d()`
+
+```{r, echo = TRUE}
+g + 
+  scale_colour_viridis_d()
+```
+:::
+:::
+
+## `theme_*()` for setting general theme
+
+::: columns
+::: {.column width="50%"}
+```{r, echo = TRUE}
+g + theme_bw()
+```
+:::
+
+::: {.column width="50%"}
+```{r, echo = TRUE}
+g + theme_classic()
+```
+:::
+:::
+
+::: columns
+::: {.column width="50%"}
+```{r, echo = TRUE}
+g + theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+```{r, echo = TRUE}
+g + theme_dark()
+```
+:::
+:::
+
+## `theme()` for font size
+
+-   Set it one by one
+
+```{r, echo = TRUE}
+g + theme(axis.title = element_text(size = 20),
+          axis.text = element_text(size = 12),
+          legend.title = element_text(size = 16),
+          legend.text = element_text(size = 11))
+```
+
+-   Or you can set everything at the same time
+
+```{r, eval = FALSE, echo = TRUE}
+g + theme(text = element_text(size = 20))
+```
+
+## `theme()` for legend position
+
+::: columns
+::: {.column width="50%"}
+```{r, echo = TRUE}
+g + theme(legend.position = "bottom")
+```
+:::
+
+::: {.column width="50%"}
+```{r, echo = TRUE}
+g + theme(legend.position = c(0.9, 0.2))
+```
+:::
+:::
+
+## Put all together
+
+```{r, echo = TRUE}
+ggplot(data = penguins) +
+  geom_point(aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) +
+  labs(title = "Bill Length vs. Bill Depth",
+         x = "Bill Length (mm)",
+         y = "Bill Depth (mm)",
+         colour = "Species") +
+  scale_x_continuous(limits = c(30, 60)) +
+  scale_y_continuous(limits = c(10, 25)) +
+  scale_colour_viridis_d() +
+  theme_bw() +
+  theme(text = element_text(size = 14),
+        legend.position = c(0.9, 0.3))
+  
+```
+
+# Data visualization: Combining plots
+
+![](images/paste-446B990F.png)
+
+# Data visualization: Saving plots
 
 -   By RStudio
 
 -   By save_image into different types
 
-# Error Shooting
+# R Others: Miscellaneous
+
+Here is some advanced materials if you are comfortable and familiar with the content above
 
 ## What's wrong?
 
@@ -238,10 +823,6 @@ Artwork by @allison_horst
 -   the theme is not working because of the sequence
 
 -   fill and colour in bar plot!
-
-# R Others: Miscellaneous
-
-Here is some advanced materials if you are comfortable and familiar with the content above
 
 ## R `ggplot()` cheatsheet
 

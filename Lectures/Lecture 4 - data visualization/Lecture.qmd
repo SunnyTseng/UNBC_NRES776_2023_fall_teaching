@@ -105,6 +105,12 @@ To communicate insights to others. This is often referred as "Publication ready 
 :::
 :::
 
+![](images/paste-C496DB48.png){fig-align="center" width="346"}
+
+::: aside
+[Artwork by \@allison_horst](https://twitter.com/allison_horst)
+:::
+
 ## Human brain is lazy
 
 > The goal of data visualization is to improve understanding of the data
