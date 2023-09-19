@@ -115,7 +115,7 @@ To communicate insights to others. This is often referred as "Publication ready 
 
 > The goal of data visualization is to improve understanding of the data
 
--   The island Biscoe has the most penguin individuals, followed by island Dream and island Biscoe
+-   The island Biscoe has the most penguin individuals, followed by island Dream and island Torgersen
 -   The Torgersen island only has one penguin species
 
 <!-- -->
@@ -415,7 +415,7 @@ ggplot(penguins, aes(x = species)) +
 :::
 :::
 
--   Separate three species by the **colour**
+-   Separate years of collection (a categorical variable) by the **colour**
 
 -   The count of `species` by `year`
 
@@ -445,7 +445,7 @@ ggplot(penguins, aes(x = species)) +
 :::
 :::
 
--   Separate three species by the **colour**
+-   Separate years of collection (a categorical variable) by the **colour**
 
 -   The proportion of individuals that collected in different `years`, by `species`
 
@@ -476,9 +476,9 @@ ggplot(penguins, aes(x = species)) +
 :::
 :::
 
--   Separate three species by the **colour**
+-   Separate years of collection (a categorical variable) by the **colour**
 
--   The count of `species` by `year`
+-   The count of `species` by `year`, easy to compare counts between years
 
 ## Bar plot: facet
 
@@ -508,9 +508,9 @@ ggplot(penguins, aes(x = species)) +
 :::
 :::
 
--   Separate three species by the **colour**
+-   Separate years of collection (a categorical variable) by the **colour**
 
--   The count of `species` by `year`
+-   The count of `species` by `year`, easy to compare counts between penguin species
 
 # Plot Types: Scatter Plot
 
