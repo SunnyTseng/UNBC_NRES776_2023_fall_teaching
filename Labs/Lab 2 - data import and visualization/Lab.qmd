@@ -121,7 +121,7 @@ library(readxl)
 With `readr` and `readxl`, you will be able to use the following functions to read spreadsheets into R.
 
 | Function       | Format                                            | Typical suffix |
-|-------------------|----------------------------------|-------------------|
+|----------------|---------------------------------------------------|----------------|
 | `read_delim()` | general text file format, must define delimiter   | .txt           |
 | `read_csv()`   | comma separated values                            | .csv           |
 | `read_csv2()`  | semicolon separated values                        | .csv           |
@@ -803,7 +803,7 @@ We will need `patchwork` package in this section
 
 ![](images/paste-446B990F.png)
 
-## Create some plots for us to demonstrate 
+## Create some plots for us to demonstrate
 
 ```{r, echo = TRUE}
 library(patchwork)
@@ -831,13 +831,13 @@ g1 + g2
 g1 / g2
 ```
 
-## Complex arrangements 
+## Complex arrangements
 
 ```{r, echo = TRUE}
 g2 + (g1 / g3)
 ```
 
-## Complex arrangements 
+## Complex arrangements
 
 ```{r, echo = TRUE}
 (g1 + g3 + plot_layout(guides = "collect")) / g2

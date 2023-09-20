@@ -484,9 +484,9 @@
 <p>With <code>readr</code> and <code>readxl</code>, you will be able to use the following functions to read spreadsheets into R.</p>
 <table>
 <colgroup>
-<col style="width: 26%">
-<col style="width: 47%">
-<col style="width: 26%">
+<col style="width: 19%">
+<col style="width: 61%">
+<col style="width: 19%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1324,11 +1324,65 @@ $ year              &lt;fct&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <span id="cb58-14"><a href="#cb58-14"></a>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><img data-src="images/paste-291168FA.png" class="absolute" style="top: 300px; right: 0px; width: 618px; "></p>
 </section></section>
+<section>
 <section id="data-visualization-combining-plots" class="title-slide slide level1 center">
 <h1>Data visualization: Combining plots</h1>
+<p>We will need <code>patchwork</code> package in this section</p>
 
 <img data-src="images/paste-446B990F.png" class="r-stretch"></section>
+<section id="create-some-plots-for-us-to-demonstrate" class="slide level2">
+<h2>Create some plots for us to demonstrate</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb59-2"><a href="#cb59-2"></a></span>
+<span id="cb59-3"><a href="#cb59-3"></a>g1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb59-4"><a href="#cb59-4"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb59-5"><a href="#cb59-5"></a></span>
+<span id="cb59-6"><a href="#cb59-6"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb59-7"><a href="#cb59-7"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb59-8"><a href="#cb59-8"></a></span>
+<span id="cb59-9"><a href="#cb59-9"></a>g3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g, <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb59-10"><a href="#cb59-10"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="side-by-side-plots" class="slide level2">
+<h2>Side by side plots</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>g1 <span class="sc">+</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
+</div>
+<img data-src="Lab_files/figure-revealjs/unnamed-chunk-57-1.png" style="width:90.0%" class="r-stretch quarto-figure-center"></section>
+<section id="stacked-plots" class="slide level2">
+<h2>Stacked plots</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a>g1 <span class="sc">/</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="Lab_files/figure-revealjs/unnamed-chunk-58-1.png" style="width:90.0%" class="r-stretch quarto-figure-center"></section>
+<section id="complex-arrangements" class="slide level2">
+<h2>Complex arrangements</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>g2 <span class="sc">+</span> (g1 <span class="sc">/</span> g3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="Lab_files/figure-revealjs/unnamed-chunk-59-1.png" style="width:90.0%" class="r-stretch quarto-figure-center"></section>
+<section id="complex-arrangements-1" class="slide level2">
+<h2>Complex arrangements</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>(g1 <span class="sc">+</span> g3 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>)) <span class="sc">/</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="Lab_files/figure-revealjs/unnamed-chunk-60-1.png" style="width:90.0%" class="r-stretch quarto-figure-center"></section>
+<section id="annotate" class="slide level2">
+<h2>Annotate</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>g2 <span class="sc">/</span> (g1 <span class="sc">+</span> g3 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>)) <span class="sc">+</span></span>
+<span id="cb64-2"><a href="#cb64-2"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">"A"</span>,</span>
+<span id="cb64-3"><a href="#cb64-3"></a>                  <span class="at">tag_suffix =</span> <span class="st">")"</span>,</span>
+<span id="cb64-4"><a href="#cb64-4"></a>                  <span class="at">caption =</span> <span class="st">"Fig 1. Penguins Data Summary"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="Lab_files/figure-revealjs/unnamed-chunk-61-1.png" style="width:90.0%" class="r-stretch quarto-figure-center"></section></section>
 <section id="data-visualization-saving-plots" class="title-slide slide level1 center">
 <h1>Data visualization: Saving plots</h1>
 <ul>
@@ -1378,22 +1432,24 @@ $ year              &lt;fct&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 </section>
 <section id="your-task-i" class="slide level2">
 <h2>Your task I</h2>
-<p>Using penguins data set</p>
-<ul>
-<li class="fragment"><p>Create a histogram to show</p></li>
-<li class="fragment"><p>Create a bar plot to show</p></li>
-<li class="fragment"><p>Create a scatter plot to show</p></li>
-<li class="fragment"><p>Create a box plot to show</p></li>
-</ul>
-<p>Use patchwork to combine four figures together (two up, two down)</p>
-<p>Bonus: Create one more figure from your own with a caption (what you try to convey) for it. Add it as the fifth plots in your patchwork</p>
-
-<img data-src="images/paste-B35E8558.png" class="r-stretch quarto-figure-center"><h3 id="hints">Hints</h3>
 <ol type="1">
-<li class="fragment">use <code>geom_hist()</code></li>
-<li class="fragment">use <code>geom_bar()</code></li>
-<li class="fragment">use <code>geom_scatter()</code></li>
-<li class="fragment">use <code>geom_box()</code></li>
+<li class="fragment">Using <code>penguins</code> data set, create plot(s) that best support the following statement” “The body mass of male penguins are larger than female penguins, regardless of species.” - Figure A</li>
+<li class="fragment">Using <code>penguins</code> data set, create plot(s) that best support the following statement” “Regardless of species, we found a positive relationship between body mass and flipper length. And this finding holds true for both genders.” - Figure B</li>
+</ol>
+
+<img data-src="images/paste-B35E8558.png" class="r-stretch quarto-figure-center"></section>
+<section id="your-task-ii" class="slide level2">
+<h2>Your task II</h2>
+<ol start="3" type="1">
+<li class="fragment">Use <code>patchwork</code> to combine plots together, and annotated well.</li>
+<li class="fragment">Bonus: Import your own data set, and create one plot from it. And put this at the same patchwork product above. - Figure C. Provide captions about this plot in the assignment submission box.</li>
+</ol>
+<h3 id="hints">Hints</h3>
+<ol type="1">
+<li class="fragment">Take a look at <code>penguins</code> data set and use <code>ggplot()</code></li>
+<li class="fragment">Check <code>drop_na()</code> function if you want to remove NA values from a data set</li>
+<li class="fragment"><code>patchwork</code> package</li>
+<li class="fragment">use <code>read_csv()</code> to import data</li>
 </ol>
 </section>
 <section id="submission" class="slide level2">
@@ -1401,9 +1457,10 @@ $ year              &lt;fct&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <h3 id="due-next-wednesday-2359-pm-moodle">Due next Wednesday 23:59 pm, Moodle</h3>
 <h3 id="evaluation">Evaluation</h3>
 <ul>
-<li class="fragment"><p>File name and type (NRES776_<em>firstname</em>_<em>lastname</em>_lab_2.png) (20%)</p></li>
-<li class="fragment"><p>Quality of the figures (check lecture notes for data visualization background) (20%, 20%, 20%, 20%)</p></li>
-<li class="fragment"><p>Bonus points for extra question, and general design of the figure layout (30%)</p></li>
+<li class="fragment"><p>File name and type (NRES776_<em>firstname</em>_<em>lastname</em>_lab_2.<strong>png</strong>) (10%)</p></li>
+<li class="fragment"><p>Accuracy, 15%, and quality, 25%, of each two plots -&gt; (80%)</p></li>
+<li class="fragment"><p>Annotation of the final patchwork product (10%)</p></li>
+<li class="fragment"><p>Bonus points for extra question (30%)</p></li>
 </ul>
 <h3 id="use-of-chatgpt-stackflow-or">Use of ChatGPT, stackflow, or…</h3>
 <ul>
