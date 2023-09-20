@@ -12,7 +12,7 @@ format:
     #smaller: true
     #scrollable: true
     incremental: true
-    #embed-resources: true
+    embed-resources: true
     width: 1200
     fontsize: 1.7em
 editor: visual
@@ -32,7 +32,7 @@ editor: visual
 
 -   Let's take this lecture easy...
 
-![](images/paste-22B16D7F.png){fig-align="center" width="608"}
+![](images/paste-22B16D7F.png){fig-align="center" width="707"}
 
 ::: aside
 Artwork by @allison_horst
@@ -247,10 +247,14 @@ hist(sample5, col ='steelblue', main = " ", xlab='Height (cm)')
 
 ## Now what?
 
--   Based on CLT, imagine that you have a sampling distribution $N(\bar{x}, S_{\bar{x}})$
+-   Based on CLT, imagine that you have a sampling distribution $N(\mu, \frac{\sigma}{\sqrt{n}})$
 -   And you sample from population again, you get $\bar{x}_{new}$ as its mean
 -   Which is an unbiased estimate of $\mu$
--   
+-   $\bar{x}_{new}$ has $68\%$ probability to locate within $\mu \pm \frac{\sigma}{\sqrt{n}}$
+
+![](images/Capture1.PNG){fig-align="center"}
+
+![](images/Capture3.PNG)
 
 ## Confidence interval (CI)
 
