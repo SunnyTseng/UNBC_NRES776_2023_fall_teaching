@@ -57,53 +57,67 @@ knitr::opts_chunk$set(dpi = 150, fig.width = 8, out.width = "90%",
 
 # Data I/O: Self-contained projects
 
-We will be using `here` package, combined with the concept of R project
+We will be using `here` package and R project
 
 ## Concept of a project
 
 > If the first line of your R script is `setwd("C:\Users\jenny\path\that\only\I\have")` I will come into your office and SET YOUR COMPUTER ON FIRE 🔥. - Jenny Bryan
 
--   use read_csv() as an example, we need to specify the path
+-   Have you ever received a R script from a friend with this line
 
--   where are you now? and where is your data?
+-   And it's 0% chance that you can run this `setwd()` without an error
 
--   absolute path vs relative path
+-   If you never heard about `setwd()`
 
-![](images/paste-58AC1017.png)
+-   Don't worry, you don't need to know 😄
 
-## `here` package and R project
+![](images/paste-58AC1017.png){.absolute top="300" right="0" width="622"}
 
--   We have done this, but what this for?
--   output .Rproj in a folder, for reading data
--   set up fires in computer
+## Concept of a project
 
-![](images/paste-2092CCC6.png)
+> A folder on your computer that holds all the files relevant to that particular piece of work.
 
-## Let's start a good habit from this lab
+-   Get your files organized
 
--   Open R studio and create a R project
+-   Your work is reproducible
 
--   Create two folders: docs, data inside the project folder
+-   There are two things that can help us creating a self-contained project
 
--   Create and save your R script (.R) in the root
+### 1. R project
 
-```{r, echo = TRUE, eval = FALSE}
+A self-contained working environment with folders for data, scripts, outputs, etc
 
-### Library
+### 2. `here` package
+
+When import/export data is required, filepaths are written relative to the root folder of the R project.
+
+## R project: how to use
+
+1.  Open R Studio
+2.  Select `File` \> `New Project` \> `New Directory` \> provide name and where you want it to be saved
+3.  The R project you create will come in as a folder containing a *.Rproj* file
+4.  This is a shortcut and likely the primary way you will open your project
+5.  Your R Studio top-right corner would show the project you are in
+
+![](images/paste-2092CCC6.png){fig-align="center"}
+
+## `here` package: how to use
+
+1.  It's a good practice to structure your working directory in a consistent way
+2.  Created a data sub folder, and put all the data files you might need
+3.  Store your R script in the root
+4.  Run `library(here)` as the first line in script
+5.  Then you will only need relative path whenever you need to import data
+
+```{r, eval = FALSE, echo = TRUE}
 library(here)
+my_data <- read_csv(here("data", "my_data.csv"))
 
-### Import data
-
-### Data visualization
-
-### Main analysis
 ```
 
--   Next time you need to work on the project again
+![](images/57457fc3-1d2d-4a3b-a9b7-f0b62e418cd5.png){fig-align="center" width="419"}
 
-    -   Clicking your R project file (.Rproj)
-
-    -   Use your R Studio panel to navigate and open your R script (.R)
+![](images/Capture-02.PNG){.absolute bottom="300" right="0" width="261"}
 
 # Data I/O: Read and write spreadsheet data in R
 
@@ -121,7 +135,7 @@ library(readxl)
 With `readr` and `readxl`, you will be able to use the following functions to read spreadsheets into R.
 
 | Function       | Format                                            | Typical suffix |
-|----------------|---------------------------------------------------|----------------|
+|------------------|------------------------------------|------------------|
 | `read_delim()` | general text file format, must define delimiter   | .txt           |
 | `read_csv()`   | comma separated values                            | .csv           |
 | `read_csv2()`  | semicolon separated values                        | .csv           |
@@ -194,7 +208,7 @@ Now, check your folder, and you should find a file got saved with the name `my_d
 
 # Data visualization: Background
 
-With `ggplot2` and `patchwork` package
+With `ggplot2` package
 
 And I will be using the data set in the package `palmerpenguins` as example
 
@@ -204,8 +218,6 @@ And I will be using the data set in the package `palmerpenguins` as example
 
 ```{r, echo = TRUE}
 library(palmerpenguins)
-
-penguins$year <- as.factor(penguins$year)
 
 glimpse(penguins)
 ```
@@ -422,10 +434,10 @@ ggplot(data = penguins) +
 ### Or you can provide counted data
 
 ```{r, echo = TRUE}
-species_counts <- data.frame(species = c("Adelie", 
-                                     "Chinstrap", 
-                                     "Gentoo"),
-                         n = c(152, 68, 124))
+species_counts <- data.frame(species = c("Adelie",
+                                         "Chinstrap",
+                                         "Gentoo"),
+                             n = c(152, 68, 124))
 
 ggplot(data = species_counts, aes(x = species, y = n)) +
   geom_bar(stat = "identity")
@@ -673,9 +685,9 @@ g + labs(title = "Bill Length vs. Bill Depth",
 
 ### `scale` + (`x`, `y`) + (`continuous`, `discrete`, `date`, `datetime`)
 
--   scale_x\_continuous()
+-   scale_x_continuous()
 
--   scale_y\_continuous()
+-   scale_y_continuous()
 
 ### Common arguments
 
@@ -795,13 +807,11 @@ ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, colour = spec
   
 ```
 
-![](images/paste-291168FA.png){.absolute top="300" right="0" width="618"}
+![](images/paste-291168FA.png){.absolute top="300" right="0" width="670"}
 
 # Data visualization: Combining plots
 
 We will need `patchwork` package in this section
-
-![](images/paste-446B990F.png)
 
 ## Create some plots for us to demonstrate
 
@@ -818,6 +828,8 @@ g3 <- ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g, colour
   geom_point()
 
 ```
+
+![](images/paste-446B990F.png){fig-align="center"}
 
 ## Side by side plots
 
@@ -837,7 +849,7 @@ g1 / g2
 g2 + (g1 / g3)
 ```
 
-## Complex arrangements
+## Complex arrangements with same legend
 
 ```{r, echo = TRUE}
 (g1 + g3 + plot_layout(guides = "collect")) / g2
@@ -854,9 +866,29 @@ g2 / (g1 + g3 + plot_layout(guides = "collect")) +
 
 # Data visualization: Saving plots
 
--   By RStudio
+This is the final section, I promise!
 
--   By save_image into different types
+## Saving plots
+
+We have to save our plot as an object
+
+```{r, echo = TRUE, eval = FALSE}
+g <- g2 / (g1 + g3 + plot_layout(guides = "collect")) +
+  plot_annotation(tag_levels = "A",
+                  tag_suffix = ")",
+                  caption = "Fig 1. Penguins Data Summary")
+```
+
+Then we use `ggsave()` to save it
+
+```{r, echo = TRUE, eval = FALSE}
+ggsave(filename = here("my_plot.png"), 
+       plot = g, 
+       dpi = 300,
+       height = 120, 
+       width = 180, 
+       units = "mm")
+```
 
 # R Others: Miscellaneous
 
@@ -900,15 +932,15 @@ Here is some advanced materials if you are comfortable and familiar with the con
 
 ## Your task I
 
-1.  Using `penguins` data set, create plot(s) that best support the following statement" "The body mass of male penguins are larger than female penguins, regardless of species." - Figure A
-2.  Using `penguins` data set, create plot(s) that best support the following statement" "Regardless of species, we found a positive relationship between body mass and flipper length. And this finding holds true for both genders." - Figure B
+1.  Using `penguins` data set, create plot(s) that best support the following statement: "The body mass of male penguins are larger than female penguins, regardless of species." - Figure A
+2.  Using `penguins` data set, create plot(s) that best support the following statement: "Regardless of species, we found a positive relationship between body mass and flipper length. And this finding holds true for both genders." - Figure B
 
 ![](images/paste-B35E8558.png){fig-align="center"}
 
 ## Your task II
 
 3.  Use `patchwork` to combine plots together, and annotated well.
-4.  Bonus: Import your own data set, and create one plot from it. And put this at the same patchwork product above. - Figure C. Provide captions about this plot in the assignment submission box.
+4.  Bonus: Import your own data set, create one plot and write caption for it. - Figure C. Provide this plot and caption in same patchwork product.
 
 ### Hints
 

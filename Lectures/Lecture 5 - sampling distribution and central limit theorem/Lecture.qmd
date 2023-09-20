@@ -12,7 +12,7 @@ format:
     #smaller: true
     #scrollable: true
     incremental: true
-    embed-resources: true
+    #embed-resources: true
     width: 1200
     fontsize: 1.7em
 editor: visual
@@ -40,184 +40,227 @@ Artwork by @allison_horst
 
 # Sampling distribution
 
-Just another type of probability distribution? No. It is not a type of probability distribution.
+## Population and sample
 
-## The distribution of the *samples*
+If we are interested in the height of students in UNBC.
 
-> A probability distribution of a statistic that is obtained through repeated sampling of a specific population.
+![](images/Group-13.jpg){fig-align="center" width="624"}
 
-# Probability distribution
+-   How much can we trust the values we get from the sample?
 
-The common distributions that the random variables can follow
+-   Is $\bar{x}$ close enough to $\mu$?
 
-This part is important when we start learning hypothesis test (you will know why in a week)
+-   Is $s_x$ some how represents $\sigma$?
 
-## Normal distribution
-
-> Or Gaussian distribution. A bell-shaped curve, the tails on both side are continuous to infinity. Symmetric.
+## Mathematicians did a fun experiment
 
 ::: columns
-::: {.column width="40%"}
-$$ f(x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}} $$
+::: {.column width="50%"}
+### To answer whether we can trust $\bar{x}$
 
-$$ X \sim N(\mu, \sigma^2) $$
+1.  From a population, a group of people...
 
--   $X$ follows a normal distribution
+2.  Randomly selected $n$ people (sample 1), calculate $\bar{x_1}$
 
--   Parameters $\mu$ and $\sigma$
+3.  Put everyone back
 
--   The area under the curve represent the probability
+4.  Randomly selected $n$ people (sample 2), calculate $\bar{x_2}$
 
--   Sum of the area equal to 1 (100%)
+5.  Put everyone back
+
+6.  ...(repeat above, say 1000 times)
 :::
 
-::: {.column width="60%"}
+::: {.column width="50%"}
+### Take a look at the $\bar{x}$s
+
+-   The distribution of $\bar{x}$ may look like this
+
+-   This is called **sampling distribution**
+
 ```{r}
 library(tidyverse)
-p <- data_frame(x = c(16, 36)) %>% 
-    ggplot(aes(x = x)) 
-#> Warning: `data_frame()` is deprecated, use `tibble()`.
-#> This warning is displayed once per session.
+#make this example reproducible
+set.seed(0)
 
-p + geom_vline(xintercept = 26, linetype = "dashed", alpha = 0.4) +
-    stat_function(fun = dnorm, args = list(mean = 26, sd = 3), color = "#84CA72", size = 1.5) +
-    stat_function(fun = dnorm, args = list(mean = 26, sd = 6), color = "#236ED3", size = 1.5) +
-    ggtitle("Normal Distribution, mean = 26, sd = 3 (green) or 6 (blue)") +
-    xlab("X") +
-    ylab("f(X)") +
-    theme_classic()
+#create random variable with sample size of 1000 that is uniformally distributed
+data <- runif(n=1000, min=150, max=200)
+
+sample5 <- c()
+
+#take 1,000 random samples of size n=5
+n = 1000
+for (i in 1:n){
+sample5[i] = mean(sample(data, 50, replace=TRUE))
+}
+
+#create histogram to visualize sampling distribution of sample means
+hist(sample5, col ='steelblue', main = " ", xlab='Height (cm)')
+
 ```
 :::
 :::
 
-## Z-distribution
+## Sampling distribution
 
-> A special case of Normal distribution when $\mu$ is 0 and $\sigma$ is 1, that is $N(0, 1^2)$. To transform ANY $N(\mu, \sigma^2)$ to $N(0, 1^2)$:
+> A probability distribution of a sample statistic that is obtained through repeated sampling of a specific population.
+
+-   What's special about this sampling distribution?
+
+-   Take a look at the $n$, our sample size
 
 ::: columns
 ::: {.column width="50%"}
-$$
-x_i^\prime = \frac{x_i - \mu}{\sigma}
-$$
+Population ($\mu = 175$)
 
-$$
-Z \sim N(0, 1^2)
-$$
+```{r}
+#make this example reproducible
+set.seed(0)
 
--   $Z$ follows a Z-distribution
+#create random variable with sample size of 1000 that is uniformally distributed
+data <- runif(n=1000, min=150, max=200)
 
--   No parameter needed
-
--   Standardized normal is easier for us to find the corresponded probability of a value
+#create histogram to visualize distribution of turtle shell widths
+hist(data, col='steelblue', main=" ", xlab='Height (cm)')
+```
 :::
 
 ::: {.column width="50%"}
+Sampling distribution (n = 3)
+
 ```{r}
-p <- data_frame(x = c(-4,4)) %>% 
-    ggplot(aes(x = x)) 
-#> Warning: `data_frame()` is deprecated, use `tibble()`.
-#> This warning is displayed once per session.
+sample5 <- c()
 
-p + geom_vline(xintercept = 0, linetype = "dashed", alpha = 0.4) +
-  geom_vline(xintercept = 1, linetype = "solid", alpha = 0.4) + geom_vline(xintercept = -1, linetype = "solid", alpha = 0.4) +
-    stat_function(fun = dnorm, color = "#84CA72", size = 1.5) +
-    ggtitle("Standard Normal Distribution") +
-    xlab("x") +
-    ylab("dnorm(x)") +
-    theme_classic()
+#take 1,000 random samples of size n=5
+n = 1000
+for (i in 1:n){
+sample5[i] = mean(sample(data, 3, replace=TRUE))
+}
+
+#create histogram to visualize sampling distribution of sample means
+hist(sample5, col ='steelblue', main = " ", xlab='Height (cm)')
 ```
-
--   $P(-1 \le Z \le 1) = 68\%$
-
--   $P(-2 \le Z \le 2) = 95\%$
-
--   $P(-3 \le Z \le 3) = 99\%$
-
--   $P(-v \le Z \le v) = ?$ Check Z-table
 :::
 :::
 
-## t-distribution
+## Sampling distribution
 
-> A distribution of estimates sampling from normally distributed population when the sample size is small (**n \< 30**).
+> A probability distribution of a sample statistic that is obtained through repeated sampling of a specific population.
+
+-   What's special about this sampling distribution?
+
+-   Take a look at the $n$, our sample size
 
 ::: columns
 ::: {.column width="50%"}
-How do we get t-distribution?
+Population ($\mu = 175$)
 
-For example, there is a population $\sim N(0, 1^2)$
+```{r}
+#make this example reproducible
+set.seed(0)
 
--   sample A (n = 7) -\> $\bar{x_A} = 0.5$
+#create random variable with sample size of 1000 that is uniformally distributed
+data <- runif(n=1000, min=150, max=200)
 
-<!-- -->
-
--   sample B (n = 7) -\> $\bar{x_B} = 1.2$
-
--   ...
-
--   sample Z (n = 7) -\> $\bar{x_Z} = -0.7$
+#create histogram to visualize distribution of turtle shell widths
+hist(data, col='steelblue', main=" ", xlab='Height (cm)')
+```
 :::
 
 ::: {.column width="50%"}
-The distribution of all the $\bar{x}$
+Sampling distribution (n = 30)
 
 ```{r}
-p <- data_frame(x = c(-4,4)) %>% 
-    ggplot(aes(x = x)) 
+sample5 <- c()
 
-p + stat_function(fun = dt, args = list(df = 6), color = "#84CA72", size = 1.5) +
-    stat_function(fun = dnorm, color = "grey70", size = 1.5) +
-    ggtitle("Central t-Distribution (df = 6, green) compared to z-Distribution (grey)") +
-    xlab("x") +
-    ylab("dt(x, 6) / dnorm(x)") +
-    theme_classic()
+#take 1,000 random samples of size n=5
+n = 1000
+for (i in 1:n){
+sample5[i] = mean(sample(data, 30, replace=TRUE))
+}
+
+#create histogram to visualize sampling distribution of sample means
+hist(sample5, col ='steelblue', main = " ", xlab='Height (cm)')
 ```
 :::
 :::
 
-**t-distribution is similar to standardized normal distribution (Z-distribution), especially when degree of freedom (or sample size) is high**
+## Sampling distribution
 
-## F-distribution
+> A probability distribution of a sample statistic that is obtained through repeated sampling of a specific population.
 
-> Use most notably in Analysis of Variance (ANOVA), which we will cover later in this course
+-   What's special about this sampling distribution?
 
-$$
-f(x) = \sqrt{\frac{(d_1x)^{d_1}d_2^{d_2}}{(d_1x + d_2)^{d_1d_2}}}/xB(\frac{d_1}{2}\frac{d_2}{2})
-$$
+-   Take a look at the $n$, our sample size
 
-```{r}
-p <- data_frame(x = c(0, 5)) %>% 
-    ggplot(aes(x = x)) 
-
-p + stat_function(fun = df, args = list(df1 = 2, df2 = 40), 
-                  color = "#84CA72", size = 1.5) +
-    stat_function(fun = df, args = list(df1 = 5, df2 = 80), 
-                  color = "grey70", size = 1.5) +
-    stat_function(fun = df, args = list(df1 = 8, df2 = 120), 
-                  color = "blue", size = 1.5, alpha = 0.7) +
-    ggtitle("F-Distributions with df1 = 2, 5, 8 and df2 = 40, 80, 120") +
-    xlab("x") +
-    ylab("df(x, c(2, 5, 8), c(40, 80, 120))") +
-    theme_classic()
-```
-
-## $\chi^2$ -distribution
-
-> chi-squared test for goodness of fit of an observed distribution to a theoretical one
+::: columns
+::: {.column width="50%"}
+Population ($\mu = 175$)
 
 ```{r}
-p <- data_frame(x = c(0, 25)) %>% 
-    ggplot(aes(x = x)) 
+#make this example reproducible
+set.seed(0)
 
-p + stat_function(fun = dchisq, args = list(df = 2), color = "#84CA72", size = 1.5) +
-    stat_function(fun = dchisq, args = list(df = 4), color = "grey70", size = 1.5) +
-    stat_function(fun = dchisq, args = list(df = 8), color = "blue", size = 1.5, alpha = 0.7) +
-    stat_function(fun = dchisq, args = list(df = 14), color = "red", size = 1.5, alpha = 0.7) +
-    ggtitle("Chi-Square Distributions with dfs = 2, 4, 8, and 14") +
-    xlab("x") +
-    ylab("dchisq(x, c(2, 4, 8, 14))") +
-    theme_classic()
+#create random variable with sample size of 1000 that is uniformally distributed
+data <- runif(n=1000, min=150, max=200)
+
+#create histogram to visualize distribution of turtle shell widths
+hist(data, col='steelblue', main=" ", xlab='Height (cm)')
 ```
+:::
+
+::: {.column width="50%"}
+Sampling distribution (n = 100)
+
+```{r}
+sample5 <- c()
+
+#take 1,000 random samples of size n=5
+n = 1000
+for (i in 1:n){
+sample5[i] = mean(sample(data, 100, replace=TRUE))
+}
+
+#create histogram to visualize sampling distribution of sample means
+hist(sample5, col ='steelblue', main = " ", xlab='Height (cm)')
+```
+:::
+:::
+
+## Central limit theorem (CLT)
+
+> When $n \geq 30$, the sampling means are normally distributed with $mean(\bar{x}) = \mu$, and $sd(\bar{x}) = \frac{\sigma}{\sqrt{n}}$, no matter what distribution that population has.
+
+-   Central limit theorem is important and cool! Because...somehow, sampling distribution is almost always normally distributed, when $n$ is large.
+
+![](images/3-s2.0-B9780128034590000066-f06-05-9780128034590.jpg){fig-align="center"}
+
+### Standard error (SE)
+
+> Standard error is the standard deviation of the sampling distribution: $sd(\bar{x}) = \frac{\sigma}{\sqrt{n}}$
+
+-   SE describes standard deviation of sampling distribution
+
+-   SE means how wide spread is the 1000, or whatever many, sample means
+
+-   SE decreases when $n$ increases; SE is large when $\sigma$ is large
+
+## Now what?
+
+-   Based on CLT, imagine that you have a sampling distribution $N(\bar{x}, S_{\bar{x}})$
+-   And you sample from population again, you get $\bar{x}_{new}$ as its mean
+-   Which is an unbiased estimate of $\mu$
+-   
+
+## Confidence interval (CI)
+
+> An interval that has $C\%$ probability containing true mean. Where $C = 1-\alpha$, is called confidence level, and $\alpha$ is called significance level.
+
+## Confidence interval (CI)
+
+$$
+CI = \bar{x} \pm t_{(\frac{1-C}{2}, n-1)} S_{\bar{x}}
+$$
 
 ## What we learned
 
@@ -226,6 +269,8 @@ p + stat_function(fun = dchisq, args = list(df = 2), color = "#84CA72", size = 1
     -   mean of the sampling distribution is a good estimate of the population mean
 
     -   sd of the sampling distribution is called standard error
+-   Standard error is not the same thing as standard deviation
+-   And keep in mind... the topic we learned in each lecture can be a course by itself
 
 ## Wrap up
 
