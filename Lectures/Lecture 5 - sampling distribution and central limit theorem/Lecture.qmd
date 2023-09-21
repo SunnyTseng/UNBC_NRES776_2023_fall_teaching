@@ -38,8 +38,6 @@ editor: visual
 Artwork by @allison_horst
 :::
 
-# Sampling distribution
-
 ## Population and sample
 
 If we are interested in the height of students in UNBC.
@@ -247,33 +245,66 @@ hist(sample5, col ='steelblue', main = " ", xlab='Height (cm)')
 
 ## Now what?
 
--   Based on CLT, imagine that you have a sampling distribution $N(\mu, \frac{\sigma}{\sqrt{n}})$
+-   Based on CLT, imagine that you have a sampling distribution $N(\mu, \frac{\sigma^2}{n})$
 -   And you sample from population again, you get $\bar{x}_{new}$ as its mean
--   Which is an unbiased estimate of $\mu$
--   $\bar{x}_{new}$ has $68\%$ probability to locate within $\mu \pm \frac{\sigma}{\sqrt{n}}$
+-   $\bar{x}_{new}$ has $68\%$ probability to locate within $\mu \pm \frac{\sigma}{\sqrt{n}}$, that is $\mu \pm \frac{s}{\sqrt{n}}$
+-   We can have a sense about population just by **ONE sample**!
 
-![](images/Capture1.PNG){fig-align="center"}
-
-![](images/Capture3.PNG)
+![](images/Capture3.PNG){fig-align="center" width="535"}
 
 ## Confidence interval (CI)
 
 > An interval that has $C\%$ probability containing true mean. Where $C = 1-\alpha$, is called confidence level, and $\alpha$ is called significance level.
 
-## Confidence interval (CI)
+::: columns
+::: {.column width="50%"}
+-   $\mu$ has **68%** probability within $\bar{x} \pm \frac{s}{\sqrt{n}}$
+
+-   $\mu$ has **95%** probability within $\bar{x} \pm \frac{2s}{\sqrt{n}}$
+
+-   $\mu$ has **99%** probability within $\bar{x} \pm \frac{3s}{\sqrt{n}}$
 
 $$
-CI = \bar{x} \pm t_{(\frac{1-C}{2}, n-1)} S_{\bar{x}}
+CI = \bar{x} \pm t_{(\frac{\alpha}{2}, n-1)} * \frac{s}{\sqrt{n}}
 $$
+
+-   We need to use t-distribution here because $n$ might be smaller than 30, and only if assuming the population itself is normally distributed.
+:::
+
+::: {.column width="50%"}
+![](images/Capture3.PNG){fig-align="center" width="535"}
+:::
+:::
+
+## JPRF black bear
+
+-   We measured the weight from 25 black bears in JPRF forest, and got their averaged weight as 400 kg, with standard deviation 20 kg.
+
+-   Find the confidence interval for $\mu$, with $90\%$ confidence interval.
+
+$$
+n = 25, \bar{x} = 400, s = 40, \alpha = 0.1
+$$
+
+$$
+Upper = \bar{x} + t_{0.05, 24} * \frac{s}{\sqrt{n}} = 413.7
+$$
+
+$$
+Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
+$$
+
+-   Based on our sample, we have $90\%$ confidence that the weight of a black bear in JPRF forest is between 386.3 to 413.7 kg.
 
 ## What we learned
 
 -   Concept of sampling distribution
 -   Central limit theorem tells us
-    -   mean of the sampling distribution is a good estimate of the population mean
+    -   mean of the sampling distribution is an unbiased estimate of the population mean
 
     -   sd of the sampling distribution is called standard error
 -   Standard error is not the same thing as standard deviation
+-   We can get a confidence interval about population mean, just by one sample!
 -   And keep in mind... the topic we learned in each lecture can be a course by itself
 
 ## Wrap up

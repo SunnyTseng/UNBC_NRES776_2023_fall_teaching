@@ -139,7 +139,7 @@ library(readxl)
 With `readr` and `readxl`, you will be able to use the following functions to read spreadsheets into R.
 
 | Function       | Format                                            | Typical suffix |
-|-------------------|----------------------------------|-------------------|
+|----------------|---------------------------------------------------|----------------|
 | `read_delim()` | general text file format, must define delimiter   | .txt           |
 | `read_csv()`   | comma separated values                            | .csv           |
 | `read_csv2()`  | semicolon separated values                        | .csv           |
