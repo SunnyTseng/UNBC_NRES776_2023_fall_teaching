@@ -99,7 +99,11 @@ When import/export data is required, filepaths are written relative to the root 
 4.  This is a shortcut and likely the primary way you will open your project
 5.  Your R Studio top-right corner would show the project you are in
 
-![](images/paste-2092CCC6.png){fig-align="center"}
+![](images/paste-2092CCC6.png){fig-align="center" width="505"}
+
+::: aside
+Artwork by Allison Horst
+:::
 
 ## `here` package: how to use
 
@@ -135,7 +139,7 @@ library(readxl)
 With `readr` and `readxl`, you will be able to use the following functions to read spreadsheets into R.
 
 | Function       | Format                                            | Typical suffix |
-|------------------|-----------------------------------|------------------|
+|-------------------|----------------------------------|-------------------|
 | `read_delim()` | general text file format, must define delimiter   | .txt           |
 | `read_csv()`   | comma separated values                            | .csv           |
 | `read_csv2()`  | semicolon separated values                        | .csv           |
@@ -218,7 +222,6 @@ And I will be using the data set in the package `palmerpenguins` as example
 
 ```{r, echo = TRUE}
 library(palmerpenguins)
-
 glimpse(penguins)
 ```
 
@@ -593,6 +596,10 @@ ggplot(data = penguins, aes(x = species, y = bill_length_mm, fill = sex)) +
   facet_wrap(~ sex)
 ```
 
+## How is everyone doing?
+
+![](images/paste-4EDFE4BC.png){fig-align="center"}
+
 # Data visualization: Trend lines / regression lines
 
 ## `geom_line()`: connecting points with lines
@@ -664,6 +671,10 @@ ggplot(data = penguins, aes(x = body_mass_g, y = flipper_length_mm, group = spec
 
 # Data visualization: Customizing plots
 
+## This is where to include your taste
+
+![](images/paste-7281922A.png){fig-align="center"}
+
 ## Let's get started with this plot
 
 ```{r, echo = TRUE}
@@ -683,11 +694,11 @@ g + labs(title = "Bill Length vs. Bill Depth",
 
 ## Aesthetics for axes
 
-### `scale` + (`x`, `y`) + (`continuous`, `discrete`, `date`, `datetime`)
+`scale` + (`x`, `y`) + (`continuous`, `discrete`, `date`, `datetime`)
 
--   scale_x_continuous()
+-   `scale_x_continuous()`
 
--   scale_y_continuous()
+-   `scale_y_continuous()`
 
 ### Common arguments
 
@@ -699,7 +710,7 @@ g + scale_x_continuous(expand = c(0, 0)) # Space between axis and data
 
 ## Aesthetics for colour, fill, size
 
-### `scale` + (`colour`, `fill`, `size`) + (`continuous`, `discrete`, `manual`, `viridis_d`, `viridis_c`, etc)
+`scale` + (`colour`, `fill`, `size`) + (`continuous`, `discrete`, `manual`, `viridis_d`, `viridis_c`, etc)
 
 ::: columns
 ::: {.column width="50%"}
@@ -708,8 +719,9 @@ For manually select colours for aesthetics
 `scale_colour_manual()`
 
 ```{r, echo = TRUE}
-g + 
-  scale_colour_manual(values = c("red", "purple", "yellow"))
+g + scale_colour_manual(values = c("red",
+                                   "purple",
+                                   "yellow"))
 ```
 :::
 
@@ -719,8 +731,7 @@ For colour-blind-friendly scale
 `scale_colour_viridis_d()`
 
 ```{r, echo = TRUE}
-g + 
-  scale_colour_viridis_d()
+g + scale_colour_viridis_d()
 ```
 :::
 :::
@@ -879,7 +890,7 @@ g <- g2 / (g1 + g3 + plot_layout(guides = "collect")) +
                   caption = "Fig 1. Penguins Data Summary")
 ```
 
-Then we use `ggsave()` to save it
+Then we use `ggsave()` to save it, in `pdf`, `jpg`, `png` formats
 
 ```{r, echo = TRUE, eval = FALSE}
 ggsave(filename = here("my_plot.png"), 
@@ -889,44 +900,6 @@ ggsave(filename = here("my_plot.png"),
        width = 180, 
        units = "mm")
 ```
-
-# R Others: Miscellaneous
-
-Here is some advanced materials if you are comfortable and familiar with the content above
-
-## What's wrong?
-
--   no installation of package
-
--   no bracket
-
--   wrong kind of bracket
-
--   ggplot2 package but the function is ggplot haha
-
--   no geom\_() specified
-
--   the theme is not working because of the sequence
-
--   fill and colour in bar plot!
-
-## R `ggplot()` cheatsheet
-
-## Commenting your code
-
-## Short cuts
-
--   Ctrl + Enter
-
--   Ctrl +Shift + C
-
--   Ctrl + I
-
--   Ctrl + L
-
--   Esc
-
--   Ctrl + S
 
 # Lab assignment
 
