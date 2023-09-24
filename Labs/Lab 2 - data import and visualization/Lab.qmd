@@ -139,7 +139,7 @@ library(readxl)
 With `readr` and `readxl`, you will be able to use the following functions to read spreadsheets into R.
 
 | Function       | Format                                            | Typical suffix |
-|----------------|---------------------------------------------------|----------------|
+|----------------|-----------------------------------------|----------------|
 | `read_delim()` | general text file format, must define delimiter   | .txt           |
 | `read_csv()`   | comma separated values                            | .csv           |
 | `read_csv2()`  | semicolon separated values                        | .csv           |
@@ -906,13 +906,13 @@ ggsave(filename = here("my_plot.png"),
 ## Your task I
 
 1.  Using `penguins` data set, create plot(s) that best support the following statement: "The body mass of male penguins are larger than female penguins, regardless of species." - Figure A
-2.  Using `penguins` data set, create plot(s) that best support the following statement: "Regardless of species, we found a positive relationship between body mass and flipper length. And this finding holds true for both genders." - Figure B
+2.  Using `penguins` data set, create plot(s) that best support the following statement: "Regardless of species, we found a positive relationship between body mass and flipper length. And this finding holds true for both sex." - Figure B
 
 ![](images/paste-B35E8558.png){fig-align="center"}
 
 ## Your task II
 
-3.  Use `patchwork` to combine plots together, and annotated well.
+3.  Use `patchwork` to combine plots together, and annotate figures with tags A, B, etc.
 4.  Bonus: Import your own data set, create one plot and write caption for it. - Figure C. Provide this plot and caption in same patchwork product.
 
 ### Hints
