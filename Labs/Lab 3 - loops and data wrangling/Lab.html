@@ -528,12 +528,11 @@
 <blockquote>
 <p>In R we can perform a series of operations by sending the results of one function to another using what is called the <em>pipe operator</em>: <code>%&gt;%</code> or <code>|&gt;</code></p>
 </blockquote>
-<p>A thing I will be using through out this lab… So let’s take a look at it now.</p>
 <div class="columns">
 <div class="column" style="width:40%;">
-<p>Think it like the English word “then”.</p>
 <ul>
-<li class="fragment">For example, how dog teachers teach dogs to beg for treats?</li>
+<li class="fragment"><p>A thing I will be using through out this lab…</p></li>
+<li class="fragment"><p>Think it like the English word “then”.</p></li>
 </ul>
 <!-- -->
 <ul>
@@ -598,6 +597,9 @@
 </ul>
 </div>
 </div>
+<ul>
+<li class="fragment">In this lab, I am going to use <code>%&gt;%</code> for code demonstration, but feel free to use whatever you feel comfortable and efficient.</li>
+</ul>
 </section>
 <section id="pipe-or-1" class="slide level2">
 <h2>Pipe: %&gt;% or |&gt;</h2>
@@ -629,9 +631,6 @@
 <pre><code>[1] 5.006</code></pre>
 </div>
 </div>
-<ul>
-<li class="fragment">In this lab, I am going to use <code>%&gt;%</code> for code demonstration, but feel free to use whatever you feel comfortable and efficient.</li>
-</ul>
 </section>
 <section id="base-r-vs-tidyverse" class="slide level2">
 <h2>Base R vs tidyverse?</h2>
@@ -682,39 +681,126 @@
 <section id="filter" class="slide level2">
 <h2>filter()</h2>
 <blockquote>
-<p>Keep rows that match a condition</p>
+<p>Keep rows that match condition(s). Input a tibble, return a filtered tibble.</p>
 </blockquote>
+<h3 id="keep-rows-where-bill-length-value-larger-than-18">Keep rows where bill length value larger than 18</h3>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">filter</span>(.data, ..., <span class="at">.by =</span> <span class="cn">NULL</span>, <span class="at">.preserve =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<h3 id="comparisons">Comparisons</h3>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>penguins <span class="sc">%&gt;%</span> <span class="fu">filter</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">filter</span>(bill_depth_mm <span class="sc">&gt;</span> <span class="dv">18</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 344 x 8
+<pre><code># A tibble: 130 x 8
    species island    bill_length_mm bill_depth_mm flipper_~1 body_~2 sex    year
    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;      &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
  1 Adelie  Torgersen           39.1          18.7        181    3750 male   2007
- 2 Adelie  Torgersen           39.5          17.4        186    3800 fema~  2007
- 3 Adelie  Torgersen           40.3          18          195    3250 fema~  2007
- 4 Adelie  Torgersen           NA            NA           NA      NA &lt;NA&gt;   2007
- 5 Adelie  Torgersen           36.7          19.3        193    3450 fema~  2007
- 6 Adelie  Torgersen           39.3          20.6        190    3650 male   2007
- 7 Adelie  Torgersen           38.9          17.8        181    3625 fema~  2007
- 8 Adelie  Torgersen           39.2          19.6        195    4675 male   2007
- 9 Adelie  Torgersen           34.1          18.1        193    3475 &lt;NA&gt;   2007
-10 Adelie  Torgersen           42            20.2        190    4250 &lt;NA&gt;   2007
-# ... with 334 more rows, and abbreviated variable names 1: flipper_length_mm,
+ 2 Adelie  Torgersen           36.7          19.3        193    3450 fema~  2007
+ 3 Adelie  Torgersen           39.3          20.6        190    3650 male   2007
+ 4 Adelie  Torgersen           39.2          19.6        195    4675 male   2007
+ 5 Adelie  Torgersen           34.1          18.1        193    3475 &lt;NA&gt;   2007
+ 6 Adelie  Torgersen           42            20.2        190    4250 &lt;NA&gt;   2007
+ 7 Adelie  Torgersen           38.6          21.2        191    3800 male   2007
+ 8 Adelie  Torgersen           34.6          21.1        198    4400 male   2007
+ 9 Adelie  Torgersen           38.7          19          195    3450 fema~  2007
+10 Adelie  Torgersen           42.5          20.7        197    4500 male   2007
+# ... with 120 more rows, and abbreviated variable names 1: flipper_length_mm,
 #   2: body_mass_g</code></pre>
 </div>
 </div>
-<h3 id="missing-values">Missing values</h3>
-<h3 id="elements-of-interest">Elements of interest</h3>
-<ul>
-<li class="fragment"><p>Comparisons (<code>==</code>)</p></li>
-<li class="fragment"><p>Missing values (use <code>is.na()</code> instead of <code>== NA</code>)</p></li>
-<li class="fragment"><p><code>%in%</code></p></li>
-</ul>
+</section>
+<section id="filter-1" class="slide level2">
+<h2>filter()</h2>
+<h3 id="keep-rows-that-is-not-measured-from-torgersen-island">Keep rows that is NOT measured from Torgersen island</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">filter</span>(island <span class="sc">!=</span> <span class="st">"Torgersen"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 292 x 8
+   species island bill_length_mm bill_depth_mm flipper_len~1 body_~2 sex    year
+   &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;         &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+ 1 Adelie  Biscoe           37.8          18.3           174    3400 fema~  2007
+ 2 Adelie  Biscoe           37.7          18.7           180    3600 male   2007
+ 3 Adelie  Biscoe           35.9          19.2           189    3800 fema~  2007
+ 4 Adelie  Biscoe           38.2          18.1           185    3950 male   2007
+ 5 Adelie  Biscoe           38.8          17.2           180    3800 male   2007
+ 6 Adelie  Biscoe           35.3          18.9           187    3800 fema~  2007
+ 7 Adelie  Biscoe           40.6          18.6           183    3550 male   2007
+ 8 Adelie  Biscoe           40.5          17.9           187    3200 fema~  2007
+ 9 Adelie  Biscoe           37.9          18.6           172    3150 fema~  2007
+10 Adelie  Biscoe           40.5          18.9           180    3950 male   2007
+# ... with 282 more rows, and abbreviated variable names 1: flipper_length_mm,
+#   2: body_mass_g</code></pre>
+</div>
+</div>
+</section>
+<section id="filter-2" class="slide level2">
+<h2>filter()</h2>
+<h3 id="multiple-conditions">Multiple conditions</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Chinstrap"</span> <span class="sc">&amp;</span> island <span class="sc">==</span> <span class="st">"Dream"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 68 x 8
+   species   island bill_length_mm bill_depth_mm flipper_l~1 body_~2 sex    year
+   &lt;fct&gt;     &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;       &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+ 1 Chinstrap Dream            46.5          17.9         192    3500 fema~  2007
+ 2 Chinstrap Dream            50            19.5         196    3900 male   2007
+ 3 Chinstrap Dream            51.3          19.2         193    3650 male   2007
+ 4 Chinstrap Dream            45.4          18.7         188    3525 fema~  2007
+ 5 Chinstrap Dream            52.7          19.8         197    3725 male   2007
+ 6 Chinstrap Dream            45.2          17.8         198    3950 fema~  2007
+ 7 Chinstrap Dream            46.1          18.2         178    3250 fema~  2007
+ 8 Chinstrap Dream            51.3          18.2         197    3750 male   2007
+ 9 Chinstrap Dream            46            18.9         195    4150 fema~  2007
+10 Chinstrap Dream            51.3          19.9         198    3700 male   2007
+# ... with 58 more rows, and abbreviated variable names 1: flipper_length_mm,
+#   2: body_mass_g</code></pre>
+</div>
+</div>
+</section>
+<section id="filter-3" class="slide level2">
+<h2>filter()</h2>
+<h3 id="remove-rows-with-missing-values">Remove rows with missing values</h3>
+<p>This doesn’t work, because <code>NA</code> is not comparable</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">filter</span>(bill_depth_mm <span class="sc">!=</span> <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Do this, using <code>is.na()</code> function</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(bill_depth_mm))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Or this, using <code>drop_na()</code> function</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">drop_na</span>(bill_depth_mm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="filter-4" class="slide level2">
+<h2>filter()</h2>
+<h3 id="keep-rows-that-contain-elements-of-interest">Keep rows that contain elements of interest</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>species_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"King"</span>, <span class="st">"Emperor"</span>, <span class="st">"Snares"</span>, <span class="st">"Chinstrap"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2"></a></span>
+<span id="cb22-3"><a href="#cb22-3"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a>  <span class="fu">filter</span>(species <span class="sc">%in%</span> species_vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 68 x 8
+   species   island bill_length_mm bill_depth_mm flipper_l~1 body_~2 sex    year
+   &lt;fct&gt;     &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;       &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+ 1 Chinstrap Dream            46.5          17.9         192    3500 fema~  2007
+ 2 Chinstrap Dream            50            19.5         196    3900 male   2007
+ 3 Chinstrap Dream            51.3          19.2         193    3650 male   2007
+ 4 Chinstrap Dream            45.4          18.7         188    3525 fema~  2007
+ 5 Chinstrap Dream            52.7          19.8         197    3725 male   2007
+ 6 Chinstrap Dream            45.2          17.8         198    3950 fema~  2007
+ 7 Chinstrap Dream            46.1          18.2         178    3250 fema~  2007
+ 8 Chinstrap Dream            51.3          18.2         197    3750 male   2007
+ 9 Chinstrap Dream            46            18.9         195    4150 fema~  2007
+10 Chinstrap Dream            51.3          19.9         198    3700 male   2007
+# ... with 58 more rows, and abbreviated variable names 1: flipper_length_mm,
+#   2: body_mass_g</code></pre>
+</div>
+</div>
 </section>
 <section id="arrange" class="slide level2">
 <h2>arrange()</h2>
@@ -857,8 +943,8 @@
 <li class="fragment">Then you will only need relative path whenever you need to import data</li>
 </ol>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb16-2"><a href="#cb16-2"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"my_data.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb24-2"><a href="#cb24-2"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"my_data.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -876,8 +962,8 @@
 <section id="overview" class="slide level2">
 <h2>Overview</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>With <code>readr</code> and <code>readxl</code>, you will be able to use the following functions to read spreadsheets into R.</p>
 <table>
@@ -936,9 +1022,9 @@
 <p><code>read_csv()</code> take one necessary argument, which is <code>file</code>, a path to a file.</p>
 </blockquote>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>my_csv_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"rock.csv"</span>))</span>
-<span id="cb18-2"><a href="#cb18-2"></a></span>
-<span id="cb18-3"><a href="#cb18-3"></a>my_csv_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>my_csv_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"rock.csv"</span>))</span>
+<span id="cb26-2"><a href="#cb26-2"></a></span>
+<span id="cb26-3"><a href="#cb26-3"></a>my_csv_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 48 x 6
    rock_ID type    area  peri  shape  perm
@@ -963,10 +1049,10 @@
 <p><code>read_excel()</code> take one necessary argument, which is <code>path</code>, a path to a file. You will need to define <code>sheet</code> argument if you have more than one sheet in excel (default to first sheet).</p>
 </blockquote>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>my_excel_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="at">path =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"rock.xlsx"</span>),</span>
-<span id="cb20-2"><a href="#cb20-2"></a>                            <span class="at">sheet =</span> <span class="dv">1</span>)</span>
-<span id="cb20-3"><a href="#cb20-3"></a></span>
-<span id="cb20-4"><a href="#cb20-4"></a>my_excel_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>my_excel_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="at">path =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"rock.xlsx"</span>),</span>
+<span id="cb28-2"><a href="#cb28-2"></a>                            <span class="at">sheet =</span> <span class="dv">1</span>)</span>
+<span id="cb28-3"><a href="#cb28-3"></a></span>
+<span id="cb28-4"><a href="#cb28-4"></a>my_excel_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 48 x 6
    rock_ID type    area  peri  shape  perm
@@ -991,9 +1077,9 @@
 <p><code>read_tsv()</code> take one necessary argument, which is <code>file</code>, a path to a file.</p>
 </blockquote>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>my_tsv_data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="at">file =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"rock.tsv"</span>))</span>
-<span id="cb22-2"><a href="#cb22-2"></a></span>
-<span id="cb22-3"><a href="#cb22-3"></a>my_tsv_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>my_tsv_data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="at">file =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"rock.tsv"</span>))</span>
+<span id="cb30-2"><a href="#cb30-2"></a></span>
+<span id="cb30-3"><a href="#cb30-3"></a>my_tsv_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 48 x 6
    rock_ID type    area  peri  shape  perm
@@ -1018,10 +1104,10 @@
 <p><code>read_delim()</code> take two necessary argument, which is <code>file</code>, a path to a file, and <code>delim</code>, the separator. It’s the most flexible way to read in data.</p>
 </blockquote>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="at">file =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"rock.txt"</span>),</span>
-<span id="cb24-2"><a href="#cb24-2"></a>                      <span class="at">delim =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
-<span id="cb24-3"><a href="#cb24-3"></a></span>
-<span id="cb24-4"><a href="#cb24-4"></a>my_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="at">file =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"rock.txt"</span>),</span>
+<span id="cb32-2"><a href="#cb32-2"></a>                      <span class="at">delim =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
+<span id="cb32-3"><a href="#cb32-3"></a></span>
+<span id="cb32-4"><a href="#cb32-4"></a>my_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 48 x 6
    rock_ID type    area  peri  shape  perm
@@ -1047,8 +1133,8 @@
 <p><code>write_csv()</code> takes two necessary arguments <code>x</code>, the data frame object you want to export, and <code>file</code>, the path you want to save the file to.</p>
 </blockquote>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">write_csv</span>(<span class="at">x =</span> my_data,</span>
-<span id="cb26-2"><a href="#cb26-2"></a>          <span class="at">file =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"my_data.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">write_csv</span>(<span class="at">x =</span> my_data,</span>
+<span id="cb34-2"><a href="#cb34-2"></a>          <span class="at">file =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"my_data.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, check your folder, and you should find a file got saved with the name <code>my_data.csv</code>.</p>
 
@@ -1106,20 +1192,20 @@
 <li class="fragment"><p>The goal is to get the <code>all_equal()</code> to return <code>TRUE</code>!</p></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="do">### Library, add any libraries you might need</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb27-3"><a href="#cb27-3"></a><span class="fu">library</span>(here)</span>
-<span id="cb27-4"><a href="#cb27-4"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb27-5"><a href="#cb27-5"></a></span>
-<span id="cb27-6"><a href="#cb27-6"></a><span class="do">### Read in the target data set, or however your prefer to import data</span></span>
-<span id="cb27-7"><a href="#cb27-7"></a>target <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/NRES776_target_lab3.csv"</span>)</span>
-<span id="cb27-8"><a href="#cb27-8"></a></span>
-<span id="cb27-9"><a href="#cb27-9"></a><span class="do">### Your code here</span></span>
-<span id="cb27-10"><a href="#cb27-10"></a>my_clean_dataset <span class="ot">&lt;-</span> penguins_raw <span class="sc">%&gt;%</span></span>
-<span id="cb27-11"><a href="#cb27-11"></a>  ...</span>
-<span id="cb27-12"><a href="#cb27-12"></a></span>
-<span id="cb27-13"><a href="#cb27-13"></a><span class="do">### Final check</span></span>
-<span id="cb27-14"><a href="#cb27-14"></a><span class="fu">all_equal</span>(my_clean_dataset, target)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="do">### Library, add any libraries you might need</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="fu">library</span>(here)</span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb35-5"><a href="#cb35-5"></a></span>
+<span id="cb35-6"><a href="#cb35-6"></a><span class="do">### Read in the target data set, or however your prefer to import data</span></span>
+<span id="cb35-7"><a href="#cb35-7"></a>target <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/NRES776_target_lab3.csv"</span>)</span>
+<span id="cb35-8"><a href="#cb35-8"></a></span>
+<span id="cb35-9"><a href="#cb35-9"></a><span class="do">### Your code here</span></span>
+<span id="cb35-10"><a href="#cb35-10"></a>my_clean_dataset <span class="ot">&lt;-</span> penguins_raw <span class="sc">%&gt;%</span></span>
+<span id="cb35-11"><a href="#cb35-11"></a>  ...</span>
+<span id="cb35-12"><a href="#cb35-12"></a></span>
+<span id="cb35-13"><a href="#cb35-13"></a><span class="do">### Final check</span></span>
+<span id="cb35-14"><a href="#cb35-14"></a><span class="fu">all_equal</span>(my_clean_dataset, target)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="your-task-1" class="slide level2">

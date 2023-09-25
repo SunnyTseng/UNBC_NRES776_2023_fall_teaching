@@ -164,17 +164,14 @@ Illustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data
 
 > In R we can perform a series of operations by sending the results of one function to another using what is called the *pipe operator*: `%>%` or `|>`
 
-A thing I will be using through out this lab... So let's take a look at it now.
-
 ::: columns
 ::: {.column width="40%"}
-Think it like the English word "then".
+-   A thing I will be using through out this lab...
 
--   For example, how dog teachers teach dogs to beg for treats?
+-   Think it like the English word "then".
 
-```{=html}
 <!-- -->
-```
+
 -   First, we are dogs
 
 -   Then, drop one ear
@@ -239,6 +236,8 @@ petal_length_mean
 :::
 :::
 
+-   In this lab, I am going to use `%>%` for code demonstration, but feel free to use whatever you feel comfortable and efficient.
+
 ## Pipe: %\>% or \|\>
 
 -   Pipe is especially powerful when there are multiple operations need to be applied to an object.
@@ -258,7 +257,7 @@ iris_sub_sepal_length_mean
 
 ```
 
-#### In tidyverse, using pipe: 
+#### In tidyverse, using pipe:
 
 ```{r, echo = TRUE}
 
@@ -269,8 +268,6 @@ iris_sub_sepal_length_mean <- iris %>%
 
 iris_sub_sepal_length_mean
 ```
-
--   In this lab, I am going to use `%>%` for code demonstration, but feel free to use whatever you feel comfortable and efficient.
 
 ## Base R vs tidyverse?
 
@@ -296,9 +293,8 @@ There is no right or wrong or which way should be used. And both can achieve sam
 
 -   Use pipes
 
-```{=html}
 <!-- -->
-```
+
 -   Use `tibble` data type to manage data frames
 
 -   Use `read_csv()` to import files
@@ -319,7 +315,7 @@ with tidyverse `dplyr` package
 
 ## Tidyverse dplyr functions
 
-### For managing rows 
+### For managing rows
 
 -   list of the functions we are going to learn
 
@@ -327,27 +323,70 @@ with tidyverse `dplyr` package
 
 ## filter()
 
-> Keep rows that match a condition
+> Keep rows that match condition(s). Input a tibble, return a filtered tibble.
 
-```{r, echo = TRUE, eval = FALSE}
-filter(.data, ..., .by = NULL, .preserve = FALSE)
-```
-
-### Comparisons
+### Keep rows where bill length value larger than 18
 
 ```{r, echo = TRUE}
-penguins %>% filter()
+penguins %>% 
+  filter(bill_depth_mm > 18)
 ```
 
-### Missing values
+## filter()
 
-### Elements of interest
+### Keep rows that is NOT measured from Torgersen island
 
--   Comparisons (`==`)
+```{r, echo = TRUE}
+penguins %>% 
+  filter(island != "Torgersen")
+```
 
--   Missing values (use `is.na()` instead of `== NA`)
+## filter()
 
--   `%in%`
+### Multiple conditions
+
+```{r, echo = TRUE}
+penguins %>% 
+  filter(species == "Chinstrap" & island == "Dream")
+```
+
+## filter()
+
+### Remove rows with missing values
+
+This doesn't work, because `NA` is not comparable
+
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  filter(bill_depth_mm != NA)
+```
+
+Do this, using `is.na()` function
+
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  filter(!is.na(bill_depth_mm))
+```
+
+Or this, using `drop_na()` function
+
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  drop_na(bill_depth_mm)
+```
+
+## filter()
+
+### Keep rows that contain elements of interest
+
+```{r, echo = TRUE}
+
+species_vector <- c("King", "Emperor", "Snares", "Chinstrap")
+
+penguins %>%
+  filter(species %in% species_vector)
+
+```
 
 ## arrange()
 
@@ -612,7 +651,7 @@ Here is some advanced materials if you are comfortable and familiar with the con
 
 # Lab assignment
 
-## Your task 
+## Your task
 
 We are going to work on the `penguins_raw` data set from the `palmarpenguins` package. Your task is to **wrangle** the `penguins_raw` and make it look like our target data set, which I provided as a *.csv* file on Moodle.
 
@@ -640,7 +679,7 @@ my_clean_dataset <- penguins_raw %>%
 all_equal(my_clean_dataset, target)
 ```
 
-## Your task 
+## Your task
 
 ### Hints
 
