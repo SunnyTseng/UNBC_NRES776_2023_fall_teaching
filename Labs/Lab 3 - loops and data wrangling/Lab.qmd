@@ -1,6 +1,6 @@
 ---
-title: "NRES 776 Lab 2"
-subtitle: "Data I/O and visualization"
+title: "NRES 776 Lab 3"
+subtitle: "Blank for now"
 author: Sunny Tseng
 format:
   revealjs: 
@@ -12,7 +12,7 @@ format:
     #smaller: true
     #scrollable: true
     incremental: true
-    embed-resources: true
+    #embed-resources: true
     width: 1200
     fontsize: 1.7em
 editor: visual
@@ -37,23 +37,246 @@ knitr::opts_chunk$set(dpi = 150, fig.width = 8, out.width = "90%",
 
 -   Announcements (5 min)
 
--   Discussion paper presentation (35 mins)
+-   Discussion paper presentation (45 mins)
 
--   Importing and exporting data in R (20 min)
+-   Blank for now
 
--   Data visualization with R (60 min)
-
--   Quiet time for practice (60 min)
+-   Quiet time for practice (20 min)
 
 ## Announcements
 
--   What do you have for your breakfast? 😺
+-   Some cool plots we got from lab2
+-   Create a R project, and a data folder inside it.
+-   Save the spreadsheets inside the data folder.
+-   Preset: packages we need today
+    -   here: for file path
+
+    -   tidyverse: for data wrangling
+
+    -   readxl: for read in excel files
+
+```{r, echo = TRUE, eval = FALSE}
+
+### Only do this if you haven't install them
+install.packages(c("here", "tidyverse"))
+
+### Load the packages
+library(here)
+library(tidyverse)
+```
 
 # Discussion paper presentation
 
--   Holly McVea
--   Josh Green
--   Carlie O'Brien
+-   Abigail Doerksen
+-   Julia Bizon
+-   Temitope Olufemi
+
+# The universe of tidyverse: background
+
+## Data life cycle
+
+![](images/paste-C6994DE0.png)
+
+-   We have learned data "visualization" and data "import" (sort of) in lab 2
+
+-   Today we want to cover the "tidy" and "transform" part, which all together called "data wrangling"
+
+-   In the world of R, each of this step has some associated packages
+
+## What is tidyverse?
+
+There are some packages that you are likely to use in everyday data analysis:
+
+-   `readr` package: for importing data in R
+-   `ggplot2` package: for making graphics, data visualization
+-   `dplyr` package: manipulating data frames
+-   `purrr` package: working with functions
+-   Full list of tidyverse packages is shown here: <https://www.tidyverse.org/packages/>
+
+These are called core tidyverse, and we can load all the tidyverse packages at once by installing and loading the **tidyverse** package:
+
+```{r, echo = TRUE, eval = FALSE}
+library(tidyverse)
+```
+
+## What's tidyverse?
+
+![](images/paste-9571686D.png)
+
+## Tidy data
+
+> We say that a data table is in *tidy* format if each row represents one observation and columns represent the different variables available for each of these observations.
+
+![](images/paste-02EFA4CE.png)
+
+::: aside
+Illustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst
+:::
+
+## Pipe
+
+> In R we can perform a series of operations by sending the results of one function to another using what is called the *pipe operator*: `%>%` or `|>`
+
+::: columns
+::: {.column width="40%"}
+Think it like the English word "then".
+:::
+
+::: {.column width="60%"}
+![](images/paste-0AE74B91.png){fig-align="right" width="626"}
+:::
+:::
+
+::: aside
+Artwork by Allison Horst
+:::
+
+## Pipe: %\>% or \|\>
+
+Let's say, we want to find the mean of the petal length column in the iris data set.
+
+::: columns
+::: {.column width="50%"}
+In base R:
+
+```{r, echo = TRUE}
+
+petal_length <- pull(iris, Petal.Length)
+petal_length_mean <- mean(petal_length)
+
+
+petal_length_mean
+```
+
+You can also do:
+
+```{r, echo = TRUE}
+petal_length_mean <- mean(pull(iris, Petal.Length))
+
+petal_length_mean
+```
+:::
+
+::: {.column width="50%"}
+In tidyverse, using pipe:
+
+```{r, echo = TRUE}
+
+petal_length_mean <- iris %>%
+  pull(Petal.Length) %>%
+  mean()
+
+petal_length_mean
+
+```
+
+Advantages of using pipe:
+
+-   reduce the number of objects
+-   easier to read as it has the same logic as speaking
+:::
+:::
+
+-   In this lab, I am going to use `%>%` for code demonstration, but feel free to use whatever you feel comfortable and efficient.
+
+## Base R vs tidyverse?
+
+There is no right or wrong or which way should be used. And both can achieve same tasks. But once you do much more coding, you might find tidyverse coding makes data analysis a bit easier. 😃
+
+::: columns
+::: {.column width="50%"}
+Base R: all the functionality that comes built into the R programming language
+
+-   Use intermediate objects
+
+-   Use `data.frame` data type to manage data frames
+
+-   Use `read.csv()` to import files
+
+-   Use `[ , col]` to isolate column
+
+-   ... and more
+:::
+
+::: {.column width="50%"}
+Tidyverse: a collection of packages that add onto R, with its own ethos and stance on data analysis.
+
+-   Use pipes
+
+```{=html}
+<!-- -->
+```
+-   Use `tibble` data type to manage data frames
+
+-   Use `read_csv()` to import files
+
+-   Use `pull()` function to isolate column
+
+-   ... and more
+:::
+:::
+
+# Data I/O: with csv files
+
+with tidyverse `readr` package
+
+# Data wrangling: rows
+
+with tidyverse `dplyr` package
+
+## filter()
+
+-   Comparisons (`==`)
+
+-   Missing values (use `is.na()` instead of `== NA`)
+
+-   `%in%`
+
+## arrange()
+
+## distinct()
+
+# Data wrangling: columns
+
+with tidyverse `dplyr` package
+
+## mutate()
+
+-   `if_else()`
+
+-   `case_when()`
+
+## select()
+
+## rename()
+
+## relocate()
+
+# Data wrangling: group calculation
+
+## group_by()
+
+## summarize()
+
+-   `count(sort = TRUE)`, the same as
+
+-   `n()`: count the number of observations in the group
+
+-   `n_distinct()`
+
+-   `sum()`
+
+## slice\_\*() functions
+
+## ungroup()
+
+# Data wrangling: reshape
+
+with tidyverse `dplyr` package
+
+## pivot_longer()
+
+## pivot_wider()
 
 # Data I/O: Self-contained projects
 
@@ -135,7 +358,7 @@ library(readxl)
 With `readr` and `readxl`, you will be able to use the following functions to read spreadsheets into R.
 
 | Function       | Format                                            | Typical suffix |
-|------------------|-----------------------------------|------------------|
+|-------------------|----------------------------------|-------------------|
 | `read_delim()` | general text file format, must define delimiter   | .txt           |
 | `read_csv()`   | comma separated values                            | .csv           |
 | `read_csv2()`  | semicolon separated values                        | .csv           |
@@ -206,689 +429,7 @@ Now, check your folder, and you should find a file got saved with the name `my_d
 
 ![](images/paste-14D85C4A.png){fig-align="center"}
 
-# Data visualization: Background
-
-With `ggplot2` package
-
-And I will be using the data set in the package `palmerpenguins` as example
-
-## Our data set - Palmer Penguins!
-
-### Yes, I love penguin data a lot :)
-
-```{r, echo = TRUE}
-library(palmerpenguins)
-
-glimpse(penguins)
-```
-
--   4 categorical variables
-
--   4 continuous variables
-
-![](images/paste-5A763184.png){.absolute top="300" right="0" width="629"}
-
-::: aside
-Artwork by @allison_horst
-:::
-
-## Your first plot!
-
-```{r, echo = TRUE, eval = FALSE}
-library(palmerpenguins)
-library(ggplot2)
-
-ggplot(data = penguins) +
-  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
-```
-
--   Copy/Paste or type this code to your script
-
--   Run it, by clicking the **Run** button or `Ctrl + Enter`
-
--   What do you get?
-
-![](images/paste-1081014A.png){.absolute top="300" right="0" width="504"}
-
-::: aside
-Artwork by @allison_horst
-:::
-
-## wow!
-
-```{r, echo = TRUE}
-library(palmerpenguins)
-library(ggplot2)
-
-ggplot(data = penguins) +
-  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
-```
-
-## Piece by piece
-
-``` {.r code-line-numbers="1,2"}
-library(palmerpenguins)
-library(ggplot2)
-
-ggplot(data = penguins) +
-  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
-```
-
-::: columns
-::: {.column width="40%"}
-#### `library(palmergenguins)`
-
--   Load `palmerpenguins` package
-
--   We can get the `penguins` data set
-
-#### `library(ggplot2)`
-
--   Load `ggplot2` packages
-
--   We can use the functions like `ggplot()`, `aes()`, `geom_point()`, etc.
-:::
-
-::: {.column width="60%"}
-```{r}
-ggplot(data = penguins) +
-  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
-```
-:::
-:::
-
-## Piece by piece
-
-``` {.r code-line-numbers="4"}
-library(palmerpenguins)
-library(ggplot2)
-
-ggplot(data = penguins) +
-  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
-```
-
-::: columns
-::: {.column width="40%"}
-#### `ggplot()`
-
--   Set the attributes of your plot
-
--   `data` = data set
-
--   Think of this as your plot defaults
-
--   Or like creating an empty canvas
-
-`+`
-
--   ggplot layers are connected by `+`
-
--   Plots are created in layers, from bottom to top
-:::
-
-::: {.column width="60%"}
-```{r}
-ggplot(data = penguins) +
-  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
-```
-:::
-:::
-
-## Piece by piece
-
-``` {.r code-line-numbers="5"}
-library(palmerpenguins)
-library(ggplot2)
-
-ggplot(data = penguins) +
-  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
-```
-
-::: columns
-::: {.column width="40%"}
-#### `geom_point()`
-
--   Create scatter plots
-
--   `aes()`: Aesthetics (how the data are used)
-
--   Set the attributes of your plot (e.g., `size`)
-:::
-
-::: {.column width="60%"}
-```{r}
-ggplot(data = penguins) +
-  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
-```
-:::
-:::
-
-## Aesthetics can be inherited
-
-### The following two scripts produce the same plot
-
--   You can put `aes()` in the `geom_point()`
-
-```{r, echo = TRUE, eval = FALSE}
-ggplot(data = penguins) +
-  geom_point(aes(x = bill_length_mm, y = bill_depth_mm), size = 2)
-```
-
--   Or put the `aes()` right in the `ggplot()`
-
-```{r, echo = TRUE}
-ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
-  geom_point(size = 2)
-```
-
-## Plots can be saved as objects
-
-::: columns
-::: {.column width="50%"}
-```{r, echo = TRUE}
-g <- ggplot(data = penguins)
-g
-```
-:::
-
-::: {.column width="50%"}
-```{r, echo = TRUE}
-g + geom_point(aes(x = bill_length_mm, 
-                   y = bill_depth_mm), 
-               size = 2)
-```
-:::
-:::
-
-# Data visualization: Plot types
-
-## `geom_histogram()`: histogram
-
-```{r, echo = TRUE}
-ggplot(data = penguins) +
-  geom_histogram(aes(x = body_mass_g))
-```
-
-> **Q**: we only need 1 aesthetic here, do you know why?
-
-## `geom_density()`: density plot
-
-```{r, echo = TRUE}
-ggplot(data = penguins) +
-  geom_density(aes(x = body_mass_g))
-```
-
-> **Q**: we only need 1 aesthetic here, do you know why?
-
-## `geom_bar()`: bar plot
-
-### `ggplot()` can count the data for you
-
-```{r, echo = TRUE}
-ggplot(data = penguins) +
-  geom_bar(aes(x = sex))
-```
-
-## `geom_bar()`: bar plot
-
-### Or you can provide counted data
-
-```{r, echo = TRUE}
-species_counts <- data.frame(species = c("Adelie",
-                                         "Chinstrap",
-                                         "Gentoo"),
-                             n = c(152, 68, 124))
-
-ggplot(data = species_counts, aes(x = species, y = n)) +
-  geom_bar(stat = "identity")
-
-```
-
-## `geom_point()`: scatter plot
-
-### Standard scatter plot
-
-```{r, echo = TRUE}
-ggplot(data = penguins) +
-  geom_point(aes(x = body_mass_g, y = bill_length_mm))
-```
-
-> **Q**: we need 2 aesthetics here, do you know why?
-
-## `geom_point()`: scatter plot
-
-### Try different colours and point size
-
-::: columns
-::: {.column width="50%"}
-```{r, echo = TRUE}
-ggplot(data = penguins) +
-  geom_point(aes(x = body_mass_g, 
-                 y = bill_length_mm),
-             colour = "blue")
-```
-:::
-
-::: {.column width="50%"}
-```{r, echo = TRUE}
-ggplot(data = penguins) +
-  geom_point(aes(x = body_mass_g, 
-                 y = bill_length_mm),
-             size = 3)
-```
-:::
-:::
-
--   Other tan `colour` and `size`, you can also change `alpha`, `fill`, `group`, `shape`, `stroke`
-
--   Learn more about setting these aesthetics by `vignette("ggplot2-specs")`
-
-## `geom_boxplot()`: box plot
-
-```{r, echo = TRUE}
-ggplot(data = penguins) +
-  geom_boxplot(aes(x = species, y = bill_length_mm))
-```
-
-## Your turn
-
-### Try creating this plot
-
-```{r}
-ggplot(data = penguins) +
-  geom_boxplot(aes(x = island, y = bill_length_mm),
-               colour = "blue")
-```
-
-## Your turn
-
-### Try creating this plot
-
-```{r, echo = TRUE}
-ggplot(data = penguins) +
-  geom_boxplot(aes(x = island, y = bill_length_mm),
-               colour = "blue")
-```
-
-## Other `geom_*()` in `ggplot2`
-
-### Check `ggplot2` [CHEAT SHEET](https://github.com/rstudio/cheatsheets/blob/main/data-visualization-2.1.pdf)
-
-![](images/paste-6EA991D5.png){fig-align="center"}
-
-# Data visualization: Showing data by group
-
-This is what we mentioned in the lecture "adding categorical variables"
-
-## Mapping aesthetics
-
-### Standard scatter plot
-
-```{r, echo = TRUE}
-ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm)) +
-  geom_point()
-```
-
-## Mapping aesthetics
-
-### We can use colour aesthetic to show different `species`
-
-```{r, echo = TRUE}
-ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
-  geom_point()
-```
-
-## Mapping aesthetics
-
-### Or two aesthetics (e.g., colour and shape) for `species`
-
-```{r, echo = TRUE}
-ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = species, shape = species)) +
-  geom_point()
-```
-
-## `facet_warp()`
-
-### Split plots by `one` grouping variable (e.g., `species`)
-
-```{r, echo = TRUE}
-ggplot(data = penguins, aes(x = bill_depth_mm, y = bill_length_mm, colour = species)) +
-  geom_point() +
-  facet_wrap( ~ species)
-```
-
-## `facet_grid()`
-
-### Split plots by `two` grouping variables (e.g., `species` and `island`)
-
-```{r, echo = TRUE}
-ggplot(data = penguins, aes(x = bill_depth_mm, y = bill_length_mm, colour = species)) +
-  geom_point() +
-  facet_grid(island ~ species)
-```
-
-## Your turn!
-
-### Try creating this plot
-
-```{r, echo = TRUE, eval = FALSE}
-ggplot(data = penguins, aes(x = ___, y = ___, ___ = ___)) +
-  geom_boxplot() +
-  facet_wrap(~ ___)
-```
-
-```{r}
-ggplot(data = penguins, aes(x = species, y = bill_length_mm, fill = sex)) +
-  geom_boxplot() +
-  facet_wrap(~ sex)
-```
-
-## Your turn!
-
-### Try creating this plot
-
-```{r, echo = TRUE}
-ggplot(data = penguins, aes(x = species, y = bill_length_mm, fill = sex)) +
-  geom_boxplot() +
-  facet_wrap(~ sex)
-```
-
-# Data visualization: Trend lines / regression lines
-
-## `geom_line()`: connecting points with lines
-
-### Which is not what we wanted
-
-```{r, echo = TRUE}
-ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
-  geom_point() +
-  geom_line()
-```
-
-## `geom_smooth()`: line plots
-
-### Add trend line by setting `lm` (linear model)
-
-```{r, echo = TRUE}
-ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
-  geom_point() +
-  geom_smooth(method = "lm")
-```
-
-## `geom_smooth()`: line plots
-
-### Set `se` (stand error) to `FALSE`
-
-```{r, echo = TRUE}
-ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE)
-```
-
-## `geom_smooth()`: line plots with groups
-
-```{r, echo = TRUE}
-ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, group = species, colour = species)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE)
-```
-
-## Your turn!
-
-### Try creating this plot
-
-```{r, echo = TRUE, eval = FALSE}
-ggplot(data = penguins, aes(x = ___, y = ___, group = ___, colour = ___)) +
-  geom_point() +
-  geom_smooth(method = ___, ___ = ___) +
-  facet_grid(___ ~ .)
-```
-
-```{r}
-ggplot(data = penguins, aes(x = body_mass_g, y = flipper_length_mm, group = species, colour = species)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
-  facet_grid(species ~ .)
-```
-
-## Your turn!
-
-### Try creating this plot
-
-```{r, echo = TRUE}
-ggplot(data = penguins, aes(x = body_mass_g, y = flipper_length_mm, group = species, colour = species)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
-  facet_grid(species ~ .)
-```
-
-# Data visualization: Customizing plots
-
-## Let's get started with this plot
-
-```{r, echo = TRUE}
-g <- ggplot(data = penguins) +
-  geom_point(aes(x = bill_length_mm, y = bill_depth_mm, colour = species))
-g
-```
-
-## `labs()` for labels
-
-```{r, echo = TRUE}
-g + labs(title = "Bill Length vs. Bill Depth",
-         x = "Bill Length (mm)",
-         y = "Bill Depth (mm)",
-         colour = "Species")
-```
-
-## Aesthetics for axes
-
-### `scale` + (`x`, `y`) + (`continuous`, `discrete`, `date`, `datetime`)
-
--   scale_x_continuous()
-
--   scale_y_continuous()
-
-### Common arguments
-
-```{r, echo = TRUE, eval = FALSE}
-g + scale_x_continuous(breaks = seq(0, 20, 10)) # Tick breaks
-g + scale_x_continuous(limits = c(0, 15)) # xlim() is a shortcut for this
-g + scale_x_continuous(expand = c(0, 0)) # Space between axis and data
-```
-
-## Aesthetics for colour, fill, size
-
-### `scale` + (`colour`, `fill`, `size`) + (`continuous`, `discrete`, `manual`, `viridis_d`, `viridis_c`, etc)
-
-::: columns
-::: {.column width="50%"}
-For manually select colours for aesthetics
-
-`scale_colour_manual()`
-
-```{r, echo = TRUE}
-g + 
-  scale_colour_manual(values = c("red", "purple", "yellow"))
-```
-:::
-
-::: {.column width="50%"}
-For colour-blind-friendly scale
-
-`scale_colour_viridis_d()`
-
-```{r, echo = TRUE}
-g + 
-  scale_colour_viridis_d()
-```
-:::
-:::
-
-## `theme_*()` for setting general theme
-
-::: columns
-::: {.column width="50%"}
-```{r, echo = TRUE}
-g + theme_bw()
-```
-:::
-
-::: {.column width="50%"}
-```{r, echo = TRUE}
-g + theme_classic()
-```
-:::
-:::
-
-::: columns
-::: {.column width="50%"}
-```{r, echo = TRUE}
-g + theme_minimal()
-```
-:::
-
-::: {.column width="50%"}
-```{r, echo = TRUE}
-g + theme_dark()
-```
-:::
-:::
-
-## `theme()` for font size
-
--   Set it one by one
-
-```{r, echo = TRUE}
-g + theme(axis.title = element_text(size = 20),
-          axis.text = element_text(size = 12),
-          legend.title = element_text(size = 16),
-          legend.text = element_text(size = 11))
-```
-
--   Or you can set everything at the same time
-
-```{r, eval = FALSE, echo = TRUE}
-g + theme(text = element_text(size = 20))
-```
-
-## `theme()` for legend position
-
-::: columns
-::: {.column width="50%"}
-```{r, echo = TRUE}
-g + theme(legend.position = "bottom")
-```
-:::
-
-::: {.column width="50%"}
-```{r, echo = TRUE}
-g + theme(legend.position = c(0.9, 0.2))
-```
-:::
-:::
-
-## Put all together
-
-``` {.r code-line-numbers="|1|2-3|4-7|8-13"}
-ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) +
-  geom_point(size = 2) +
-  geom_smooth(method = "lm", se = FALSE) +
-  labs(title = "Bill Length vs. Bill Depth",
-       x = "Bill Length (mm)",
-       y = "Bill Depth (mm)",
-       colour = "Species") +
-  scale_x_continuous(limits = c(30, 60)) +
-  scale_y_continuous(limits = c(10, 25)) +
-  scale_colour_viridis_d() +
-  theme_bw() +
-  theme(text = element_text(size = 14),
-        legend.position = c(0.9, 0.3))
-  
-```
-
-![](images/paste-291168FA.png){.absolute top="300" right="0" width="670"}
-
-# Data visualization: Combining plots
-
-We will need `patchwork` package in this section
-
-## Create some plots for us to demonstrate
-
-```{r, echo = TRUE}
-library(patchwork)
-
-g1 <- ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) +
-  geom_point()
-
-g2 <- ggplot(data = penguins, aes(x = species, y = flipper_length_mm)) +
-  geom_boxplot()
-
-g3 <- ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = species)) +
-  geom_point()
-
-```
-
-![](images/paste-446B990F.png){fig-align="center"}
-
-## Side by side plots
-
-```{r, echo = TRUE}
-g1 + g2
-```
-
-## Stacked plots
-
-```{r, echo = TRUE}
-g1 / g2
-```
-
-## Complex arrangements
-
-```{r, echo = TRUE}
-g2 + (g1 / g3)
-```
-
-## Complex arrangements with same legend
-
-```{r, echo = TRUE}
-(g1 + g3 + plot_layout(guides = "collect")) / g2
-```
-
-## Annotate
-
-```{r, echo = TRUE}
-g2 / (g1 + g3 + plot_layout(guides = "collect")) +
-  plot_annotation(tag_levels = "A",
-                  tag_suffix = ")",
-                  caption = "Fig 1. Penguins Data Summary")
-```
-
-# Data visualization: Saving plots
-
-This is the final section, I promise!
-
-## Saving plots
-
-We have to save our plot as an object
-
-```{r, echo = TRUE, eval = FALSE}
-g <- g2 / (g1 + g3 + plot_layout(guides = "collect")) +
-  plot_annotation(tag_levels = "A",
-                  tag_suffix = ")",
-                  caption = "Fig 1. Penguins Data Summary")
-```
-
-Then we use `ggsave()` to save it
-
-```{r, echo = TRUE, eval = FALSE}
-ggsave(filename = here("my_plot.png"), 
-       plot = g, 
-       dpi = 300,
-       height = 120, 
-       width = 180, 
-       units = "mm")
-```
+# 
 
 # R Others: Miscellaneous
 
