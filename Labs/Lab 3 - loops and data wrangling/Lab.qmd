@@ -22,6 +22,8 @@ editor: visual
 #| column: screen
 #| out-width: 100%
 #| fig-format: svg
+
+set.seed(100)
 library(palmerpenguins)
 library(tidyverse)
 library(here)
@@ -58,11 +60,12 @@ knitr::opts_chunk$set(dpi = 150, fig.width = 8, out.width = "90%",
 ```{r, echo = TRUE, eval = FALSE}
 
 ### Only do this if you haven't install them
-install.packages(c("here", "tidyverse"))
+install.packages(c("here", "tidyverse", "palmerpenguins"))
 
 ### Load the packages
 library(here)
 library(tidyverse)
+library(palmerpenguins)
 ```
 
 # Discussion paper presentation
@@ -101,13 +104,57 @@ library(tidyverse)
 
 ## What's tidyverse?
 
-![](images/paste-9571686D.png)
+![](images/paste-9571686D.png){fig-align="center" width="610"}
 
 ## Tidy data
 
 > We say that a data table is in *tidy* format if each row represents one observation and columns represent the different variables available for each of these observations.
 
-![](images/paste-02EFA4CE.png)
+![](images/paste-02EFA4CE.png){fig-align="center" width="671"}
+
+::: aside
+Illustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst
+:::
+
+## Messy data
+
+> Every messy data set is messy in its own way. - Hadley Wickham
+
+![](images/paste-FBCF203D.png){fig-align="center" width="683"}
+
+::: aside
+Illustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst
+:::
+
+## Common characteristics of messy data
+
+::: columns
+::: {.column width="50%"}
+-   Commas in numeric values
+
+-   Numeric values stored as character data types
+
+-   Duplicate rows
+
+-   Misspellings
+
+-   Capitalization (e.g., sparrow, Sparrow)
+
+-   Inaccuracies
+
+-   White space
+
+-   Missing data
+
+-   Zeros instead of null values
+
+-   ... and many more
+:::
+
+::: {.column width="50%"}
+![](images/paste-71148868.png){fig-align="center"}
+:::
+:::
 
 ::: aside
 Illustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst
@@ -117,9 +164,24 @@ Illustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data
 
 > In R we can perform a series of operations by sending the results of one function to another using what is called the *pipe operator*: `%>%` or `|>`
 
+A thing I will be using through out this lab... So let's take a look at it now.
+
 ::: columns
 ::: {.column width="40%"}
 Think it like the English word "then".
+
+-   For example, how dog teachers teach dogs to beg for treats?
+
+```{=html}
+<!-- -->
+```
+-   First, we are dogs
+
+-   Then, drop one ear
+
+-   Then, rotate your head for max cuteness
+
+-   We will get treats!
 :::
 
 ::: {.column width="60%"}
@@ -137,28 +199,28 @@ Let's say, we want to find the mean of the petal length column in the iris data 
 
 ::: columns
 ::: {.column width="50%"}
-In base R:
+#### In base R:
 
 ```{r, echo = TRUE}
 
-petal_length <- pull(iris, Petal.Length)
+petal_length <- iris$Petal.Length 
 petal_length_mean <- mean(petal_length)
 
 
 petal_length_mean
 ```
 
-You can also do:
+#### You can also do:
 
 ```{r, echo = TRUE}
-petal_length_mean <- mean(pull(iris, Petal.Length))
+petal_length_mean <- mean(iris$Petal.Length)
 
 petal_length_mean
 ```
 :::
 
 ::: {.column width="50%"}
-In tidyverse, using pipe:
+#### In tidyverse, using pipe:
 
 ```{r, echo = TRUE}
 
@@ -170,12 +232,43 @@ petal_length_mean
 
 ```
 
-Advantages of using pipe:
+#### Advantages of using pipe:
 
--   reduce the number of objects
+-   reduce the number of unnecessary objects
 -   easier to read as it has the same logic as speaking
 :::
 :::
+
+## Pipe: %\>% or \|\>
+
+-   Pipe is especially powerful when there are multiple operations need to be applied to an object.
+
+### In base R
+
+```{r, echo = TRUE}
+
+iris_sub <- head(iris, n = 50)
+
+iris_sub_sepal_length <- iris_sub$Sepal.Length
+
+iris_sub_sepal_length_mean <- mean(iris_sub_sepal_length, na.rm = TRUE)
+
+iris_sub_sepal_length_mean
+
+
+```
+
+#### In tidyverse, using pipe: 
+
+```{r, echo = TRUE}
+
+iris_sub_sepal_length_mean <- iris %>%
+  head(n = 50) %>%
+  pull(Sepal.Length) %>%
+  mean(na.rm = TRUE)
+
+iris_sub_sepal_length_mean
+```
 
 -   In this lab, I am going to use `%>%` for code demonstration, but feel free to use whatever you feel comfortable and efficient.
 
@@ -185,7 +278,7 @@ There is no right or wrong or which way should be used. And both can achieve sam
 
 ::: columns
 ::: {.column width="50%"}
-Base R: all the functionality that comes built into the R programming language
+#### Base R: all the functionality that comes built into the R programming language
 
 -   Use intermediate objects
 
@@ -193,13 +286,13 @@ Base R: all the functionality that comes built into the R programming language
 
 -   Use `read.csv()` to import files
 
--   Use `[ , col]` to isolate column
+-   Use `[ , col]` or `$` to isolate column
 
 -   ... and more
 :::
 
 ::: {.column width="50%"}
-Tidyverse: a collection of packages that add onto R, with its own ethos and stance on data analysis.
+#### Tidyverse: a collection of packages that add onto R, with its own focus on data analysis.
 
 -   Use pipes
 
@@ -224,7 +317,31 @@ with tidyverse `readr` package
 
 with tidyverse `dplyr` package
 
+## Tidyverse dplyr functions
+
+### For managing rows 
+
+-   list of the functions we are going to learn
+
+-   we are using penguins data set (again!) 🐧
+
 ## filter()
+
+> Keep rows that match a condition
+
+```{r, echo = TRUE, eval = FALSE}
+filter(.data, ..., .by = NULL, .preserve = FALSE)
+```
+
+### Comparisons
+
+```{r, echo = TRUE}
+penguins %>% filter()
+```
+
+### Missing values
+
+### Elements of interest
 
 -   Comparisons (`==`)
 
@@ -240,11 +357,29 @@ with tidyverse `dplyr` package
 
 with tidyverse `dplyr` package
 
+## Tidyverse dplyr functions
+
+### For managing columns
+
+-   list of the functions we are going to learn
+
 ## mutate()
+
+-   one single value
+
+-   row ID row_number()
+
+-   `as_numeric()`, `as_factor()`
+
+-   calculation of another column
 
 -   `if_else()`
 
 -   `case_when()`
+
+-   `pmax()` and `pmin()` (different from `max()` and `min()`)
+
+-   `cut()`
 
 ## select()
 
@@ -277,6 +412,12 @@ with tidyverse `dplyr` package
 ## pivot_longer()
 
 ## pivot_wider()
+
+# Data wrangling: combining two tibbles
+
+# Data wrangling: other useful functions
+
+## clean_names()
 
 # Data I/O: Self-contained projects
 
@@ -471,24 +612,37 @@ Here is some advanced materials if you are comfortable and familiar with the con
 
 # Lab assignment
 
-## Your task I
+## Your task 
 
-1.  Using `penguins` data set, create plot(s) that best support the following statement: "The body mass of male penguins are larger than female penguins, regardless of species." - Figure A
-2.  Using `penguins` data set, create plot(s) that best support the following statement: "Regardless of species, we found a positive relationship between body mass and flipper length. And this finding holds true for both genders." - Figure B
+We are going to work on the `penguins_raw` data set from the `palmarpenguins` package. Your task is to **wrangle** the `penguins_raw` and make it look like our target data set, which I provided as a *.csv* file on Moodle.
 
-![](images/paste-B35E8558.png){fig-align="center"}
+-   Download the *NRES776_target_lab3.csv* from Moodle.
 
-## Your task II
+-   Here are some lines might be helpful for you to get started.
 
-3.  Use `patchwork` to combine plots together, and annotated well.
-4.  Bonus: Import your own data set, create one plot and write caption for it. - Figure C. Provide this plot and caption in same patchwork product.
+-   The goal is to get the `all_equal()` to return `TRUE`!
+
+```{r, echo = TRUE, eval = FALSE}
+
+### Library, add any libraries you might need
+library(tidyverse)
+library(here)
+library(palmerpenguins)
+
+### Read in the target data set, or however your prefer to import data
+target <- read_csv("data/NRES776_target_lab3.csv")
+
+### Your code here
+my_clean_dataset <- penguins_raw %>%
+  ...
+
+### Final check
+all_equal(my_clean_dataset, target)
+```
+
+## Your task 
 
 ### Hints
-
-1.  Take a look at `penguins` data set and use `ggplot()`
-2.  Check `drop_na()` function if you want to remove NA values from a data set
-3.  `patchwork` package
-4.  use `read_csv()` to import data
 
 ## Submission
 
