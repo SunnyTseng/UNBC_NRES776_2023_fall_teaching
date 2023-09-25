@@ -325,6 +325,14 @@ with tidyverse `dplyr` package
 
 > Keep rows that match condition(s). Input a tibble, return a filtered tibble.
 
+![](https://bookdown.org/pdr_higgins/rmrwr/images/allison_horst_dplyr_filter.jpg){width="670"}
+
+::: aside
+Artwork by Allison Horst
+:::
+
+## filter()
+
 ### Keep rows where bill length value larger than 18
 
 ```{r, echo = TRUE}

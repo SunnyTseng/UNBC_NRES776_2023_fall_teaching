@@ -1,0 +1,219 @@
+---
+title: "NRES 776 Lecture 6"
+subtitle: "Hypothesis test"
+author: Sunny Tseng
+format:
+  revealjs: 
+    slide-number: true
+    preview-links: auto
+    #css: styles.css
+    #footer: <https://quarto.org>
+    theme: [default, styles.scss]
+    #smaller: true
+    #scrollable: true
+    incremental: true
+    embed-resources: true
+    width: 1200
+    fontsize: 1.7em
+editor: visual
+---
+
+```{r setup, include = FALSE, cache=FALSE}
+library(palmerpenguins)
+library(tidyverse)
+theme_set(theme_minimal())
+```
+
+# Happy Tuesday!
+
+## Our schedule today
+
+-   Announcements (5 min)
+
+-   What's is hypothesis test? (15 min)
+
+-   Steps of conducting hypothesis test (25 min)
+
+-   Wrap up (5 min)
+
+## Announcements
+
+-   How was your week?
+
+### Recap
+
+-   Sampling distribution - distribution of the sample means
+
+-   We can use **one sample** to calculate sample mean and standard error
+
+-   And base on these, we can get confidence interval about **true mean**
+
+## JPRF black bear
+
+-   We measured the weight from 25 black bears in JPRF forest, and got their averaged weight as 400 kg, with standard deviation **40** kg.
+
+-   Now the manager asked you to find the confidence interval for population mean ($\mu$) of the black bear weight, with $90\%$ confidence interval.
+
+$$
+n = 25, \bar{x} = 400, s = 40, \alpha = 0.1
+$$
+
+$$
+Upper = \bar{x} + t_{0.05, 24} * \frac{s}{\sqrt{n}} = 413.7
+$$
+
+$$
+Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
+$$
+
+-   Based on our sample, we have $90\%$ confidence that the **population mean of a black bear weight** in JPRF forest is between 386.3 to 413.7 kg.
+
+## Hypothesis test: hypotheses
+
+> Hypothesis test is a decision making process. We use it to translate a question of interest into a mathematical form. Then, we can make inference to population parameters.
+
+-   You can formulate question into two mutual exclusive hypotheses:
+
+    -   $H_0$: **Null hypothesis** (equal to, no effect, the same as, etc.)
+
+    -   $H_a$: **Alternative hypothesis** (not equal to, different, etc.)
+
++----------------------------------------------------+-------------------------------------------------------------+----------------------------------------------------------+
+| Research question                                  | $H_0$                                                       | $H_a$                                                    |
++====================================================+=============================================================+==========================================================+
+| Does tooth flossing affect the number of cavities? | Tooth flossing has **no effect** on the number of cavities. | Tooth flossing has **effect** on the number of cavities. |
+|                                                    |                                                             |                                                          |
+|                                                    | $\mu_{floss} = \mu_{no floss}$                              | $\mu_{floss} \neq \mu_{no floss}$                        |
++----------------------------------------------------+-------------------------------------------------------------+----------------------------------------------------------+
+
+-   We usually use $=$ in null hypothesis
+
+-   Always use **parameters** (e.g., $\mu, \beta$) when writing out hypothesis
+
+## Hypothesis test: $\alpha$ level
+
+> Significance level, or type I error, is the probability that you reject null hypothesis $H_0$ when it's true. Usually set as $0.05$ or $0.1$.
+
+-   For example, it's the probability for making a **wrong** decision "the mean of students' height is not equal to 180", when $\mu = 180$.
+
+-   It's a type of error, so we want it to be small
+
+![](images/paste-B0562533.png)
+
+## Put everything together
+
+## Is the claim valid or not?
+
+### The story
+
+A manufacturer claims that the thickness of the spearmint gum it produces is 7.5 one-hundredths of an inch, with $95\%$ confidence.
+
+. . .
+
+A quality control specialist regularly checks this claim. On one production run, he took a random sample of *n* = 10 pieces of gum and measured their thickness.
+
+. . .
+
+He obtained:
+
+![](images/paste-9A58F1C5.png)
+
+. . .
+
+Base on this sample, is the claim from the manufacturer valid?
+
+## Is the claim valid or not?
+
+### To solve this
+
+. . .
+
+There are two possible outcomes:
+
+-   The mean of the spearmint gum thickness equals 7.5 ($\mu = 7.5$)
+
+-   The mean of the spearmint gum thickness doesn't equal 7.5 ($\mu \neq 7.5$)
+
+. . .
+
+$$
+n = 10, \bar{x} = 7.55, s = 0.1027, \alpha = 0.05
+$$
+
+$$
+CI = \bar{x} \pm t_{\frac{\alpha}{2}, n-1} * \frac{s}{\sqrt{n}} = 413.7
+$$
+
+$$
+CI = 7.55 \pm 1.8336 * \frac{0.1027}{\sqrt{10}} = (7.49, 7.61)
+$$
+
+-   Based on our sample, we have $90\%$ confidence that the **po**
+
+A company claim that their product has 450 mm. How can we trust that? A checker 50 bottles, found the mean is about 448, standard deviation 20. Is the claim valid?
+
+Statement 1: The volume equals 450 mm.
+
+Statement 2: The volume is not equal to 450 mm.
+
+95% CI is (432, 459), which covers the 450, we say that the fail to reject Result 1. The statement that "volume equals 450" is supported with confidence level 0.05!
+
+## Hypothesis test
+
+> A method of statistical inference used to decide whether the data at hand sufficiently support a particular hypothesis. Hypothesis testing allows us to make probabilistic statements about population parameters.
+
+Component:
+
+## Two hypothesis
+
+> Mutually exclusive statements.
+
+::: columns
+::: {.column width="50%"}
+### Null Hypothesis $H_0$
+
+### 
+:::
+
+::: {.column width="50%"}
+### Alternative Hypothesis $H_a$
+:::
+:::
+
+## Put questions with hypothesis
+
++-------------------------------------------------------------------------+----------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+| Research question                                                       | $H_0$                                                                            | $H_a$                                                                         |
++=========================================================================+==================================================================================+===============================================================================+
+| Does tooth flossing affect the number of cavities?                      | Tooth flossing has **no effect** on the number of cavities.                      | Tooth flossing has **effect** on the number of cavities.                      |
++-------------------------------------------------------------------------+----------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+| Does the amount of text highlighted in the textbook affect exam scores? | The amount of text highlighted in the textbook has **no effect** on exam scores. | The amount of text highlighted in the textbook has **effect** on exam scores. |
++-------------------------------------------------------------------------+----------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+| Does daily meditation decrease the incidence of depression?             | Daily meditation has **no effect** on the incidence of depression.               | Daily meditation has **effect** on the incidence of depression.               |
++-------------------------------------------------------------------------+----------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+|                                                                         |                                                                                  |                                                                               |
++-------------------------------------------------------------------------+----------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+|                                                                         |                                                                                  |                                                                               |
++-------------------------------------------------------------------------+----------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+
+## Step by step hypothesis test
+
+## What we learned
+
+-   We can list null hypothesis and alternative hypothesis for research questions
+-   We set the confidence level that we want to test on
+-   We calculate the test to support, or not support, certain hypothesis
+-   Make conclusion
+
+## Wrap up
+
+### Before we meet again
+
+-   Submit your first lab on Moodle
+-   Read discussion paper, can be found on discussion paper rubric
+
+### Next time
+
+-   Thur. 8am lab, virtual on zoom
+-   With your morning coffee/tea and relaxed mood
+-   It's our final virtual lab in September!
