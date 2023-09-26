@@ -38,7 +38,14 @@ theme_set(theme_minimal())
 
 ## Announcements
 
--   How was your week?
+-   Recording
+-   Discussion paper
+    -   Still some students not on the list
+
+    -   Upload the presentation slides
+-   Lab assignment (.R) (.png)
+-   This is the final online week by me in September
+-   We will chat about project I on Thursday lecture and a general review
 
 ### Recap
 
@@ -47,6 +54,8 @@ theme_set(theme_minimal())
 -   We can use **one sample** to calculate sample mean and standard error
 
 -   And base on these, we can get confidence interval about **true mean**
+
+-   And I made some mistakes in last week lecture JPRF bear slide... let's take a look at it again.
 
 ## JPRF black bear
 
@@ -59,16 +68,16 @@ n = 25, \bar{x} = 400, s = 40, \alpha = 0.1
 $$
 
 $$
-Upper = \bar{x} + t_{0.05, 24} * \frac{s}{\sqrt{n}} = 413.7
+Upper = \bar{x} + t_{0.05, 24} * \frac{s}{\sqrt{n}} = 400 + 1.711 * \frac{40}{\sqrt{25}}= 413.7
 $$
 
 $$
-Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
+Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 400 - 1.711 * \frac{40}{\sqrt{25}}= 386.3
 $$
 
 -   Based on our sample, we have $90\%$ confidence that the **population mean of a black bear weight** in JPRF forest is between 386.3 to 413.7 kg.
 
-## Hypothesis test: hypotheses
+## Hypothesis test: two hypotheses
 
 > Hypothesis test is a decision making process. We use it to translate a question of interest into a mathematical form. Then, we can make inference to population parameters.
 
@@ -90,24 +99,6 @@ $$
 
 -   Always use **parameters** (e.g., $\mu, \beta$) when writing out hypothesis
 
-## Hypothesis test: type I error $\alpha$
-
-> Significance level, or type I error, is the probability that you reject null hypothesis $H_0$ when it's true. Usually set as $0.05$ or $0.1$.
-
--   For example, it's the probability for making a **wrong** decision "*the mean of students' height is not equal to 180*", when $\mu = 180$.
-
-![](images/paste-B0562533.png)
-
-## Hypothesis test: type II error $\beta$
-
-> Type II error is the probability that you fail to reject null hypothesis $H_0$ when it's actually not true.
-
--   For example, it's the probability for making a **wrong** decision "*the mean of students' height in UNBC is the same as UBC*", when $\mu_{unbc} \neq \mu_{ubc}$
-
--   $1-\beta$ is called **Power**, the probability of rejecting $H_0$ when $H_0$ is not true. We want it high
-
-![](images/paste-3295A826.png){fig-align="center" width="678"}
-
 ## Hypothesis test: result interpretation
 
 -   Reject $H_0$, the sample supports the statement from $H_a$
@@ -120,23 +111,29 @@ $$
 
 ![](https://www.scribbr.co.uk/wp-content/uploads/2021/01/type-i-and-ii-error-2.png){fig-align="center"}
 
-## Hypothesis test: things to keep in mind
+## Hypothesis test: type I error $\alpha$
 
--   Failing to reject $H_0$ is not the same as accepting $H_0$
+> Significance level, or type I error, is the probability that you reject null hypothesis $H_0$ when it's true. Usually set as $0.05$ (5%) or $0.1$ (10%).
 
--   We can only gain evidence for a hypothesis, but not possible to prove a hypothesis
+-   For example, it's the probability for making a **wrong** decision "*the mean of students' height is not equal to 180*", when $\mu = 180$.
 
-![](https://miro.medium.com/v2/resize:fit:1050/1*7erqC0-wRl9x6mOYUoREVQ.jpeg){width="681"}
+![](images/paste-B0562533.png){fig-align="center" width="752"}
 
-::: aside
-Image from: https://medium.com/\@get_excelsior/the-basics-of-hypothesis-testing-73941d3a947f
-:::
+## Hypothesis test: type II error $\beta$
 
-## More about $\alpha$ 
+> Type II error is the probability that you fail to reject null hypothesis $H_0$ when it's actually not true.
+
+-   For example, it's the probability for making a **wrong** decision "*the mean of students' height in UNBC is the same as UBC*", when $\mu_{unbc} \neq \mu_{ubc}$
+
+-   $1-\beta$ is called **Power**, the probability of rejecting $H_0$ when $H_0$ is not true.
+
+![](images/paste-3295A826.png){fig-align="center" width="678"}
+
+## More about $\alpha$
 
 ### What is it exactly?
 
-> Definition: the probability of rejecting the null hypothesis $H_0$ when it's true. In other words, we have 5% (0.05) risk of making type I error.
+> Definition (again): the probability of rejecting the null hypothesis $H_0$ when it's true. In other words, we have 5% or 10% risk of making type I error.
 
 -   Think about this...
 
@@ -154,31 +151,88 @@ Image from: https://medium.com/\@get_excelsior/the-basics-of-hypothesis-testing-
 
 ## More about $\alpha$
 
+::: columns
+::: {.column width="50%"}
+### What is it exactly?
+
+-   But, the rule that I set may have "risk" of making type I error
+
+-   that is $P(\bar{x} \le 170) + P(\bar{x} \ge 190)$ when $\mu = 180$
+
+-   The shaded area
+
+-   So... we can make the rules (e.g., set our threshold) to calculate the "risk" we have
+:::
+
+::: {.column width="50%"}
+![](images/paste-F95900D8.png){fig-align="right"}
+:::
+:::
+
+-   Vice versa, we can choose how much "risk" we can take, and find the rules (e.g., thresholds) accordingly.
+
+-   Here is where $\alpha$ comes from! We set our risk at $5\%$ of making type I error and use this to decide our testing rules, to see which statement that our sample supports.
+
+## More about $\alpha$
+
 ### Why don't we just set it super low?
+
+-   Yes you can
 
 -   It becomes very hard to reject $H_0$
 
--   You might not making mistake in rejecting $H_0$ when it's true
+-   You might not making mistake in rejecting $H_0$ when it's true (i.e., you avoid making type I error)
 
--   But at the same time, you might not reject $H_0$ when it's not true - $\beta$ type II error
+-   But at the same time, you might not reject $H_0$ when it's not true (i.e., you risk in making more type II error $\beta$)
+
+-   (Advanced) one way you can reduce the type I error and increase the power of the test is by increasing your sample size.
+
+-   (Advance) there is a way to calculate the sample size you need to keep low $\alpha$ while maintaining high power ($1-\beta$)
+
+## Hypothesis test: things to keep in mind
+
+::: columns
+
+::: {.column width="60%"}
+ 
+
+-   Failing to reject $H_0$ is not the same as accepting $H_0$
+
+-   We can only gain evidence for a hypothesis, but not possible to prove a hypothesis
+
+-   Maybe there is an effect ($H_0$ is not true), just that your sample doesn't show it
+
+-   Be specific, and put measurable things in the hypothesis test (e.g., \# of cavities, species abundance in different forest treatment)
+
+-   ...
+:::
+
+::: {.column width="40%"}
+![](images/paste-5D62AE53.png){fig-align="right" width="434"}
+:::
+:::
+
+::: aside
+Image from movie Oppenheimer (2023)
+:::
 
 ## Put everything together
 
-1.  Set up $H_0$ and $H_a$
+1.  **Set up** $H_0$ **and** $H_a$
     -   e.g., $H_0: \mu = 180, H_a: \mu \neq 180$
-2.  Determine statistical significance level $\alpha$
+2.  **Determine statistical significance level** $\alpha$
     -   usually be $0.05$ or $0.1$
-3.  Calculate the test statistics with sampled data
+3.  **Calculate the test statistics**
     -   If doing t-test, calculate $t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}}$
 
     -   If doing z-test, calculate $z_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}}$
-4.  Find the p-value corresponded to the test statistics
+4.  **Find the p-value corresponded to the test statistics**
     -   p-value $=P(t \ge t_{statistics})$
     -   The probability of a value larger than test statistics
 
 ![](https://www.simplypsychology.org/wp-content/uploads/p-value.jpg){.absolute top="150" right="0" width="514"}
 
-5.  Compare $\alpha$ and p-value and draw conclusion
+5.  **Compare** $\alpha$ **and p-value and draw conclusion**
     -   $p-value \ge \alpha$: fail to reject $H_o$
 
     -   $p-value < \alpha$: reject $H_0$
@@ -219,37 +273,97 @@ Image from: https://www.flickr.com/photos/archer10/37223656595
 
 -   We set the significance level $\alpha$ as 0.1
 
-### 3. Calculate the test statistics with sampled data
+### 3. Calculate the test statistics
 
 -   We are using t-statistics (because $n$ is small)
 
--   $t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}} = 0.79$
+-   $t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}} = \frac{400 - 390}{40/\sqrt{25}} = 1.25$
 
 ## JPRF black bear example
 
-### 4. Find the p-value
+::: columns
+::: {.column width="50%"}
+### 4. Find the p-value for test statistics
 
--   Find the p-value for $0.79$ on the t-distribution (df = 24)
+-   Using t-table, or R, or [online calculator](https://www.socscistatistics.com/pvalues/tdistribution.aspx)
 
--   $p-value = 0.43$
+-   Find the p-value for $t_{statistics} = 1.25$
+
+    -   $df = n-1 = 24$
+
+    -   two-tailed
+
+-   $p-value = 0.22$
 
 ### 5. Compare $\alpha$ and p-value and draw conclusion
+:::
+
+::: {.column width="50%"}
+![](images/paste-5181F6DF.png)
+:::
+:::
 
 -   $p-value > \alpha$, we fail to reject $H_0$.
 
--   Thus, we support that the population mean of the black bear weight is equal to 390.
+-   Thus, we support the statement that the population mean of the black bear weight is equal to 390.
 
-## JPRF black bear example
+## JPRF black bear example (other methods)
 
-### 4.1
+::: columns
+::: {.column width="50%"}
+### 4.1 Find the critical statistics for $\alpha$
 
-### 5.1
+-   Using t-table, or R, or [online calculator](https://www.socscistatistics.com/tests/criticalvalues/default.aspx)
 
-## JPRF black bear example
+-   Find the $t_{critical}$ corresponded with $\alpha$
 
-### 4.2
+    -   $df = n-1 = 24$
 
-### 5.2
+    -   two-tailed
+
+-   $t_{ctitical} = 1.711$
+
+### 5.1 Compare $t_{statistics}$ and $t_{critical}$ and draw conclusion
+:::
+
+::: {.column width="50%"}
+![](images/paste-5181F6DF.png)
+:::
+:::
+
+-   $t_{statistics} \le t_{critical}$, we fail to reject $H_0$.
+
+-   Thus, we support the statement that the population mean of the black bear weight is equal to 390.
+
+## JPRF black bear example (other methods)
+
+::: columns
+::: {.column width="50%"}
+### 4.2 Find upper and lower limits
+
+-   Using t-table, or R, or [online calculator](https://www.socscistatistics.com/tests/criticalvalues/default.aspx)
+
+-   Find the $t_{critical}$ corresponded with $\alpha = 0.1$
+
+    -   $df = n-1 = 24$
+
+    -   two-tailed
+
+-   $t_{ctitical} = 1.711$
+
+-   $CI = \bar{x} \pm t_{critical} * \frac{s}{\sqrt{n}} = 400 \pm 1.711 * 40/\sqrt{25} = 400 \pm 13.68$
+
+### 5.2 Compare CI with $\mu$ and draw conclusion
+:::
+
+::: {.column width="50%"}
+![](images/paste-5181F6DF.png)
+:::
+:::
+
+-   $\mu = 390$, which is within (386.3, 413.7), we fail to reject $H_0$.
+
+-   Thus, we support the statement that the population mean of the black bear weight is equal to 390.
 
 ## Three ways to do hypothesis test
 
@@ -286,8 +400,6 @@ Image from: https://www.flickr.com/photos/archer10/37223656595
 ### So what
 
 -   This would influence how you look up your p-value
-
--   When doing two-tailed test, the probability is $\alpha/2$ when looking up critical values
 :::
 
 ::: {.column width="50%"}
@@ -295,11 +407,15 @@ Image from: https://www.flickr.com/photos/archer10/37223656595
 :::
 :::
 
-## An example of a two-tailed t-test
+-   Two-tailed test, when looking up the p-value, the probability needs to multiply by 2.
+
+-   Two-tailed test, when looking up the $t_{critical}$, the probability is $\alpha/2$.
+
+## **Gum thickness:** a two-tailed t-test
 
 ### The story
 
-A manufacturer claims that the thickness of the spearmint gum it produces is 7.5 one-hundredths of an inch, with $95\%$ confidence.
+A manufacturer claims that the thickness of the spearmint gum it produces is 7.5 one-hundredths.
 
 . . .
 
@@ -313,57 +429,87 @@ He obtained:
 
 . . .
 
+$$
+n = 10, \bar{x} = 7.55, s = 0.1027, \alpha = 0.05
+$$
+
 Base on this sample, is the claim from the manufacturer valid?
 
-## Is the claim valid or not?
+## **Gum thickness**
 
 ### To solve this
 
 . . .
 
-There are two possible outcomes:
+### 1. Set up $H_0$ and $H_a$
 
--   The mean of the spearmint gum thickness equals 7.5 ($\mu = 7.5$)
+-   $H_0:\mu = 7.5$: the mean of the spearmint gum thickness equals 7.5
 
--   The mean of the spearmint gum thickness doesn't equal 7.5 ($\mu \neq 7.5$)
+-   $H_a: \mu \neq 7.5$, the mean of the spearmint gum thickness doesn't equal 7.5
 
-. . .
+### 2. Determine statistical significance level $\alpha$
+
+-   We set the significance level $\alpha$ as 0.05
+
+### 3. Calculate the test statistics
+
+-   We are using t-statistics (because $n$ is small)
+
+-   $t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}} = \frac{7.55 - 7.5}{0.1027/\sqrt{10}} = 1.54$
+
+## **Gum thickness**
+
+### To solve this
+
+### 4. Find the p-value for test statistics
+
+-   Using t-table, or R, or [online calculator](https://www.socscistatistics.com/pvalues/tdistribution.aspx)
+
+-   Find the p-value for $t_{statistics} = 1.54$
+
+    -   $df = n-1 = 9$
+
+    -   **two-tailed**
+
+-   $p-value = 0.158$
+
+### 5. Compare $\alpha$ and p-value and draw conclusion
+
+-   $p-value > \alpha$, we fail to reject $H_0$.
+
+-   Thus, we support the statement that the mean of the spearmint gum thickness equals 7.5.
+
+## **Gum thickness**
+
+### Can you try the CI method?
 
 $$
 n = 10, \bar{x} = 7.55, s = 0.1027, \alpha = 0.05
 $$
 
 $$
-CI = \bar{x} \pm t_{\frac{\alpha}{2}, n-1} * \frac{s}{\sqrt{n}} = 413.7
+CI = \bar{x} \pm t_{\frac{\alpha}{2}, n-1} * \frac{s}{\sqrt{n}}
 $$
 
 $$
-CI = 7.55 \pm 1.8336 * \frac{0.1027}{\sqrt{10}} = (7.49, 7.61)
+CI = 7.55 \pm 2.262 * \frac{0.1027}{\sqrt{10}} = (7.476, 7.623)
 $$
-
--   Based on our sample, we have $90\%$ confidence that the **po**
-
-A company claim that their product has 450 mm. How can we trust that? A checker 50 bottles, found the mean is about 448, standard deviation 20. Is the claim valid?
-
-Statement 1: The volume equals 450 mm.
-
-Statement 2: The volume is not equal to 450 mm.
-
-95% CI is (432, 459), which covers the 450, we say that the fail to reject Result 1. The statement that "volume equals 450" is supported with confidence level 0.05!
 
 ## What we learned
 
 -   We can list null hypothesis and alternative hypothesis for research questions
--   We set the confidence level that we want to test on
--   We calculate the test to support, or not support, certain hypothesis
--   Make conclusion
+-   We set the confidence level $\alpha$ that we want to test to get the "rules" about when to reject $H_0$.
+-   We learned 5 steps of conducting a hypothesis test
+-   And there are 3 variations
 
 ## Wrap up
 
 ### Before we meet again
 
--   Submit your first lab on Moodle
+-   Submit second lab on Moodle
 -   Read discussion paper, can be found on discussion paper rubric
+-   Any question (lecture, lab) for the past 3 weeks
+-   Any question about the project I
 
 ### Next time
 

@@ -341,13 +341,22 @@
 <section id="announcements" class="slide level2">
 <h2>Announcements</h2>
 <ul>
-<li class="fragment">How was your week?</li>
+<li class="fragment">Recording</li>
+<li class="fragment">Discussion paper
+<ul>
+<li class="fragment"><p>Still some students not on the list</p></li>
+<li class="fragment"><p>Upload the presentation slides</p></li>
+</ul></li>
+<li class="fragment">Lab assignment (.R) (.png)</li>
+<li class="fragment">This is the final online week by me in September</li>
+<li class="fragment">We will chat about project I on Thursday lecture and a general review</li>
 </ul>
 <h3 id="recap">Recap</h3>
 <ul>
 <li class="fragment"><p>Sampling distribution - distribution of the sample means</p></li>
 <li class="fragment"><p>We can use <strong>one sample</strong> to calculate sample mean and standard error</p></li>
 <li class="fragment"><p>And base on these, we can get confidence interval about <strong>true mean</strong></p></li>
+<li class="fragment"><p>And I made some mistakes in last week lecture JPRF bear slide… let’s take a look at it again.</p></li>
 </ul>
 </section>
 <section id="jprf-black-bear" class="slide level2">
@@ -360,17 +369,17 @@
 n = 25, \bar{x} = 400, s = 40, \alpha = 0.1
 \]</span></p>
 <p><span class="math display">\[
-Upper = \bar{x} + t_{0.05, 24} * \frac{s}{\sqrt{n}} = 413.7
+Upper = \bar{x} + t_{0.05, 24} * \frac{s}{\sqrt{n}} = 400 + 1.711 * \frac{40}{\sqrt{25}}= 413.7
 \]</span></p>
 <p><span class="math display">\[
-Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
+Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 400 - 1.711 * \frac{40}{\sqrt{25}}= 386.3
 \]</span></p>
 <ul>
 <li class="fragment">Based on our sample, we have <span class="math inline">\(90\%\)</span> confidence that the <strong>population mean of a black bear weight</strong> in JPRF forest is between 386.3 to 413.7 kg.</li>
 </ul>
 </section>
-<section id="hypothesis-test-hypotheses" class="slide level2">
-<h2>Hypothesis test: hypotheses</h2>
+<section id="hypothesis-test-two-hypotheses" class="slide level2">
+<h2>Hypothesis test: two hypotheses</h2>
 <blockquote>
 <p>Hypothesis test is a decision making process. We use it to translate a question of interest into a mathematical form. Then, we can make inference to population parameters.</p>
 </blockquote>
@@ -409,27 +418,6 @@ Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
 <li class="fragment"><p>Always use <strong>parameters</strong> (e.g., <span class="math inline">\(\mu, \beta\)</span>) when writing out hypothesis</p></li>
 </ul>
 </section>
-<section id="hypothesis-test-type-i-error-alpha" class="slide level2">
-<h2>Hypothesis test: type I error <span class="math inline">\(\alpha\)</span></h2>
-<blockquote>
-<p>Significance level, or type I error, is the probability that you reject null hypothesis <span class="math inline">\(H_0\)</span> when it’s true. Usually set as <span class="math inline">\(0.05\)</span> or <span class="math inline">\(0.1\)</span>.</p>
-</blockquote>
-<ul>
-<li class="fragment">For example, it’s the probability for making a <strong>wrong</strong> decision “<em>the mean of students’ height is not equal to 180</em>”, when <span class="math inline">\(\mu = 180\)</span>.</li>
-</ul>
-
-<img data-src="images/paste-B0562533.png" class="r-stretch"></section>
-<section id="hypothesis-test-type-ii-error-beta" class="slide level2">
-<h2>Hypothesis test: type II error <span class="math inline">\(\beta\)</span></h2>
-<blockquote>
-<p>Type II error is the probability that you fail to reject null hypothesis <span class="math inline">\(H_0\)</span> when it’s actually not true.</p>
-</blockquote>
-<ul>
-<li class="fragment"><p>For example, it’s the probability for making a <strong>wrong</strong> decision “<em>the mean of students’ height in UNBC is the same as UBC</em>”, when <span class="math inline">\(\mu_{unbc} \neq \mu_{ubc}\)</span></p></li>
-<li class="fragment"><p><span class="math inline">\(1-\beta\)</span> is called <strong>Power</strong>, the probability of rejecting <span class="math inline">\(H_0\)</span> when <span class="math inline">\(H_0\)</span> is not true. We want it high</p></li>
-</ul>
-
-<img data-src="images/paste-3295A826.png" width="678" class="r-stretch quarto-figure-center"></section>
 <section id="hypothesis-test-result-interpretation" class="slide level2">
 <h2>Hypothesis test: result interpretation</h2>
 <ul>
@@ -442,22 +430,32 @@ Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
 </ul>
 
 <img data-src="https://www.scribbr.co.uk/wp-content/uploads/2021/01/type-i-and-ii-error-2.png" class="r-stretch quarto-figure-center"></section>
-<section id="hypothesis-test-things-to-keep-in-mind" class="slide level2">
-<h2>Hypothesis test: things to keep in mind</h2>
+<section id="hypothesis-test-type-i-error-alpha" class="slide level2">
+<h2>Hypothesis test: type I error <span class="math inline">\(\alpha\)</span></h2>
+<blockquote>
+<p>Significance level, or type I error, is the probability that you reject null hypothesis <span class="math inline">\(H_0\)</span> when it’s true. Usually set as <span class="math inline">\(0.05\)</span> (5%) or <span class="math inline">\(0.1\)</span> (10%).</p>
+</blockquote>
 <ul>
-<li class="fragment"><p>Failing to reject <span class="math inline">\(H_0\)</span> is not the same as accepting <span class="math inline">\(H_0\)</span></p></li>
-<li class="fragment"><p>We can only gain evidence for a hypothesis, but not possible to prove a hypothesis</p></li>
+<li class="fragment">For example, it’s the probability for making a <strong>wrong</strong> decision “<em>the mean of students’ height is not equal to 180</em>”, when <span class="math inline">\(\mu = 180\)</span>.</li>
 </ul>
-<p><img data-src="https://miro.medium.com/v2/resize:fit:1050/1*7erqC0-wRl9x6mOYUoREVQ.jpeg" width="681"></p>
 
-<aside><div>
-<p>Image from: https://medium.com/@get_excelsior/the-basics-of-hypothesis-testing-73941d3a947f</p>
-</div></aside></section>
+<img data-src="images/paste-B0562533.png" width="752" class="r-stretch quarto-figure-center"></section>
+<section id="hypothesis-test-type-ii-error-beta" class="slide level2">
+<h2>Hypothesis test: type II error <span class="math inline">\(\beta\)</span></h2>
+<blockquote>
+<p>Type II error is the probability that you fail to reject null hypothesis <span class="math inline">\(H_0\)</span> when it’s actually not true.</p>
+</blockquote>
+<ul>
+<li class="fragment"><p>For example, it’s the probability for making a <strong>wrong</strong> decision “<em>the mean of students’ height in UNBC is the same as UBC</em>”, when <span class="math inline">\(\mu_{unbc} \neq \mu_{ubc}\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(1-\beta\)</span> is called <strong>Power</strong>, the probability of rejecting <span class="math inline">\(H_0\)</span> when <span class="math inline">\(H_0\)</span> is not true.</p></li>
+</ul>
+
+<img data-src="images/paste-3295A826.png" width="678" class="r-stretch quarto-figure-center"></section>
 <section id="more-about-alpha" class="slide level2">
 <h2>More about <span class="math inline">\(\alpha\)</span></h2>
 <h3 id="what-is-it-exactly">What is it exactly?</h3>
 <blockquote>
-<p>Definition: the probability of rejecting the null hypothesis <span class="math inline">\(H_0\)</span> when it’s true. In other words, we have 5% (0.05) risk of making type I error.</p>
+<p>Definition (again): the probability of rejecting the null hypothesis <span class="math inline">\(H_0\)</span> when it’s true. In other words, we have 5% or 10% risk of making type I error.</p>
 </blockquote>
 <ul>
 <li class="fragment"><p>Think about this…</p></li>
@@ -473,30 +471,81 @@ Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
 </section>
 <section id="more-about-alpha-1" class="slide level2">
 <h2>More about <span class="math inline">\(\alpha\)</span></h2>
-<h3 id="why-dont-we-just-set-it-super-low">Why don’t we just set it super low?</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="what-is-it-exactly-1">What is it exactly?</h3>
 <ul>
-<li class="fragment"><p>It becomes very hard to reject <span class="math inline">\(H_0\)</span></p></li>
-<li class="fragment"><p>You might not making mistake in rejecting <span class="math inline">\(H_0\)</span> when it’s true</p></li>
-<li class="fragment"><p>But at the same time, you might not reject <span class="math inline">\(H_0\)</span> when it’s not true - <span class="math inline">\(\beta\)</span> type II error</p></li>
+<li class="fragment"><p>But, the rule that I set may have “risk” of making type I error</p></li>
+<li class="fragment"><p>that is <span class="math inline">\(P(\bar{x} \le 170) + P(\bar{x} \ge 190)\)</span> when <span class="math inline">\(\mu = 180\)</span></p></li>
+<li class="fragment"><p>The shaded area</p></li>
+<li class="fragment"><p>So… we can make the rules (e.g., set our threshold) to calculate the “risk” we have</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img data-src="images/paste-F95900D8.png"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment"><p>Vice versa, we can choose how much “risk” we can take, and find the rules (e.g., thresholds) accordingly.</p></li>
+<li class="fragment"><p>Here is where <span class="math inline">\(\alpha\)</span> comes from! We set our risk at <span class="math inline">\(5\%\)</span> of making type I error and use this to decide our testing rules, to see which statement that our sample supports.</p></li>
 </ul>
 </section>
+<section id="more-about-alpha-2" class="slide level2">
+<h2>More about <span class="math inline">\(\alpha\)</span></h2>
+<h3 id="why-dont-we-just-set-it-super-low">Why don’t we just set it super low?</h3>
+<ul>
+<li class="fragment"><p>Yes you can</p></li>
+<li class="fragment"><p>It becomes very hard to reject <span class="math inline">\(H_0\)</span></p></li>
+<li class="fragment"><p>You might not making mistake in rejecting <span class="math inline">\(H_0\)</span> when it’s true (i.e., you avoid making type I error)</p></li>
+<li class="fragment"><p>But at the same time, you might not reject <span class="math inline">\(H_0\)</span> when it’s not true (i.e., you risk in making more type II error <span class="math inline">\(\beta\)</span>)</p></li>
+<li class="fragment"><p>(Advanced) one way you can reduce the type I error and increase the power of the test is by increasing your sample size.</p></li>
+<li class="fragment"><p>(Advance) there is a way to calculate the sample size you need to keep low <span class="math inline">\(\alpha\)</span> while maintaining high power (<span class="math inline">\(1-\beta\)</span>)</p></li>
+</ul>
+</section>
+<section id="hypothesis-test-things-to-keep-in-mind" class="slide level2">
+<h2>Hypothesis test: things to keep in mind</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p>&nbsp;</p>
+<ul>
+<li class="fragment"><p>Failing to reject <span class="math inline">\(H_0\)</span> is not the same as accepting <span class="math inline">\(H_0\)</span></p></li>
+<li class="fragment"><p>We can only gain evidence for a hypothesis, but not possible to prove a hypothesis</p></li>
+<li class="fragment"><p>Maybe there is an effect (<span class="math inline">\(H_0\)</span> is not true), just that your sample doesn’t show it</p></li>
+<li class="fragment"><p>Be specific, and put measurable things in the hypothesis test (e.g., # of cavities, species abundance in different forest treatment)</p></li>
+<li class="fragment"><p>…</p></li>
+</ul>
+</div><div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img data-src="images/paste-5D62AE53.png" width="434"></p>
+</figure>
+</div>
+</div>
+</div>
+
+<aside><div>
+<p>Image from movie Oppenheimer (2023)</p>
+</div></aside></section>
 <section id="put-everything-together" class="slide level2">
 <h2>Put everything together</h2>
 <ol type="1">
-<li class="fragment">Set up <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_a\)</span>
+<li class="fragment"><strong>Set up</strong> <span class="math inline">\(H_0\)</span> <strong>and</strong> <span class="math inline">\(H_a\)</span>
 <ul>
 <li class="fragment">e.g., <span class="math inline">\(H_0: \mu = 180, H_a: \mu \neq 180\)</span></li>
 </ul></li>
-<li class="fragment">Determine statistical significance level <span class="math inline">\(\alpha\)</span>
+<li class="fragment"><strong>Determine statistical significance level</strong> <span class="math inline">\(\alpha\)</span>
 <ul>
 <li class="fragment">usually be <span class="math inline">\(0.05\)</span> or <span class="math inline">\(0.1\)</span></li>
 </ul></li>
-<li class="fragment">Calculate the test statistics with sampled data
+<li class="fragment"><strong>Calculate the test statistics</strong>
 <ul>
 <li class="fragment"><p>If doing t-test, calculate <span class="math inline">\(t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}}\)</span></p></li>
 <li class="fragment"><p>If doing z-test, calculate <span class="math inline">\(z_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}}\)</span></p></li>
 </ul></li>
-<li class="fragment">Find the p-value corresponded to the test statistics
+<li class="fragment"><strong>Find the p-value corresponded to the test statistics</strong>
 <ul>
 <li class="fragment">p-value <span class="math inline">\(=P(t \ge t_{statistics})\)</span></li>
 <li class="fragment">The probability of a value larger than test statistics</li>
@@ -504,7 +553,7 @@ Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
 </ol>
 <p><img data-src="https://www.simplypsychology.org/wp-content/uploads/p-value.jpg" class="absolute" style="top: 150px; right: 0px; width: 514px; "></p>
 <ol start="5" type="1">
-<li class="fragment">Compare <span class="math inline">\(\alpha\)</span> and p-value and draw conclusion
+<li class="fragment"><strong>Compare</strong> <span class="math inline">\(\alpha\)</span> <strong>and p-value and draw conclusion</strong>
 <ul>
 <li class="fragment"><p><span class="math inline">\(p-value \ge \alpha\)</span>: fail to reject <span class="math inline">\(H_o\)</span></p></li>
 <li class="fragment"><p><span class="math inline">\(p-value &lt; \alpha\)</span>: reject <span class="math inline">\(H_0\)</span></p></li>
@@ -545,34 +594,84 @@ Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
 <ul>
 <li class="fragment">We set the significance level <span class="math inline">\(\alpha\)</span> as 0.1</li>
 </ul>
-<h3 id="calculate-the-test-statistics-with-sampled-data">3. Calculate the test statistics with sampled data</h3>
+<h3 id="calculate-the-test-statistics">3. Calculate the test statistics</h3>
 <ul>
 <li class="fragment"><p>We are using t-statistics (because <span class="math inline">\(n\)</span> is small)</p></li>
-<li class="fragment"><p><span class="math inline">\(t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}} = 0.79\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}} = \frac{400 - 390}{40/\sqrt{25}} = 1.25\)</span></p></li>
 </ul>
 </section>
 <section id="jprf-black-bear-example-2" class="slide level2">
 <h2>JPRF black bear example</h2>
-<h3 id="find-the-p-value">4. Find the p-value</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="find-the-p-value-for-test-statistics">4. Find the p-value for test statistics</h3>
 <ul>
-<li class="fragment"><p>Find the p-value for <span class="math inline">\(0.79\)</span> on the t-distribution (df = 24)</p></li>
-<li class="fragment"><p><span class="math inline">\(p-value = 0.43\)</span></p></li>
+<li class="fragment"><p>Using t-table, or R, or <a href="https://www.socscistatistics.com/pvalues/tdistribution.aspx">online calculator</a></p></li>
+<li class="fragment"><p>Find the p-value for <span class="math inline">\(t_{statistics} = 1.25\)</span></p>
+<ul>
+<li class="fragment"><p><span class="math inline">\(df = n-1 = 24\)</span></p></li>
+<li class="fragment"><p>two-tailed</p></li>
+</ul></li>
+<li class="fragment"><p><span class="math inline">\(p-value = 0.22\)</span></p></li>
 </ul>
 <h3 id="compare-alpha-and-p-value-and-draw-conclusion">5. Compare <span class="math inline">\(\alpha\)</span> and p-value and draw conclusion</h3>
+</div><div class="column" style="width:50%;">
+<p><img data-src="images/paste-5181F6DF.png"></p>
+</div>
+</div>
 <ul>
 <li class="fragment"><p><span class="math inline">\(p-value &gt; \alpha\)</span>, we fail to reject <span class="math inline">\(H_0\)</span>.</p></li>
-<li class="fragment"><p>Thus, we support that the population mean of the black bear weight is equal to 390.</p></li>
+<li class="fragment"><p>Thus, we support the statement that the population mean of the black bear weight is equal to 390.</p></li>
 </ul>
 </section>
-<section id="jprf-black-bear-example-3" class="slide level2">
-<h2>JPRF black bear example</h2>
-<h3 id="section">4.1</h3>
-<h3 id="section-1">5.1</h3>
+<section id="jprf-black-bear-example-other-methods" class="slide level2">
+<h2>JPRF black bear example (other methods)</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="find-the-critical-statistics-for-alpha">4.1 Find the critical statistics for <span class="math inline">\(\alpha\)</span></h3>
+<ul>
+<li class="fragment"><p>Using t-table, or R, or <a href="https://www.socscistatistics.com/tests/criticalvalues/default.aspx">online calculator</a></p></li>
+<li class="fragment"><p>Find the <span class="math inline">\(t_{critical}\)</span> corresponded with <span class="math inline">\(\alpha\)</span></p>
+<ul>
+<li class="fragment"><p><span class="math inline">\(df = n-1 = 24\)</span></p></li>
+<li class="fragment"><p>two-tailed</p></li>
+</ul></li>
+<li class="fragment"><p><span class="math inline">\(t_{ctitical} = 1.711\)</span></p></li>
+</ul>
+<h3 id="compare-t_statistics-and-t_critical-and-draw-conclusion">5.1 Compare <span class="math inline">\(t_{statistics}\)</span> and <span class="math inline">\(t_{critical}\)</span> and draw conclusion</h3>
+</div><div class="column" style="width:50%;">
+<p><img data-src="images/paste-5181F6DF.png"></p>
+</div>
+</div>
+<ul>
+<li class="fragment"><p><span class="math inline">\(t_{statistics} \le t_{critical}\)</span>, we fail to reject <span class="math inline">\(H_0\)</span>.</p></li>
+<li class="fragment"><p>Thus, we support the statement that the population mean of the black bear weight is equal to 390.</p></li>
+</ul>
 </section>
-<section id="jprf-black-bear-example-4" class="slide level2">
-<h2>JPRF black bear example</h2>
-<h3 id="section-2">4.2</h3>
-<h3 id="section-3">5.2</h3>
+<section id="jprf-black-bear-example-other-methods-1" class="slide level2">
+<h2>JPRF black bear example (other methods)</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="find-upper-and-lower-limits">4.2 Find upper and lower limits</h3>
+<ul>
+<li class="fragment"><p>Using t-table, or R, or <a href="https://www.socscistatistics.com/tests/criticalvalues/default.aspx">online calculator</a></p></li>
+<li class="fragment"><p>Find the <span class="math inline">\(t_{critical}\)</span> corresponded with <span class="math inline">\(\alpha = 0.1\)</span></p>
+<ul>
+<li class="fragment"><p><span class="math inline">\(df = n-1 = 24\)</span></p></li>
+<li class="fragment"><p>two-tailed</p></li>
+</ul></li>
+<li class="fragment"><p><span class="math inline">\(t_{ctitical} = 1.711\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(CI = \bar{x} \pm t_{critical} * \frac{s}{\sqrt{n}} = 400 \pm 1.711 * 40/\sqrt{25} = 400 \pm 13.68\)</span></p></li>
+</ul>
+<h3 id="compare-ci-with-mu-and-draw-conclusion">5.2 Compare CI with <span class="math inline">\(\mu\)</span> and draw conclusion</h3>
+</div><div class="column" style="width:50%;">
+<p><img data-src="images/paste-5181F6DF.png"></p>
+</div>
+</div>
+<ul>
+<li class="fragment"><p><span class="math inline">\(\mu = 390\)</span>, which is within (386.3, 413.7), we fail to reject <span class="math inline">\(H_0\)</span>.</p></li>
+<li class="fragment"><p>Thus, we support the statement that the population mean of the black bear weight is equal to 390.</p></li>
+</ul>
 </section>
 <section id="three-ways-to-do-hypothesis-test" class="slide level2">
 <h2>Three ways to do hypothesis test</h2>
@@ -604,18 +703,21 @@ Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
 </ul>
 <h3 id="so-what">So what</h3>
 <ul>
-<li class="fragment"><p>This would influence how you look up your p-value</p></li>
-<li class="fragment"><p>When doing two-tailed test, the probability is <span class="math inline">\(\alpha/2\)</span> when looking up critical values</p></li>
+<li class="fragment">This would influence how you look up your p-value</li>
 </ul>
 </div><div class="column" style="width:50%;">
 <p><img data-src="https://miro.medium.com/v2/resize:fit:862/1*VXxdieFiYCgR6v7nUaq01g.jpeg"></p>
 </div>
 </div>
+<ul>
+<li class="fragment"><p>Two-tailed test, when looking up the p-value, the probability needs to multiply by 2.</p></li>
+<li class="fragment"><p>Two-tailed test, when looking up the <span class="math inline">\(t_{critical}\)</span>, the probability is <span class="math inline">\(\alpha/2\)</span>.</p></li>
+</ul>
 </section>
-<section id="an-example-of-a-two-tailed-t-test" class="slide level2">
-<h2>An example of a two-tailed t-test</h2>
+<section id="gum-thickness-a-two-tailed-t-test" class="slide level2">
+<h2><strong>Gum thickness:</strong> a two-tailed t-test</h2>
 <h3 id="the-story">The story</h3>
-<p>A manufacturer claims that the thickness of the spearmint gum it produces is 7.5 one-hundredths of an inch, with <span class="math inline">\(95\%\)</span> confidence.</p>
+<p>A manufacturer claims that the thickness of the spearmint gum it produces is 7.5 one-hundredths.</p>
 <div class="fragment">
 <p>A quality control specialist regularly checks this claim. On one production run, he took a random sample of <em>n</em> = 10 pieces of gum and measured their thickness.</p>
 </div>
@@ -624,53 +726,79 @@ Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
 <p><img data-src="images/paste-9A58F1C5.png"></p>
 </div>
 <div class="fragment">
+<p><span class="math display">\[
+n = 10, \bar{x} = 7.55, s = 0.1027, \alpha = 0.05
+\]</span></p>
 <p>Base on this sample, is the claim from the manufacturer valid?</p>
 </div>
 </section>
-<section id="is-the-claim-valid-or-not" class="slide level2">
-<h2>Is the claim valid or not?</h2>
+<section id="gum-thickness" class="slide level2">
+<h2><strong>Gum thickness</strong></h2>
 <h3 id="to-solve-this">To solve this</h3>
-<div class="fragment">
-<p>There are two possible outcomes:</p>
+<h3 id="set-up-h_0-and-h_a-1">1. Set up <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_a\)</span></h3>
 <ul>
-<li class="fragment"><p>The mean of the spearmint gum thickness equals 7.5 (<span class="math inline">\(\mu = 7.5\)</span>)</p></li>
-<li class="fragment"><p>The mean of the spearmint gum thickness doesn’t equal 7.5 (<span class="math inline">\(\mu \neq 7.5\)</span>)</p></li>
+<li class="fragment"><p><span class="math inline">\(H_0:\mu = 7.5\)</span>: the mean of the spearmint gum thickness equals 7.5</p></li>
+<li class="fragment"><p><span class="math inline">\(H_a: \mu \neq 7.5\)</span>, the mean of the spearmint gum thickness doesn’t equal 7.5</p></li>
 </ul>
-</div>
-<div class="fragment">
+<h3 id="determine-statistical-significance-level-alpha-1">2. Determine statistical significance level <span class="math inline">\(\alpha\)</span></h3>
+<ul>
+<li class="fragment">We set the significance level <span class="math inline">\(\alpha\)</span> as 0.05</li>
+</ul>
+<h3 id="calculate-the-test-statistics-1">3. Calculate the test statistics</h3>
+<ul>
+<li class="fragment"><p>We are using t-statistics (because <span class="math inline">\(n\)</span> is small)</p></li>
+<li class="fragment"><p><span class="math inline">\(t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}} = \frac{7.55 - 7.5}{0.1027/\sqrt{10}} = 1.54\)</span></p></li>
+</ul>
+</section>
+<section id="gum-thickness-1" class="slide level2">
+<h2><strong>Gum thickness</strong></h2>
+<h3 id="to-solve-this-1">To solve this</h3>
+<h3 id="find-the-p-value-for-test-statistics-1">4. Find the p-value for test statistics</h3>
+<ul>
+<li class="fragment"><p>Using t-table, or R, or <a href="https://www.socscistatistics.com/pvalues/tdistribution.aspx">online calculator</a></p></li>
+<li class="fragment"><p>Find the p-value for <span class="math inline">\(t_{statistics} = 1.54\)</span></p>
+<ul>
+<li class="fragment"><p><span class="math inline">\(df = n-1 = 9\)</span></p></li>
+<li class="fragment"><p><strong>two-tailed</strong></p></li>
+</ul></li>
+<li class="fragment"><p><span class="math inline">\(p-value = 0.158\)</span></p></li>
+</ul>
+<h3 id="compare-alpha-and-p-value-and-draw-conclusion-1">5. Compare <span class="math inline">\(\alpha\)</span> and p-value and draw conclusion</h3>
+<ul>
+<li class="fragment"><p><span class="math inline">\(p-value &gt; \alpha\)</span>, we fail to reject <span class="math inline">\(H_0\)</span>.</p></li>
+<li class="fragment"><p>Thus, we support the statement that the mean of the spearmint gum thickness equals 7.5.</p></li>
+</ul>
+</section>
+<section id="gum-thickness-2" class="slide level2">
+<h2><strong>Gum thickness</strong></h2>
+<h3 id="can-you-try-the-ci-method">Can you try the CI method?</h3>
 <p><span class="math display">\[
 n = 10, \bar{x} = 7.55, s = 0.1027, \alpha = 0.05
 \]</span></p>
 <p><span class="math display">\[
-CI = \bar{x} \pm t_{\frac{\alpha}{2}, n-1} * \frac{s}{\sqrt{n}} = 413.7
+CI = \bar{x} \pm t_{\frac{\alpha}{2}, n-1} * \frac{s}{\sqrt{n}}
 \]</span></p>
 <p><span class="math display">\[
-CI = 7.55 \pm 1.8336 * \frac{0.1027}{\sqrt{10}} = (7.49, 7.61)
+CI = 7.55 \pm 2.262 * \frac{0.1027}{\sqrt{10}} = (7.476, 7.623)
 \]</span></p>
-<ul>
-<li class="fragment">Based on our sample, we have <span class="math inline">\(90\%\)</span> confidence that the <strong>po</strong></li>
-</ul>
-<p>A company claim that their product has 450 mm. How can we trust that? A checker 50 bottles, found the mean is about 448, standard deviation 20. Is the claim valid?</p>
-<p>Statement 1: The volume equals 450 mm.</p>
-<p>Statement 2: The volume is not equal to 450 mm.</p>
-<p>95% CI is (432, 459), which covers the 450, we say that the fail to reject Result 1. The statement that “volume equals 450” is supported with confidence level 0.05!</p>
-</div>
 </section>
 <section id="what-we-learned" class="slide level2">
 <h2>What we learned</h2>
 <ul>
 <li class="fragment">We can list null hypothesis and alternative hypothesis for research questions</li>
-<li class="fragment">We set the confidence level that we want to test on</li>
-<li class="fragment">We calculate the test to support, or not support, certain hypothesis</li>
-<li class="fragment">Make conclusion</li>
+<li class="fragment">We set the confidence level <span class="math inline">\(\alpha\)</span> that we want to test to get the “rules” about when to reject <span class="math inline">\(H_0\)</span>.</li>
+<li class="fragment">We learned 5 steps of conducting a hypothesis test</li>
+<li class="fragment">And there are 3 variations</li>
 </ul>
 </section>
 <section id="wrap-up" class="slide level2">
 <h2>Wrap up</h2>
 <h3 id="before-we-meet-again">Before we meet again</h3>
 <ul>
-<li class="fragment">Submit your first lab on Moodle</li>
+<li class="fragment">Submit second lab on Moodle</li>
 <li class="fragment">Read discussion paper, can be found on discussion paper rubric</li>
+<li class="fragment">Any question (lecture, lab) for the past 3 weeks</li>
+<li class="fragment">Any question about the project I</li>
 </ul>
 <h3 id="next-time">Next time</h3>
 <ul>
