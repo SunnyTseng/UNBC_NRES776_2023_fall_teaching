@@ -415,8 +415,7 @@ Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
 <p>Significance level, or type I error, is the probability that you reject null hypothesis <span class="math inline">\(H_0\)</span> when it’s true. Usually set as <span class="math inline">\(0.05\)</span> or <span class="math inline">\(0.1\)</span>.</p>
 </blockquote>
 <ul>
-<li class="fragment"><p>For example, it’s the probability for making a <strong>wrong</strong> decision “<em>the mean of students’ height is not equal to 180</em>”, when <span class="math inline">\(\mu = 180\)</span>.</p></li>
-<li class="fragment"><p>It’s a type of error, so we want it to be small</p></li>
+<li class="fragment">For example, it’s the probability for making a <strong>wrong</strong> decision “<em>the mean of students’ height is not equal to 180</em>”, when <span class="math inline">\(\mu = 180\)</span>.</li>
 </ul>
 
 <img data-src="images/paste-B0562533.png" class="r-stretch"></section>
@@ -427,11 +426,10 @@ Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
 </blockquote>
 <ul>
 <li class="fragment"><p>For example, it’s the probability for making a <strong>wrong</strong> decision “<em>the mean of students’ height in UNBC is the same as UBC</em>”, when <span class="math inline">\(\mu_{unbc} \neq \mu_{ubc}\)</span></p></li>
-<li class="fragment"><p>This is a type of error, so we want it to be small as well</p></li>
 <li class="fragment"><p><span class="math inline">\(1-\beta\)</span> is called <strong>Power</strong>, the probability of rejecting <span class="math inline">\(H_0\)</span> when <span class="math inline">\(H_0\)</span> is not true. We want it high</p></li>
 </ul>
 
-<img data-src="images/paste-3295A826.png" width="678" class="r-stretch"></section>
+<img data-src="images/paste-3295A826.png" width="678" class="r-stretch quarto-figure-center"></section>
 <section id="hypothesis-test-result-interpretation" class="slide level2">
 <h2>Hypothesis test: result interpretation</h2>
 <ul>
@@ -443,7 +441,7 @@ Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
 </ul></li>
 </ul>
 
-<img data-src="https://www.scribbr.co.uk/wp-content/uploads/2021/01/type-i-and-ii-error-2.png" class="r-stretch"></section>
+<img data-src="https://www.scribbr.co.uk/wp-content/uploads/2021/01/type-i-and-ii-error-2.png" class="r-stretch quarto-figure-center"></section>
 <section id="hypothesis-test-things-to-keep-in-mind" class="slide level2">
 <h2>Hypothesis test: things to keep in mind</h2>
 <ul>
@@ -455,8 +453,32 @@ Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
 <aside><div>
 <p>Image from: https://medium.com/@get_excelsior/the-basics-of-hypothesis-testing-73941d3a947f</p>
 </div></aside></section>
-<section id="what-is-alpha-actually" class="slide level2">
-<h2>What is <span class="math inline">\(\alpha\)</span> actually?</h2>
+<section id="more-about-alpha" class="slide level2">
+<h2>More about <span class="math inline">\(\alpha\)</span></h2>
+<h3 id="what-is-it-exactly">What is it exactly?</h3>
+<blockquote>
+<p>Definition: the probability of rejecting the null hypothesis <span class="math inline">\(H_0\)</span> when it’s true. In other words, we have 5% (0.05) risk of making type I error.</p>
+</blockquote>
+<ul>
+<li class="fragment"><p>Think about this…</p></li>
+<li class="fragment"><p>If we want to test whether <span class="math inline">\(\mu = 180\)</span>. How “far away” from this value that our sample mean needs to be, that we say it’s not equal?</p></li>
+<li class="fragment"><p>181? 185? or 200?</p></li>
+<li class="fragment"><p>I can make my “rule” like this:</p>
+<ul>
+<li class="fragment"><p>If <span class="math inline">\(170 \le \bar{x} \le 190\)</span>, then I make decision to support <span class="math inline">\(\mu = 180\)</span></p></li>
+<li class="fragment"><p>If <span class="math inline">\(\bar{x} \le 170\)</span> or <span class="math inline">\(\bar{x} \ge 190\)</span>, then I make decision to support <span class="math inline">\(\mu \neq 180\)</span></p></li>
+</ul></li>
+<li class="fragment"><p>Sounds great!</p></li>
+</ul>
+</section>
+<section id="more-about-alpha-1" class="slide level2">
+<h2>More about <span class="math inline">\(\alpha\)</span></h2>
+<h3 id="why-dont-we-just-set-it-super-low">Why don’t we just set it super low?</h3>
+<ul>
+<li class="fragment"><p>It becomes very hard to reject <span class="math inline">\(H_0\)</span></p></li>
+<li class="fragment"><p>You might not making mistake in rejecting <span class="math inline">\(H_0\)</span> when it’s true</p></li>
+<li class="fragment"><p>But at the same time, you might not reject <span class="math inline">\(H_0\)</span> when it’s not true - <span class="math inline">\(\beta\)</span> type II error</p></li>
+</ul>
 </section>
 <section id="put-everything-together" class="slide level2">
 <h2>Put everything together</h2>
@@ -590,8 +612,8 @@ Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
 </div>
 </div>
 </section>
-<section id="is-the-claim-valid-or-not" class="slide level2">
-<h2>Is the claim valid or not?</h2>
+<section id="an-example-of-a-two-tailed-t-test" class="slide level2">
+<h2>An example of a two-tailed t-test</h2>
 <h3 id="the-story">The story</h3>
 <p>A manufacturer claims that the thickness of the spearmint gum it produces is 7.5 one-hundredths of an inch, with <span class="math inline">\(95\%\)</span> confidence.</p>
 <div class="fragment">
@@ -605,7 +627,7 @@ Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
 <p>Base on this sample, is the claim from the manufacturer valid?</p>
 </div>
 </section>
-<section id="is-the-claim-valid-or-not-1" class="slide level2">
+<section id="is-the-claim-valid-or-not" class="slide level2">
 <h2>Is the claim valid or not?</h2>
 <h3 id="to-solve-this">To solve this</h3>
 <div class="fragment">

@@ -96,8 +96,6 @@ $$
 
 -   For example, it's the probability for making a **wrong** decision "*the mean of students' height is not equal to 180*", when $\mu = 180$.
 
--   It's a type of error, so we want it to be small
-
 ![](images/paste-B0562533.png)
 
 ## Hypothesis test: type II error $\beta$
@@ -106,11 +104,9 @@ $$
 
 -   For example, it's the probability for making a **wrong** decision "*the mean of students' height in UNBC is the same as UBC*", when $\mu_{unbc} \neq \mu_{ubc}$
 
--   This is a type of error, so we want it to be small as well
-
 -   $1-\beta$ is called **Power**, the probability of rejecting $H_0$ when $H_0$ is not true. We want it high
 
-![](images/paste-3295A826.png){width="678"}
+![](images/paste-3295A826.png){fig-align="center" width="678"}
 
 ## Hypothesis test: result interpretation
 
@@ -122,7 +118,7 @@ $$
 
     -   actually $\mu_{floss} \neq \mu_{no floss}$ but data are too sparse to demonstrate a difference
 
-![](https://www.scribbr.co.uk/wp-content/uploads/2021/01/type-i-and-ii-error-2.png)
+![](https://www.scribbr.co.uk/wp-content/uploads/2021/01/type-i-and-ii-error-2.png){fig-align="center"}
 
 ## Hypothesis test: things to keep in mind
 
@@ -136,7 +132,35 @@ $$
 Image from: https://medium.com/\@get_excelsior/the-basics-of-hypothesis-testing-73941d3a947f
 :::
 
-## What is $\alpha$ actually?
+## More about $\alpha$ 
+
+### What is it exactly?
+
+> Definition: the probability of rejecting the null hypothesis $H_0$ when it's true. In other words, we have 5% (0.05) risk of making type I error.
+
+-   Think about this...
+
+-   If we want to test whether $\mu = 180$. How "far away" from this value that our sample mean needs to be, that we say it's not equal?
+
+-   181? 185? or 200?
+
+-   I can make my "rule" like this:
+
+    -   If $170 \le \bar{x} \le 190$, then I make decision to support $\mu = 180$
+
+    -   If $\bar{x} \le 170$ or $\bar{x} \ge 190$, then I make decision to support $\mu \neq 180$
+
+-   Sounds great!
+
+## More about $\alpha$
+
+### Why don't we just set it super low?
+
+-   It becomes very hard to reject $H_0$
+
+-   You might not making mistake in rejecting $H_0$ when it's true
+
+-   But at the same time, you might not reject $H_0$ when it's not true - $\beta$ type II error
 
 ## Put everything together
 
