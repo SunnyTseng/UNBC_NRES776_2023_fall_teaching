@@ -90,19 +90,188 @@ $$
 
 -   Always use **parameters** (e.g., $\mu, \beta$) when writing out hypothesis
 
-## Hypothesis test: $\alpha$ level
+## Hypothesis test: type I error $\alpha$
 
 > Significance level, or type I error, is the probability that you reject null hypothesis $H_0$ when it's true. Usually set as $0.05$ or $0.1$.
 
--   For example, it's the probability for making a **wrong** decision "the mean of students' height is not equal to 180", when $\mu = 180$.
+-   For example, it's the probability for making a **wrong** decision "*the mean of students' height is not equal to 180*", when $\mu = 180$.
 
 -   It's a type of error, so we want it to be small
 
 ![](images/paste-B0562533.png)
 
+## Hypothesis test: type II error $\beta$
+
+> Type II error is the probability that you fail to reject null hypothesis $H_0$ when it's actually not true.
+
+-   For example, it's the probability for making a **wrong** decision "*the mean of students' height in UNBC is the same as UBC*", when $\mu_{unbc} \neq \mu_{ubc}$
+
+-   This is a type of error, so we want it to be small as well
+
+-   $1-\beta$ is called **Power**, the probability of rejecting $H_0$ when $H_0$ is not true. We want it high
+
+![](images/paste-3295A826.png){width="678"}
+
+## Hypothesis test: result interpretation
+
+-   Reject $H_0$, the sample supports the statement from $H_a$
+
+-   Fail to reject $H_0$, the sample supports the statement from $H_0$
+
+    -   $\mu_{floss} = \mu_{no floss}$, or
+
+    -   actually $\mu_{floss} \neq \mu_{no floss}$ but data are too sparse to demonstrate a difference
+
+![](https://www.scribbr.co.uk/wp-content/uploads/2021/01/type-i-and-ii-error-2.png)
+
+## Hypothesis test: things to keep in mind
+
+-   Failing to reject $H_0$ is not the same as accepting $H_0$
+
+-   We can only gain evidence for a hypothesis, but not possible to prove a hypothesis
+
+![](https://miro.medium.com/v2/resize:fit:1050/1*7erqC0-wRl9x6mOYUoREVQ.jpeg){width="681"}
+
+::: aside
+Image from: https://medium.com/\@get_excelsior/the-basics-of-hypothesis-testing-73941d3a947f
+:::
+
+## What is $\alpha$ actually?
+
 ## Put everything together
 
-## Is the claim valid or not?
+1.  Set up $H_0$ and $H_a$
+    -   e.g., $H_0: \mu = 180, H_a: \mu \neq 180$
+2.  Determine statistical significance level $\alpha$
+    -   usually be $0.05$ or $0.1$
+3.  Calculate the test statistics with sampled data
+    -   If doing t-test, calculate $t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}}$
+
+    -   If doing z-test, calculate $z_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}}$
+4.  Find the p-value corresponded to the test statistics
+    -   p-value $=P(t \ge t_{statistics})$
+    -   The probability of a value larger than test statistics
+
+![](https://www.simplypsychology.org/wp-content/uploads/p-value.jpg){.absolute top="150" right="0" width="514"}
+
+5.  Compare $\alpha$ and p-value and draw conclusion
+    -   $p-value \ge \alpha$: fail to reject $H_o$
+
+    -   $p-value < \alpha$: reject $H_0$
+
+## JPRF black bear example
+
+The JPRF manager claim that the population mean ($\mu$) of the black bear weight is 390 kg. Is this claim valid?
+
+You, as a researcher, came to the forest and measured the weight from 25 black bears in JPRF forest, and got their averaged weight as 400 kg, with standard deviation **40** kg.
+
+::: columns
+::: {.column width="30%"}
+-   $n = 25$
+
+-   $\bar{x} = 400$
+
+-   $s = 40$
+:::
+
+::: {.column width="70%"}
+![](https://live.staticflickr.com/4354/37223656595_fcdc40df65_b.jpg){fig-align="right" width="631"}
+:::
+:::
+
+::: aside
+Image from: https://www.flickr.com/photos/archer10/37223656595
+:::
+
+## JPRF black bear example
+
+### 1. Set up $H_0$ and $H_a$
+
+-   $H_0:\mu = 390$: the population mean of the black bear weight is 390 kg.
+
+-   $H_a: \mu \neq 390$, the population mean of the black bear weight is not 390 kg.
+
+### 2. Determine statistical significance level $\alpha$
+
+-   We set the significance level $\alpha$ as 0.1
+
+### 3. Calculate the test statistics with sampled data
+
+-   We are using t-statistics (because $n$ is small)
+
+-   $t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}} = 0.79$
+
+## JPRF black bear example
+
+### 4. Find the p-value
+
+-   Find the p-value for $0.79$ on the t-distribution (df = 24)
+
+-   $p-value = 0.43$
+
+### 5. Compare $\alpha$ and p-value and draw conclusion
+
+-   $p-value > \alpha$, we fail to reject $H_0$.
+
+-   Thus, we support that the population mean of the black bear weight is equal to 390.
+
+## JPRF black bear example
+
+### 4.1
+
+### 5.1
+
+## JPRF black bear example
+
+### 4.2
+
+### 5.2
+
+## Three ways to do hypothesis test
+
+### A. compare p-value and $\alpha$
+
+-   $p-value \ge \alpha$: fail to reject $H_0$
+
+-   $p-value < \alpha$: reject $H_0$
+
+### B. compare statistical value vs critical value
+
+-   $t_{statistics} < t_{criticle}$: fail to reject $H_0$
+
+-   $t_{statistics} \ge t_{criticle}$: reject $H_0$
+
+### C. compare confidence interval
+
+-   If the confidence interval covers $\mu$: fail to reject $H_0$
+
+-   Otherwise: reject $H_0$
+
+## One-tailed or two-tailed test?
+
+::: columns
+::: {.column width="50%"}
+### How to tell
+
+-   Based on the research question
+
+-   If the $H_0$ is written with $=$, then it's a two-tailed test
+
+-   If the $H_0$ is written with $>$ or $<$, then it's a one-tailed test
+
+### So what
+
+-   This would influence how you look up your p-value
+
+-   When doing two-tailed test, the probability is $\alpha/2$ when looking up critical values
+:::
+
+::: {.column width="50%"}
+![](https://miro.medium.com/v2/resize:fit:862/1*VXxdieFiYCgR6v7nUaq01g.jpeg)
+:::
+:::
+
+## An example of a two-tailed t-test
 
 ### The story
 
@@ -157,46 +326,6 @@ Statement 1: The volume equals 450 mm.
 Statement 2: The volume is not equal to 450 mm.
 
 95% CI is (432, 459), which covers the 450, we say that the fail to reject Result 1. The statement that "volume equals 450" is supported with confidence level 0.05!
-
-## Hypothesis test
-
-> A method of statistical inference used to decide whether the data at hand sufficiently support a particular hypothesis. Hypothesis testing allows us to make probabilistic statements about population parameters.
-
-Component:
-
-## Two hypothesis
-
-> Mutually exclusive statements.
-
-::: columns
-::: {.column width="50%"}
-### Null Hypothesis $H_0$
-
-### 
-:::
-
-::: {.column width="50%"}
-### Alternative Hypothesis $H_a$
-:::
-:::
-
-## Put questions with hypothesis
-
-+-------------------------------------------------------------------------+----------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
-| Research question                                                       | $H_0$                                                                            | $H_a$                                                                         |
-+=========================================================================+==================================================================================+===============================================================================+
-| Does tooth flossing affect the number of cavities?                      | Tooth flossing has **no effect** on the number of cavities.                      | Tooth flossing has **effect** on the number of cavities.                      |
-+-------------------------------------------------------------------------+----------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
-| Does the amount of text highlighted in the textbook affect exam scores? | The amount of text highlighted in the textbook has **no effect** on exam scores. | The amount of text highlighted in the textbook has **effect** on exam scores. |
-+-------------------------------------------------------------------------+----------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
-| Does daily meditation decrease the incidence of depression?             | Daily meditation has **no effect** on the incidence of depression.               | Daily meditation has **effect** on the incidence of depression.               |
-+-------------------------------------------------------------------------+----------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
-|                                                                         |                                                                                  |                                                                               |
-+-------------------------------------------------------------------------+----------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
-|                                                                         |                                                                                  |                                                                               |
-+-------------------------------------------------------------------------+----------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
-
-## Step by step hypothesis test
 
 ## What we learned
 

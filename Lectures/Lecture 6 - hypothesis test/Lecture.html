@@ -369,16 +369,16 @@ Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
 <li class="fragment">Based on our sample, we have <span class="math inline">\(90\%\)</span> confidence that the <strong>population mean of a black bear weight</strong> in JPRF forest is between 386.3 to 413.7 kg.</li>
 </ul>
 </section>
-<section id="hypothesis-test" class="slide level2">
-<h2>Hypothesis test</h2>
+<section id="hypothesis-test-hypotheses" class="slide level2">
+<h2>Hypothesis test: hypotheses</h2>
 <blockquote>
 <p>Hypothesis test is a decision making process. We use it to translate a question of interest into a mathematical form. Then, we can make inference to population parameters.</p>
 </blockquote>
 <ul>
 <li class="fragment"><p>You can formulate question into two mutual exclusive hypotheses:</p>
 <ul>
-<li class="fragment"><p><span class="math inline">\(H_0\)</span>: Null hypothesis (equal to, no effect, the same as, etc.)</p></li>
-<li class="fragment"><p><span class="math inline">\(H_a\)</span>: Alternative hypothesis (not equal to, different, etc.)</p></li>
+<li class="fragment"><p><span class="math inline">\(H_0\)</span>: <strong>Null hypothesis</strong> (equal to, no effect, the same as, etc.)</p></li>
+<li class="fragment"><p><span class="math inline">\(H_a\)</span>: <strong>Alternative hypothesis</strong> (not equal to, different, etc.)</p></li>
 </ul></li>
 </ul>
 <table>
@@ -405,9 +405,190 @@ Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
 </tbody>
 </table>
 <ul>
-<li class="fragment"><p>We usually use <span class="math inline">\(=\)</span> in Null hypothesis</p></li>
+<li class="fragment"><p>We usually use <span class="math inline">\(=\)</span> in null hypothesis</p></li>
 <li class="fragment"><p>Always use <strong>parameters</strong> (e.g., <span class="math inline">\(\mu, \beta\)</span>) when writing out hypothesis</p></li>
 </ul>
+</section>
+<section id="hypothesis-test-type-i-error-alpha" class="slide level2">
+<h2>Hypothesis test: type I error <span class="math inline">\(\alpha\)</span></h2>
+<blockquote>
+<p>Significance level, or type I error, is the probability that you reject null hypothesis <span class="math inline">\(H_0\)</span> when it’s true. Usually set as <span class="math inline">\(0.05\)</span> or <span class="math inline">\(0.1\)</span>.</p>
+</blockquote>
+<ul>
+<li class="fragment"><p>For example, it’s the probability for making a <strong>wrong</strong> decision “<em>the mean of students’ height is not equal to 180</em>”, when <span class="math inline">\(\mu = 180\)</span>.</p></li>
+<li class="fragment"><p>It’s a type of error, so we want it to be small</p></li>
+</ul>
+
+<img data-src="images/paste-B0562533.png" class="r-stretch"></section>
+<section id="hypothesis-test-type-ii-error-beta" class="slide level2">
+<h2>Hypothesis test: type II error <span class="math inline">\(\beta\)</span></h2>
+<blockquote>
+<p>Type II error is the probability that you fail to reject null hypothesis <span class="math inline">\(H_0\)</span> when it’s actually not true.</p>
+</blockquote>
+<ul>
+<li class="fragment"><p>For example, it’s the probability for making a <strong>wrong</strong> decision “<em>the mean of students’ height in UNBC is the same as UBC</em>”, when <span class="math inline">\(\mu_{unbc} \neq \mu_{ubc}\)</span></p></li>
+<li class="fragment"><p>This is a type of error, so we want it to be small as well</p></li>
+<li class="fragment"><p><span class="math inline">\(1-\beta\)</span> is called <strong>Power</strong>, the probability of rejecting <span class="math inline">\(H_0\)</span> when <span class="math inline">\(H_0\)</span> is not true. We want it high</p></li>
+</ul>
+
+<img data-src="images/paste-3295A826.png" width="678" class="r-stretch"></section>
+<section id="hypothesis-test-result-interpretation" class="slide level2">
+<h2>Hypothesis test: result interpretation</h2>
+<ul>
+<li class="fragment"><p>Reject <span class="math inline">\(H_0\)</span>, the sample supports the statement from <span class="math inline">\(H_a\)</span></p></li>
+<li class="fragment"><p>Fail to reject <span class="math inline">\(H_0\)</span>, the sample supports the statement from <span class="math inline">\(H_0\)</span></p>
+<ul>
+<li class="fragment"><p><span class="math inline">\(\mu_{floss} = \mu_{no floss}\)</span>, or</p></li>
+<li class="fragment"><p>actually <span class="math inline">\(\mu_{floss} \neq \mu_{no floss}\)</span> but data are too sparse to demonstrate a difference</p></li>
+</ul></li>
+</ul>
+
+<img data-src="https://www.scribbr.co.uk/wp-content/uploads/2021/01/type-i-and-ii-error-2.png" class="r-stretch"></section>
+<section id="hypothesis-test-things-to-keep-in-mind" class="slide level2">
+<h2>Hypothesis test: things to keep in mind</h2>
+<ul>
+<li class="fragment"><p>Failing to reject <span class="math inline">\(H_0\)</span> is not the same as accepting <span class="math inline">\(H_0\)</span></p></li>
+<li class="fragment"><p>We can only gain evidence for a hypothesis, but not possible to prove a hypothesis</p></li>
+</ul>
+<p><img data-src="https://miro.medium.com/v2/resize:fit:1050/1*7erqC0-wRl9x6mOYUoREVQ.jpeg" width="681"></p>
+
+<aside><div>
+<p>Image from: https://medium.com/@get_excelsior/the-basics-of-hypothesis-testing-73941d3a947f</p>
+</div></aside></section>
+<section id="what-is-alpha-actually" class="slide level2">
+<h2>What is <span class="math inline">\(\alpha\)</span> actually?</h2>
+</section>
+<section id="put-everything-together" class="slide level2">
+<h2>Put everything together</h2>
+<ol type="1">
+<li class="fragment">Set up <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_a\)</span>
+<ul>
+<li class="fragment">e.g., <span class="math inline">\(H_0: \mu = 180, H_a: \mu \neq 180\)</span></li>
+</ul></li>
+<li class="fragment">Determine statistical significance level <span class="math inline">\(\alpha\)</span>
+<ul>
+<li class="fragment">usually be <span class="math inline">\(0.05\)</span> or <span class="math inline">\(0.1\)</span></li>
+</ul></li>
+<li class="fragment">Calculate the test statistics with sampled data
+<ul>
+<li class="fragment"><p>If doing t-test, calculate <span class="math inline">\(t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}}\)</span></p></li>
+<li class="fragment"><p>If doing z-test, calculate <span class="math inline">\(z_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}}\)</span></p></li>
+</ul></li>
+<li class="fragment">Find the p-value corresponded to the test statistics
+<ul>
+<li class="fragment">p-value <span class="math inline">\(=P(t \ge t_{statistics})\)</span></li>
+<li class="fragment">The probability of a value larger than test statistics</li>
+</ul></li>
+</ol>
+<p><img data-src="https://www.simplypsychology.org/wp-content/uploads/p-value.jpg" class="absolute" style="top: 150px; right: 0px; width: 514px; "></p>
+<ol start="5" type="1">
+<li class="fragment">Compare <span class="math inline">\(\alpha\)</span> and p-value and draw conclusion
+<ul>
+<li class="fragment"><p><span class="math inline">\(p-value \ge \alpha\)</span>: fail to reject <span class="math inline">\(H_o\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(p-value &lt; \alpha\)</span>: reject <span class="math inline">\(H_0\)</span></p></li>
+</ul></li>
+</ol>
+</section>
+<section id="jprf-black-bear-example" class="slide level2">
+<h2>JPRF black bear example</h2>
+<p>The JPRF manager claim that the population mean (<span class="math inline">\(\mu\)</span>) of the black bear weight is 390 kg. Is this claim valid?</p>
+<p>You, as a researcher, came to the forest and measured the weight from 25 black bears in JPRF forest, and got their averaged weight as 400 kg, with standard deviation <strong>40</strong> kg.</p>
+<div class="columns">
+<div class="column" style="width:30%;">
+<ul>
+<li class="fragment"><p><span class="math inline">\(n = 25\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(\bar{x} = 400\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(s = 40\)</span></p></li>
+</ul>
+</div><div class="column" style="width:70%;">
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img data-src="https://live.staticflickr.com/4354/37223656595_fcdc40df65_b.jpg" width="631"></p>
+</figure>
+</div>
+</div>
+</div>
+
+<aside><div>
+<p>Image from: https://www.flickr.com/photos/archer10/37223656595</p>
+</div></aside></section>
+<section id="jprf-black-bear-example-1" class="slide level2">
+<h2>JPRF black bear example</h2>
+<h3 id="set-up-h_0-and-h_a">1. Set up <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_a\)</span></h3>
+<ul>
+<li class="fragment"><p><span class="math inline">\(H_0:\mu = 390\)</span>: the population mean of the black bear weight is 390 kg.</p></li>
+<li class="fragment"><p><span class="math inline">\(H_a: \mu \neq 390\)</span>, the population mean of the black bear weight is not 390 kg.</p></li>
+</ul>
+<h3 id="determine-statistical-significance-level-alpha">2. Determine statistical significance level <span class="math inline">\(\alpha\)</span></h3>
+<ul>
+<li class="fragment">We set the significance level <span class="math inline">\(\alpha\)</span> as 0.1</li>
+</ul>
+<h3 id="calculate-the-test-statistics-with-sampled-data">3. Calculate the test statistics with sampled data</h3>
+<ul>
+<li class="fragment"><p>We are using t-statistics (because <span class="math inline">\(n\)</span> is small)</p></li>
+<li class="fragment"><p><span class="math inline">\(t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}} = 0.79\)</span></p></li>
+</ul>
+</section>
+<section id="jprf-black-bear-example-2" class="slide level2">
+<h2>JPRF black bear example</h2>
+<h3 id="find-the-p-value">4. Find the p-value</h3>
+<ul>
+<li class="fragment"><p>Find the p-value for <span class="math inline">\(0.79\)</span> on the t-distribution (df = 24)</p></li>
+<li class="fragment"><p><span class="math inline">\(p-value = 0.43\)</span></p></li>
+</ul>
+<h3 id="compare-alpha-and-p-value-and-draw-conclusion">5. Compare <span class="math inline">\(\alpha\)</span> and p-value and draw conclusion</h3>
+<ul>
+<li class="fragment"><p><span class="math inline">\(p-value &gt; \alpha\)</span>, we fail to reject <span class="math inline">\(H_0\)</span>.</p></li>
+<li class="fragment"><p>Thus, we support that the population mean of the black bear weight is equal to 390.</p></li>
+</ul>
+</section>
+<section id="jprf-black-bear-example-3" class="slide level2">
+<h2>JPRF black bear example</h2>
+<h3 id="section">4.1</h3>
+<h3 id="section-1">5.1</h3>
+</section>
+<section id="jprf-black-bear-example-4" class="slide level2">
+<h2>JPRF black bear example</h2>
+<h3 id="section-2">4.2</h3>
+<h3 id="section-3">5.2</h3>
+</section>
+<section id="three-ways-to-do-hypothesis-test" class="slide level2">
+<h2>Three ways to do hypothesis test</h2>
+<h3 id="a.-compare-p-value-and-alpha">A. compare p-value and <span class="math inline">\(\alpha\)</span></h3>
+<ul>
+<li class="fragment"><p><span class="math inline">\(p-value \ge \alpha\)</span>: fail to reject <span class="math inline">\(H_0\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(p-value &lt; \alpha\)</span>: reject <span class="math inline">\(H_0\)</span></p></li>
+</ul>
+<h3 id="b.-compare-statistical-value-vs-critical-value">B. compare statistical value vs critical value</h3>
+<ul>
+<li class="fragment"><p><span class="math inline">\(t_{statistics} &lt; t_{criticle}\)</span>: fail to reject <span class="math inline">\(H_0\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(t_{statistics} \ge t_{criticle}\)</span>: reject <span class="math inline">\(H_0\)</span></p></li>
+</ul>
+<h3 id="c.-compare-confidence-interval">C. compare confidence interval</h3>
+<ul>
+<li class="fragment"><p>If the confidence interval covers <span class="math inline">\(\mu\)</span>: fail to reject <span class="math inline">\(H_0\)</span></p></li>
+<li class="fragment"><p>Otherwise: reject <span class="math inline">\(H_0\)</span></p></li>
+</ul>
+</section>
+<section id="one-tailed-or-two-tailed-test" class="slide level2">
+<h2>One-tailed or two-tailed test?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="how-to-tell">How to tell</h3>
+<ul>
+<li class="fragment"><p>Based on the research question</p></li>
+<li class="fragment"><p>If the <span class="math inline">\(H_0\)</span> is written with <span class="math inline">\(=\)</span>, then it’s a two-tailed test</p></li>
+<li class="fragment"><p>If the <span class="math inline">\(H_0\)</span> is written with <span class="math inline">\(&gt;\)</span> or <span class="math inline">\(&lt;\)</span>, then it’s a one-tailed test</p></li>
+</ul>
+<h3 id="so-what">So what</h3>
+<ul>
+<li class="fragment"><p>This would influence how you look up your p-value</p></li>
+<li class="fragment"><p>When doing two-tailed test, the probability is <span class="math inline">\(\alpha/2\)</span> when looking up critical values</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="https://miro.medium.com/v2/resize:fit:862/1*VXxdieFiYCgR6v7nUaq01g.jpeg"></p>
+</div>
+</div>
 </section>
 <section id="is-the-claim-valid-or-not" class="slide level2">
 <h2>Is the claim valid or not?</h2>
@@ -452,74 +633,6 @@ CI = 7.55 \pm 1.8336 * \frac{0.1027}{\sqrt{10}} = (7.49, 7.61)
 <p>Statement 2: The volume is not equal to 450 mm.</p>
 <p>95% CI is (432, 459), which covers the 450, we say that the fail to reject Result 1. The statement that “volume equals 450” is supported with confidence level 0.05!</p>
 </div>
-</section>
-<section id="hypothesis-test-1" class="slide level2">
-<h2>Hypothesis test</h2>
-<blockquote>
-<p>A method of statistical inference used to decide whether the data at hand sufficiently support a particular hypothesis. Hypothesis testing allows us to make probabilistic statements about population parameters.</p>
-</blockquote>
-<p>Component:</p>
-</section>
-<section id="two-hypothesis" class="slide level2">
-<h2>Two hypothesis</h2>
-<blockquote>
-<p>Mutually exclusive statements.</p>
-</blockquote>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h3 id="null-hypothesis-h_0">Null Hypothesis <span class="math inline">\(H_0\)</span></h3>
-<h3 id="section"></h3>
-</div><div class="column" style="width:50%;">
-<h3 id="alternative-hypothesis-h_a">Alternative Hypothesis <span class="math inline">\(H_a\)</span></h3>
-</div>
-</div>
-</section>
-<section id="put-questions-with-hypothesis" class="slide level2">
-<h2>Put questions with hypothesis</h2>
-<table>
-<colgroup>
-<col style="width: 31%">
-<col style="width: 35%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Research question</th>
-<th><span class="math inline">\(H_0\)</span></th>
-<th><span class="math inline">\(H_a\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Does tooth flossing affect the number of cavities?</td>
-<td>Tooth flossing has&nbsp;<strong>no effect</strong>&nbsp;on the number of cavities.</td>
-<td>Tooth flossing has&nbsp;<strong>effect</strong>&nbsp;on the number of cavities.</td>
-</tr>
-<tr class="even">
-<td>Does the amount of text highlighted in the textbook affect exam scores?</td>
-<td>The amount of text highlighted in the textbook has&nbsp;<strong>no effect</strong>&nbsp;on exam scores.</td>
-<td>The amount of text highlighted in the textbook has <strong>effect</strong>&nbsp;on exam scores.</td>
-</tr>
-<tr class="odd">
-<td>Does daily meditation decrease the incidence of depression?</td>
-<td>Daily meditation has <strong>no effect</strong> on the incidence of depression.</td>
-<td>Daily meditation has <strong>effect</strong> on the incidence of depression.</td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="step-by-step-hypothesis-test" class="slide level2">
-<h2>Step by step hypothesis test</h2>
 </section>
 <section id="what-we-learned" class="slide level2">
 <h2>What we learned</h2>
