@@ -15,6 +15,7 @@ format:
     #embed-resources: true
     width: 1200
     fontsize: 1.7em
+    fig-align: "center"
 editor: visual
 ---
 
@@ -166,12 +167,15 @@ Illustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data
 
 ::: columns
 ::: {.column width="40%"}
+<!-- -->
+
 -   A thing I will be using through out this lab...
 
 -   Think it like the English word "then".
 
+```{=html}
 <!-- -->
-
+```
 -   First, we are dogs
 
 -   Then, drop one ear
@@ -313,19 +317,17 @@ with tidyverse `readr` package
 
 with tidyverse `dplyr` package
 
-## Tidyverse dplyr functions
+-   `filter()`
 
-### For managing rows
+-   `arrange()`
 
--   list of the functions we are going to learn
-
--   we are using penguins data set (again!) 🐧
+-   `distinct()`
 
 ## filter()
 
 > Keep rows that match condition(s). Input a tibble, return a filtered tibble.
 
-![](https://bookdown.org/pdr_higgins/rmrwr/images/allison_horst_dplyr_filter.jpg){width="670"}
+![](https://bookdown.org/pdr_higgins/rmrwr/images/allison_horst_dplyr_filter.jpg){fig-align="center" width="670"}
 
 ::: aside
 Artwork by Allison Horst
@@ -398,41 +400,148 @@ penguins %>%
 
 ## arrange()
 
+> Order rows using column values
+
+```{r, echo = TRUE}
+penguins %>% 
+  arrange(island, desc(bill_length_mm))
+```
+
 ## distinct()
+
+> Keep distinct/unique rows
+
+```{r, echo = TRUE}
+penguins %>%
+  distinct(species, island, .keep_all = TRUE)
+```
 
 # Data wrangling: columns
 
 with tidyverse `dplyr` package
 
-## Tidyverse dplyr functions
+-   `mutate()`
 
-### For managing columns
+-   `select()`
 
--   list of the functions we are going to learn
+-   `rename()`
+
+-   `relocate()`
 
 ## mutate()
 
--   one single value
+> Create, modify, and delete columns
 
--   row ID row_number()
+![](images/bd4ae264-ae51-4d18-bd60-7a058ab42fba.png)
 
--   `as_numeric()`, `as_factor()`
+## mutate()
 
--   calculation of another column
+### Create: fixed value, ID number
 
--   `if_else()`
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  mutate(visit = "summer",
+         ID = seq(1: nrow(.)))
+```
 
--   `case_when()`
+### Create: apply math with other column(s)
 
--   `pmax()` and `pmin()` (different from `max()` and `min()`)
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  mutate(bill_area = bill_depth_mm * bill_length_mm)
+```
 
--   `cut()`
+### Modify: one condition with `if_else()` 
+
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  mutate(sex = if_else(sex == "male", "Male", "Female"))
+```
+
+### Modify: multiple conditions with `case_when()`
+
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  mutate(species = case_when(
+    species == "Adelie" ~ "adelie",
+    species == "Chinstrap" ~ "chinstrap",
+    species == "Gentoo" ~ "gentoo",
+    .default = "all other cases" # by default return NA
+  ))
+```
+
+### Modify: categorize numerical variable equal intervals
+
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  mutate(bill_length_mm = cut(bill_length_mm, 
+                              breaks = seq(30, 60, 10),
+                              labels = c("short", "median", "long")))
+```
+
+### Modify: change data type of a column
+
+Same idea for `as.numeric()`, `as.integer()`, and `as.character()`
+
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  mutate(year = as_factor(year))
+```
+
+### Delete columns
+
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  mutate(species = NULL, 
+         island = NULL)
+```
 
 ## select()
 
+> Keep or drop columns using their names and types
+
+### Keep the columns that you want
+
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  select(species, island, 4:6)
+```
+
+### Drop columns 
+
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  select(!c(species, island))
+```
+
 ## rename()
 
+> Rename columns
+
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  rename(penguin_species = species)
+```
+
+![](images/ed07d56b-c5c8-43af-84be-5bcab97eca75-01.png){width="687"}
+
 ## relocate()
+
+> Change column order
+
+::: columns
+::: {.column width="50%"}
+```{r, echo = TRUE}
+penguins %>%
+  mutate(ID = seq(1:nrow(.))) %>%
+  relocate(ID, .after = island) # .before is another argument
+```
+:::
+
+::: {.column width="50%"}
+![](images/850e4954-e2c6-4df1-a3c0-34764a05a3df.png){width="678"}
+:::
+:::
 
 # Data wrangling: group calculation
 
@@ -546,7 +655,7 @@ library(readxl)
 With `readr` and `readxl`, you will be able to use the following functions to read spreadsheets into R.
 
 | Function       | Format                                            | Typical suffix |
-|----------------|---------------------------------------------------|----------------|
+|----------------|-----------------------------------------|----------------|
 | `read_delim()` | general text file format, must define delimiter   | .txt           |
 | `read_csv()`   | comma separated values                            | .csv           |
 | `read_csv2()`  | semicolon separated values                        | .csv           |
