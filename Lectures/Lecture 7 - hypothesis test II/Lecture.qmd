@@ -1,6 +1,6 @@
 ---
-title: "NRES 776 Lecture 5"
-subtitle: "Sampling distribution and central limit theorem"
+title: "NRES 776 Lecture "
+subtitle: "Hypothesis test II"
 author: Sunny Tseng
 format:
   revealjs: 
@@ -22,14 +22,15 @@ editor: visual
 
 -   Announcement (5 min)
 
--   Concept of sampling distribution (20 min)
+-   Three ways to conduct hypothesis test (25 min)
 
--   Central limit theorem (20 min)
+-   Recap and project I (15 min)
 
 -   Wrap up (5 min)
 
 ## Announcement
 
+-   Recording
 -   Let's take this lecture easy...
 
 ![](images/paste-22B16D7F.png){fig-align="center" width="707"}
@@ -38,274 +39,368 @@ editor: visual
 Artwork by @allison_horst
 :::
 
-## Population and sample
+## Hypothesis test: two hypotheses
 
-If we are interested in the height of students in UNBC.
+> Hypothesis test is a decision making process. We use it to translate a question of interest into a mathematical form. Then, we can make inference to population parameters.
 
-![](images/Group-13.jpg){fig-align="center" width="624"}
+-   You can formulate question into two mutual exclusive hypotheses:
 
--   How much can we trust the values we get from the sample?
+    -   $H_0$: **Null hypothesis** (equal to, no effect, the same as, etc.)
 
--   Is $\bar{x}$ close enough to $\mu$?
+    -   $H_a$: **Alternative hypothesis** (not equal to, different, etc.)
 
--   Is $s_x$ some how represents $\sigma$?
++----------------------------------------------------+-------------------------------------------------------------+----------------------------------------------------------+
+| Research question                                  | $H_0$                                                       | $H_a$                                                    |
++====================================================+=============================================================+==========================================================+
+| Does tooth flossing affect the number of cavities? | Tooth flossing has **no effect** on the number of cavities. | Tooth flossing has **effect** on the number of cavities. |
+|                                                    |                                                             |                                                          |
+|                                                    | $\mu_{floss} = \mu_{no floss}$                              | $\mu_{floss} \neq \mu_{no floss}$                        |
++----------------------------------------------------+-------------------------------------------------------------+----------------------------------------------------------+
 
-## Mathematicians did a fun experiment
+-   We usually use $=$ in null hypothesis
+
+-   Always use **parameters** (e.g., $\mu, \beta$) when writing out hypothesis
+
+## Put everything together
+
+1.  **Set up** $H_0$ **and** $H_a$
+    -   e.g., $H_0: \mu = 180, H_a: \mu \neq 180$
+2.  **Determine statistical significance level** $\alpha$
+    -   usually be $0.05$ or $0.1$
+3.  **Calculate the test statistics**
+    -   If doing t-test, calculate $t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}}$
+
+    -   If doing z-test, calculate $z_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}}$
+4.  **Find the p-value corresponded to the test statistics**
+    -   p-value $=P(t \ge t_{statistics})$
+    -   The probability of a value larger than test statistics
+
+![](https://www.simplypsychology.org/wp-content/uploads/p-value.jpg){.absolute top="150" right="0" width="514"}
+
+5.  **Compare** $\alpha$ **and p-value and draw conclusion**
+    -   $p-value \ge \alpha$: fail to reject $H_o$
+
+    -   $p-value < \alpha$: reject $H_0$
+
+## JPRF black bear example
+
+The JPRF manager claim that the population mean ($\mu$) of the black bear weight is 390 kg. Is this claim valid?
+
+You, as a researcher, came to the forest and measured the weight from 25 black bears in JPRF forest, and got their averaged weight as 400 kg, with standard deviation **40** kg.
+
+::: columns
+::: {.column width="30%"}
+-   $n = 25$
+
+-   $\bar{x} = 400$
+
+-   $s = 40$
+:::
+
+::: {.column width="70%"}
+![](https://live.staticflickr.com/4354/37223656595_fcdc40df65_b.jpg){fig-align="right" width="631"}
+:::
+:::
+
+::: aside
+Image from: https://www.flickr.com/photos/archer10/37223656595
+:::
+
+## JPRF black bear example
+
+### 1. Set up $H_0$ and $H_a$
+
+-   $H_0:\mu = 390$: the population mean of the black bear weight is 390 kg.
+
+-   $H_a: \mu \neq 390$, the population mean of the black bear weight is not 390 kg.
+
+### 2. Determine statistical significance level $\alpha$
+
+-   We set the significance level $\alpha$ as 0.1
+
+### 3. Calculate the test statistics
+
+-   We are using t-statistics (because $n$ is small)
+
+-   $t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}} = \frac{400 - 390}{40/\sqrt{25}} = 1.25$
+
+## JPRF black bear example
 
 ::: columns
 ::: {.column width="50%"}
-### To answer whether we can trust $\bar{x}$
+### 4. Find the p-value for test statistics
 
-1.  From a population, a group of people...
+-   Using t-table, or R, or [online calculator](https://www.socscistatistics.com/pvalues/tdistribution.aspx)
 
-2.  Randomly selected $n$ people (sample 1), calculate $\bar{x_1}$
+-   Find the p-value for $t_{statistics} = 1.25$
 
-3.  Put everyone back
+    -   $df = n-1 = 24$
 
-4.  Randomly selected $n$ people (sample 2), calculate $\bar{x_2}$
+    -   two-tailed
 
-5.  Put everyone back
+-   $p-value = 0.22$
 
-6.  ...(repeat above, say 1000 times)
+### 5. Compare $\alpha$ and p-value and draw conclusion
 :::
 
 ::: {.column width="50%"}
-### Take a look at the $\bar{x}$s
-
--   The distribution of $\bar{x}$ may look like this
-
--   This is called **sampling distribution**
-
-```{r}
-library(tidyverse)
-#make this example reproducible
-set.seed(0)
-
-#create random variable with sample size of 1000 that is uniformally distributed
-data <- runif(n=1000, min=150, max=200)
-
-sample5 <- c()
-
-#take 1,000 random samples of size n=5
-n = 1000
-for (i in 1:n){
-sample5[i] = mean(sample(data, 50, replace=TRUE))
-}
-
-#create histogram to visualize sampling distribution of sample means
-hist(sample5, col ='steelblue', main = " ", xlab='Height (cm)')
-
-```
+![](images/paste-5181F6DF.png)
 :::
 :::
 
-## Sampling distribution
+-   $p-value > \alpha$, we fail to reject $H_0$.
 
-> A probability distribution of a sample statistic that is obtained through repeated sampling of a specific population.
+-   Thus, we support the statement that the population mean of the black bear weight is equal to 390.
 
--   What's special about this sampling distribution?
-
--   Take a look at the $n$, our sample size
+## JPRF black bear example (other methods)
 
 ::: columns
 ::: {.column width="50%"}
-Population ($\mu = 175$)
+### 4.1 Find the critical statistics for $\alpha$
 
-```{r}
-#make this example reproducible
-set.seed(0)
+-   Using t-table, or R, or [online calculator](https://www.socscistatistics.com/tests/criticalvalues/default.aspx)
 
-#create random variable with sample size of 1000 that is uniformally distributed
-data <- runif(n=1000, min=150, max=200)
+-   Find the $t_{critical}$ corresponded with $\alpha$
 
-#create histogram to visualize distribution of turtle shell widths
-hist(data, col='steelblue', main=" ", xlab='Height (cm)')
-```
+    -   $df = n-1 = 24$
+
+    -   two-tailed
+
+-   $t_{ctitical} = 1.711$
+
+### 5.1 Compare $t_{statistics}$ and $t_{critical}$ and draw conclusion
 :::
 
 ::: {.column width="50%"}
-Sampling distribution (n = 3)
-
-```{r}
-sample5 <- c()
-
-#take 1,000 random samples of size n=5
-n = 1000
-for (i in 1:n){
-sample5[i] = mean(sample(data, 3, replace=TRUE))
-}
-
-#create histogram to visualize sampling distribution of sample means
-hist(sample5, col ='steelblue', main = " ", xlab='Height (cm)')
-```
+![](images/paste-5181F6DF.png)
 :::
 :::
 
-## Sampling distribution
+-   $t_{statistics} \le t_{critical}$, we fail to reject $H_0$.
 
-> A probability distribution of a sample statistic that is obtained through repeated sampling of a specific population.
+-   Thus, we support the statement that the population mean of the black bear weight is equal to 390.
 
--   What's special about this sampling distribution?
-
--   Take a look at the $n$, our sample size
+## JPRF black bear example (other methods)
 
 ::: columns
 ::: {.column width="50%"}
-Population ($\mu = 175$)
+### 4.2 Find upper and lower limits
 
-```{r}
-#make this example reproducible
-set.seed(0)
+-   Using t-table, or R, or [online calculator](https://www.socscistatistics.com/tests/criticalvalues/default.aspx)
 
-#create random variable with sample size of 1000 that is uniformally distributed
-data <- runif(n=1000, min=150, max=200)
+-   Find the $t_{critical}$ corresponded with $\alpha = 0.1$
 
-#create histogram to visualize distribution of turtle shell widths
-hist(data, col='steelblue', main=" ", xlab='Height (cm)')
-```
+    -   $df = n-1 = 24$
+
+    -   two-tailed
+
+-   $t_{ctitical} = 1.711$
+
+-   $CI = \bar{x} \pm t_{critical} * \frac{s}{\sqrt{n}} = 400 \pm 1.711 * 40/\sqrt{25} = 400 \pm 13.68$
+
+### 5.2 Compare CI with $\mu$ and draw conclusion
 :::
 
 ::: {.column width="50%"}
-Sampling distribution (n = 30)
-
-```{r}
-sample5 <- c()
-
-#take 1,000 random samples of size n=5
-n = 1000
-for (i in 1:n){
-sample5[i] = mean(sample(data, 30, replace=TRUE))
-}
-
-#create histogram to visualize sampling distribution of sample means
-hist(sample5, col ='steelblue', main = " ", xlab='Height (cm)')
-```
+![](images/paste-5181F6DF.png)
 :::
 :::
 
-## Sampling distribution
+-   $\mu = 390$, which is within (386.3, 413.7), we fail to reject $H_0$.
 
-> A probability distribution of a sample statistic that is obtained through repeated sampling of a specific population.
+-   Thus, we support the statement that the population mean of the black bear weight is equal to 390.
 
--   What's special about this sampling distribution?
+## Three ways to do hypothesis test
 
--   Take a look at the $n$, our sample size
+### A. compare p-value and $\alpha$
+
+-   $p-value \ge \alpha$: fail to reject $H_0$
+
+-   $p-value < \alpha$: reject $H_0$
+
+### B. compare statistical value vs critical value
+
+-   $t_{statistics} < t_{criticle}$: fail to reject $H_0$
+
+-   $t_{statistics} \ge t_{criticle}$: reject $H_0$
+
+### C. compare confidence interval
+
+-   If the confidence interval covers $\mu$: fail to reject $H_0$
+
+-   Otherwise: reject $H_0$
+
+## One-tailed or two-tailed test?
 
 ::: columns
 ::: {.column width="50%"}
-Population ($\mu = 175$)
+### How to tell
 
-```{r}
-#make this example reproducible
-set.seed(0)
+-   Based on the research question
 
-#create random variable with sample size of 1000 that is uniformally distributed
-data <- runif(n=1000, min=150, max=200)
+-   If the $H_0$ is written with $=$, then it's a two-tailed test
 
-#create histogram to visualize distribution of turtle shell widths
-hist(data, col='steelblue', main=" ", xlab='Height (cm)')
-```
+-   If the $H_0$ is written with $>$ or $<$, then it's a one-tailed test
+
+### So what
+
+-   This would influence how you look up your p-value
 :::
 
 ::: {.column width="50%"}
-Sampling distribution (n = 100)
-
-```{r}
-sample5 <- c()
-
-#take 1,000 random samples of size n=5
-n = 1000
-for (i in 1:n){
-sample5[i] = mean(sample(data, 100, replace=TRUE))
-}
-
-#create histogram to visualize sampling distribution of sample means
-hist(sample5, col ='steelblue', main = " ", xlab='Height (cm)')
-```
+![](https://miro.medium.com/v2/resize:fit:862/1*VXxdieFiYCgR6v7nUaq01g.jpeg)
 :::
 :::
 
-## Central limit theorem (CLT)
+-   Two-tailed test, when looking up the p-value, the probability needs to multiply by 2.
 
-> When $n \geq 30$, the sampling means are normally distributed with $mean(\bar{x}) = \mu$, and $sd(\bar{x}) = \frac{\sigma}{\sqrt{n}}$, no matter what distribution that population has.
+-   Two-tailed test, when looking up the $t_{critical}$, the probability is $\alpha/2$.
 
--   Central limit theorem is important and cool! Because...somehow, sampling distribution is almost always normally distributed, when $n$ is large.
+## **Gum thickness:** a two-tailed t-test
 
-![](images/3-s2.0-B9780128034590000066-f06-05-9780128034590.jpg){fig-align="center"}
+### The story
 
-### Standard error (SE)
+A manufacturer claims that the thickness of the spearmint gum it produces is 7.5 one-hundredths.
 
-> Standard error is the standard deviation of the sampling distribution: $sd(\bar{x}) = \frac{\sigma}{\sqrt{n}}$
+. . .
 
--   SE describes standard deviation of sampling distribution
+A quality control specialist regularly checks this claim. On one production run, he took a random sample of *n* = 10 pieces of gum and measured their thickness.
 
--   SE means how wide spread is the 1000, or whatever many, sample means
+. . .
 
--   SE decreases when $n$ increases; SE is large when $\sigma$ is large
+He obtained:
 
-## Now what?
+![](images/paste-9A58F1C5.png)
 
--   Based on CLT, imagine that you have a sampling distribution $N(\mu, \frac{\sigma^2}{n})$
--   And you sample from population again, you get $\bar{x}_{new}$ as its mean
--   $\bar{x}_{new}$ has $68\%$ probability to locate within $\mu \pm \frac{\sigma}{\sqrt{n}}$, that is $\mu \pm \frac{s}{\sqrt{n}}$
--   We can have a sense about population just by **ONE sample**!
-
-![](images/Capture3.PNG){fig-align="center" width="535"}
-
-## Confidence interval (CI)
-
-> An interval that has $C\%$ probability containing true mean. Where $C = 1-\alpha$, is called confidence level, and $\alpha$ is called significance level.
-
-::: columns
-::: {.column width="50%"}
--   $\mu$ has **68%** probability within $\bar{x} \pm \frac{s}{\sqrt{n}}$
-
--   $\mu$ has **95%** probability within $\bar{x} \pm \frac{2s}{\sqrt{n}}$
-
--   $\mu$ has **99%** probability within $\bar{x} \pm \frac{3s}{\sqrt{n}}$
+. . .
 
 $$
-CI = \bar{x} \pm t_{(\frac{\alpha}{2}, n-1)} * \frac{s}{\sqrt{n}}
+n = 10, \bar{x} = 7.55, s = 0.1027, \alpha = 0.05
 $$
 
--   We need to use t-distribution here because $n$ might be smaller than 30, and only if assuming the population itself is normally distributed.
-:::
+Base on this sample, is the claim from the manufacturer valid?
 
-::: {.column width="50%"}
-![](images/Capture3.PNG){fig-align="center" width="535"}
-:::
-:::
+## **Gum thickness**
 
-## JPRF black bear
+### To solve this
 
--   We measured the weight from 25 black bears in JPRF forest, and got their averaged weight as 400 kg, with standard deviation 20 kg.
+. . .
 
--   Find the confidence interval for $\mu$, with $90\%$ confidence interval.
+### 1. Set up $H_0$ and $H_a$
+
+-   $H_0:\mu = 7.5$: the mean of the spearmint gum thickness equals 7.5
+
+-   $H_a: \mu \neq 7.5$, the mean of the spearmint gum thickness doesn't equal 7.5
+
+### 2. Determine statistical significance level $\alpha$
+
+-   We set the significance level $\alpha$ as 0.05
+
+### 3. Calculate the test statistics
+
+-   We are using t-statistics (because $n$ is small)
+
+-   $t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}} = \frac{7.55 - 7.5}{0.1027/\sqrt{10}} = 1.54$
+
+## **Gum thickness**
+
+### To solve this
+
+### 4. Find the p-value for test statistics
+
+-   Using t-table, or R, or [online calculator](https://www.socscistatistics.com/pvalues/tdistribution.aspx)
+
+-   Find the p-value for $t_{statistics} = 1.54$
+
+    -   $df = n-1 = 9$
+
+    -   **two-tailed**
+
+-   $p-value = 0.158$
+
+### 5. Compare $\alpha$ and p-value and draw conclusion
+
+-   $p-value > \alpha$, we fail to reject $H_0$.
+
+-   Thus, we support the statement that the mean of the spearmint gum thickness equals 7.5.
+
+## **Gum thickness**
+
+### Can you try the CI method?
 
 $$
-n = 25, \bar{x} = 400, s = 40, \alpha = 0.1
+n = 10, \bar{x} = 7.55, s = 0.1027, \alpha = 0.05
 $$
 
 $$
-Upper = \bar{x} + t_{0.05, 24} * \frac{s}{\sqrt{n}} = 413.7
+CI = \bar{x} \pm t_{\frac{\alpha}{2}, n-1} * \frac{s}{\sqrt{n}}
 $$
 
 $$
-Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
+CI = 7.55 \pm 2.262 * \frac{0.1027}{\sqrt{10}} = (7.476, 7.623)
 $$
 
--   Based on our sample, we have $90\%$ confidence that the weight of a black bear in JPRF forest is between 386.3 to 413.7 kg.
+## What we learned in the past month
 
-## What we learned
+### Statistics 
 
--   Concept of sampling distribution
--   Central limit theorem tells us
-    -   mean of the sampling distribution is an unbiased estimate of the population mean
+-   Population vs sample, descriptive statistics
 
-    -   sd of the sampling distribution is called standard error
--   Standard error is not the same thing as standard deviation
--   We can get a confidence interval about population mean, just by one sample!
--   And keep in mind... the topic we learned in each lecture can be a course by itself
+-   Types of variables, probability distribution
+
+-   Sampling distribution, central limit theorem and confidence interval
+
+-   Hypothesis test
+
+### R coding 
+
+-   Basic R (R & RStudio, object, function, data type)
+
+-   Data visualization and data I/O
+
+-   Data wrangling
+
+## Project I
+
+### Submission on Moodle (Oct.19)
+
+-   2 pages report "NRES776\_*firstname_lastname*\_project_1.**pdf**"
+
+-   5 mins oral presentation "NRES776\_*firstname_lastname*\_project_1.ppt"
+
+### Content
+
+-   Research background (e.g., efficient audio analysis methods is needed in avian study)
+
+-   Hypothesis (e.g., frequency features in audio can be used to identify sound sources)
+
+-   Methods (e.g., use logistic modelling, a type of GMM, to identify significant features, or variables)
+
+-   Potential contribution (i.e., how your results be helpful for science/public/or your audience)
+
+-   They doesn't need to be in this order
+
+## Project I
+
+### Statistical methods
+
+-   Multiple linear regression
+
+-   Generalized linear models
+
+-   Mixed-effect models
+
+-   Multivariate analysis
+
+-   If none of these can be applied to your data, or you are not sure, come have a chat with me or Lisa. The goal of this project is to help you practice the methods we learned in this course, which doesn't cover all analysis methods.
+
+### Encouraged 
+
+-   Data visualization would be fun
+
+-   Funding proposal for a lay audience
+
+-   Feel free to be creative
 
 ## Wrap up
 
@@ -319,5 +414,5 @@ $$
 
 ### Next time
 
--   Tue. 12:30, virtual on zoom
--   Have a wonderful, relaxing, gull-like weekend
+-   Oct. 19 \@ 8 am lab, project I presentation, **In Person**, I will be in Prince George 🎠
+-   Before that, enjoy the lecture and lab with Lisa 😃

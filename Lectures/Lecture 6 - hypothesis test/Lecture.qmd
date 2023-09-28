@@ -192,7 +192,6 @@ $$
 ## Hypothesis test: things to keep in mind
 
 ::: columns
-
 ::: {.column width="60%"}
  
 

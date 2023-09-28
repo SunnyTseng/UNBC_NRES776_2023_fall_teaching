@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.0.36">
 
   <meta name="author" content="Sunny Tseng">
-  <title>NRES 776 Lecture 5</title>
+  <title>NRES 776 Lecture</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -319,8 +319,8 @@
     <div class="slides">
 
 <section id="title-slide" class="center">
-  <h1 class="title">NRES 776 Lecture 5</h1>
-  <p class="subtitle">Sampling distribution and central limit theorem</p>
+  <h1 class="title">NRES 776 Lecture</h1>
+  <p class="subtitle">Hypothesis test II</p>
   <p class="author">Sunny Tseng</p>
 </section>
 
@@ -328,14 +328,15 @@
 <h2>Our schedule today</h2>
 <ul>
 <li class="fragment"><p>Announcement (5 min)</p></li>
-<li class="fragment"><p>Concept of sampling distribution (20 min)</p></li>
-<li class="fragment"><p>Central limit theorem (20 min)</p></li>
+<li class="fragment"><p>Three ways to conduct hypothesis test (25 min)</p></li>
+<li class="fragment"><p>Recap and project I (15 min)</p></li>
 <li class="fragment"><p>Wrap up (5 min)</p></li>
 </ul>
 </section>
 <section id="announcement" class="slide level2">
 <h2>Announcement</h2>
 <ul>
+<li class="fragment">Recording</li>
 <li class="fragment">Let’s take this lecture easy…</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
@@ -347,211 +348,346 @@
 <aside><div>
 <p>Artwork by <span class="citation" data-cites="allison_horst">@allison_horst</span></p>
 </div></aside></section>
-<section id="population-and-sample" class="slide level2">
-<h2>Population and sample</h2>
-<p>If we are interested in the height of students in UNBC.</p>
-
-<img data-src="images/Group-13.jpg" width="624" class="r-stretch quarto-figure-center"><ul>
-<li class="fragment"><p>How much can we trust the values we get from the sample?</p></li>
-<li class="fragment"><p>Is <span class="math inline">\(\bar{x}\)</span> close enough to <span class="math inline">\(\mu\)</span>?</p></li>
-<li class="fragment"><p>Is <span class="math inline">\(s_x\)</span> some how represents <span class="math inline">\(\sigma\)</span>?</p></li>
+<section id="hypothesis-test-two-hypotheses" class="slide level2">
+<h2>Hypothesis test: two hypotheses</h2>
+<blockquote>
+<p>Hypothesis test is a decision making process. We use it to translate a question of interest into a mathematical form. Then, we can make inference to population parameters.</p>
+</blockquote>
+<ul>
+<li class="fragment"><p>You can formulate question into two mutual exclusive hypotheses:</p>
+<ul>
+<li class="fragment"><p><span class="math inline">\(H_0\)</span>: <strong>Null hypothesis</strong> (equal to, no effect, the same as, etc.)</p></li>
+<li class="fragment"><p><span class="math inline">\(H_a\)</span>: <strong>Alternative hypothesis</strong> (not equal to, different, etc.)</p></li>
+</ul></li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 30%">
+<col style="width: 35%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Research question</th>
+<th><span class="math inline">\(H_0\)</span></th>
+<th><span class="math inline">\(H_a\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Does tooth flossing affect the number of cavities?</td>
+<td><p>Tooth flossing has&nbsp;<strong>no effect</strong>&nbsp;on the number of cavities.</p>
+<p><span class="math inline">\(\mu_{floss} = \mu_{no floss}\)</span></p></td>
+<td><p>Tooth flossing has&nbsp;<strong>effect</strong>&nbsp;on the number of cavities.</p>
+<p><span class="math inline">\(\mu_{floss} \neq \mu_{no floss}\)</span></p></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li class="fragment"><p>We usually use <span class="math inline">\(=\)</span> in null hypothesis</p></li>
+<li class="fragment"><p>Always use <strong>parameters</strong> (e.g., <span class="math inline">\(\mu, \beta\)</span>) when writing out hypothesis</p></li>
 </ul>
 </section>
-<section id="mathematicians-did-a-fun-experiment" class="slide level2">
-<h2>Mathematicians did a fun experiment</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h3 id="to-answer-whether-we-can-trust-barx">To answer whether we can trust <span class="math inline">\(\bar{x}\)</span></h3>
+<section id="put-everything-together" class="slide level2">
+<h2>Put everything together</h2>
 <ol type="1">
-<li class="fragment"><p>From a population, a group of people…</p></li>
-<li class="fragment"><p>Randomly selected <span class="math inline">\(n\)</span> people (sample 1), calculate <span class="math inline">\(\bar{x_1}\)</span></p></li>
-<li class="fragment"><p>Put everyone back</p></li>
-<li class="fragment"><p>Randomly selected <span class="math inline">\(n\)</span> people (sample 2), calculate <span class="math inline">\(\bar{x_2}\)</span></p></li>
-<li class="fragment"><p>Put everyone back</p></li>
-<li class="fragment"><p>…(repeat above, say 1000 times)</p></li>
+<li class="fragment"><strong>Set up</strong> <span class="math inline">\(H_0\)</span> <strong>and</strong> <span class="math inline">\(H_a\)</span>
+<ul>
+<li class="fragment">e.g., <span class="math inline">\(H_0: \mu = 180, H_a: \mu \neq 180\)</span></li>
+</ul></li>
+<li class="fragment"><strong>Determine statistical significance level</strong> <span class="math inline">\(\alpha\)</span>
+<ul>
+<li class="fragment">usually be <span class="math inline">\(0.05\)</span> or <span class="math inline">\(0.1\)</span></li>
+</ul></li>
+<li class="fragment"><strong>Calculate the test statistics</strong>
+<ul>
+<li class="fragment"><p>If doing t-test, calculate <span class="math inline">\(t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}}\)</span></p></li>
+<li class="fragment"><p>If doing z-test, calculate <span class="math inline">\(z_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}}\)</span></p></li>
+</ul></li>
+<li class="fragment"><strong>Find the p-value corresponded to the test statistics</strong>
+<ul>
+<li class="fragment">p-value <span class="math inline">\(=P(t \ge t_{statistics})\)</span></li>
+<li class="fragment">The probability of a value larger than test statistics</li>
+</ul></li>
 </ol>
-</div><div class="column" style="width:50%;">
-<h3 id="take-a-look-at-the-barxs">Take a look at the <span class="math inline">\(\bar{x}\)</span>s</h3>
+<p><img data-src="https://www.simplypsychology.org/wp-content/uploads/p-value.jpg" class="absolute" style="top: 150px; right: 0px; width: 514px; "></p>
+<ol start="5" type="1">
+<li class="fragment"><strong>Compare</strong> <span class="math inline">\(\alpha\)</span> <strong>and p-value and draw conclusion</strong>
 <ul>
-<li class="fragment"><p>The distribution of <span class="math inline">\(\bar{x}\)</span> may look like this</p></li>
-<li class="fragment"><p>This is called <strong>sampling distribution</strong></p></li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-1-1.png" width="960"></p>
-</div>
-</div>
-</div>
-</div>
+<li class="fragment"><p><span class="math inline">\(p-value \ge \alpha\)</span>: fail to reject <span class="math inline">\(H_o\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(p-value &lt; \alpha\)</span>: reject <span class="math inline">\(H_0\)</span></p></li>
+</ul></li>
+</ol>
 </section>
-<section id="sampling-distribution" class="slide level2">
-<h2>Sampling distribution</h2>
-<blockquote>
-<p>A probability distribution of a sample statistic that is obtained through repeated sampling of a specific population.</p>
-</blockquote>
-<ul>
-<li class="fragment"><p>What’s special about this sampling distribution?</p></li>
-<li class="fragment"><p>Take a look at the <span class="math inline">\(n\)</span>, our sample size</p></li>
-</ul>
+<section id="jprf-black-bear-example" class="slide level2">
+<h2>JPRF black bear example</h2>
+<p>The JPRF manager claim that the population mean (<span class="math inline">\(\mu\)</span>) of the black bear weight is 390 kg. Is this claim valid?</p>
+<p>You, as a researcher, came to the forest and measured the weight from 25 black bears in JPRF forest, and got their averaged weight as 400 kg, with standard deviation <strong>40</strong> kg.</p>
 <div class="columns">
-<div class="column" style="width:50%;">
-<p>Population (<span class="math inline">\(\mu = 175\)</span>)</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-2-1.png" width="960"></p>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<p>Sampling distribution (n = 3)</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="sampling-distribution-1" class="slide level2">
-<h2>Sampling distribution</h2>
-<blockquote>
-<p>A probability distribution of a sample statistic that is obtained through repeated sampling of a specific population.</p>
-</blockquote>
+<div class="column" style="width:30%;">
 <ul>
-<li class="fragment"><p>What’s special about this sampling distribution?</p></li>
-<li class="fragment"><p>Take a look at the <span class="math inline">\(n\)</span>, our sample size</p></li>
+<li class="fragment"><p><span class="math inline">\(n = 25\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(\bar{x} = 400\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(s = 40\)</span></p></li>
 </ul>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p>Population (<span class="math inline">\(\mu = 175\)</span>)</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<p>Sampling distribution (n = 30)</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-5-1.png" width="960"></p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="sampling-distribution-2" class="slide level2">
-<h2>Sampling distribution</h2>
-<blockquote>
-<p>A probability distribution of a sample statistic that is obtained through repeated sampling of a specific population.</p>
-</blockquote>
-<ul>
-<li class="fragment"><p>What’s special about this sampling distribution?</p></li>
-<li class="fragment"><p>Take a look at the <span class="math inline">\(n\)</span>, our sample size</p></li>
-</ul>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p>Population (<span class="math inline">\(\mu = 175\)</span>)</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<p>Sampling distribution (n = 100)</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img data-src="Lecture_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="central-limit-theorem-clt" class="slide level2">
-<h2>Central limit theorem (CLT)</h2>
-<blockquote>
-<p>When <span class="math inline">\(n \geq 30\)</span>, the sampling means are normally distributed with <span class="math inline">\(mean(\bar{x}) = \mu\)</span>, and <span class="math inline">\(sd(\bar{x}) = \frac{\sigma}{\sqrt{n}}\)</span>, no matter what distribution that population has.</p>
-</blockquote>
-<ul>
-<li class="fragment">Central limit theorem is important and cool! Because…somehow, sampling distribution is almost always normally distributed, when <span class="math inline">\(n\)</span> is large.</li>
-</ul>
-
-<img data-src="images/3-s2.0-B9780128034590000066-f06-05-9780128034590.jpg" class="r-stretch quarto-figure-center"><h3 id="standard-error-se">Standard error (SE)</h3>
-<blockquote>
-<p>Standard error is the standard deviation of the sampling distribution: <span class="math inline">\(sd(\bar{x}) = \frac{\sigma}{\sqrt{n}}\)</span></p>
-</blockquote>
-<ul>
-<li class="fragment"><p>SE describes standard deviation of sampling distribution</p></li>
-<li class="fragment"><p>SE means how wide spread is the 1000, or whatever many, sample means</p></li>
-<li class="fragment"><p>SE decreases when <span class="math inline">\(n\)</span> increases; SE is large when <span class="math inline">\(\sigma\)</span> is large</p></li>
-</ul>
-</section>
-<section id="now-what" class="slide level2">
-<h2>Now what?</h2>
-<ul>
-<li class="fragment">Based on CLT, imagine that you have a sampling distribution <span class="math inline">\(N(\mu, \frac{\sigma^2}{n})\)</span></li>
-<li class="fragment">And you sample from population again, you get <span class="math inline">\(\bar{x}_{new}\)</span> as its mean</li>
-<li class="fragment"><span class="math inline">\(\bar{x}_{new}\)</span> has <span class="math inline">\(68\%\)</span> probability to locate within <span class="math inline">\(\mu \pm \frac{\sigma}{\sqrt{n}}\)</span>, that is <span class="math inline">\(\mu \pm \frac{s}{\sqrt{n}}\)</span></li>
-<li class="fragment">We can have a sense about population just by <strong>ONE sample</strong>!</li>
-</ul>
-
-<img data-src="images/Capture3.PNG" width="535" class="r-stretch quarto-figure-center"></section>
-<section id="confidence-interval-ci" class="slide level2">
-<h2>Confidence interval (CI)</h2>
-<blockquote>
-<p>An interval that has <span class="math inline">\(C\%\)</span> probability containing true mean. Where <span class="math inline">\(C = 1-\alpha\)</span>, is called confidence level, and <span class="math inline">\(\alpha\)</span> is called significance level.</p>
-</blockquote>
-<div class="columns">
-<div class="column" style="width:50%;">
-<ul>
-<li class="fragment"><p><span class="math inline">\(\mu\)</span> has <strong>68%</strong> probability within <span class="math inline">\(\bar{x} \pm \frac{s}{\sqrt{n}}\)</span></p></li>
-<li class="fragment"><p><span class="math inline">\(\mu\)</span> has <strong>95%</strong> probability within <span class="math inline">\(\bar{x} \pm \frac{2s}{\sqrt{n}}\)</span></p></li>
-<li class="fragment"><p><span class="math inline">\(\mu\)</span> has <strong>99%</strong> probability within <span class="math inline">\(\bar{x} \pm \frac{3s}{\sqrt{n}}\)</span></p></li>
-</ul>
-<p><span class="math display">\[
-CI = \bar{x} \pm t_{(\frac{\alpha}{2}, n-1)} * \frac{s}{\sqrt{n}}
-\]</span></p>
-<ul>
-<li class="fragment">We need to use t-distribution here because <span class="math inline">\(n\)</span> might be smaller than 30, and only if assuming the population itself is normally distributed.</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-center">
+</div><div class="column" style="width:70%;">
+<div class="quarto-figure quarto-figure-right">
 <figure>
-<p><img data-src="images/Capture3.PNG" width="535"></p>
+<p><img data-src="https://live.staticflickr.com/4354/37223656595_fcdc40df65_b.jpg" width="631"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="jprf-black-bear" class="slide level2">
-<h2>JPRF black bear</h2>
+
+<aside><div>
+<p>Image from: https://www.flickr.com/photos/archer10/37223656595</p>
+</div></aside></section>
+<section id="jprf-black-bear-example-1" class="slide level2">
+<h2>JPRF black bear example</h2>
+<h3 id="set-up-h_0-and-h_a">1. Set up <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_a\)</span></h3>
 <ul>
-<li class="fragment"><p>We measured the weight from 25 black bears in JPRF forest, and got their averaged weight as 400 kg, with standard deviation 20 kg.</p></li>
-<li class="fragment"><p>Find the confidence interval for <span class="math inline">\(\mu\)</span>, with <span class="math inline">\(90\%\)</span> confidence interval.</p></li>
+<li class="fragment"><p><span class="math inline">\(H_0:\mu = 390\)</span>: the population mean of the black bear weight is 390 kg.</p></li>
+<li class="fragment"><p><span class="math inline">\(H_a: \mu \neq 390\)</span>, the population mean of the black bear weight is not 390 kg.</p></li>
 </ul>
-<p><span class="math display">\[
-n = 25, \bar{x} = 400, s = 40, \alpha = 0.1
-\]</span></p>
-<p><span class="math display">\[
-Upper = \bar{x} + t_{0.05, 24} * \frac{s}{\sqrt{n}} = 413.7
-\]</span></p>
-<p><span class="math display">\[
-Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
-\]</span></p>
+<h3 id="determine-statistical-significance-level-alpha">2. Determine statistical significance level <span class="math inline">\(\alpha\)</span></h3>
 <ul>
-<li class="fragment">Based on our sample, we have <span class="math inline">\(90\%\)</span> confidence that the weight of a black bear in JPRF forest is between 386.3 to 413.7 kg.</li>
+<li class="fragment">We set the significance level <span class="math inline">\(\alpha\)</span> as 0.1</li>
+</ul>
+<h3 id="calculate-the-test-statistics">3. Calculate the test statistics</h3>
+<ul>
+<li class="fragment"><p>We are using t-statistics (because <span class="math inline">\(n\)</span> is small)</p></li>
+<li class="fragment"><p><span class="math inline">\(t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}} = \frac{400 - 390}{40/\sqrt{25}} = 1.25\)</span></p></li>
 </ul>
 </section>
-<section id="what-we-learned" class="slide level2">
-<h2>What we learned</h2>
+<section id="jprf-black-bear-example-2" class="slide level2">
+<h2>JPRF black bear example</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="find-the-p-value-for-test-statistics">4. Find the p-value for test statistics</h3>
 <ul>
-<li class="fragment">Concept of sampling distribution</li>
-<li class="fragment">Central limit theorem tells us
+<li class="fragment"><p>Using t-table, or R, or <a href="https://www.socscistatistics.com/pvalues/tdistribution.aspx">online calculator</a></p></li>
+<li class="fragment"><p>Find the p-value for <span class="math inline">\(t_{statistics} = 1.25\)</span></p>
 <ul>
-<li class="fragment"><p>mean of the sampling distribution is an unbiased estimate of the population mean</p></li>
-<li class="fragment"><p>sd of the sampling distribution is called standard error</p></li>
+<li class="fragment"><p><span class="math inline">\(df = n-1 = 24\)</span></p></li>
+<li class="fragment"><p>two-tailed</p></li>
 </ul></li>
-<li class="fragment">Standard error is not the same thing as standard deviation</li>
-<li class="fragment">We can get a confidence interval about population mean, just by one sample!</li>
-<li class="fragment">And keep in mind… the topic we learned in each lecture can be a course by itself</li>
+<li class="fragment"><p><span class="math inline">\(p-value = 0.22\)</span></p></li>
+</ul>
+<h3 id="compare-alpha-and-p-value-and-draw-conclusion">5. Compare <span class="math inline">\(\alpha\)</span> and p-value and draw conclusion</h3>
+</div><div class="column" style="width:50%;">
+<p><img data-src="images/paste-5181F6DF.png"></p>
+</div>
+</div>
+<ul>
+<li class="fragment"><p><span class="math inline">\(p-value &gt; \alpha\)</span>, we fail to reject <span class="math inline">\(H_0\)</span>.</p></li>
+<li class="fragment"><p>Thus, we support the statement that the population mean of the black bear weight is equal to 390.</p></li>
+</ul>
+</section>
+<section id="jprf-black-bear-example-other-methods" class="slide level2">
+<h2>JPRF black bear example (other methods)</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="find-the-critical-statistics-for-alpha">4.1 Find the critical statistics for <span class="math inline">\(\alpha\)</span></h3>
+<ul>
+<li class="fragment"><p>Using t-table, or R, or <a href="https://www.socscistatistics.com/tests/criticalvalues/default.aspx">online calculator</a></p></li>
+<li class="fragment"><p>Find the <span class="math inline">\(t_{critical}\)</span> corresponded with <span class="math inline">\(\alpha\)</span></p>
+<ul>
+<li class="fragment"><p><span class="math inline">\(df = n-1 = 24\)</span></p></li>
+<li class="fragment"><p>two-tailed</p></li>
+</ul></li>
+<li class="fragment"><p><span class="math inline">\(t_{ctitical} = 1.711\)</span></p></li>
+</ul>
+<h3 id="compare-t_statistics-and-t_critical-and-draw-conclusion">5.1 Compare <span class="math inline">\(t_{statistics}\)</span> and <span class="math inline">\(t_{critical}\)</span> and draw conclusion</h3>
+</div><div class="column" style="width:50%;">
+<p><img data-src="images/paste-5181F6DF.png"></p>
+</div>
+</div>
+<ul>
+<li class="fragment"><p><span class="math inline">\(t_{statistics} \le t_{critical}\)</span>, we fail to reject <span class="math inline">\(H_0\)</span>.</p></li>
+<li class="fragment"><p>Thus, we support the statement that the population mean of the black bear weight is equal to 390.</p></li>
+</ul>
+</section>
+<section id="jprf-black-bear-example-other-methods-1" class="slide level2">
+<h2>JPRF black bear example (other methods)</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="find-upper-and-lower-limits">4.2 Find upper and lower limits</h3>
+<ul>
+<li class="fragment"><p>Using t-table, or R, or <a href="https://www.socscistatistics.com/tests/criticalvalues/default.aspx">online calculator</a></p></li>
+<li class="fragment"><p>Find the <span class="math inline">\(t_{critical}\)</span> corresponded with <span class="math inline">\(\alpha = 0.1\)</span></p>
+<ul>
+<li class="fragment"><p><span class="math inline">\(df = n-1 = 24\)</span></p></li>
+<li class="fragment"><p>two-tailed</p></li>
+</ul></li>
+<li class="fragment"><p><span class="math inline">\(t_{ctitical} = 1.711\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(CI = \bar{x} \pm t_{critical} * \frac{s}{\sqrt{n}} = 400 \pm 1.711 * 40/\sqrt{25} = 400 \pm 13.68\)</span></p></li>
+</ul>
+<h3 id="compare-ci-with-mu-and-draw-conclusion">5.2 Compare CI with <span class="math inline">\(\mu\)</span> and draw conclusion</h3>
+</div><div class="column" style="width:50%;">
+<p><img data-src="images/paste-5181F6DF.png"></p>
+</div>
+</div>
+<ul>
+<li class="fragment"><p><span class="math inline">\(\mu = 390\)</span>, which is within (386.3, 413.7), we fail to reject <span class="math inline">\(H_0\)</span>.</p></li>
+<li class="fragment"><p>Thus, we support the statement that the population mean of the black bear weight is equal to 390.</p></li>
+</ul>
+</section>
+<section id="three-ways-to-do-hypothesis-test" class="slide level2">
+<h2>Three ways to do hypothesis test</h2>
+<h3 id="a.-compare-p-value-and-alpha">A. compare p-value and <span class="math inline">\(\alpha\)</span></h3>
+<ul>
+<li class="fragment"><p><span class="math inline">\(p-value \ge \alpha\)</span>: fail to reject <span class="math inline">\(H_0\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(p-value &lt; \alpha\)</span>: reject <span class="math inline">\(H_0\)</span></p></li>
+</ul>
+<h3 id="b.-compare-statistical-value-vs-critical-value">B. compare statistical value vs critical value</h3>
+<ul>
+<li class="fragment"><p><span class="math inline">\(t_{statistics} &lt; t_{criticle}\)</span>: fail to reject <span class="math inline">\(H_0\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(t_{statistics} \ge t_{criticle}\)</span>: reject <span class="math inline">\(H_0\)</span></p></li>
+</ul>
+<h3 id="c.-compare-confidence-interval">C. compare confidence interval</h3>
+<ul>
+<li class="fragment"><p>If the confidence interval covers <span class="math inline">\(\mu\)</span>: fail to reject <span class="math inline">\(H_0\)</span></p></li>
+<li class="fragment"><p>Otherwise: reject <span class="math inline">\(H_0\)</span></p></li>
+</ul>
+</section>
+<section id="one-tailed-or-two-tailed-test" class="slide level2">
+<h2>One-tailed or two-tailed test?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="how-to-tell">How to tell</h3>
+<ul>
+<li class="fragment"><p>Based on the research question</p></li>
+<li class="fragment"><p>If the <span class="math inline">\(H_0\)</span> is written with <span class="math inline">\(=\)</span>, then it’s a two-tailed test</p></li>
+<li class="fragment"><p>If the <span class="math inline">\(H_0\)</span> is written with <span class="math inline">\(&gt;\)</span> or <span class="math inline">\(&lt;\)</span>, then it’s a one-tailed test</p></li>
+</ul>
+<h3 id="so-what">So what</h3>
+<ul>
+<li class="fragment">This would influence how you look up your p-value</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="https://miro.medium.com/v2/resize:fit:862/1*VXxdieFiYCgR6v7nUaq01g.jpeg"></p>
+</div>
+</div>
+<ul>
+<li class="fragment"><p>Two-tailed test, when looking up the p-value, the probability needs to multiply by 2.</p></li>
+<li class="fragment"><p>Two-tailed test, when looking up the <span class="math inline">\(t_{critical}\)</span>, the probability is <span class="math inline">\(\alpha/2\)</span>.</p></li>
+</ul>
+</section>
+<section id="gum-thickness-a-two-tailed-t-test" class="slide level2">
+<h2><strong>Gum thickness:</strong> a two-tailed t-test</h2>
+<h3 id="the-story">The story</h3>
+<p>A manufacturer claims that the thickness of the spearmint gum it produces is 7.5 one-hundredths.</p>
+<div class="fragment">
+<p>A quality control specialist regularly checks this claim. On one production run, he took a random sample of <em>n</em> = 10 pieces of gum and measured their thickness.</p>
+</div>
+<div class="fragment">
+<p>He obtained:</p>
+<p><img data-src="images/paste-9A58F1C5.png"></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+n = 10, \bar{x} = 7.55, s = 0.1027, \alpha = 0.05
+\]</span></p>
+<p>Base on this sample, is the claim from the manufacturer valid?</p>
+</div>
+</section>
+<section id="gum-thickness" class="slide level2">
+<h2><strong>Gum thickness</strong></h2>
+<h3 id="to-solve-this">To solve this</h3>
+<h3 id="set-up-h_0-and-h_a-1">1. Set up <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_a\)</span></h3>
+<ul>
+<li class="fragment"><p><span class="math inline">\(H_0:\mu = 7.5\)</span>: the mean of the spearmint gum thickness equals 7.5</p></li>
+<li class="fragment"><p><span class="math inline">\(H_a: \mu \neq 7.5\)</span>, the mean of the spearmint gum thickness doesn’t equal 7.5</p></li>
+</ul>
+<h3 id="determine-statistical-significance-level-alpha-1">2. Determine statistical significance level <span class="math inline">\(\alpha\)</span></h3>
+<ul>
+<li class="fragment">We set the significance level <span class="math inline">\(\alpha\)</span> as 0.05</li>
+</ul>
+<h3 id="calculate-the-test-statistics-1">3. Calculate the test statistics</h3>
+<ul>
+<li class="fragment"><p>We are using t-statistics (because <span class="math inline">\(n\)</span> is small)</p></li>
+<li class="fragment"><p><span class="math inline">\(t_{statistics} = \frac{\bar{x} - \mu}{s/\sqrt{n}} = \frac{7.55 - 7.5}{0.1027/\sqrt{10}} = 1.54\)</span></p></li>
+</ul>
+</section>
+<section id="gum-thickness-1" class="slide level2">
+<h2><strong>Gum thickness</strong></h2>
+<h3 id="to-solve-this-1">To solve this</h3>
+<h3 id="find-the-p-value-for-test-statistics-1">4. Find the p-value for test statistics</h3>
+<ul>
+<li class="fragment"><p>Using t-table, or R, or <a href="https://www.socscistatistics.com/pvalues/tdistribution.aspx">online calculator</a></p></li>
+<li class="fragment"><p>Find the p-value for <span class="math inline">\(t_{statistics} = 1.54\)</span></p>
+<ul>
+<li class="fragment"><p><span class="math inline">\(df = n-1 = 9\)</span></p></li>
+<li class="fragment"><p><strong>two-tailed</strong></p></li>
+</ul></li>
+<li class="fragment"><p><span class="math inline">\(p-value = 0.158\)</span></p></li>
+</ul>
+<h3 id="compare-alpha-and-p-value-and-draw-conclusion-1">5. Compare <span class="math inline">\(\alpha\)</span> and p-value and draw conclusion</h3>
+<ul>
+<li class="fragment"><p><span class="math inline">\(p-value &gt; \alpha\)</span>, we fail to reject <span class="math inline">\(H_0\)</span>.</p></li>
+<li class="fragment"><p>Thus, we support the statement that the mean of the spearmint gum thickness equals 7.5.</p></li>
+</ul>
+</section>
+<section id="gum-thickness-2" class="slide level2">
+<h2><strong>Gum thickness</strong></h2>
+<h3 id="can-you-try-the-ci-method">Can you try the CI method?</h3>
+<p><span class="math display">\[
+n = 10, \bar{x} = 7.55, s = 0.1027, \alpha = 0.05
+\]</span></p>
+<p><span class="math display">\[
+CI = \bar{x} \pm t_{\frac{\alpha}{2}, n-1} * \frac{s}{\sqrt{n}}
+\]</span></p>
+<p><span class="math display">\[
+CI = 7.55 \pm 2.262 * \frac{0.1027}{\sqrt{10}} = (7.476, 7.623)
+\]</span></p>
+</section>
+<section id="what-we-learned-in-the-past-month" class="slide level2">
+<h2>What we learned in the past month</h2>
+<h3 id="statistics">Statistics</h3>
+<ul>
+<li class="fragment"><p>Population vs sample, descriptive statistics</p></li>
+<li class="fragment"><p>Types of variables, probability distribution</p></li>
+<li class="fragment"><p>Sampling distribution, central limit theorem and confidence interval</p></li>
+<li class="fragment"><p>Hypothesis test</p></li>
+</ul>
+<h3 id="r-coding">R coding</h3>
+<ul>
+<li class="fragment"><p>Basic R (R &amp; RStudio, object, function, data type)</p></li>
+<li class="fragment"><p>Data visualization and data I/O</p></li>
+<li class="fragment"><p>Data wrangling</p></li>
+</ul>
+</section>
+<section id="project-i" class="slide level2">
+<h2>Project I</h2>
+<h3 id="submission-on-moodle-oct.19">Submission on Moodle (Oct.19)</h3>
+<ul>
+<li class="fragment"><p>2 pages report “NRES776_<em>firstname_lastname</em>_project_1.<strong>pdf</strong>”</p></li>
+<li class="fragment"><p>5 mins oral presentation “NRES776_<em>firstname_lastname</em>_project_1.ppt”</p></li>
+</ul>
+<h3 id="content">Content</h3>
+<ul>
+<li class="fragment"><p>Research background (e.g., efficient audio analysis methods is needed in avian study)</p></li>
+<li class="fragment"><p>Hypothesis (e.g., frequency features in audio can be used to identify sound sources)</p></li>
+<li class="fragment"><p>Methods (e.g., use logistic modelling, a type of GMM, to identify significant features, or variables)</p></li>
+<li class="fragment"><p>Potential contribution (i.e., how your results be helpful for science/public/or your audience)</p></li>
+<li class="fragment"><p>They doesn’t need to be in this order</p></li>
+</ul>
+</section>
+<section id="project-i-1" class="slide level2">
+<h2>Project I</h2>
+<h3 id="statistical-methods">Statistical methods</h3>
+<ul>
+<li class="fragment"><p>Multiple linear regression</p></li>
+<li class="fragment"><p>Generalized linear models</p></li>
+<li class="fragment"><p>Mixed-effect models</p></li>
+<li class="fragment"><p>Multivariate analysis</p></li>
+<li class="fragment"><p>If none of these can be applied to your data, or you are not sure, come have a chat with me or Lisa. The goal of this project is to help you practice the methods we learned in this course, which doesn’t cover all analysis methods.</p></li>
+</ul>
+<h3 id="encouraged">Encouraged</h3>
+<ul>
+<li class="fragment"><p>Data visualization would be fun</p></li>
+<li class="fragment"><p>Funding proposal for a lay audience</p></li>
+<li class="fragment"><p>Feel free to be creative</p></li>
 </ul>
 </section>
 <section id="wrap-up" class="slide level2">
@@ -564,8 +700,8 @@ Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
 </ul>
 <h3 id="next-time">Next time</h3>
 <ul>
-<li class="fragment">Tue. 12:30, virtual on zoom</li>
-<li class="fragment">Have a wonderful, relaxing, gull-like weekend</li>
+<li class="fragment">Oct.&nbsp;19 @ 8 am lab, project I presentation, <strong>In Person</strong>, I will be in Prince George 🎠</li>
+<li class="fragment">Before that, enjoy the lecture and lab with Lisa 😃</li>
 </ul>
 <div class="footer footer-default">
 
@@ -782,48 +918,6 @@ Lower = \bar{x} - t_{0.05, 24} * \frac{s}{\sqrt{n}} = 386.3
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          // dispatch for htmlwidgets
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for reveal
-        if (window.Reveal) {
-          window.Reveal.addEventListener("slidechanged", function(event) {
-            fireSlideChanged(event.previousSlide, event.currentSlide);
-          });
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

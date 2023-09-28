@@ -1,6 +1,6 @@
 ---
 title: "NRES 776 Lab 3"
-subtitle: "Blank for now"
+subtitle: "Data wrangling"
 author: Sunny Tseng
 format:
   revealjs: 
@@ -42,9 +42,13 @@ knitr::opts_chunk$set(dpi = 150, fig.width = 8, out.width = "90%",
 
 -   Discussion paper presentation (45 mins)
 
--   Blank for now
+-   Introduction to tidyverse (15 min)
 
--   Quiet time for practice (20 min)
+-   Data I/O (5 min)
+
+-   Data wrangling (40 min)
+
+-   Quiet time for practice (60 min)
 
 ## Announcements
 
@@ -52,16 +56,16 @@ knitr::opts_chunk$set(dpi = 150, fig.width = 8, out.width = "90%",
 -   Create a R project, and a data folder inside it.
 -   Save the spreadsheets inside the data folder.
 -   Preset: packages we need today
-    -   here: for file path
+    -   `here`: for file path
 
-    -   tidyverse: for data wrangling
+    -   `tidyverse`: for data I/O and data wrangling
 
-    -   readxl: for read in excel files
+    -   `palmerpenguins`: you know this one
 
 ```{r, echo = TRUE, eval = FALSE}
 
 ### Only do this if you haven't install them
-install.packages(c("here", "tidyverse", "palmerpenguins"))
+# install.packages(c("here", "tidyverse", "palmerpenguins"))
 
 ### Load the packages
 library(here)
@@ -106,6 +110,10 @@ library(tidyverse)
 ## What's tidyverse?
 
 ![](images/paste-9571686D.png){fig-align="center" width="610"}
+
+::: aside
+Artwork by Allison Horst
+:::
 
 ## Tidy data
 
@@ -173,9 +181,8 @@ Illustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data
 
 -   Think it like the English word "then".
 
-```{=html}
 <!-- -->
-```
+
 -   First, we are dogs
 
 -   Then, drop one ear
@@ -313,6 +320,52 @@ There is no right or wrong or which way should be used. And both can achieve sam
 
 with tidyverse `readr` package
 
+## Overview
+
+With `readr` and `readxl`, you will be able to use the following functions to read spreadsheets into R.
+
+| Function       | Format                                            | Typical suffix |
+|-------------------|-----------------------------------|-------------------|
+| `read_delim()` | general text file format, must define delimiter   | .txt           |
+| `read_csv()`   | comma separated values                            | .csv           |
+| `read_csv2()`  | semicolon separated values                        | .csv           |
+| `read_tsv()`   | tab delimited separated values                    | .tsv           |
+| `read_table()` | white space separated values                      | .txt           |
+| `read_excel()` | auto detect the format for Microsoft excel sheets | .xlsx or .xls  |
+
+::: aside
+Note: You will need to install `readxl` package in order to use `read_excel()` function
+:::
+
+## Read CSVs
+
+> `read_csv()` take one necessary argument, which is `file`, a path to a file.
+
+-   `here()` can help produce the file relative path
+
+-   in this example, I have my file `my_data.csv` locates within a folder called `data`
+
+```{r, echo = TRUE}
+
+my_data <- read_csv(file = here("data", "my_data.csv"))
+
+my_data
+```
+
+## Write CSVs
+
+### csv is the most commonly used because of its simplicity and compatibility
+
+> `write_csv()` takes two necessary arguments `x`, the data frame object you want to export, and `file`, the path you want to save the file to.
+
+```{r, echo = TRUE}
+
+write_csv(x = my_data,
+          file = here("data", "my_data_1.csv"))
+```
+
+Now, check your folder, and you should find a file got saved with the name `my_data.csv`.
+
 # Data wrangling: rows
 
 with tidyverse `dplyr` package
@@ -432,10 +485,12 @@ with tidyverse `dplyr` package
 
 > Create, modify, and delete columns
 
+::: columns
+::: {.column width="50%"}
 ![](images/bd4ae264-ae51-4d18-bd60-7a058ab42fba.png)
+:::
 
-## mutate()
-
+::: {.column width="50%"}
 ### Create: fixed value, ID number
 
 ```{r, echo = TRUE, eval = FALSE}
@@ -444,14 +499,22 @@ penguins %>%
          ID = seq(1: nrow(.)))
 ```
 
-### Create: apply math with other column(s)
+### Create: apply math
 
 ```{r, echo = TRUE, eval = FALSE}
 penguins %>%
-  mutate(bill_area = bill_depth_mm * bill_length_mm)
+  mutate(depth_square = bill_depth_mm**2)
 ```
+:::
+:::
 
-### Modify: one condition with `if_else()` 
+::: aside
+Artwork by Allison Horst
+:::
+
+## mutate()
+
+### Modify: one condition with `if_else()`
 
 ```{r, echo = TRUE, eval = FALSE}
 penguins %>%
@@ -469,6 +532,8 @@ penguins %>%
     .default = "all other cases" # by default return NA
   ))
 ```
+
+## mutate()
 
 ### Modify: categorize numerical variable equal intervals
 
@@ -500,19 +565,27 @@ penguins %>%
 
 > Keep or drop columns using their names and types
 
-### Keep the columns that you want
+::: columns
+::: {.column width="50%"}
+### Keep columns
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE}
 penguins %>%
-  select(species, island, 4:6)
+  select(species, island, 4:6) %>%
+  colnames()
 ```
+:::
 
-### Drop columns 
+::: {.column width="50%"}
+### Drop columns
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE}
 penguins %>%
-  select(!c(species, island))
+  select(!c(species, island)) %>%
+  colnames()
 ```
+:::
+:::
 
 ## rename()
 
@@ -520,46 +593,201 @@ penguins %>%
 
 ```{r, echo = TRUE, eval = FALSE}
 penguins %>%
-  rename(penguin_species = species)
+  rename(penguin_species = species,
+         data_year = year,
+         bird_sex = sex)
 ```
 
-![](images/ed07d56b-c5c8-43af-84be-5bcab97eca75-01.png){width="687"}
+![](images/ed07d56b-c5c8-43af-84be-5bcab97eca75-01.png){fig-align="center" width="687"}
+
+::: aside
+Artwork by Allison Horst
+:::
 
 ## relocate()
 
 > Change column order
 
-::: columns
-::: {.column width="50%"}
 ```{r, echo = TRUE}
 penguins %>%
   mutate(ID = seq(1:nrow(.))) %>%
-  relocate(ID, .after = island) # .before is another argument
+  relocate(ID, .after = island) %>%
+  glimpse()
 ```
-:::
 
-::: {.column width="50%"}
-![](images/850e4954-e2c6-4df1-a3c0-34764a05a3df.png){width="678"}
-:::
+![](images/850e4954-e2c6-4df1-a3c0-34764a05a3df.png){.absolute top="200" right="0" width="668"}
+
+::: aside
+Artwork by Allison Horst
 :::
 
 # Data wrangling: group calculation
 
-## group_by()
+Create new columns that are the result of calculations performed on groups of data
 
-## summarize()
+## group_by() & ungroup()
 
--   `count(sort = TRUE)`, the same as
+> Group by one or more variables
 
--   `n()`: count the number of observations in the group
+-   Let's take a look
 
--   `n_distinct()`
+-   It looks almost the same as the original tibble
 
--   `sum()`
+-   Notice the extra "Group" info
 
-## slice\_\*() functions
+::: columns
+::: {.column width="50%"}
+```{r, echo = TRUE}
+penguins 
+```
+:::
 
-## ungroup()
+::: {.column width="50%"}
+```{r, echo = TRUE}
+penguins %>% 
+  group_by(species, island) 
+```
+:::
+:::
+
+## Use with mutate()
+
+### Calculate the difference between flipper length and their species means
+
+```{r, echo = TRUE}
+penguins %>%
+  group_by(species) %>%
+  mutate(flipper_lengh_dif = flipper_length_mm - mean(flipper_length_mm, na.rm = TRUE)) 
+```
+
+## Use with summarize()
+
+### Find the mean bill length of each penguin species
+
+::: columns
+::: {.column width="50%"}
+#### You can do:
+
+```{r, echo = TRUE}
+penguins %>%
+  filter(species == "Adelie") %>%
+  pull(bill_length_mm) %>%
+  mean(na.rm = TRUE)
+
+penguins %>%
+  filter(species == "Chinstrap") %>%
+  pull(bill_length_mm) %>%
+  mean(na.rm = TRUE)
+
+penguins %>%
+  filter(species == "Gentoo") %>%
+  pull(bill_length_mm) %>%
+  mean(na.rm = TRUE)
+```
+:::
+
+::: {.column width="50%"}
+#### Or this way:
+
+```{r, echo = TRUE}
+
+penguins %>%
+  group_by(species) %>%
+  summarize(bill_length_mean = 
+              mean(bill_length_mm, na.rm = TRUE))
+
+```
+:::
+:::
+
+## Use with summarize()
+
+### `summarise()` and `summarize()` are synonyms.
+
+::: columns
+::: {.column width="50%"}
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  group_by(species) %>%
+  summarize(bill_length_mean = 
+              mean(bill_length_mm, na.rm = TRUE))
+```
+:::
+
+::: {.column width="50%"}
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  group_by(species) %>%
+  summarise(bill_length_mean = 
+              mean(bill_length_mm, na.rm = TRUE))
+```
+:::
+:::
+
+### It's works the same as specify .by inside summarize()
+
+::: columns
+::: {.column width="50%"}
+```{r, echo = TRUE}
+penguins %>%
+  group_by(species) %>%
+  summarize(bill_length_mean = 
+              mean(bill_length_mm, na.rm = TRUE))
+```
+:::
+
+::: {.column width="50%"}
+```{r, echo = TRUE}
+
+penguins %>%
+  summarize(bill_length_mean = 
+              mean(bill_length_mm, na.rm = TRUE),
+            .by = species)
+```
+:::
+:::
+
+## Use with summarize()
+
+### You can summarize multiple values at the same time
+
+```{r, echo = TRUE}
+penguins %>%
+  group_by(species) %>%
+  summarize(count = n(),
+            islands_n = n_distinct(island),
+            flipper_length_mean = mean(flipper_length_mm, na.rm = TRUE),
+            flipper_length_sd = sd(flipper_length_mm, na.rm = TRUE))
+```
+
+## Use with slice_sample()
+
+### Use stratified sampling to select 10 individuals from each species  
+
+```{r, echo = TRUE}
+penguins %>%
+  group_by(species) %>%
+  slice_sample(n = 10)
+```
+
+### It's works the same as specify .by inside summarize()
+
+::: columns
+::: {.column width="50%"}
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  group_by(species) %>%
+  slice_sample(n = 10)
+```
+:::
+
+::: {.column width="50%"}
+```{r, echo = TRUE, FALSE}
+penguins %>%
+  slice_sample(n = 10, .by = species)
+```
+:::
+:::
 
 # Data wrangling: reshape
 
@@ -570,163 +798,6 @@ with tidyverse `dplyr` package
 ## pivot_wider()
 
 # Data wrangling: combining two tibbles
-
-# Data wrangling: other useful functions
-
-## clean_names()
-
-# Data I/O: Self-contained projects
-
-We will be using `here` package and R project
-
-## Concept of a project
-
-> If the first line of your R script is `setwd("C:\Users\jenny\path\that\only\I\have")` I will come into your office and SET YOUR COMPUTER ON FIRE 🔥. - Jenny Bryan
-
--   Have you ever received a R script from a friend with this line
-
--   And it's 0% chance that you can run this `setwd()` without an error
-
--   If you never heard about `setwd()`
-
--   Don't worry, you don't need to know 😄
-
-![](images/paste-58AC1017.png){.absolute top="300" right="0" width="622"}
-
-## Concept of a project
-
-> A folder on your computer that holds all the files relevant to that particular piece of work.
-
--   Get your files organized
-
--   Your work is reproducible
-
--   There are two things that can help us creating a self-contained project
-
-### 1. R project
-
-A self-contained working environment with folders for data, scripts, outputs, etc
-
-### 2. `here` package
-
-When import/export data is required, filepaths are written relative to the root folder of the R project.
-
-## R project: how to use
-
-1.  Open R Studio
-2.  Select `File` \> `New Project` \> `New Directory` \> provide name and where you want it to be saved
-3.  The R project you create will come in as a folder containing a *.Rproj* file
-4.  This is a shortcut and likely the primary way you will open your project
-5.  Your R Studio top-right corner would show the project you are in
-
-![](images/paste-2092CCC6.png){fig-align="center"}
-
-## `here` package: how to use
-
-1.  It's a good practice to structure your working directory in a consistent way
-2.  Created a data sub folder, and put all the data files you might need
-3.  Store your R script in the root
-4.  Run `library(here)` as the first line in script
-5.  Then you will only need relative path whenever you need to import data
-
-```{r, eval = FALSE, echo = TRUE}
-library(here)
-my_data <- read_csv(here("data", "my_data.csv"))
-
-```
-
-![](images/57457fc3-1d2d-4a3b-a9b7-f0b62e418cd5.png){fig-align="center" width="419"}
-
-![](images/Capture-02.PNG){.absolute bottom="300" right="0" width="261"}
-
-# Data I/O: Read and write spreadsheet data in R
-
-We will be using packages `readr` and `readxl`
-
-Practice files were posted on Moodle, download and save them to your data folder
-
-## Overview
-
-```{r, echo = TRUE}
-library(readr)
-library(readxl)
-```
-
-With `readr` and `readxl`, you will be able to use the following functions to read spreadsheets into R.
-
-| Function       | Format                                            | Typical suffix |
-|----------------|-----------------------------------------|----------------|
-| `read_delim()` | general text file format, must define delimiter   | .txt           |
-| `read_csv()`   | comma separated values                            | .csv           |
-| `read_csv2()`  | semicolon separated values                        | .csv           |
-| `read_tsv()`   | tab delimited separated values                    | .tsv           |
-| `read_table()` | white space separated values                      | .txt           |
-| `read_excel()` | auto detect the format for Microsoft excel sheets | .xlsx or .xls  |
-
-::: aside
-Note: `readr` is one of the `tidyverse` core packages, so you don't need to load it separately if you already have `tidyverse`
-:::
-
-## Read CSVs
-
-> `read_csv()` take one necessary argument, which is `file`, a path to a file.
-
-```{r, echo = TRUE}
-
-my_csv_data <- read_csv(file = here("data", "rock.csv"))
-
-my_csv_data
-```
-
-## Read excel files
-
-> `read_excel()` take one necessary argument, which is `path`, a path to a file. You will need to define `sheet` argument if you have more than one sheet in excel (default to first sheet).
-
-```{r, echo = TRUE}
-my_excel_data <- read_excel(path = here("data", "rock.xlsx"),
-                            sheet = 1)
-
-my_excel_data
-```
-
-## Read TSVs or TXTs
-
-> `read_tsv()` take one necessary argument, which is `file`, a path to a file.
-
-```{r, echo = TRUE}
-my_tsv_data <- read_tsv(file = here("data", "rock.tsv"))
-
-my_tsv_data
-```
-
-## Read whatever
-
-> `read_delim()` take two necessary argument, which is `file`, a path to a file, and `delim`, the separator. It's the most flexible way to read in data.
-
-```{r, echo = TRUE}
-my_data <- read_delim(file = here("data", "rock.txt"),
-                      delim = "\t")
-
-my_data
-```
-
-## Write CSVs
-
-### csv is the most commonly used because of its simplicity and compatibility
-
-> `write_csv()` takes two necessary arguments `x`, the data frame object you want to export, and `file`, the path you want to save the file to.
-
-```{r, echo = TRUE}
-
-write_csv(x = my_data,
-          file = here("data", "my_data.csv"))
-```
-
-Now, check your folder, and you should find a file got saved with the name `my_data.csv`.
-
-![](images/paste-14D85C4A.png){fig-align="center"}
-
-# 
 
 # R Others: Miscellaneous
 
