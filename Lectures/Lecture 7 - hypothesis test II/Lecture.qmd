@@ -1,5 +1,5 @@
 ---
-title: "NRES 776 Lecture "
+title: "NRES 776 Lecture 7"
 subtitle: "Hypothesis test II"
 author: Sunny Tseng
 format:
@@ -270,7 +270,7 @@ A quality control specialist regularly checks this claim. On one production run,
 
 He obtained:
 
-![](images/paste-9A58F1C5.png)
+![](images/paste-9A58F1C5.png){fig-align="center"}
 
 . . .
 
@@ -342,7 +342,7 @@ $$
 
 ## What we learned in the past month
 
-### Statistics 
+### Statistics
 
 -   Population vs sample, descriptive statistics
 
@@ -352,7 +352,7 @@ $$
 
 -   Hypothesis test
 
-### R coding 
+### R coding
 
 -   Basic R (R & RStudio, object, function, data type)
 
@@ -364,9 +364,9 @@ $$
 
 ### Submission on Moodle (Oct.19)
 
--   2 pages report "NRES776\_*firstname_lastname*\_project_1.**pdf**"
+-   2 pages report "NRES776\_*firstname_lastname*\_project_1.**pdf**" (23:59)
 
--   5 mins oral presentation "NRES776\_*firstname_lastname*\_project_1.ppt"
+-   5 mins oral presentation "NRES776\_*firstname_lastname*\_project_1.ppt" (8:00)
 
 ### Content
 
@@ -394,7 +394,7 @@ $$
 
 -   If none of these can be applied to your data, or you are not sure, come have a chat with me or Lisa. The goal of this project is to help you practice the methods we learned in this course, which doesn't cover all analysis methods.
 
-### Encouraged 
+### Encouraged
 
 -   Data visualization would be fun
 

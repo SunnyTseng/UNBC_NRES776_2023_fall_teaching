@@ -34,7 +34,7 @@ knitr::opts_chunk$set(dpi = 150, fig.width = 8, out.width = "90%",
 
 ```
 
-# Welcome to your second R lab!
+# Welcome to your third R lab!
 
 ## Our schedule today
 
@@ -52,10 +52,9 @@ knitr::opts_chunk$set(dpi = 150, fig.width = 8, out.width = "90%",
 
 ## Announcements
 
--   Some cool plots we got from lab2
--   Create a R project, and a data folder inside it.
--   Save the spreadsheets inside the data folder.
--   Preset: packages we need today
+-   Create a R project, and a folder (named data) inside it.
+-   Save the .csv files inside the data folder.
+-   Packages we need today
     -   `here`: for file path
 
     -   `tidyverse`: for data I/O and data wrangling
@@ -72,6 +71,14 @@ library(here)
 library(tidyverse)
 library(palmerpenguins)
 ```
+
+## Some beautiful plots from lab 2
+
+![](images/NRES776_westin_creyke_lab_2.png)
+
+## Some beautiful plots from lab 2
+
+![](images/NRES776_Carlie_OBrien_lab_2.png.png)
 
 # Discussion paper presentation
 
@@ -101,7 +108,7 @@ There are some packages that you are likely to use in everyday data analysis:
 -   `purrr` package: working with functions
 -   Full list of tidyverse packages is shown here: <https://www.tidyverse.org/packages/>
 
-These are called core tidyverse, and we can load all the tidyverse packages at once by installing and loading the **tidyverse** package:
+These are called core tidyverse, and we can load all the core packages at once by installing and loading the **tidyverse** package:
 
 ```{r, echo = TRUE, eval = FALSE}
 library(tidyverse)
@@ -193,7 +200,7 @@ Illustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data
 :::
 
 ::: {.column width="60%"}
-![](images/paste-0AE74B91.png){fig-align="right" width="626"}
+![](images/paste-0AE74B91.png){fig-align="right" width="576"}
 :::
 :::
 
@@ -318,14 +325,16 @@ There is no right or wrong or which way should be used. And both can achieve sam
 
 # Data I/O: with csv files
 
-with tidyverse `readr` package
+-   `read_csv()`
+
+-   `write_csv()`
 
 ## Overview
 
 With `readr` and `readxl`, you will be able to use the following functions to read spreadsheets into R.
 
 | Function       | Format                                            | Typical suffix |
-|-------------------|-----------------------------------|-------------------|
+|-------------------|----------------------------------|-------------------|
 | `read_delim()` | general text file format, must define delimiter   | .txt           |
 | `read_csv()`   | comma separated values                            | .csv           |
 | `read_csv2()`  | semicolon separated values                        | .csv           |
@@ -367,8 +376,6 @@ write_csv(x = my_data,
 Now, check your folder, and you should find a file got saved with the name `my_data.csv`.
 
 # Data wrangling: rows
-
-with tidyverse `dplyr` package
 
 -   `filter()`
 
@@ -469,9 +476,44 @@ penguins %>%
   distinct(species, island, .keep_all = TRUE)
 ```
 
-# Data wrangling: columns
+## Your turn
 
-with tidyverse `dplyr` package
+-   Remove all the rows that have any `NA` in their values
+
+-   Keep observations that measured in 2007
+
+-   Arrange the rows based on flipper length, from high to low
+
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  ___() %>%
+  filter(year ___ 2007) %>%
+  ___(___(flipper_length_mm))
+```
+
+```{r, echo = FALSE}
+penguins %>%
+  drop_na() %>%
+  filter(year == 2007) %>%
+  arrange(desc(flipper_length_mm))
+```
+
+## Your turn
+
+-   Remove all the rows that have any `NA` in their values
+
+-   Keep observations that measured in 2007
+
+-   Arrange the rows based on flipper length, from high to low
+
+```{r, echo = TRUE}
+penguins %>%
+  drop_na() %>%
+  filter(year == 2007) %>%
+  arrange(desc(flipper_length_mm))
+```
+
+# Data wrangling: columns
 
 -   `mutate()`
 
@@ -625,6 +667,8 @@ Artwork by Allison Horst
 
 Create new columns that are the result of calculations performed on groups of data
 
+-   `group_by()`
+
 ## group_by() & ungroup()
 
 > Group by one or more variables
@@ -762,48 +806,120 @@ penguins %>%
 
 ## Use with slice_sample()
 
-### Use stratified sampling to select 10 individuals from each species  
+### Use stratified sampling to select 10 individuals from each species
 
-```{r, echo = TRUE}
+```{r, echo = TRUE, eval = FALSE}
 penguins %>%
   group_by(species) %>%
-  slice_sample(n = 10)
+  slice_sample(n = 10) %>%
+  summarise(count = n())
 ```
 
-### It's works the same as specify .by inside summarize()
+### It works the same as specify by inside slice()
 
 ::: columns
 ::: {.column width="50%"}
 ```{r, echo = TRUE, eval = FALSE}
 penguins %>%
   group_by(species) %>%
-  slice_sample(n = 10)
+  slice_sample(n = 10) %>%
+  summarise(count = n())
 ```
 :::
 
 ::: {.column width="50%"}
-```{r, echo = TRUE, FALSE}
+```{r, echo = TRUE, eval = FALSE}
 penguins %>%
-  slice_sample(n = 10, .by = species)
+  slice_sample(n = 10, by = species) %>%
+  summarise(count = n(), .by = species)
 ```
 :::
 :::
 
+## Your turn
+
+-   Calculate the number of observations in each year
+
+-   Calculate the SD of the flipper length in each year
+
+```{r, echo = TRUE, eval = FALSE}
+penguins %>%
+  group_by(___) %>%
+  summarize(n = ___,
+            flipper_length_sd = __(flipper_length_mm, ___ = ___))
+```
+
+```{r, echo = FALSE}
+penguins %>%
+  group_by(year) %>%
+  summarize(n = n(),
+            flipper_length_sd = sd(flipper_length_mm, na.rm = TRUE))
+```
+
+## Your turn
+
+-   Calculate the number of observations in each year
+
+-   Calculate the SD of the flipper length in each year
+
+```{r, echo = TRUE}
+penguins %>%
+  group_by(year) %>%
+  summarize(n = n(),
+            flipper_length_sd = sd(flipper_length_mm, na.rm = TRUE))
+```
+
 # Data wrangling: reshape
 
-with tidyverse `dplyr` package
+-   `pivot_longer()`
+
+-   `pivot_wider()`
 
 ## pivot_longer()
 
+```{r, echo = TRUE}
+relig_income
+```
+
+## pivot_longer()
+
+```{r, echo = TRUE}
+relig_income %>%
+  pivot_longer(!religion, names_to = "income", values_to = "count")
+```
+
 ## pivot_wider()
+
+```{r, echo = TRUE}
+fish_encounters
+```
+
+## pivot_wider()
+
+```{r, echo = TRUE}
+fish_encounters %>%
+  pivot_wider(names_from = station, values_from = seen)
+```
 
 # Data wrangling: combining two tibbles
 
-# R Others: Miscellaneous
+-   `left_join()`
+
+-   `right_join()`
+
+-   `full_join()`
+
+## Data wrangling cheat sheet
+
+[Link is here](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+
+![](images/paste-3CF4D41B.png)
+
+# R Others: Miscellaneous {visibility="hidden"}
 
 Here is some advanced materials if you are comfortable and familiar with the content above
 
-## What's wrong?
+## What's wrong? {visibility="hidden"}
 
 -   no installation of package
 
@@ -819,11 +935,7 @@ Here is some advanced materials if you are comfortable and familiar with the con
 
 -   fill and colour in bar plot!
 
-## R `ggplot()` cheatsheet
-
-## Commenting your code
-
-## Short cuts
+## Short cuts {visibility="hidden"}
 
 -   Ctrl + Enter
 
@@ -841,35 +953,49 @@ Here is some advanced materials if you are comfortable and familiar with the con
 
 ## Your task
 
-We are going to work on the `penguins_raw` data set from the `palmarpenguins` package. Your task is to **wrangle** the `penguins_raw` and make it look like our target data set, which I provided as a *.csv* file on Moodle.
+We have one set of dirty data and another set of cleaned data. Your task is to **wrangle** the dirty data set and make it **the same** as the cleaned data set. Both data set were provided on Moodle.
 
--   Download the *NRES776_target_lab3.csv* from Moodle.
+-   Load the *NRES776_dirty_lab3.csv* and *NRES776_cleaned_lab3.csv*
 
 -   Here are some lines might be helpful for you to get started.
 
--   The goal is to get the `all_equal()` to return `TRUE`!
+-   The goal is to get the `all.equal()` to return `TRUE`!
 
 ```{r, echo = TRUE, eval = FALSE}
 
 ### Library, add any libraries you might need
 library(tidyverse)
 library(here)
-library(palmerpenguins)
 
-### Read in the target data set, or however your prefer to import data
-target <- read_csv("data/NRES776_target_lab3.csv")
+### Read in data sets
+dirty <- read_csv("data", "NRES776_dirty_lab3.csv")
+cleaned <- read_csv(here("data", "NRES776_cleaned_lab3.csv"))
 
-### Your code here
-my_clean_dataset <- penguins_raw %>%
-  ...
+### Data wrangling code here
+my_cleaned_dataset <- dirty %>%
+  …
 
 ### Final check
-all_equal(my_clean_dataset, target)
+all.equal(target = cleaned, current = my_cleaned_dataset)
 ```
 
-## Your task
+## Hints
 
-### Hints
+### `NRES776_cleaned_lab3.csv`
+
+![](images/paste-E0F77C49.png){width="681"}
+
+## Hints
+
+### `NRES776_dirty_lab3.csv`
+
+![](images/paste-71B8EF2F.png){width="683"}
+
+## Hints
+
+### `NRES776_dirty_lab3.csv`
+
+![](images/paste-9FDB2097.png){width="683"}
 
 ## Submission
 
@@ -877,13 +1003,11 @@ all_equal(my_clean_dataset, target)
 
 ### Evaluation
 
--   File name and type (NRES776\_*firstname*\_*lastname*\_lab_2.**png**) (10%)
+-   File name and type (NRES776\_*firstname*\_*lastname*\_lab_3.**R**) (20%)
 
--   Accuracy, 15%, and quality, 25%, of each two plots -\> (80%)
+-   Accuracy of code (60%)
 
--   Annotation of the final patchwork product (10%)
-
--   Bonus points for extra question (30%)
+-   Readability, efficiency, and annotation of code (20%)
 
 ### Use of ChatGPT, stackflow, or...
 
