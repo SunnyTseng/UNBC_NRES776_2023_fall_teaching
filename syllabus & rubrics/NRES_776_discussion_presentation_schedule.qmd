@@ -1,7 +1,7 @@
 ---
 title: "NRES776 Discussion paper presentation schedule"
 author: "Sunny Tseng"
-format: pdf
+format: html
 editor: visual
 ---
 
@@ -19,7 +19,7 @@ editor: visual
 
 #### Oct. 12, Problems with p-values
 
--   Shaye Hill
+-   Shaye Hill, Eliseu Peixoto
 
 #### Oct. 26, Questionable research practices
 
@@ -35,7 +35,7 @@ editor: visual
 
 #### Nov. 16, Generalized linear models
 
--   Candyce Huxter, meng wang
+-   Candyce Huxter, meng wang, Carolyn Knapper
 
 #### Nov. 23, Decolonizing quantitative research
 
