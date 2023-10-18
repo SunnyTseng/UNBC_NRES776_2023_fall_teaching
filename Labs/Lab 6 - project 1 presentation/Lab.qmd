@@ -1,0 +1,63 @@
+---
+title: "NRES 776 Lab 6"
+subtitle: "Project 1 presentation"
+author: Sunny Tseng
+format:
+  revealjs: 
+    slide-number: true
+    preview-links: auto
+    #css: styles.css
+    #footer: <https://quarto.org>
+    theme: [default, styles.scss]
+    #smaller: true
+    #scrollable: true
+    incremental: true
+    #embed-resources: true
+    width: 1200
+    fontsize: 1.7em
+    fig-align: "center"
+editor: visual
+---
+
+```{}
+```
+
+# Time to shine!
+
+## What will happen today
+
+### 
+
+::: columns
+::: {.column width="50%"}
+### Rules
+
+-   5 mins oral presentation
+
+### How it works
+
+1.  Pick the first speaker
+2.  The speaker pull out the presentation slides
+3.  Presentation: 5 mins (4 mins notice)
+4.  Question or comments: 1 min
+5.  Pick up next speaker & get a candy!
+:::
+
+::: {.column width="50%"}
+![](images/paste-B0A1D6B9.png)
+:::
+:::
+
+::: aside
+Artwork by Allison Horst
+:::
+
+## Wrap up
+
+### Before we meet again
+
+-   Submit project 1 written report
+
+### Next time
+
+-   Halloween day (Oct.31) online!
