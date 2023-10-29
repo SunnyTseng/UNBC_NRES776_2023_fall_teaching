@@ -66,7 +66,7 @@ Want to try some trivia for practice?
 
     -   Spearman's correlation coefficient: monotonic relationship
 
--   Linear regression: $\beta_0$ shows the baseline effect; $\beta_1$ shows the effect, slope, of predictor $x$ on response $y$
+-   Linear models (ordinary least square, OLS): $\beta_0$ shows the baseline effect; $\beta_1$ shows the effect, slope, of predictor $x$ on response $y$
 
     -   continuous $y$ and categorical/continuous $x$
 
@@ -76,7 +76,99 @@ Want to try some trivia for practice?
 
 -   What more can we ask for?
 
-## Assumptions of linear regression
+## Assumptions of **linear** models
+
+$$
+\mu_i = y_i - \epsilon_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} +... + \beta_p x_{pi}
+$$
+
+$$
+\epsilon_i \sim N(0, \sigma_{\epsilon}^2), iid
+$$
+
+$$
+var(y_i) = var(\epsilon_i) = \sigma_\epsilon^2 
+$$
+
+-   **L**inear
+
+-   **I**ndependent
+
+-   **N**ormality
+
+-   **E**qual variance
+
+## Generalized linear model
+
+> is a statistical modelling technique formulated by John Nelder and Robert Wedderburn in 1972. It allows the response variable $y$ to have an error distribution other than a normal distribution.The models include Linear Regression, Logistic Regression, and Poisson Regression.
+
+-   Generalized: GLM can accommodates other error structures (e.g., Poisson, Binomial) in addition to Normal
+
+-   Linear: The parameters, coefficients (i.e., $\beta$) are linearly combined
+
+::: aside
+https://www.youtube.com/watch?app=desktop&v=ddCO2714W-o
+:::
+
+## Linear models vs Generalized linear models
+
+::: columns
+::: {.column width="50%"}
+Linear Models (1809)
+
+-   $y_i \sim N(\mu_i, \sigma^2)$
+
+-   $\mu_i = x_i'\beta$
+
+-   Least square, or maximum likehood for parameter estimation
+:::
+
+::: {.column width="50%"}
+Generalized linear models (1972)
+
+-   $y_i \sim$ exponential family distribution
+
+-   $g(\mu_i) = x_i'\beta$, $g()$ can be logit, inverse, log, exponential, etc
+
+-   Only maximum likelihood
+:::
+:::
+
+> Linear models is a special case of generalized linear models, where the error distribution follows normal distribution
+
+## Three components for a GLM
+
+1.  Systematic component, or linear predictor: linear combinations of regression coefficients
+
+$$
+\eta_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + ... + \beta_p x_{pi}
+$$
+
+2.  Link function: how the predicted response relates to the systematic component
+
+$$
+\eta_i = g(\mu_i)
+$$
+
+3.  Random component, or variance function: refers to the probability distribution, from the family of distributions of the response variable
+
+$$
+var(y_i) = \phi V(\mu_i)
+$$
+
+-   We can use **back transformation** to get $y_i$:
+
+    $$
+    \eta_i = g(\mu_i) = g(y_i - \epsilon_i) = x_i'\beta 
+    $$
+
+    $$
+    y_i = g^{-1}(x_i' \beta) + \epsilon_i
+    $$
+
+-   $\phi$ is a constant, called the scale parameter
+
+-   $V$ is a variance function (variance as a function of the means)
 
 # Poisson Regression
 
