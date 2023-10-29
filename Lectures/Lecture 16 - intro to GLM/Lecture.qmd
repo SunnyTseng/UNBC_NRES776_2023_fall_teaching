@@ -1,6 +1,6 @@
 ---
-title: "NRES 776 Lecture 7"
-subtitle: "Hypothesis test II"
+title: "NRES 776 Lecture 16"
+subtitle: "Intro to GLM"
 author: Sunny Tseng
 format:
   revealjs: 
@@ -22,22 +22,63 @@ editor: visual
 
 -   Announcement (5 min)
 
--   Three ways to conduct hypothesis test (25 min)
+-   Happy Halloween (8 min)
 
--   Recap and project I (15 min)
+-   Review of LM and GLM (12 min)
+
+-   Poisson regression (20 min)
 
 -   Wrap up (5 min)
 
+### What we will cover about GLM
+
+1.  Review and limit of linear regression. Poisson regression.
+2.  Logistic (bionomial) regression
+3.  Interpreting and plotting GLM
+4.  Multiple regression with GLM
+
 ## Announcement
 
--   Recording
--   Let's take this lecture easy...
+-   Project 1 marking is till ongoing
+-   Discussion presentation on Generalized Linear Models (Nov.9 and Nov.16): one group presents one publication
 
-![](images/paste-22B16D7F.png){fig-align="center" width="707"}
+![](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/8b8ee9c3-c9db-458b-869a-35eda4913056.png?h=ffc16eac0bd6927d676b62824aba3b20){fig-align="center"}
 
 ::: aside
 Artwork by @allison_horst
 :::
+
+## Happy Halloween
+
+Want to try some trivia for practice?
+
+# Generalized Linear Model (GLM)
+
+## Power horse of statistics
+
+-   t-test: comparison between means of two groups
+
+-   ANOVA: comparison between means of multiple groups
+
+-   Correlation: how two variables are correlated
+
+    -   Pearson's correlation coefficient: linear relationship
+
+    -   Spearman's correlation coefficient: monotonic relationship
+
+-   Linear regression: $\beta_0$ shows the baseline effect; $\beta_1$ shows the effect, slope, of predictor $x$ on response $y$
+
+    -   continuous $y$ and categorical/continuous $x$
+
+    -   multiple $x$
+
+    -   transformation of $y$ or $x$: log, quadratic, square root, etc.
+
+-   What more can we ask for?
+
+## Assumptions of linear regression
+
+# Poisson Regression
 
 ## Hypothesis test: two hypotheses
 
@@ -414,5 +455,5 @@ $$
 
 ### Next time
 
--   Oct. 19 \@ 8 am lab, project I presentation, **In Person**, I will be in Prince George 🎠
--   Before that, enjoy the lecture and lab with Lisa 😃
+-   Thursday lab (Nov.2, 8am) is in person with Lisa
+-   
