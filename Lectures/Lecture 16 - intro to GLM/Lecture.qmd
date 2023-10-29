@@ -37,8 +37,8 @@ library(tidyverse)
 
 ### What we will cover about GLM
 
-1.  Review and limit of linear regression. Poisson regression.
-2.  Logistic (bionomial) regression
+1.  Review and limit of linear regression, intro to GLM
+2.  Poisson and Logistic (bionomial) regression
 3.  Interpreting and plotting GLM
 4.  Multiple regression with GLM
 
@@ -99,9 +99,9 @@ $$
 
 -   **I**ndependent
 
--   **N**ormality
+-   **N**ormality: Response variables are not always normally distributed, continuous, ranging from $- \infty$ to $\infty$
 
--   **E**qual variance
+-   **E**qual variance: Variance may change as a function of the means
 
 ## Generalized linear model
 
@@ -137,7 +137,7 @@ Generalized linear models (1972)
 
 -   $g(\mu_i) = x_i'\beta$, $g()$ can be logit, inverse, log, exponential, etc
 
--   Only maximum likelihood
+-   Only maximum likelihood for parameter estimation
 
 -   Use `glm()` function in R
 :::
@@ -156,7 +156,7 @@ lm(formula = Sepal.Length ~ Species, data = iris)
 Fit a linear model using `glm()`, specify `family = "gaussian"`
 
 ```{r}
-glm(formula = Sepal.Length ~ Species, data = iris, family = "gaussian")
+glm(formula = Sepal.Length ~ Species, data = iris, family = "gaussian"(link = "identity"))
 ```
 
 ## Three components for a GLM
@@ -197,6 +197,8 @@ $$
 
 ## Commonly used GLM: Normal
 
+**When to use**: $y$ is continuous
+
 1.  Systematic component
 
 $$ \eta_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + ... + \beta_p x_{pi} $$
@@ -221,19 +223,61 @@ $$ var(y_i) = \sigma^2 $$
 
 ## Commonly used GLM: Binomial
 
-# Poisson Regression
+**When to use**: $y$ is a proportion from 0 to 1, or a (0, 1) Bernoulli variable
+
+1.  Systematic component
+
+$$ \eta_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + ... + \beta_p x_{pi} $$
+
+2.  Link function $g()$ --\> **logit**, makes $(0, 1)$ to $(-\infty, \infty)$
+
+$$ \eta_i = g(p_i) = logit(p_i) = log(\frac{p_i}{1-p_i}) $$
+
+3.  Random component
+
+$$ var(y_i) = n_ip_i(1-p_i) $$
+
+## Normal vs Binomial
+
+## Commonly used GLM: Poisson
+
+**When to use**: $y$ is count (no natural denominator, else use y as a proportion)
+
+1.  
+
+## Normal vs Poisson
+
+## Distributions and links (GLM in a slide)
+
+## Assumptions of GLM
+
+-   Independent observation
+
+-   The variance function (i.e., distribution type) is correctly specified
+
+-   The link function is correctly specified
+
+-   The dispersion parameter, or scale parameter ($\phi$) equals 1
+
+    -   Over-dispersed ($\phi > 1$) or under-dispersed ($\phi < 1$)
+
+    -   Can change the variance function to account for this (use `quasipoisson` or `quasibinomial`)
+
+## Model goodness of fit
+
+-   Better models have higher likelihood
+
+-   Better models have higher Pseudo R-squared (interpretation of this is similar to the R-squared in linear models)
+
+-   Better models have lower AIC value
+
+-   Pearson residuals versus fitted values, or predictors. They should have no patterns
 
 ## Wrap up
 
 ### Before we meet again
 
--   Review the two lectures (important)
-
--   Review and practice with the R coding (also important)
-
--   Maybe use what we learned to explore your own data
-
 ### Next time
 
--   Thursday lab (Nov.2, 8am) is in person with Lisa
--   
+-   Thursday lab (Nov.2, 8am) in person with Lisa
+-   Thursday lecture (Nov.2, 12:30) virtual on zoom -\> UNBC classroom (?)
