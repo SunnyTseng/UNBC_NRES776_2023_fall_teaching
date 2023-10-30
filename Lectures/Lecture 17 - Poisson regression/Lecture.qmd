@@ -1,0 +1,430 @@
+---
+title: "NRES 776 Lecture 16"
+subtitle: "Intro to Generalized Linear Model"
+author: Sunny Tseng
+format:
+  revealjs: 
+    slide-number: true
+    preview-links: auto
+    #css: styles.css
+    #footer: <https://quarto.org>
+    theme: [default, styles.scss]
+    #smaller: true
+    #scrollable: true
+    incremental: true
+    embed-resources: true
+    width: 1200
+    fontsize: 1.7em
+editor: visual
+---
+
+```{r setup}
+library(palmerpenguins)
+library(tidyverse)
+library(AER)
+library(here)
+```
+
+## Our schedule today
+
+-   Announcement (5 min)
+
+-   Happy Halloween (8 min)
+
+-   Review of LM and GLM (12 min)
+
+-   Poisson regression (20 min)
+
+-   Wrap up (5 min)
+
+### What we will cover about GLM
+
+1.  Review and limit of linear regression, intro to GLM
+2.  Poisson regression
+3.  Logistic (bionomial) regression
+4.  Interpreting and plotting GLM, multiple regression with GLM
+
+## Announcement
+
+-   Project 1 marking is till ongoing
+-   Discussion presentation on Generalized Linear Models (Nov.9 and Nov.16): one group presents one publication
+
+![](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/8b8ee9c3-c9db-458b-869a-35eda4913056.png?h=ffc16eac0bd6927d676b62824aba3b20){fig-align="center" width="675"}
+
+::: aside
+Artwork by @allison_horst
+:::
+
+## Happy Halloween
+
+Want to try some trivia for practice?
+
+## Power horse of statistics
+
+-   t-test: comparison between means of two groups
+
+-   ANOVA: comparison between means of multiple groups
+
+-   Correlation: how two variables are correlated
+
+    -   Pearson's correlation coefficient: linear relationship
+
+    -   Spearman's correlation coefficient: monotonic relationship
+
+-   Linear models (ordinary least square, OLS): $\beta_0$ intercept shows the baseline effect; $\beta_1$ slope shows the effect of predictor $x$ on response $y$
+
+    -   continuous $y$ and categorical/continuous $x$
+
+    -   multiple $x$
+
+    -   transformation of $y$ or $x$: log, quadratic, square root, etc.
+
+. . .
+
+> What more can we ask for?
+
+## Assumptions of **linear** models
+
+$$
+y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} +... + \beta_p x_{pi} + \epsilon_i
+$$
+
+$$
+\mu_i = y_i - \epsilon_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} +... + \beta_p x_{pi}
+$$
+
+$$
+\epsilon_i \sim N(0, \sigma_{\epsilon}^2), iid
+$$
+
+$$
+var(y_i) = var(\epsilon_i) = \sigma_\epsilon^2 
+$$
+
+-   **L**inear: the relationship between $x$ and $y$ is linear
+
+-   **I**ndependent: there is no correlation in residuals
+
+-   **N**ormality: the residuals, or the error term, follows a normal distribution.
+
+-   **E**qual variance (homoscedasticity): the variance of residuals are equal across predictors
+
+However,
+
+-    Response variables are not always normally distributed, continuous, ranging from $- \infty$ to $\infty$
+
+-   Variance may change as a function of the means, and not constant
+
+## Generalized linear model (GLM)
+
+> GLM is a statistical modelling technique formulated by John Nelder and Robert Wedderburn. It allows the response variable $y$ to have an error distribution other than a normal distribution.The models include Linear Regression, Logistic Regression, and Poisson Regression.
+
+-   Generalized: GLM can accommodates other error structures (e.g., Poisson, Binomial) in addition to Normal
+
+-   Linear: The parameters, coefficients (i.e., $\beta$) are linearly combined
+
+![](images/Capture.PNG){fig-align="center" width="666"}
+
+::: aside
+https://www.youtube.com/watch?app=desktop&v=ddCO2714W-o
+:::
+
+## Linear models vs Generalized linear models
+
+::: columns
+::: {.column width="50%"}
+Linear Models (1809)
+
+-   $y_i \sim N(\mu_i, \sigma^2)$
+
+-   $\mu_i = x_i'\beta$
+
+-   Least square, or maximum likehood for parameter estimation
+
+-   Use `lm()` function in R
+:::
+
+::: {.column width="50%"}
+Generalized linear models (1972)
+
+-   $y_i \sim$ exponential family distribution
+
+-   $g(\mu_i) = x_i'\beta$, $g()$ can be logit, inverse, log, exponential, etc
+
+-   Only maximum likelihood for parameter estimation
+
+-   Use `glm()` function in R
+:::
+:::
+
+> Linear models is a special case of generalized linear models, where the error distribution follows normal distribution
+
+## Linear model is a special case of GLM
+
+Fit a linear model using `lm()`
+
+```{r, echo = TRUE}
+lm(formula = Sepal.Length ~ Species, data = iris)
+```
+
+Fit a linear model using `glm()`, specify `family = "gaussian"`
+
+`link = "identity"` (by default for gaussian)
+
+```{r, echo = TRUE}
+glm(formula = Sepal.Length ~ Species, data = iris, family = "gaussian"(link = "identity"))
+```
+
+## Three components for a GLM
+
+1.  Systematic component, or linear predictor: linear combinations of regression coefficients
+
+$$
+\eta_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + ... + \beta_p x_{pi}
+$$
+
+2.  Link function $g()$: how the predicted response relates to the systematic component
+
+$$
+\eta_i = g(\mu_i)
+$$
+
+3.  Random component, or variance function: refers to the probability distribution, from the family of distributions of the response variable
+
+$$
+var(y_i) = \phi V(\mu_i)
+$$
+
+## Three components for a GLM
+
+-   We can use **back transformation** to get $y_i$:
+
+    $$
+    \eta_i = g(\mu_i) = g(y_i - \epsilon_i) = x_i'\beta 
+    $$
+
+    $$
+    y_i = g^{-1}(x_i' \beta) + \epsilon_i
+    $$
+
+-   $\phi$ is a constant, called the scale parameter
+
+-   $V$ is a variance function (variance as a function of the means)
+
+## Isn't link function the same as transformation?
+
+How the gender influence the number of publications of a PhD in a year?
+
+```{r}
+data("PhDPublications")
+PhD_data <- PhDPublications %>%
+  select(gender, articles)
+```
+
+-   In linear model, we are trying to find parameters for $ln(y_i) = \beta_0 + \beta_1 x_{1i} + \epsilon_i$
+
+```{r, echo = TRUE}
+PhD_lm <- lm(formula = log(articles + 0.001) ~ gender, 
+             data = PhD_data)
+PhD_lm %>% summary
+```
+
+## Isn't link function the same as transformation?
+
+How the gender influence the number of publications of a PhD in a year?
+
+-   In Poisson GLM, we are trying to find parameters for $ln(\mu_i) = ln(\hat{y_i}|x_i) = ln(y_i - \epsilon_i) = \beta_0 + \beta_1 x_1$
+
+```{r, echo = TRUE}
+PhD_glm <- glm(formula = articles ~ gender,
+               data = PhD_data, 
+               family = "poisson")
+PhD_glm %>% summary()
+```
+
+## Isn't link function the same as transformation?
+
+-   No, log transformed $y$ in a linear model is different from having a log link function in GLM (e.g., Poisson regression)
+
+-   GLM is in general better than transforming variables in linear model
+
+-   Linear model with transformed variable can work only when the dispersion was small and the mean counts were large
+
+![](images/Capture-01.PNG){fig-align="center" width="683"}
+
+## GLM for Normal/Gaussian
+
+**When to use**: $y$ is continuous, and normally distributed
+
+1.  Systematic component
+
+$$ \eta_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + ... + \beta_p x_{pi} $$
+
+2.  Link function $g()$ --\> **identity**
+
+$$ \eta_i = g(\mu_i) = \mu_i $$
+
+3.  Random component --\> **gaussian distribution, thus constant**
+
+$$ var(y_i) = \sigma^2 $$
+
+## GLM for Normal (con'd)
+
+-   Back transformation
+
+$$ y_i = g^{-1}(x_i' \beta) + \epsilon_i $$
+
+$$ y_i = x_i'\beta + \epsilon_i $$
+
+-   Now you can see why it's called "identity" link, as $g(z) = z$
+
+-   The variance function $V()$ is a constant for normal distribution. The value of the variance doesn't change with means --\> equal variance assumption
+
+## GLM for Normal (con'd)
+
+In R, by default `family = gaussian(link = "identity")`, along with `variance = "constant"`, you can change the link but not the variance function.
+
+```{r, echo = TRUE}
+glm_normal <- glm(formula = bill_length_mm ~ species,
+                  data = penguins,
+                  family = "gaussian")
+
+glm_normal %>% summary
+```
+
+## GLM for Binomial
+
+**When to use**: $y$ is a proportion from 0 to 1, or a (0, 1) Bernoulli variable
+
+1.  Systematic component
+
+$$ \eta_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + ... + \beta_p x_{pi} $$
+
+2.  Link function $g()$ --\> most often **logit**, makes $(0, 1)$ to $(-\infty, \infty)$
+
+$$ \eta_i = g(p_i) = logit(p_i) = log(\frac{p_i}{1-p_i}) $$
+
+3.  Random component
+
+$$ var(y_i) = n_ip_i(1-p_i) $$
+
+## GLM for Binomial (con'd)
+
+Another popular link is `family = binomial(link = "probit")` for this distribution. The variance for this distribution is `variance = "mu(1-mu)"`, and you cannot change it from the default.
+
+```{r}
+binomial_data <- read_delim(here("Lectures", "Lecture 16 - intro to GLM", "data", "isolation.txt"))
+
+bird_incidence <- binomial_data %>%
+  select(incidence, area)
+```
+
+```{r, echo = TRUE}
+glm_binomial <- glm(formula = incidence ~ area,
+                    data = bird_incidence,
+                    family = "binomial")
+
+glm_binomial %>% summary
+```
+
+## GLM for Poisson
+
+**When to use**: $y$ is count (no natural denominator, else use y as a proportion)
+
+1.  Systematic component
+
+$$ \eta_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + ... + \beta_p x_{pi} $$
+
+2.  Link function $g()$ --\> most often **log,** makes $(0, \infty)$ to $(-\infty, \infty)$
+
+$$ \eta_i = g(\lambda_i) = log(\lambda_i) $$
+
+3.  Random component
+
+$$ var(y_i) = n_ip_i(1-p_i) $$
+
+## GLM for Poisson (con'd)
+
+By default `family = poisson(link = "log")` is used. The `variance = "mu"` for this distribution and you cannot change it from the default. You can change the link (`link = "identity"` or `link = "sqrt"`)
+
+```{r}
+scores <- penguins %>%
+  complete(year, island, species) %>%
+  summarize(count = n(), .by = c(island, year, species)) %>%
+  select(species, count) %>%
+  arrange(species) %>%
+  rename(player = species, score = count) %>%
+  mutate(player = case_when(
+    player == "Adelie" ~ "Adam",
+    player == "Chinstrap" ~ "Cindy",
+    player == "Gentoo" ~ "Gilliam"
+  ))
+```
+
+```{r, echo = TRUE}
+glm_poission <- glm(formula = score ~ player,
+                    data = scores,
+                    family = "poisson")
+
+glm_poission %>% summary
+```
+
+## Distributions and links (GLM in one slide)
+
+| Regression type              | Distribution      | Link function | When to use                                 |
+|------------------------------|-------------------|---------------|---------------------------------------------|
+| Linear regression            | Gaussian          | Identity      | continuous                                  |
+| Binary (logistic) regression | Binomial          | Logit         | proportion, binary                          |
+| Binary (probit) regression   | Binomial          | Probit        | proportion, binary,                         |
+| Poisson regression           | Poisson           | Log           | count, variance equal to mean               |
+| Negative binomial regression | Negative binomial | Log           | count, variance not equal to mean           |
+| Gamma regression             | Gamma             | Power - 1     | continuous, non-negative                    |
+| Beta regression              | Beta              | Logit         | continuous and values bounded within (0, 1) |
+
+## Assumptions of GLM
+
+-   Independent observation
+
+-   The variance function (i.e., distribution type) is correctly specified
+
+-   The link function is correctly specified
+
+-   The dispersion parameter, or scale parameter ($\phi$) equals 1
+
+    -   Over-dispersed ($\phi > 1$) or under-dispersed ($\phi < 1$)
+
+    -   Can change the variance function to account for this (use `quasipoisson` or `quasibinomial`)
+
+## Model goodness of fit
+
+-   Better models have higher likelihood
+
+-   Better models have higher Pseudo R-squared (interpretation of this is similar to the R-squared in linear models)
+
+-   Better models have lower AIC value
+
+-   Pearson residuals versus fitted values, or predictors. They should have no patterns
+
+## What we learned today
+
+-   GLM is the generalized version of linear model where the distribution of $y$ can be any exponential family
+
+-   Linear model is a special case of generalized linear model, when $y$ is normally distributed
+
+-   We can use `glm()` in R, specifying `family = gaussian`, and get the same result as `lm()`
+
+-   Use GLM according to the distribution of $y$, if possible. Better than transforming variables to fit linear model assumptions
+
+-   Choose proper GLM (distribution and link) by data type
+
+## Wrap up
+
+### Before we meet again
+
+-   Good luck in Halloween party trivia!
+
+### Next time
+
+-   Thursday lab (Nov.2, 8am) in person with Lisa
+-   Thursday lecture (Nov.2, 12:30) virtual on zoom -\> UNBC classroom (?)
+    -   We will focus on Poisson regression, one type of GLM

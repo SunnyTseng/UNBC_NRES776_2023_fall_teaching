@@ -22,6 +22,7 @@ editor: visual
 library(palmerpenguins)
 library(tidyverse)
 library(AER)
+library(here)
 ```
 
 ## Our schedule today
@@ -170,7 +171,7 @@ Fit a linear model using `glm()`, specify `family = "gaussian"`
 
 `link = "identity"` (by default for gaussian)
 
-```{r}
+```{r, echo = TRUE}
 glm(formula = Sepal.Length ~ Species, data = iris, family = "gaussian"(link = "identity"))
 ```
 
@@ -311,6 +312,21 @@ $$ var(y_i) = n_ip_i(1-p_i) $$
 
 Another popular link is `family = binomial(link = "probit")` for this distribution. The variance for this distribution is `variance = "mu(1-mu)"`, and you cannot change it from the default.
 
+```{r}
+binomial_data <- read_delim(here("Lectures", "Lecture 16 - intro to GLM", "data", "isolation.txt"))
+
+bird_incidence <- binomial_data %>%
+  select(incidence, area)
+```
+
+```{r, echo = TRUE}
+glm_binomial <- glm(formula = incidence ~ area,
+                    data = bird_incidence,
+                    family = "binomial")
+
+glm_binomial %>% summary
+```
+
 ## GLM for Poisson
 
 **When to use**: $y$ is count (no natural denominator, else use y as a proportion)
@@ -405,7 +421,7 @@ glm_poission %>% summary
 
 ### Before we meet again
 
--   Review the GLM slides
+-   Good luck in Halloween party trivia!
 
 ### Next time
 
