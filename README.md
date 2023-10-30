@@ -33,6 +33,7 @@ This is the website materials for the lectures and labs for NRES 776 at UNBC.
 - [GLM in data camp](https://app.datacamp.com/learn/courses/generalized-linear-models-in-r)
 - [GLM in R](https://sscc.wisc.edu/sscc/pubs/glm-r/index.html#variable-selection)
 - [Logistic regression in R](https://www.datacamp.com/tutorial/logistic-regression-R)
+- [Binomial regression in R](http://www.simonqueenborough.info/R/statistics/glm-binomial)
 
 
 ## Teaching notes
