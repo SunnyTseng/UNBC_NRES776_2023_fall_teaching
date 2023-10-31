@@ -59,6 +59,8 @@ Artwork by @allison_horst
 
 Want to try some trivia for practice?
 
+![](./images/Screenshot%202023-10-31%20104821.png){width="683"}
+
 ## Power horse of statistics
 
 -   t-test: comparison between means of two groups
@@ -372,7 +374,7 @@ glm_poission %>% summary
 ## Distributions and links (GLM in one slide)
 
 | Regression type              | Distribution      | Link function | When to use                                 |
-|------------------------------|-------------------|---------------|---------------------------------------------|
+|----------------|----------------|----------------|------------------------|
 | Linear regression            | Gaussian          | Identity      | continuous                                  |
 | Binary (logistic) regression | Binomial          | Logit         | proportion, binary                          |
 | Binary (probit) regression   | Binomial          | Probit        | proportion, binary,                         |
