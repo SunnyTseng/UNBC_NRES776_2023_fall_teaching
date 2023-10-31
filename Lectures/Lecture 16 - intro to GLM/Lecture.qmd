@@ -33,7 +33,7 @@ library(here)
 
 -   Review of LM and GLM (12 min)
 
--   Poisson regression (20 min)
+-   Components of GLM, distribution and link function (20 min)
 
 -   Wrap up (5 min)
 
@@ -111,7 +111,7 @@ $$
 
 However,
 
--    Response variables are not always normally distributed, continuous, ranging from $- \infty$ to $\infty$
+-   Response variables are not always normally distributed, continuous, ranging from $- \infty$ to $\infty$
 
 -   Variance may change as a function of the means, and not constant
 
