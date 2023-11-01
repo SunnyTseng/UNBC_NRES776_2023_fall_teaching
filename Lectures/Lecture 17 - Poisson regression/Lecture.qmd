@@ -21,15 +21,17 @@ editor: visual
 ```{r setup}
 library(tidyverse)
 library(here)
+library(palmerpenguins)
+library(lmtest)
 ```
 
 ## Our schedule today
 
 -   Announcement (5 min)
 
--   Review of LM and GLM (12 min)
+-   Review of GLM (10 min)
 
--   Poisson regression (20 min)
+-   Poisson regression (25 min)
 
 -   Wrap up (5 min)
 
@@ -101,9 +103,7 @@ $$
 :::
 :::
 
-## GLM for Poisson
-
-**When to use**: $y$ is count (no natural denominator, else use y as a proportion)
+## Overview of Poisson
 
 1.  Systematic component
 
@@ -117,7 +117,7 @@ $$ \eta_i = g(\lambda_i) = log(\lambda_i) $$
 
 $$ var(y_i) = \lambda = \mu $$
 
-## GLM for Poisson (con'd)
+## Overview of Poisson (con'd)
 
 $$ ln(\mu_i) = ln(\hat{y_i}) = \beta_0 + \beta_1 x_{1i} + ... + \beta_p x_{pi} $$
 
@@ -141,9 +141,13 @@ Family: Poisson; Link function: $log$ (the most commonly used)
 
 -   Too many zeros -\> consider zero-inflated Poisson
 
-## GLM for Poisson (con'd)
+## Overview of Poisson (con'd)
 
-By default `family = poisson(link = "log")` is used. The `variance = "mu"` for this distribution and you cannot change it from the default. You can change the link (`link = "identity"` or `link = "sqrt"`)
+-   By default `family = poisson(link = "log")`
+
+-   You can change the link to `"identity"` or `"sqrt"`
+
+-   The `variance = "mu"` for this distribution and you cannot change it from the default
 
 ```{r}
 scores <- penguins %>%   
@@ -165,17 +169,184 @@ glm_poission <- glm(formula = score ~ player,
 glm_poission %>% summary
 ```
 
+## Research question
+
+There is a investigation on how the tension (Low, Median, or High) on the number of warp breaks per loom. The "breaks" is the response variable which is a count of number of breaks. And the tension (L, M, H) is taken as the predictor variable.
+
+::: columns
+::: {.column width="50%"}
+```{r}
+breaks_overview <- warpbreaks %>%
+  select(-wool) %>%
+  mutate(round = rep(seq(1:18), 3)) %>%
+  pivot_wider(names_from = tension, values_from = breaks)
+breaks_overview
+```
+:::
+
+::: {.column width="50%"}
+Take a look at the group means
+
+```{r, echo = TRUE}
+warpbreaks %>%
+  summarize(mean_breaks = mean(breaks), 
+            .by = tension)
+```
+:::
+:::
+
+## Model formulation
+
+$$
+ln(\mu_i) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i}
+$$
+
+```{r, echo = TRUE}
+breaks_poisson <- glm(formula = breaks ~ tension, data = warpbreaks, family = "poisson")
+
+breaks_poisson %>% summary
+```
+
+## Coef. interpretation
+
+-   For Low tension:
+
+$$
+ln(\mu_i) = \beta_0
+$$
+
+$$
+\mu_i = exp(\beta_0) = exp(3.59) = 36.38
+$$
+
+. . .
+
+-   For Median tension:
+
+$$
+ln(\mu_i) = \beta_0 + \beta_1
+$$
+
+$$
+\mu_i = exp(\beta_0 + \beta_1) = exp(3.59) * exp(-0.32) = 26.38
+$$
+
+. . .
+
+-   For High tension:
+
+$$
+ln(\mu_i) = \beta_0 + \beta_2
+$$
+
+$$
+\mu_i = exp(\beta_0 + \beta_2) = exp(3.59) * exp(-0.51) = 21.66
+$$
+
+## Output interpretation
+
+### Group mean prediction
+
+-   The predicted group means are the same as the ones we calculated based on data
+
+### R output
+
+-   **Intercept (3.59)**: The number of breaks for reference level (low tension) is $exp(3.59)$
+
+-   **tensionM (-0.32)**: The number of breaks for median tension is $exp(-0.32)$ **times** less than reference level (low tension)
+
+-   **tensionH (-0.51)**: The number of breaks for high tension is $exp(-0.51)$ **times** less than reference level (low tension)
+
+-   **Dispersion parameter (1)**: wonderful. Need to consider other methods if dispersion larger than 1 (over-dispersion) or smaller than 1 (under-dispersion)
+
+-   **AIC (507.09)**: Can be used to compare the goodness of fit between models
+
+## Model goodness of fit: Likelihood ratio test
+
+```{r, echo = TRUE}
+breaks_poisson_null <- glm(formula = breaks ~ 1, 
+                           data = warpbreaks,
+                           family = "poisson")
+```
+
+$H_0$: The model performance is the same as a null model (making predictions by chance)
+
+$H_1$: The model performance is significantly different comparing to a null model
+
+. . .
+
+-   Use `lrtest()` function in the `lmtest` package
+
+```{r, echo = TRUE}
+lrtest(breaks_poisson, breaks_poisson_null)
+```
+
+## Model goodness of fit: Likelihood ratio test
+
+```{r, echo = TRUE}
+breaks_poisson_null <- glm(formula = breaks ~ 1,
+                           data = warpbreaks, 
+                           family = "poisson")
+```
+
+$H_0$: The model performance is the same as a null model (making predictions by chance)
+
+$H_1$: The model performance is significantly different comparing to a null model
+
+. . .
+
+-   Or, Use `anova()` and specify `test = "Chisq"`
+
+```{r, echo = TRUE}
+anova(breaks_poisson, breaks_poisson_null, test = "Chisq")
+```
+
+## Predictor significance: Likelihood ratio test
+
+-   Test whether adding one more variable `wool` (type of wool) could increase the model performance
+
+$H_0$: The full model performance is the same as a reduced model (whichever model have fewer predictors)
+
+$H_1$: The full model performance is significantly different comparing to a reduced model
+
+. . .
+
+```{r, echo = TRUE}
+breaks_poisson_add <- glm(formula = breaks ~ tension + wool, 
+                           data = warpbreaks,
+                           family = "poisson")
+
+lrtest(breaks_poisson, breaks_poisson_add)
+```
+
+## Model prediction
+
+-   Use `prediction()` and specify `type = "response"` to get back transformed $y_i$
+
+```{r, echo = TRUE}
+
+```
+
+-   Or, use fitted(), which provides back transformed $y_i$ by default
+
+```{r}
+
+```
+
+## Model visualization
+
+-   Box plot: categorical (y: count; x = tension)
+
+-   Smooth: continuous (y: count; x =
+
+```{r, echo = TRUE}
+ggplot(aes(x = tension, y = breaks), data = warpbreaks) +
+  #geom_boxplot() + 
+  geom_jitter(width = 0.05, height = 0.05) + 
+  geom_smooth(method = "glm", method.arg = list(family = "poisson"))
+```
+
 ## What we learned today
-
--   GLM is the generalized version of linear model where the distribution of $y$ can be any exponential family
-
--   Linear model is a special case of generalized linear model, when $y$ is normally distributed
-
--   We can use `glm()` in R, specifying `family = gaussian`, and get the same result as `lm()`
-
--   Use GLM according to the distribution of $y$, if possible. Better than transforming variables to fit linear model assumptions
-
--   Choose proper GLM (distribution and link) by data type
 
 ## Wrap up
 
