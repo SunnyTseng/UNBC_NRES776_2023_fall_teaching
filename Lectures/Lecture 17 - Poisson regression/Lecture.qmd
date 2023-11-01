@@ -53,6 +53,32 @@ Artwork by @allison_horst
 https://www.youtube.com/watch?app=desktop&v=ddCO2714W-o
 :::
 
+## Assumptions of GLM
+
+-   Independent observation
+
+-   The variance function (i.e., distribution type) is correctly specified
+
+-   The link function is correctly specified
+
+-   The dispersion parameter, or scale parameter ($\phi$) equals 1
+
+    -   Over-dispersed ($\phi > 1$) or under-dispersed ($\phi < 1$)
+
+    -   Can change the variance function to account for this (use `quasipoisson` or `quasibinomial`)
+
+## Model goodness of fit
+
+-   Better models have higher likelihood
+
+-   Better models have higher Pseudo R-squared (interpretation of this is similar to the R-squared in linear models)
+
+-   Better models have lower AIC value
+
+-   Pearson residuals versus fitted values, or predictors. They should have no patterns
+
+# Poisson regression
+
 ## Count data follows Poisson distribution
 
 -   Scores, number of vehicles, number of individuals within certain area and time
@@ -71,7 +97,6 @@ $$
 :::
 
 ::: {.column width="50%"}
-
 ![](images/Poisson_pmf.svg.png){fig-align="center" width="418"}
 :::
 :::
@@ -90,7 +115,55 @@ $$ \eta_i = g(\lambda_i) = log(\lambda_i) $$
 
 3.  Random component
 
-$$ var(y_i) = n_ip_i(1-p_i) $$
+$$ var(y_i) = \lambda = \mu $$
+
+## GLM for Poisson (con'd)
+
+$$ ln(\mu_i) = ln(\hat{y_i}) = \beta_0 + \beta_1 x_{1i} + ... + \beta_p x_{pi} $$
+
+Family: Poisson; Link function: $log$ (the most commonly used)
+
+**When to use**
+
+-   $y$ is count (no natural denominator, else use $y$ as a proportion)
+
+-   $y$ must be a variable that is counted within defined area and time
+
+**Not to use**
+
+-   $y$ is not count or non-positive
+
+-   Non-constant sample area or time ($trees/km$ vs $trees/m$)
+
+-   Mean count $\geq$ 30 -\> consider using normal distribution
+
+-   Over-dispersed -\> consider quasi-Poisson
+
+-   Too many zeros -\> consider zero-inflated Poisson
+
+## GLM for Poisson (con'd)
+
+By default `family = poisson(link = "log")` is used. The `variance = "mu"` for this distribution and you cannot change it from the default. You can change the link (`link = "identity"` or `link = "sqrt"`)
+
+```{r}
+scores <- penguins %>%   
+  complete(year, island, species) %>%   
+  summarize(count = n(), .by = c(island, year, species)) %>%   
+  select(species, count) %>%   
+  arrange(species) %>%   
+  rename(player = species, score = count) %>%   
+  mutate(player = case_when(     
+    player == "Adelie" ~ "Adam",     
+    player == "Chinstrap" ~ "Cindy",     
+    player == "Gentoo" ~ "Gilliam"))
+```
+
+```{r, echo = TRUE}
+glm_poission <- glm(formula = score ~ player,
+                    data = scores,                     
+                    family = "poisson")  
+glm_poission %>% summary
+```
 
 ## What we learned today
 

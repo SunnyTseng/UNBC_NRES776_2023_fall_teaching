@@ -374,7 +374,7 @@ glm_poission %>% summary
 ## Distributions and links (GLM in one slide)
 
 | Regression type              | Distribution      | Link function | When to use                                 |
-|----------------|----------------|----------------|------------------------|
+|-----------------|-----------------|-----------------|---------------------|
 | Linear regression            | Gaussian          | Identity      | continuous                                  |
 | Binary (logistic) regression | Binomial          | Logit         | proportion, binary                          |
 | Binary (probit) regression   | Binomial          | Probit        | proportion, binary,                         |
