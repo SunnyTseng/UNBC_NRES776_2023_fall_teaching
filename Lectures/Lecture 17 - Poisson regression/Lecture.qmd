@@ -23,23 +23,19 @@ library(tidyverse)
 library(here)
 library(palmerpenguins)
 library(lmtest)
+library(interactions)
+library(AER)
 ```
 
 ## Our schedule today
 
--   Announcement (5 min)
+-   Announcement (0.5 min) - recording
 
 -   Review of GLM (10 min)
 
--   Poisson regression (25 min)
+-   Poisson regression (30 min)
 
 -   Wrap up (5 min)
-
-## Announcement
-
-::: aside
-Artwork by @allison_horst
-:::
 
 ## Generalized linear model (GLM)
 
@@ -169,7 +165,7 @@ glm_poission <- glm(formula = score ~ player,
 glm_poission %>% summary
 ```
 
-## Research question
+## Research question (1 categorical x)
 
 There is a investigation on how the tension (Low, Median, or High) on the number of warp breaks per loom. The "breaks" is the response variable which is a count of number of breaks. And the tension (L, M, H) is taken as the predictor variable.
 
@@ -321,40 +317,180 @@ lrtest(breaks_poisson, breaks_poisson_add)
 
 ## Model prediction
 
--   Use `prediction()` and specify `type = "response"` to get back transformed $y_i$
+-   Use `predict()` and specify `type = "response"` to get back transformed $y_i$
 
 ```{r, echo = TRUE}
+warpbreaks_p <- warpbreaks %>%
+  mutate(breaks_p = predict(breaks_poisson_add, type = "response"))
 
+warpbreaks_p
 ```
 
--   Or, use fitted(), which provides back transformed $y_i$ by default
+## Model prediction
 
-```{r}
+-   Or, use `fitted()`, which provides back transformed $y_i$ by default
 
+```{r, echo = TRUE}
+warpbreaks_p <- warpbreaks %>%
+  mutate(breaks_p = fitted(breaks_poisson_add))
+
+warpbreaks_p
 ```
 
 ## Model visualization
 
--   Box plot: categorical (y: count; x = tension)
-
--   Smooth: continuous (y: count; x =
+-   Box plot: categorical predictor (y: count; x = tension)
 
 ```{r, echo = TRUE}
-ggplot(aes(x = tension, y = breaks), data = warpbreaks) +
-  #geom_boxplot() + 
-  geom_jitter(width = 0.05, height = 0.05) + 
-  geom_smooth(method = "glm", method.arg = list(family = "poisson"))
+cat_plot(breaks_poisson_add, 
+         pred = tension, 
+         modx = wool, 
+         geom = "line")
+```
+
+## Research question (1 continuous x)
+
+A survey was done for 915 Candian PhD students to investigate the relationship between number of article published during the PhD and the number of mentors they have.
+
+::: columns
+::: {.column width="50%"}
+```{r}
+data("PhDPublications")
+```
+
+```{r}
+phd_overview <- PhDPublications %>%   
+  select(articles, mentor) 
+  
+phd_overview
+```
+:::
+
+::: {.column width="50%"}
+Take a look at the group means
+
+```{r, echo = TRUE}
+PhDPublications %>%   
+  select(articles, mentor) %>%
+  summarise(articles_mean = mean(articles), .by = mentor) %>%
+  arrange(mentor) %>% 
+  head()
+```
+:::
+:::
+
+## Model formulation
+
+$$ ln(\mu_i) = \beta_0 + \beta_1 x_{1i} $$
+
+```{r, echo = TRUE}
+articles_poisson <- glm(formula = articles ~ mentor, 
+                       data = PhDPublications, 
+                       family = "poisson")
+
+articles_poisson %>% summary()
+```
+
+## Coef. interpretation
+
+-   For PhD students with no mentor:
+
+$$ ln(\mu_i) = \beta_0 $$
+
+$$ \mu_i = exp(\beta_0) = exp(0.25) = 1.29 $$
+
+. . .
+
+-   For PhD students having one mentor:
+
+$$ ln(\mu_i) = \beta_0 + \beta_1 $$
+
+$$ \mu_i = exp(\beta_0 + \beta_1) = exp(0.25) * exp(0.02) = 1.33 $$
+
+. . .
+
+-   For PhD students having more than one mentor(s):
+
+$$ ln(\mu_i) = \beta_0 + \beta_1 x_{1i} $$
+
+$$ \mu_i = exp(\beta_0 + \beta_1 x_{1i}) = exp(0.25) * exp(0.02 x_{1i}) $$
+
+## Coef. interpretation
+
+-   If $x$ is positive, then $exp(x)$ is larger than 1
+
+-   If $x$ is positive, then $exp(x)$ is smaller than 1
+
+![](images/exponential_function_two_to_x.png){fig-align="center"}
+
+## Output interpretation
+
+### Mean prediction
+
+-   If the variable coefficient is greater than 0 -\> the counts gets higher as the variable increases, vice versa
+
+### R output
+
+-   **Intercept (0.25)**: The number of articles as baseline (no mentor) is $exp(0.25)$
+
+-   **mentor (0.02)**: The number of articles with one mentor is $exp(0.02)$ **times** more than baseline
+
+-   **Dispersion parameter (1)**: wonderful. Need to consider other methods if dispersion larger than 1 (over-dispersion) or smaller than 1 (under-dispersion)
+
+-   **AIC (3341.3)**: Can be used to compare the goodness of fit between models
+
+## Model goodness of fit: Likelihood ratio test
+
+```{r, echo = TRUE}
+articles_poisson_null <- glm(formula = articles ~ 1,
+                             data = PhDPublications,
+                             family = "poisson")
+```
+
+$H_0$: The model performance is the same as a null model (making predictions by chance)
+
+$H_1$: The model performance is significantly different comparing to a null model
+
+. . .
+
+-   Use `lrtest()` function in the `lmtest` package
+
+```{r, echo = TRUE}
+lrtest(articles_poisson, articles_poisson_null)
+```
+
+## Model visualization
+
+-   Smooth: continuous (y: count; x = continuous)
+
+```{r, echo = TRUE}
+ggplot(aes(x = mentor, y = articles), data = PhDPublications) + 
+  geom_jitter(width = 0.5, height = 0.5) +
+  geom_smooth(method = "glm", method.args = list(family = "poisson"))
 ```
 
 ## What we learned today
+
+-   Count data follows Poisson distribution
+
+-   Poisson uses log link as the most common link function
+
+-   Coefficient interpretation on Poisson regression when there is 1 variable
+
+-   Test goodness of fit using Likelihood Ratio Test
+
+-   Poisson regression model prediction
+
+-   Poisson regression model visualization
 
 ## Wrap up
 
 ### Before we meet again
 
--   
+-   Review intro to GLM and Poisson regression
+
+-   Enjoy weekend!
 
 ### Next time
 
--   Thursday lecture (Nov.2, 12:30) virtual on zoom -\> UNBC classroom (?)
-    -   We will focus on Poisson regression, one type of GLM
+-   Next Tuesday 12:30 virtual lecture
