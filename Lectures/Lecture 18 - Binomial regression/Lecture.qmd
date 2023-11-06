@@ -1,6 +1,6 @@
 ---
-title: "NRES 776 Lecture 17"
-subtitle: "GLM - Poisson regression"
+title: "NRES 776 Lecture 18"
+subtitle: "Binomial regression"
 author: Sunny Tseng
 format:
   revealjs: 
@@ -31,139 +31,134 @@ library(AER)
 
 -   Announcement (0.5 min) - recording
 
--   Review of GLM (10 min)
-
--   Poisson regression (30 min)
+-   
 
 -   Wrap up (5 min)
 
-## Generalized linear model (GLM)
+## Overview of Binomial data
 
-> GLM is a statistical modelling technique formulated by John Nelder and Robert Wedderburn. It allows the response variable $y$ to have an error distribution other than a normal distribution.The models include Linear Regression, Logistic Regression, and Poisson Regression.
+### Applications
 
--   Generalized: GLM can accommodates other error structures (e.g., Poisson, Binomial) in addition to Normal
+-   Predict the winner of a sport game (team A or team B)
 
--   Linear: The parameters, coefficients (i.e., $\beta$) are linearly combined
+-   Predict animal behaviour (eat or not eat)
 
-![](images/Capture.PNG){fig-align="center" width="666"}
+-   Evaluate business decisions (invest or not)
 
-::: aside
-https://www.youtube.com/watch?app=desktop&v=ddCO2714W-o
-:::
+### Data requirement
 
-## Assumptions of GLM
+-   Binary data (0 or 1)
 
--   Independent observation
+-   Survival data (alive, dead)
 
--   The variance function (i.e., distribution type) is correctly specified
+-   Choice or behaviour (yes or no)
 
--   The link function is correctly specified
+-   Result (pass or fail)
 
--   The dispersion parameter, or scale parameter ($\phi$) equals 1
+### In short
 
-    -   Over-dispersed ($\phi > 1$) or under-dispersed ($\phi < 1$)
+-   Use binomial regression when $y \sim Binomial(p)$
 
-    -   Can change the variance function to account for this (use `quasipoisson` or `quasibinomial`)
-
-## Model goodness of fit
-
--   Better models have higher likelihood
-
--   Better models have higher Pseudo R-squared (interpretation of this is similar to the R-squared in linear models)
-
--   Better models have lower AIC value
-
--   Pearson residuals versus fitted values, or predictors. They should have no patterns
-
-# Poisson regression
-
-## Count data follows Poisson distribution
-
--   Scores, number of vehicles, number of individuals within certain area and time
-
--   Count data follows Poisson distribution $(0, \infty)$, which only has one parameter $\lambda$
-
--   The mean is equal to variance, both are $\lambda$
-
-$$
-P(x) = \frac{\lambda^x e^{-\lambda}}{x!}
-$$
+## Binomial distribution
 
 ::: columns
 ::: {.column width="50%"}
-![](images/SiméonDenisPoisson.jpg){fig-align="center" width="335"}
+### Bernoulli distribution
+
+-   Describe a variable which takes the value 1 with probability $p$ and the value 0 with probability $1-p$
+
+-   The probability of front/back by flipping one coin.
+
+-   $f(k;p) = p^k(1-p)^{1-k}$ for $k \in \{0, 1\}$
+
+![](https://d138zd1ktt9iqe.cloudfront.net/media/seo_landing_files/bernoulli-distribution-graph-1634631289.png){fig-align="center" width="430"}
 :::
 
 ::: {.column width="50%"}
-![](images/Poisson_pmf.svg.png){fig-align="center" width="418"}
+### Binomial distribution
+
+-   The number of successes in a sequence of $n$ independant experiments and each with its own Boolean valued outcome.
+
+-   The probability of having $k$ coins facing up after tossing $n$ coins.
+
+-   $f(k, n, p) = {n \choose x}p^k (1-p)^{1-k}$
+
+![](https://datasciencelk.com/wp-content/uploads/2020/03/Binomial_Distribution-1536x1466.jpg.webp){fig-align="center" width="426"}
 :::
 :::
 
-## Overview of Poisson
+-   Bernoulli distribution is a special case of Binomial distribution when the draw equals to 1 ($n =1$).
+
+## Overview of Binomial regression
 
 1.  Systematic component
 
 $$ \eta_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + ... + \beta_p x_{pi} $$
 
-2.  Link function $g()$ --\> most often **log,** makes $(0, \infty)$ to $(-\infty, \infty)$
+2.  Link function $g()$ --\> most often **logit** (log odds), another one is called "probit"
 
-$$ \eta_i = g(\lambda_i) = log(\lambda_i) $$
+$$ \eta_i = g(p_i) = logit(p_i) = log(\frac{p_i}{1-p_i}) $$
 
 3.  Random component
 
-$$ var(y_i) = \lambda = \mu $$
+$$ var(y_i) = n_ip_i(1-p_i) $$
 
-## Overview of Poisson (con'd)
+## Overview of Binomial regression
 
-$$ ln(\mu_i) = ln(\hat{y_i}) = \beta_0 + \beta_1 x_{1i} + ... + \beta_p x_{pi} $$
+### Equation for binomial regression
 
-Family: Poisson; Link function: $log$ (the most commonly used)
+$$ logit(\mu_i) = logit(p_i) = log(\frac{p_i}{1-p_i})= \beta_0 + \beta_1 x_{1i} + ... + \beta_p x_{pi} $$
 
-**When to use**
+### Equation for back transformation
 
--   $y$ is count (no natural denominator, else use $y$ as a proportion)
+$$
+\mu_i = p_i = logit^{-1}(\beta_0 + \beta_1 x_{1i} + ... + \beta_p x_{pi}) = \frac{1}{1+ exp(\beta_0 + \beta_1 x_{1i} + ...)}
+$$
 
--   $y$ must be a variable that is counted within defined area and time
+### Or, we often use odd to show the result
 
-**Not to use**
+$$
+Odd = \frac{p_i}{1-p_i} = exp(\beta_0 + \beta_1 x_{1i} + ... + \beta_p x_{pi})
+$$
 
--   $y$ is not count or non-positive
+-   Odd is the probability that the event will occur divided by the probability that the event will not occur.
 
--   Non-constant sample area or time ($trees/km$ vs $trees/m$)
+-   Odd increases as the probability increases.
 
--   Mean count $\geq$ 30 -\> consider using normal distribution
+![](https://miro.medium.com/v2/resize:fit:4800/format:webp/1*8ix_A7GUKH9AsZxouYg-uw.png){fig-align="center" width="288"}
 
--   Over-dispersed -\> consider quasi-Poisson
+## Overview of Binomial regression (con'd)
 
--   Too many zeros -\> consider zero-inflated Poisson
+-   By default `family = binomial(link = "logit")` for this distribution.
 
-## Overview of Poisson (con'd)
-
--   By default `family = poisson(link = "log")`
-
--   You can change the link to `"identity"` or `"sqrt"`
-
--   The `variance = "mu"` for this distribution and you cannot change it from the default
+```{=html}
+<!-- -->
+```
+-   The variance for this distribution is `variance = "mu(1-mu)"`, and you cannot change it from the default.
 
 ```{r}
-scores <- penguins %>%   
-  complete(year, island, species) %>%   
-  summarize(count = n(), .by = c(island, year, species)) %>%   
-  select(species, count) %>%   
-  arrange(species) %>%   
-  rename(player = species, score = count) %>%   
-  mutate(player = case_when(     
-    player == "Adelie" ~ "Adam",     
-    player == "Chinstrap" ~ "Cindy",     
-    player == "Gentoo" ~ "Gilliam"))
+binomial_data <- read_delim(here("Lectures", "Lecture 16 - intro to GLM", "data", "isolation.txt"))  
+
+bird_incidence <- binomial_data %>%   
+  select(incidence, area)
 ```
 
 ```{r, echo = TRUE}
-glm_poission <- glm(formula = score ~ player,
-                    data = scores,                     
-                    family = "poisson")  
-glm_poission %>% summary
+glm_binomial <- glm(formula = incidence ~ area, 
+                    data = bird_incidence,                     
+                    family = "binomial")  
+glm_binomial %>% summary
 ```
+
+## Long format vs wide format
+
+::: columns
+::: {.column width="50%"}
+:::
+
+::: {.column width="50%"}
+:::
+:::
 
 ## Research question (1 categorical x)
 
