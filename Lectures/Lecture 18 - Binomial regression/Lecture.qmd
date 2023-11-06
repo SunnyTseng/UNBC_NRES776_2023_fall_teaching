@@ -135,9 +135,8 @@ $$
 
 -   By default `family = binomial(link = "logit")` for this distribution.
 
-```{=html}
 <!-- -->
-```
+
 -   The variance for this distribution is `variance = "mu(1-mu)"`, and you cannot change it from the default.
 
 ```{r}
