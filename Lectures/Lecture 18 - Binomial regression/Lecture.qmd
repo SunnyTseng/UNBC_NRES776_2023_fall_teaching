@@ -25,6 +25,8 @@ library(palmerpenguins)
 library(lmtest)
 library(interactions)
 library(AER)
+
+binomial_data <- read_csv(here("Lectures", "Lecture 18 - Binomial regression", "data", "isolation.csv"))
 ```
 
 ## Our schedule today
@@ -139,8 +141,6 @@ $$
 -   The variance for this distribution is `variance = "mu(1-mu)"`, and you cannot change it from the default.
 
 ```{r}
-binomial_data <- read_delim(here("Lectures", "Lecture 16 - intro to GLM", "data", "isolation.txt"))  
-
 bird_incidence <- binomial_data %>%   
   select(incidence, area)
 ```
