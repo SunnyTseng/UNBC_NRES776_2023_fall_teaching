@@ -27,13 +27,24 @@ library(interactions)
 library(AER)
 
 binomial_data <- read_csv(here("Lectures", "Lecture 18 - Binomial regression", "data", "isolation.csv"))
+
+binomial_data <- binomial_data %>% 
+  mutate(isolation = cut(isolation, breaks = c(2, 5, 7, 10), 
+                         labels = c("low", "median", "high"))) %>%
+  mutate(incidence = as_factor(incidence)) 
 ```
 
 ## Our schedule today
 
--   Announcement (0.5 min) - recording
+-   Announcement (3 min)
 
--   
+    -   zoom recording
+
+    -   You choose the lab 10 topic (<https://forms.gle/gjqQsMFPdmp86yX98>)
+
+-   Overview of Binomial regression (17 min)
+
+-   Fit Binomial regression in R (25 min)
 
 -   Wrap up (5 min)
 
@@ -85,9 +96,9 @@ binomial_data <- read_csv(here("Lectures", "Lecture 18 - Binomial regression", "
 
 -   $f(k, n, p) = {n \choose x}p^k (1-p)^{1-k}$
 
--   Bernoulli distribution is a special case of Binomial distribution when the draw equals to 1 ($n =1$).
+-   Bernoulli distribution is a special case of Binomial distribution when $n =1$.
 
-![](https://datasciencelk.com/wp-content/uploads/2020/03/Binomial_Distribution-1536x1466.jpg.webp){fig-align="center" width="260"}
+![](https://datasciencelk.com/wp-content/uploads/2020/03/Binomial_Distribution-1536x1466.jpg.webp){fig-align="center" width="223"}
 :::
 :::
 
@@ -97,7 +108,7 @@ binomial_data <- read_csv(here("Lectures", "Lecture 18 - Binomial regression", "
 
 $$ \eta_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + ... + \beta_p x_{pi} $$
 
-2.  Link function $g()$ --\> most often **logit** (log odds), another one is called "probit"
+2.  Link function $g()$ --\> most often **logit** (log odds), another common one is "probit"
 
 $$ \eta_i = g(p_i) = logit(p_i) = log(\frac{p_i}{1-p_i}) $$
 
@@ -111,32 +122,65 @@ $$ var(y_i) = n_ip_i(1-p_i) $$
 
 $$ logit(\mu_i) = logit(p_i) = log(\frac{p_i}{1-p_i})= \beta_0 + \beta_1 x_{1i} + ... + \beta_p x_{pi} $$
 
-### Back transformation
+### Back transformation to get probability
 
 $$
 \mu_i = p_i = logit^{-1}(\beta_0 + \beta_1 x_{1i} + ... + \beta_p x_{pi}) = \frac{1}{1+ exp(\beta_0 + \beta_1 x_{1i} + ...)}
 $$
 
-### Or, we often use odd to show the result
+### Or, back transformation to get odds
 
 $$
-Odd = \frac{p_i}{1-p_i} = exp(\beta_0 + \beta_1 x_{1i} + ... + \beta_p x_{pi})
+Odds = \frac{p_i}{1-p_i} = exp(\beta_0 + \beta_1 x_{1i} + ... + \beta_p x_{pi})
 $$
 
-## What's odd...
+## Probability, Odds, Odds Ratio (OR)
 
--   Odd is the probability that the event will occur divided by the probability that the event will not occur.
+### From probability to Odds
 
--   Odd increases as the probability increases.
+$$
+Odds = \frac{p_i}{1-p_i} = exp(\beta_0 + \beta_1 x_{1i} + ... + \beta_p x_{pi})
+$$
 
-![](https://miro.medium.com/v2/resize:fit:4800/format:webp/1*8ix_A7GUKH9AsZxouYg-uw.png){fig-align="center" width="440"}
+-   The probability that the event will occur divided by the probability that the event will not occur.
 
-## Overview of Binomial regression (con'd)
+-   Odds increases as the probability increases.
 
--   By default `family = binomial(link = "logit")` for this distribution.
+::: columns
+::: {.column width="50%"}
+![](https://miro.medium.com/v2/resize:fit:4800/format:webp/1*8ix_A7GUKH9AsZxouYg-uw.png){fig-align="center" width="420"}
+:::
 
-<!-- -->
+::: {.column width="50%"}
+![](images/Capture-01.PNG){fig-align="center" width="423"}
+:::
+:::
 
+## Probability, Odds, Odds Ratio (OR) (con'd)
+
+::: columns
+::: {.column width="50%"}
+### From Odds to Odds Ratio (OR)
+
+-   Odd ratios compare the odds of an event in two different groups
+-   $OR = \frac{Odds(A)}{Odds(B)}= \frac{p_A/(1-p_A)}{p_B/(1-p_B)}$
+-   $OR = 1$, no difference between groups
+-   $OR < 1$, treatment decreases odds
+-   $OR > 1$, treatment increases odds
+:::
+
+::: {.column width="50%"}
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Odds_ratio_map.svg/1280px-Odds_ratio_map.svg.png){fig-align="center" width="620"}
+:::
+:::
+
+::: aside
+Note: the figure is showing log(OR), but the idea is the same. OR, or log(OR) is higher when the event has higher probability compared to another one. Figure from Wikipedia.
+:::
+
+## Binomial regression in R
+
+-   By default `family = binomial(link = "logit")`
 -   The variance for this distribution is `variance = "mu(1-mu)"`, and you cannot change it from the default.
 
 ```{r}
@@ -151,38 +195,139 @@ glm_binomial <- glm(formula = incidence ~ area,
 glm_binomial %>% summary
 ```
 
-## Long format vs wide format
+## Long vs wide format
+
+A survey was done on 50 islands for the incidence of a bird species Grasshopper Warbler. Researchers want to know whether the incidence is related to the area and/or the isolation level of the islands.
 
 ::: columns
 ::: {.column width="50%"}
-:::
+### Long format
 
-::: {.column width="50%"}
-:::
-:::
+-   Each row is an individual observation
 
-## Research question (1 categorical x)
+-   Binary output
 
-There is a investigation on how the tension (Low, Median, or High) on the number of warp breaks per loom. The "breaks" is the response variable which is a count of number of breaks. And the tension (L, M, H) is taken as the predictor variable.
-
-::: columns
-::: {.column width="50%"}
 ```{r}
-breaks_overview <- warpbreaks %>%
-  select(-wool) %>%
-  mutate(round = rep(seq(1:18), 3)) %>%
-  pivot_wider(names_from = tension, values_from = breaks)
-breaks_overview
+data_long <- binomial_data
+data_long
 ```
 :::
 
 ::: {.column width="50%"}
-Take a look at the group means
+### Wide format
+
+-   Each row is a group observation
+
+-   Ratio, or proportion
+
+```{r}
+data_wide <- binomial_data %>%
+  group_by(isolation) %>%
+  summarize(presence = sum(incidence == 1),
+            absence = sum(incidence == 0),
+            total = n(),
+            proportion = presence/total,
+            mean_area = mean(area)) %>%
+  relocate(isolation, .after = mean_area)
+
+data_wide
+```
+:::
+:::
+
+## Long vs wide format (con'd)
+
+::: columns
+::: {.column width="50%"}
+### Long format
+
+-   Directly put $y$ as the Binary output
 
 ```{r, echo = TRUE}
-warpbreaks %>%
-  summarize(mean_breaks = mean(breaks), 
-            .by = tension)
+glm_long <- glm(formula = incidence ~ isolation,
+                data = data_long,
+                family = "binomial")
+
+glm_long %>% coef()
+```
+:::
+
+::: {.column width="50%"}
+### Wide format
+
+-   Use the number of presence and absence
+
+```{r, echo = TRUE}
+glm_wide <- glm(formula = 
+                  cbind(presence, absence) ~ isolation,
+                data = data_wide,
+                family = "binomial")
+
+glm_wide %>% coef()
+```
+
+-   Or, give R the proportion and the total count
+
+```{r, echo = TRUE}
+glm_wide <- glm(formula = proportion ~ isolation,
+                weights = total,
+                data = data_wide, 
+                family = "binomial")
+
+glm_wide %>% coef()
+```
+:::
+:::
+
+## Long vs wide format (con'd)
+
+### What's the same
+
+-   The raw data used
+
+-   The "direction" of coefficients
+
+### What's the difference
+
+-   The coefficient values (Note: These would be the same if the data is balanced)
+
+### When to use what
+
+-   What's your raw data structure?
+
+-   Which variables you have? individual or group?
+
+-   Do you want to make inference to group or individual?
+
+    -   e.g., probability of eggs hatching in a nest -\> nest success? or success of individual eggs?
+
+## Research question (1 categorical x)
+
+A survey was done on 50 islands for the incidence of a bird species Grasshopper Warbler. Researchers want to know whether the incidence is related to the area and/or the isolation level of the islands.
+
+::: columns
+::: {.column width="50%"}
+### Use long format as input
+
+```{r}
+data_long
+```
+:::
+
+::: {.column width="50%"}
+### Take a look at the group means
+
+```{r}
+data_wide <- binomial_data %>%
+  group_by(isolation) %>%
+  summarize(presence = sum(incidence == 1),
+            absence = sum(incidence == 0),
+            total = n(),
+            proportion = presence/total,
+            mean_area = mean(area)) %>%
+  select(proportion, total, isolation)
+
+data_wide
 ```
 :::
 :::
@@ -190,75 +335,83 @@ warpbreaks %>%
 ## Model formulation
 
 $$
-ln(\mu_i) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i}
+logit(p_i) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i}
 $$
 
 ```{r, echo = TRUE}
-breaks_poisson <- glm(formula = breaks ~ tension, data = warpbreaks, family = "poisson")
+incidence_binom <- glm(formula = incidence ~ isolation, 
+                       data = data_long, 
+                       family = "binomial")
 
-breaks_poisson %>% summary
+incidence_binom %>% summary
 ```
 
 ## Coef. interpretation
 
--   For Low tension:
+-   For Low isolation:
 
 $$
-ln(\mu_i) = \beta_0
-$$
-
-$$
-\mu_i = exp(\beta_0) = exp(3.59) = 36.38
-$$
-
-. . .
-
--   For Median tension:
-
-$$
-ln(\mu_i) = \beta_0 + \beta_1
+logit(p_L) = log(\frac{p_L}{1-p_L})= \beta_0
 $$
 
 $$
-\mu_i = exp(\beta_0 + \beta_1) = exp(3.59) * exp(-0.32) = 26.38
+\frac{p_L}{1-p_L} = Odd(p_L) = exp(\beta_0) = exp(20.57) = 8.5 * 10^8
 $$
 
 . . .
 
--   For High tension:
+-   For Median isolation (use odd ratio):
 
 $$
-ln(\mu_i) = \beta_0 + \beta_2
+logit(p_M) = \beta_0 + \beta_1
 $$
 
 $$
-\mu_i = exp(\beta_0 + \beta_2) = exp(3.59) * exp(-0.51) = 21.66
+logit(p_M) - logit(p_L) = \beta_1 = log(\frac{Odd(p_M)}{Odd(p_L)})
+$$
+
+$$
+\frac{Odd(p_M)}{Odd(p_L)} = exp(\beta_1) = exp(-20.01) = 2.04 * 10^{-9} 
+$$
+
+## Coef. interpretation (con'd)
+
+-   For High isolation (use odd ratio):
+
+$$
+logit(p_M) = \beta_0 + \beta_2
+$$
+
+$$
+\frac{Odd(p_H)}{Odd(p_L)} = exp(\beta_2) = exp(-41.13) = 1.36 * 10^{-18} 
 $$
 
 ## Output interpretation
 
-### Group mean prediction
+### Odd ratio (OR)
 
--   The predicted group means are the same as the ones we calculated based on data
+-   $OR = 1$, no difference between groups
+-   $OR < 1$, treatment decreases odds
+-   $OR > 1$, treatment increases odds
 
 ### R output
 
--   **Intercept (3.59)**: The number of breaks for reference level (low tension) is $exp(3.59)$
+-   **Intercept (20.57)**: The odd of the bird being present on low isolation island is $exp(20.57)$
 
--   **tensionM (-0.32)**: The number of breaks for median tension is $exp(-0.32)$ **times** less than reference level (low tension)
+-   **isolationmedian (-20.01)**: The odd ratio of bird being present on median isolation island compared to low isolation island is $exp(-20.01)$
 
--   **tensionH (-0.51)**: The number of breaks for high tension is $exp(-0.51)$ **times** less than reference level (low tension)
+-   **isolationhigh (-41.13)**: The odd ratio of bird being present on median isolation island compared to low isolation island is $exp(-41.13)$
 
 -   **Dispersion parameter (1)**: wonderful. Need to consider other methods if dispersion larger than 1 (over-dispersion) or smaller than 1 (under-dispersion)
 
--   **AIC (507.09)**: Can be used to compare the goodness of fit between models
+-   **AIC (34.841)**: Can be used to compare the goodness of fit between models
 
 ## Model goodness of fit: Likelihood ratio test
 
 ```{r, echo = TRUE}
-breaks_poisson_null <- glm(formula = breaks ~ 1, 
-                           data = warpbreaks,
-                           family = "poisson")
+incidence_binom_null <- glm(formula = incidence ~ 1, 
+                       data = data_long, 
+                       family = "binomial")
 ```
 
 $H_0$: The model performance is the same as a null model (making predictions by chance)
@@ -270,15 +423,15 @@ $H_1$: The model performance is significantly different comparing to a null mode
 -   Use `lrtest()` function in the `lmtest` package
 
 ```{r, echo = TRUE}
-lrtest(breaks_poisson, breaks_poisson_null)
+lrtest(incidence_binom, incidence_binom_null)
 ```
 
 ## Model goodness of fit: Likelihood ratio test
 
 ```{r, echo = TRUE}
-breaks_poisson_null <- glm(formula = breaks ~ 1,
-                           data = warpbreaks, 
-                           family = "poisson")
+incidence_binom_null <- glm(formula = incidence ~ 1, 
+                       data = data_long, 
+                       family = "binomial")
 ```
 
 $H_0$: The model performance is the same as a null model (making predictions by chance)
@@ -290,12 +443,12 @@ $H_1$: The model performance is significantly different comparing to a null mode
 -   Or, Use `anova()` and specify `test = "Chisq"`
 
 ```{r, echo = TRUE}
-anova(breaks_poisson, breaks_poisson_null, test = "Chisq")
+anova(incidence_binom, incidence_binom_null, test = "Chisq")
 ```
 
 ## Predictor significance: Likelihood ratio test
 
--   Test whether adding one more variable `wool` (type of wool) could increase the model performance
+-   Test whether adding one more variable `area` could increase the model performance
 
 $H_0$: The full model performance is the same as a reduced model (whichever model have fewer predictors)
 
@@ -304,11 +457,11 @@ $H_1$: The full model performance is significantly different comparing to a redu
 . . .
 
 ```{r, echo = TRUE}
-breaks_poisson_add <- glm(formula = breaks ~ tension + wool, 
-                           data = warpbreaks,
-                           family = "poisson")
+incidence_binom_add <- glm(formula = incidence ~ isolation + area, 
+                       data = data_long, 
+                       family = "binomial")
 
-lrtest(breaks_poisson, breaks_poisson_add)
+lrtest(incidence_binom, incidence_binom_add)
 ```
 
 ## Model prediction
@@ -316,10 +469,10 @@ lrtest(breaks_poisson, breaks_poisson_add)
 -   Use `predict()` and specify `type = "response"` to get back transformed $y_i$
 
 ```{r, echo = TRUE}
-warpbreaks_p <- warpbreaks %>%
-  mutate(breaks_p = predict(breaks_poisson_add, type = "response"))
+incidence_p <- data_long %>%
+  mutate(incidence_p = predict(incidence_binom_add, type = "response"))
 
-warpbreaks_p
+incidence_p
 ```
 
 ## Model prediction
@@ -327,120 +480,110 @@ warpbreaks_p
 -   Or, use `fitted()`, which provides back transformed $y_i$ by default
 
 ```{r, echo = TRUE}
-warpbreaks_p <- warpbreaks %>%
-  mutate(breaks_p = fitted(breaks_poisson_add))
+incidence_p <- data_long %>%
+  mutate(incidence_p = fitted(incidence_binom_add))
 
-warpbreaks_p
+incidence_p
 ```
 
 ## Model visualization
 
--   Box plot: categorical predictor (y: count; x = tension)
-
 ```{r, echo = TRUE}
-cat_plot(breaks_poisson_add, 
-         pred = tension, 
-         modx = wool, 
-         geom = "line")
+ggplot(aes(x = isolation, y = incidence_p), data = incidence_p) + 
+  geom_boxplot() +
+  labs(y = "Probability of incidence", x = "Isolation level of island")
 ```
 
 ## Research question (1 continuous x)
 
-A survey was done for 915 Candian PhD students to investigate the relationship between number of article published during the PhD and the number of mentors they have.
+A survey was done on 50 islands for the incidence of a bird species Grasshopper Warbler. Researchers want to know whether the incidence is related to the area and/or the isolation level of the islands.
 
 ::: columns
 ::: {.column width="50%"}
-```{r}
-data("PhDPublications")
-```
+### Use long format as input
 
 ```{r}
-phd_overview <- PhDPublications %>%   
-  select(articles, mentor) 
-  
-phd_overview
+data_long
 ```
 :::
 
 ::: {.column width="50%"}
-Take a look at the group means
+### Take a look at the relationship
 
-```{r, echo = TRUE}
-PhDPublications %>%   
-  select(articles, mentor) %>%
-  summarise(articles_mean = mean(articles), .by = mentor) %>%
-  arrange(mentor) %>% 
-  head()
+```{r}
+data_wide <- binomial_data %>%   
+  group_by(isolation) %>%   
+  summarize(presence = sum(incidence == 1),
+            absence = sum(incidence == 0),
+            total = n(),             
+            proportion = presence/total, 
+            mean_area = mean(area)) %>%   
+  select(proportion, total, mean_area)  
+data_wide
 ```
 :::
 :::
 
 ## Model formulation
 
-$$ ln(\mu_i) = \beta_0 + \beta_1 x_{1i} $$
+$$ logit(p_i) = \beta_0 + \beta_1 x_{1i} $$
 
 ```{r, echo = TRUE}
-articles_poisson <- glm(formula = articles ~ mentor, 
-                       data = PhDPublications, 
-                       family = "poisson")
+incidence_binom <- glm(formula = incidence ~ area,
+                       data = data_long,
+                       family = "binomial")
 
-articles_poisson %>% summary()
+incidence_binom %>% summary
 ```
 
 ## Coef. interpretation
 
--   For PhD students with no mentor:
+-   For island with area as 0 (baseline):
 
-$$ ln(\mu_i) = \beta_0 $$
+$$ logit(p_i) = log(\frac{p_i}{1-p_i})= \beta_0 $$
 
-$$ \mu_i = exp(\beta_0) = exp(0.25) = 1.29 $$
+$$ \frac{p_i}{1-p_i} = Odd(p_i) = exp(\beta_0) = exp(-2.15) = 0.11 $$
 
-. . .
+-   The odd for the intercept is not often interpreted by itself.
 
--   For PhD students having one mentor:
+## Coef. interpretation (con'd)
 
-$$ ln(\mu_i) = \beta_0 + \beta_1 $$
+-   For island with non-0 area:
 
-$$ \mu_i = exp(\beta_0 + \beta_1) = exp(0.25) * exp(0.02) = 1.33 $$
+$$ logit(p_i) = \beta_0 + \beta_1 x_{1i}$$
 
-. . .
+$$ logit(p_i') = \beta_0 + \beta_1 (x_{1i} + 1)$$
 
--   For PhD students having more than one mentor(s):
+$$ logit(p_i') - logit(p_i) = \beta_1 = log(\frac{Odd(p_i')}{Odd(p_i)}) $$
 
-$$ ln(\mu_i) = \beta_0 + \beta_1 x_{1i} $$
+$$ \frac{Odd(p_i')}{Odd(p_i)} = exp(\beta_1) = exp(0.62) = 1.87  $$
 
-$$ \mu_i = exp(\beta_0 + \beta_1 x_{1i}) = exp(0.25) * exp(0.02 x_{1i}) $$
-
-## Coef. interpretation
-
--   If $x$ is positive, then $exp(x)$ is larger than 1
-
--   If $x$ is positive, then $exp(x)$ is smaller than 1
-
-![](images/exponential_function_two_to_x.png){fig-align="center"}
+-   For one unit increase in `area`, the odds of the bird species being present increase by a factor of 1.87.
 
 ## Output interpretation
 
-### Mean prediction
+### Odd ratio (OR)
 
--   If the variable coefficient is greater than 0 -\> the counts gets higher as the variable increases, vice versa
+-   $OR = 1$, no difference between groups
+-   $OR < 1$, treatment decreases odds
+-   $OR > 1$, treatment increases odds
 
 ### R output
 
--   **Intercept (0.25)**: The number of articles as baseline (no mentor) is $exp(0.25)$
+-   **Intercept (-2.15)**: The odd of the bird being present on 0 area island is $exp(-2.15)$
 
--   **mentor (0.02)**: The number of articles with one mentor is $exp(0.02)$ **times** more than baseline
+-   **area (0.62)**: For one unit increase in `area`, the odds of the bird species being present increase by a factor of $exp(0.62)$
 
 -   **Dispersion parameter (1)**: wonderful. Need to consider other methods if dispersion larger than 1 (over-dispersion) or smaller than 1 (under-dispersion)
 
--   **AIC (3341.3)**: Can be used to compare the goodness of fit between models
+-   **AIC (54.172)**: Can be used to compare the goodness of fit between models
 
 ## Model goodness of fit: Likelihood ratio test
 
 ```{r, echo = TRUE}
-articles_poisson_null <- glm(formula = articles ~ 1,
-                             data = PhDPublications,
-                             family = "poisson")
+incidence_binom_null <- glm(formula = incidence ~ 1,
+                            data = data_long,
+                            family = "binomial")
 ```
 
 $H_0$: The model performance is the same as a null model (making predictions by chance)
@@ -452,41 +595,51 @@ $H_1$: The model performance is significantly different comparing to a null mode
 -   Use `lrtest()` function in the `lmtest` package
 
 ```{r, echo = TRUE}
-lrtest(articles_poisson, articles_poisson_null)
+lrtest(incidence_binom, incidence_binom_null)
+```
+
+## Model prediction
+
+-   Use `predict()` and specify `type = "response"` to get back transformed $y_i$
+
+```{r, echo = TRUE}
+incidence_p <- data_long %>%   
+  mutate(incidence_p = predict(incidence_binom_add, type = "response")) 
+incidence_p
 ```
 
 ## Model visualization
 
--   Smooth: continuous (y: count; x = continuous)
-
 ```{r, echo = TRUE}
-ggplot(aes(x = mentor, y = articles), data = PhDPublications) + 
-  geom_jitter(width = 0.5, height = 0.5) +
-  geom_smooth(method = "glm", method.args = list(family = "poisson"))
+data_long %>%
+  mutate(incidence = incidence %>% as.numeric() - 1) %>%
+  ggplot(aes(x = area, y = incidence), data = .) +
+  geom_jitter(width = 0, height = 0.05) +
+  geom_smooth(method =  "glm", 
+              method.args = list(family = "binomial"),
+              se = FALSE) +
+  labs(y = "Probability of incidence", x = "Area of an island")
+  
 ```
 
 ## What we learned today
 
--   Count data follows Poisson distribution
+-   What is Binomial distribution
 
--   Poisson uses log link as the most common link function
+-   We can use long data or wide data to fit binomial regression
 
--   Coefficient interpretation on Poisson regression when there is 1 variable
+-   Binomial regression coefficient interpretation
 
--   Test goodness of fit using Likelihood Ratio Test
+-   Goodness of fit
 
--   Poisson regression model prediction
-
--   Poisson regression model visualization
+-   Visualization
 
 ## Wrap up
 
 ### Before we meet again
 
--   Review intro to GLM and Poisson regression
-
--   Enjoy weekend!
+-   Vote for the lab 10 topic (<https://forms.gle/gjqQsMFPdmp86yX98>)
 
 ### Next time
 
--   Next Tuesday 12:30 virtual lecture
+-   Next Thursday morning 8 am lab, virtual on zoom
