@@ -72,7 +72,25 @@ glm_1 <- glm(formula = admission ~ gender,
              family = "binomial")
 ```
 
+## Model goodness of fit
+
+## Coef. interpretation
+
+For male applicants
+
+For female applicants
+
+## Conclusion
+
+Evidence of sex bias in admission practices
+
 ## Model formulation (glm_2)
+
+## Model goodness of fit
+
+## Coef. interpretation
+
+## Comparision between two models
 
 ## What is actually going on
 
@@ -86,6 +104,14 @@ mtext(expression(bold("Student admissions at UC Berkeley")),
       outer = TRUE, cex = 1.5)
 par(opar)
 ```
+
+## Simpson's Paradox
+
+> A phenomenon in probability and statistics in which a trend appears in several groups of data but disappears or reverses when the groups are combined.
+
+Which means, in a easier language, missing of important variable in a model.
+
+![](https://paulvanderlaken.files.wordpress.com/2017/09/simpsonsparadox.png?w=1200){fig-align="center"}
 
 ## Overview of Binomial data
 
