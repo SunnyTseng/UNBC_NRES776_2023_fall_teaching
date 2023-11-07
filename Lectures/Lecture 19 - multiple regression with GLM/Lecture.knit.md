@@ -18,25 +18,10 @@ format:
 editor: visual
 ---
 
-```{r setup}
-library(tidyverse)
-library(here)
-library(lmtest)
+::: {.cell}
 
-binomial_data <- read_csv(here("Lectures", "Lecture 19 - multiple regression with GLM", "data", "isolation.csv"))
-binomial_data <- binomial_data %>% 
-  mutate(isolation = cut(isolation, breaks = c(2, 5, 7, 10), 
-                         labels = c("low", "median", "high"))) %>%
-  mutate(incidence = as_factor(incidence)) 
+:::
 
-
-data("UCBAdmissions")
-UCBAdmissions_clean <- UCBAdmissions %>%
-  as_tibble() %>%
-  pivot_wider(names_from = Admit, values_from = n) %>%
-  mutate(Total = Admitted + Rejected,
-         Rate = Admitted/Total)
-```
 
 ## Our schedule today
 
@@ -56,11 +41,32 @@ Aggregate data on applicants to graduate school at Berkeley for the six largest 
 
 ## Exploratory data visualization
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 apply(UCBAdmissions, c(1, 2), sum)
+```
+
+::: {.cell-output .cell-output-stdout}
+```
+          Gender
+Admit      Male Female
+  Admitted 1198    557
+  Rejected 1493   1278
+```
+:::
+
+```{.r .cell-code}
 mosaicplot(apply(UCBAdmissions, c(1, 2), sum),
            main = "Student admissions at UC Berkeley")
 ```
+
+::: {.cell-output-display}
+![](Lecture_files/figure-revealjs/unnamed-chunk-1-1.png){width=960}
+:::
+:::
+
 
 ## Model formulation (glm_1)
 
@@ -68,7 +74,10 @@ $$
 logit(admission_i) = \beta_0 + \beta_1 genderM_i
 $$
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 glm_1 <- glm(formula = cbind(Admitted, Rejected) ~ Gender, 
              data = UCBAdmissions_clean, 
              family = "binomial")
@@ -76,15 +85,60 @@ glm_1 <- glm(formula = cbind(Admitted, Rejected) ~ Gender,
 glm_1 %>% summary
 ```
 
+::: {.cell-output .cell-output-stdout}
+```
+
+Call:
+glm(formula = cbind(Admitted, Rejected) ~ Gender, family = "binomial", 
+    data = UCBAdmissions_clean)
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -0.83049    0.05077 -16.357   <2e-16 ***
+GenderMale   0.61035    0.06389   9.553   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 877.06  on 11  degrees of freedom
+Residual deviance: 783.61  on 10  degrees of freedom
+AIC: 856.55
+
+Number of Fisher Scoring iterations: 4
+```
+:::
+:::
+
+
 ## Model goodness of fit
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 glm_null <- glm(formula = cbind(Admitted, Rejected) ~ 1,
                 data = UCBAdmissions_clean,
                 family = "binomial")
 
 lrtest(glm_1, glm_null)
 ```
+
+::: {.cell-output .cell-output-stdout}
+```
+Likelihood ratio test
+
+Model 1: cbind(Admitted, Rejected) ~ Gender
+Model 2: cbind(Admitted, Rejected) ~ 1
+  #Df  LogLik Df  Chisq Pr(>Chisq)    
+1   2 -426.27                         
+2   1 -473.00 -1 93.449  < 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+:::
+:::
+
 
 ## Coef. interpretation
 
@@ -134,22 +188,75 @@ $$
 logit(admission_i) = \beta_0 + \beta_1 genderM_i + \beta_2deptB_i + \beta_3deptC_i + \beta_4 deptD_i + beta_5 deptE_i + beta_6 deptF_i
 $$
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 glm_2 <- glm(formula = cbind(Admitted, Rejected) ~ Gender + Dept,
                 data = UCBAdmissions_clean,
                 family = "binomial")
 glm_2 %>% summary()
 ```
 
+::: {.cell-output .cell-output-stdout}
+```
+
+Call:
+glm(formula = cbind(Admitted, Rejected) ~ Gender + Dept, family = "binomial", 
+    data = UCBAdmissions_clean)
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  0.68192    0.09911   6.880 5.97e-12 ***
+GenderMale  -0.09987    0.08085  -1.235    0.217    
+DeptB       -0.04340    0.10984  -0.395    0.693    
+DeptC       -1.26260    0.10663 -11.841  < 2e-16 ***
+DeptD       -1.29461    0.10582 -12.234  < 2e-16 ***
+DeptE       -1.73931    0.12611 -13.792  < 2e-16 ***
+DeptF       -3.30648    0.16998 -19.452  < 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 877.056  on 11  degrees of freedom
+Residual deviance:  20.204  on  5  degrees of freedom
+AIC: 103.14
+
+Number of Fisher Scoring iterations: 4
+```
+:::
+:::
+
+
 ## Model goodness of fit
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 glm_null <- glm(formula = cbind(Admitted, Rejected) ~ 1,
                 data = UCBAdmissions_clean,
                 family = "binomial")
 
 lrtest(glm_1, glm_null)
 ```
+
+::: {.cell-output .cell-output-stdout}
+```
+Likelihood ratio test
+
+Model 1: cbind(Admitted, Rejected) ~ Gender
+Model 2: cbind(Admitted, Rejected) ~ 1
+  #Df  LogLik Df  Chisq Pr(>Chisq)    
+1   2 -426.27                         
+2   1 -473.00 -1 93.449  < 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+:::
+:::
+
 
 ## Coef. interpretation
 
@@ -204,11 +311,16 @@ $$
 
 ## Comparision between models
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 glm_3 <- glm(formula = cbind(Admitted, Rejected) ~ Dept,
              data = UCBAdmissions_clean,
              family = "binomial")
 ```
+:::
+
 
 -   `glm_null`: null model
 
@@ -218,13 +330,47 @@ glm_3 <- glm(formula = cbind(Admitted, Rejected) ~ Dept,
 
 -   `glm_3`: include Dept
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 lrtest(glm_1, glm_2)
 ```
 
-```{r, echo = TRUE}
+::: {.cell-output .cell-output-stdout}
+```
+Likelihood ratio test
+
+Model 1: cbind(Admitted, Rejected) ~ Gender
+Model 2: cbind(Admitted, Rejected) ~ Gender + Dept
+  #Df  LogLik Df Chisq Pr(>Chisq)    
+1   2 -426.27                        
+2   7  -44.57  5 763.4  < 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+:::
+:::
+
+::: {.cell}
+
+```{.r .cell-code}
 lrtest(glm_2, glm_3)
 ```
+
+::: {.cell-output .cell-output-stdout}
+```
+Likelihood ratio test
+
+Model 1: cbind(Admitted, Rejected) ~ Gender + Dept
+Model 2: cbind(Admitted, Rejected) ~ Dept
+  #Df  LogLik Df  Chisq Pr(>Chisq)
+1   7 -44.572                     
+2   6 -45.338 -1 1.5312     0.2159
+```
+:::
+:::
+
 
 ## What is actually going on
 
@@ -232,7 +378,10 @@ lrtest(glm_2, glm_3)
 
 -   Just happen to be that more male students applied to the department with higher admission rate
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 opar <- par(mfrow = c(2, 3), oma = c(0, 0, 2, 0))
 for(i in 1:6)
   mosaicplot(UCBAdmissions[,,i],
@@ -240,8 +389,17 @@ for(i in 1:6)
     main = paste("Department", LETTERS[i]))
 mtext(expression(bold("Student admissions at UC Berkeley")),
       outer = TRUE, cex = 1.5)
+```
+
+::: {.cell-output-display}
+![](Lecture_files/figure-revealjs/unnamed-chunk-9-1.png){width=960}
+:::
+
+```{.r .cell-code}
 par(opar)
 ```
+:::
+
 
 ## Simpson's Paradox
 
@@ -386,17 +544,44 @@ Note: the figure is showing log(OR), but the idea is the same. OR, or log(OR) is
 -   By default `family = binomial(link = "logit")`
 -   The variance for this distribution is `variance = "mu(1-mu)"`, and you cannot change it from the default.
 
-```{r}
-bird_incidence <- binomial_data %>%   
-  select(incidence, area)
-```
 
-```{r, echo = TRUE}
+::: {.cell}
+
+:::
+
+::: {.cell}
+
+```{.r .cell-code}
 glm_binomial <- glm(formula = incidence ~ area, 
                     data = bird_incidence,                     
                     family = "binomial")  
 glm_binomial %>% summary
 ```
+
+::: {.cell-output .cell-output-stdout}
+```
+
+Call:
+glm(formula = incidence ~ area, family = "binomial", data = bird_incidence)
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  -2.1554     0.7545  -2.857 0.004278 ** 
+area          0.6272     0.1861   3.370 0.000753 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 68.029  on 49  degrees of freedom
+Residual deviance: 50.172  on 48  degrees of freedom
+AIC: 54.172
+
+Number of Fisher Scoring iterations: 5
+```
+:::
+:::
+
 
 ## Long vs wide format
 
@@ -410,10 +595,28 @@ A survey was done on 50 islands for the incidence of a bird species Grasshopper 
 
 -   Binary output
 
-```{r}
-data_long <- binomial_data
-data_long
+
+::: {.cell}
+::: {.cell-output .cell-output-stdout}
 ```
+# A tibble: 50 × 3
+   incidence  area isolation
+   <fct>     <dbl> <fct>    
+ 1 1          7.93 low      
+ 2 0          1.92 high     
+ 3 1          2.04 median   
+ 4 0          4.78 median   
+ 5 0          1.54 median   
+ 6 1          7.37 low      
+ 7 1          8.60 low      
+ 8 0          2.42 high     
+ 9 1          6.40 median   
+10 1          7.20 median   
+# ℹ 40 more rows
+```
+:::
+:::
+
 :::
 
 ::: {.column width="50%"}
@@ -423,18 +626,20 @@ data_long
 
 -   Ratio, or proportion
 
-```{r}
-data_wide <- binomial_data %>%
-  group_by(isolation) %>%
-  summarize(presence = sum(incidence == 1),
-            absence = sum(incidence == 0),
-            total = n(),
-            proportion = presence/total,
-            mean_area = mean(area)) %>%
-  relocate(isolation, .after = mean_area)
 
-data_wide
+::: {.cell}
+::: {.cell-output .cell-output-stdout}
 ```
+# A tibble: 3 × 6
+  presence absence total proportion mean_area isolation
+     <int>   <int> <int>      <dbl>     <dbl> <fct>    
+1       15       0    15      1          6.03 low      
+2       14       8    22      0.636      3.93 median   
+3        0      13    13      0          3.01 high     
+```
+:::
+:::
+
 :::
 :::
 
@@ -446,13 +651,25 @@ data_wide
 
 -   Directly put $y$ as the Binary output
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 glm_long <- glm(formula = incidence ~ isolation,
                 data = data_long,
                 family = "binomial")
 
 glm_long %>% coef()
 ```
+
+::: {.cell-output .cell-output-stdout}
+```
+    (Intercept) isolationmedian   isolationhigh 
+       20.56607       -20.00645       -41.13214 
+```
+:::
+:::
+
 :::
 
 ::: {.column width="50%"}
@@ -460,7 +677,10 @@ glm_long %>% coef()
 
 -   Use the number of presence and absence
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 glm_wide <- glm(formula = 
                   cbind(presence, absence) ~ isolation,
                 data = data_wide,
@@ -469,9 +689,21 @@ glm_wide <- glm(formula =
 glm_wide %>% coef()
 ```
 
+::: {.cell-output .cell-output-stdout}
+```
+    (Intercept) isolationmedian   isolationhigh 
+       25.48433       -24.92472       -50.83786 
+```
+:::
+:::
+
+
 -   Or, give R the proportion and the total count
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 glm_wide <- glm(formula = proportion ~ isolation,
                 weights = total,
                 data = data_wide, 
@@ -479,6 +711,15 @@ glm_wide <- glm(formula = proportion ~ isolation,
 
 glm_wide %>% coef()
 ```
+
+::: {.cell-output .cell-output-stdout}
+```
+    (Intercept) isolationmedian   isolationhigh 
+       25.48433       -24.92472       -50.83786 
+```
+:::
+:::
+
 :::
 :::
 
@@ -512,26 +753,47 @@ A survey was done on 50 islands for the incidence of a bird species Grasshopper 
 ::: {.column width="50%"}
 ### Use long format as input
 
-```{r}
-data_long
+
+::: {.cell}
+::: {.cell-output .cell-output-stdout}
 ```
+# A tibble: 50 × 3
+   incidence  area isolation
+   <fct>     <dbl> <fct>    
+ 1 1          7.93 low      
+ 2 0          1.92 high     
+ 3 1          2.04 median   
+ 4 0          4.78 median   
+ 5 0          1.54 median   
+ 6 1          7.37 low      
+ 7 1          8.60 low      
+ 8 0          2.42 high     
+ 9 1          6.40 median   
+10 1          7.20 median   
+# ℹ 40 more rows
+```
+:::
+:::
+
 :::
 
 ::: {.column width="50%"}
 ### Take a look at the group means
 
-```{r}
-data_wide <- binomial_data %>%
-  group_by(isolation) %>%
-  summarize(presence = sum(incidence == 1),
-            absence = sum(incidence == 0),
-            total = n(),
-            proportion = presence/total,
-            mean_area = mean(area)) %>%
-  select(proportion, total, isolation)
 
-data_wide
+::: {.cell}
+::: {.cell-output .cell-output-stdout}
 ```
+# A tibble: 3 × 3
+  proportion total isolation
+       <dbl> <int> <fct>    
+1      1        15 low      
+2      0.636    22 median   
+3      0        13 high     
+```
+:::
+:::
+
 :::
 :::
 
@@ -541,13 +803,40 @@ $$
 logit(p_i) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i}
 $$
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 incidence_binom <- glm(formula = incidence ~ isolation, 
                        data = data_long, 
                        family = "binomial")
 
 incidence_binom %>% summary
 ```
+
+::: {.cell-output .cell-output-stdout}
+```
+
+Call:
+glm(formula = incidence ~ isolation, family = "binomial", data = data_long)
+
+Coefficients:
+                Estimate Std. Error z value Pr(>|z|)
+(Intercept)        20.57    4577.96   0.004    0.996
+isolationmedian   -20.01    4577.96  -0.004    0.997
+isolationhigh     -41.13    6718.61  -0.006    0.995
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 68.029  on 49  degrees of freedom
+Residual deviance: 28.841  on 47  degrees of freedom
+AIC: 34.841
+
+Number of Fisher Scoring iterations: 19
+```
+:::
+:::
+
 
 ## Coef. interpretation
 
@@ -611,11 +900,16 @@ $$
 
 ## Model goodness of fit: Likelihood ratio test
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 incidence_binom_null <- glm(formula = incidence ~ 1, 
                        data = data_long, 
                        family = "binomial")
 ```
+:::
+
 
 $H_0$: The model performance is the same as a null model (making predictions by chance)
 
@@ -625,17 +919,41 @@ $H_1$: The model performance is significantly different comparing to a null mode
 
 -   Use `lrtest()` function in the `lmtest` package
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 lrtest(incidence_binom, incidence_binom_null)
 ```
 
+::: {.cell-output .cell-output-stdout}
+```
+Likelihood ratio test
+
+Model 1: incidence ~ isolation
+Model 2: incidence ~ 1
+  #Df  LogLik Df  Chisq Pr(>Chisq)    
+1   3 -14.421                         
+2   1 -34.015 -2 39.188  3.093e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+:::
+:::
+
+
 ## Model goodness of fit: Likelihood ratio test
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 incidence_binom_null <- glm(formula = incidence ~ 1, 
                        data = data_long, 
                        family = "binomial")
 ```
+:::
+
 
 $H_0$: The model performance is the same as a null model (making predictions by chance)
 
@@ -645,9 +963,28 @@ $H_1$: The model performance is significantly different comparing to a null mode
 
 -   Or, Use `anova()` and specify `test = "Chisq"`
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 anova(incidence_binom, incidence_binom_null, test = "Chisq")
 ```
+
+::: {.cell-output .cell-output-stdout}
+```
+Analysis of Deviance Table
+
+Model 1: incidence ~ isolation
+Model 2: incidence ~ 1
+  Resid. Df Resid. Dev Df Deviance  Pr(>Chi)    
+1        47     28.841                          
+2        49     68.029 -2  -39.188 3.093e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+:::
+:::
+
 
 ## Predictor significance: Likelihood ratio test
 
@@ -659,7 +996,10 @@ $H_1$: The full model performance is significantly different comparing to a redu
 
 . . .
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 incidence_binom_add <- glm(formula = incidence ~ isolation + area, 
                        data = data_long, 
                        family = "binomial")
@@ -667,35 +1007,108 @@ incidence_binom_add <- glm(formula = incidence ~ isolation + area,
 lrtest(incidence_binom, incidence_binom_add)
 ```
 
+::: {.cell-output .cell-output-stdout}
+```
+Likelihood ratio test
+
+Model 1: incidence ~ isolation
+Model 2: incidence ~ isolation + area
+  #Df  LogLik Df  Chisq Pr(>Chisq)  
+1   3 -14.421                       
+2   4 -11.607  1 5.6277    0.01768 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+:::
+:::
+
+
 ## Model prediction
 
 -   Use `predict()` and specify `type = "response"` to get back transformed $y_i$
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 incidence_p <- data_long %>%
   mutate(incidence_p = predict(incidence_binom_add, type = "response"))
 
 incidence_p
 ```
 
+::: {.cell-output .cell-output-stdout}
+```
+# A tibble: 50 × 4
+   incidence  area isolation incidence_p
+   <fct>     <dbl> <fct>           <dbl>
+ 1 1          7.93 low          1.00e+ 0
+ 2 0          1.92 high         6.11e-10
+ 3 1          2.04 median       4.80e- 1
+ 4 0          4.78 median       7.79e- 1
+ 5 0          1.54 median       4.19e- 1
+ 6 1          7.37 low          1.00e+ 0
+ 7 1          8.60 low          1.00e+ 0
+ 8 0          2.42 high         7.79e-10
+ 9 1          6.40 median       8.86e- 1
+10 1          7.20 median       9.20e- 1
+# ℹ 40 more rows
+```
+:::
+:::
+
+
 ## Model prediction
 
 -   Or, use `fitted()`, which provides back transformed $y_i$ by default
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 incidence_p <- data_long %>%
   mutate(incidence_p = fitted(incidence_binom_add))
 
 incidence_p
 ```
 
+::: {.cell-output .cell-output-stdout}
+```
+# A tibble: 50 × 4
+   incidence  area isolation incidence_p
+   <fct>     <dbl> <fct>           <dbl>
+ 1 1          7.93 low          1.00e+ 0
+ 2 0          1.92 high         6.11e-10
+ 3 1          2.04 median       4.80e- 1
+ 4 0          4.78 median       7.79e- 1
+ 5 0          1.54 median       4.19e- 1
+ 6 1          7.37 low          1.00e+ 0
+ 7 1          8.60 low          1.00e+ 0
+ 8 0          2.42 high         7.79e-10
+ 9 1          6.40 median       8.86e- 1
+10 1          7.20 median       9.20e- 1
+# ℹ 40 more rows
+```
+:::
+:::
+
+
 ## Model visualization
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 ggplot(aes(x = isolation, y = incidence_p), data = incidence_p) + 
   geom_boxplot() +
   labs(y = "Probability of incidence", x = "Isolation level of island")
 ```
+
+::: {.cell-output-display}
+![](Lecture_files/figure-revealjs/unnamed-chunk-27-1.png){width=960}
+:::
+:::
+
 
 ## Research question (1 continuous x)
 
@@ -705,25 +1118,47 @@ A survey was done on 50 islands for the incidence of a bird species Grasshopper 
 ::: {.column width="50%"}
 ### Use long format as input
 
-```{r}
-data_long
+
+::: {.cell}
+::: {.cell-output .cell-output-stdout}
 ```
+# A tibble: 50 × 3
+   incidence  area isolation
+   <fct>     <dbl> <fct>    
+ 1 1          7.93 low      
+ 2 0          1.92 high     
+ 3 1          2.04 median   
+ 4 0          4.78 median   
+ 5 0          1.54 median   
+ 6 1          7.37 low      
+ 7 1          8.60 low      
+ 8 0          2.42 high     
+ 9 1          6.40 median   
+10 1          7.20 median   
+# ℹ 40 more rows
+```
+:::
+:::
+
 :::
 
 ::: {.column width="50%"}
 ### Take a look at the relationship
 
-```{r}
-data_wide <- binomial_data %>%   
-  group_by(isolation) %>%   
-  summarize(presence = sum(incidence == 1),
-            absence = sum(incidence == 0),
-            total = n(),             
-            proportion = presence/total, 
-            mean_area = mean(area)) %>%   
-  select(proportion, total, mean_area)  
-data_wide
+
+::: {.cell}
+::: {.cell-output .cell-output-stdout}
 ```
+# A tibble: 3 × 3
+  proportion total mean_area
+       <dbl> <int>     <dbl>
+1      1        15      6.03
+2      0.636    22      3.93
+3      0        13      3.01
+```
+:::
+:::
+
 :::
 :::
 
@@ -731,13 +1166,41 @@ data_wide
 
 $$ logit(p_i) = \beta_0 + \beta_1 x_{1i} $$
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 incidence_binom <- glm(formula = incidence ~ area,
                        data = data_long,
                        family = "binomial")
 
 incidence_binom %>% summary
 ```
+
+::: {.cell-output .cell-output-stdout}
+```
+
+Call:
+glm(formula = incidence ~ area, family = "binomial", data = data_long)
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  -2.1554     0.7545  -2.857 0.004278 ** 
+area          0.6272     0.1861   3.370 0.000753 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 68.029  on 49  degrees of freedom
+Residual deviance: 50.172  on 48  degrees of freedom
+AIC: 54.172
+
+Number of Fisher Scoring iterations: 5
+```
+:::
+:::
+
 
 ## Coef. interpretation
 
@@ -783,11 +1246,16 @@ $$ \frac{Odd(p_i')}{Odd(p_i)} = exp(\beta_1) = exp(0.62) = 1.87  $$
 
 ## Model goodness of fit: Likelihood ratio test
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 incidence_binom_null <- glm(formula = incidence ~ 1,
                             data = data_long,
                             family = "binomial")
 ```
+:::
+
 
 $H_0$: The model performance is the same as a null model (making predictions by chance)
 
@@ -797,23 +1265,69 @@ $H_1$: The model performance is significantly different comparing to a null mode
 
 -   Use `lrtest()` function in the `lmtest` package
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 lrtest(incidence_binom, incidence_binom_null)
 ```
+
+::: {.cell-output .cell-output-stdout}
+```
+Likelihood ratio test
+
+Model 1: incidence ~ area
+Model 2: incidence ~ 1
+  #Df  LogLik Df  Chisq Pr(>Chisq)    
+1   2 -25.086                         
+2   1 -34.015 -1 17.857  2.382e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+:::
+:::
+
 
 ## Model prediction
 
 -   Use `predict()` and specify `type = "response"` to get back transformed $y_i$
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 incidence_p <- data_long %>%   
   mutate(incidence_p = predict(incidence_binom_add, type = "response")) 
 incidence_p
 ```
 
+::: {.cell-output .cell-output-stdout}
+```
+# A tibble: 50 × 4
+   incidence  area isolation incidence_p
+   <fct>     <dbl> <fct>           <dbl>
+ 1 1          7.93 low          1.00e+ 0
+ 2 0          1.92 high         6.11e-10
+ 3 1          2.04 median       4.80e- 1
+ 4 0          4.78 median       7.79e- 1
+ 5 0          1.54 median       4.19e- 1
+ 6 1          7.37 low          1.00e+ 0
+ 7 1          8.60 low          1.00e+ 0
+ 8 0          2.42 high         7.79e-10
+ 9 1          6.40 median       8.86e- 1
+10 1          7.20 median       9.20e- 1
+# ℹ 40 more rows
+```
+:::
+:::
+
+
 ## Model visualization
 
-```{r, echo = TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 data_long %>%
   mutate(incidence = incidence %>% as.numeric() - 1) %>%
   ggplot(aes(x = area, y = incidence), data = .) +
@@ -822,8 +1336,13 @@ data_long %>%
               method.args = list(family = "binomial"),
               se = FALSE) +
   labs(y = "Probability of incidence", x = "Area of an island")
-  
 ```
+
+::: {.cell-output-display}
+![](Lecture_files/figure-revealjs/unnamed-chunk-34-1.png){width=960}
+:::
+:::
+
 
 ## What we learned today
 
@@ -846,3 +1365,4 @@ data_long %>%
 ### Next time
 
 -   Next Thursday morning 8 am lab, virtual on zoom
+

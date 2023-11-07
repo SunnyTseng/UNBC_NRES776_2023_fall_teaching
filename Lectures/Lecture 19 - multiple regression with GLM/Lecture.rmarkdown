@@ -38,6 +38,7 @@ UCBAdmissions_clean <- UCBAdmissions %>%
          Rate = Admitted/Total)
 ```
 
+
 ## Our schedule today
 
 -   Announcement (3 min)
@@ -56,17 +57,20 @@ Aggregate data on applicants to graduate school at Berkeley for the six largest 
 
 ## Exploratory data visualization
 
+
 ```{r, echo = TRUE}
 apply(UCBAdmissions, c(1, 2), sum)
 mosaicplot(apply(UCBAdmissions, c(1, 2), sum),
            main = "Student admissions at UC Berkeley")
 ```
 
+
 ## Model formulation (glm_1)
 
 $$
 logit(admission_i) = \beta_0 + \beta_1 genderM_i
 $$
+
 
 ```{r, echo = TRUE}
 glm_1 <- glm(formula = cbind(Admitted, Rejected) ~ Gender, 
@@ -76,7 +80,9 @@ glm_1 <- glm(formula = cbind(Admitted, Rejected) ~ Gender,
 glm_1 %>% summary
 ```
 
+
 ## Model goodness of fit
+
 
 ```{r, echo = TRUE}
 glm_null <- glm(formula = cbind(Admitted, Rejected) ~ 1,
@@ -85,6 +91,7 @@ glm_null <- glm(formula = cbind(Admitted, Rejected) ~ 1,
 
 lrtest(glm_1, glm_null)
 ```
+
 
 ## Coef. interpretation
 
@@ -134,6 +141,7 @@ $$
 logit(admission_i) = \beta_0 + \beta_1 genderM_i + \beta_2deptB_i + \beta_3deptC_i + \beta_4 deptD_i + beta_5 deptE_i + beta_6 deptF_i
 $$
 
+
 ```{r, echo = TRUE}
 glm_2 <- glm(formula = cbind(Admitted, Rejected) ~ Gender + Dept,
                 data = UCBAdmissions_clean,
@@ -141,7 +149,9 @@ glm_2 <- glm(formula = cbind(Admitted, Rejected) ~ Gender + Dept,
 glm_2 %>% summary()
 ```
 
+
 ## Model goodness of fit
+
 
 ```{r, echo = TRUE}
 glm_null <- glm(formula = cbind(Admitted, Rejected) ~ 1,
@@ -150,6 +160,7 @@ glm_null <- glm(formula = cbind(Admitted, Rejected) ~ 1,
 
 lrtest(glm_1, glm_null)
 ```
+
 
 ## Coef. interpretation
 
@@ -204,11 +215,13 @@ $$
 
 ## Comparision between models
 
+
 ```{r, echo = TRUE}
 glm_3 <- glm(formula = cbind(Admitted, Rejected) ~ Dept,
              data = UCBAdmissions_clean,
              family = "binomial")
 ```
+
 
 -   `glm_null`: null model
 
@@ -218,6 +231,7 @@ glm_3 <- glm(formula = cbind(Admitted, Rejected) ~ Dept,
 
 -   `glm_3`: include Dept
 
+
 ```{r, echo = TRUE}
 lrtest(glm_1, glm_2)
 ```
@@ -226,11 +240,13 @@ lrtest(glm_1, glm_2)
 lrtest(glm_2, glm_3)
 ```
 
+
 ## What is actually going on
 
 -   Admission rate is actually influenced by department, not gender
 
 -   Just happen to be that more male students applied to the department with higher admission rate
+
 
 ```{r, echo = TRUE}
 opar <- par(mfrow = c(2, 3), oma = c(0, 0, 2, 0))
@@ -242,6 +258,7 @@ mtext(expression(bold("Student admissions at UC Berkeley")),
       outer = TRUE, cex = 1.5)
 par(opar)
 ```
+
 
 ## Simpson's Paradox
 
@@ -386,6 +403,7 @@ Note: the figure is showing log(OR), but the idea is the same. OR, or log(OR) is
 -   By default `family = binomial(link = "logit")`
 -   The variance for this distribution is `variance = "mu(1-mu)"`, and you cannot change it from the default.
 
+
 ```{r}
 bird_incidence <- binomial_data %>%   
   select(incidence, area)
@@ -397,6 +415,7 @@ glm_binomial <- glm(formula = incidence ~ area,
                     family = "binomial")  
 glm_binomial %>% summary
 ```
+
 
 ## Long vs wide format
 
@@ -410,10 +429,12 @@ A survey was done on 50 islands for the incidence of a bird species Grasshopper 
 
 -   Binary output
 
+
 ```{r}
 data_long <- binomial_data
 data_long
 ```
+
 :::
 
 ::: {.column width="50%"}
@@ -422,6 +443,7 @@ data_long
 -   Each row is a group observation
 
 -   Ratio, or proportion
+
 
 ```{r}
 data_wide <- binomial_data %>%
@@ -435,6 +457,7 @@ data_wide <- binomial_data %>%
 
 data_wide
 ```
+
 :::
 :::
 
@@ -446,6 +469,7 @@ data_wide
 
 -   Directly put $y$ as the Binary output
 
+
 ```{r, echo = TRUE}
 glm_long <- glm(formula = incidence ~ isolation,
                 data = data_long,
@@ -453,12 +477,14 @@ glm_long <- glm(formula = incidence ~ isolation,
 
 glm_long %>% coef()
 ```
+
 :::
 
 ::: {.column width="50%"}
 ### Wide format
 
 -   Use the number of presence and absence
+
 
 ```{r, echo = TRUE}
 glm_wide <- glm(formula = 
@@ -469,7 +495,9 @@ glm_wide <- glm(formula =
 glm_wide %>% coef()
 ```
 
+
 -   Or, give R the proportion and the total count
+
 
 ```{r, echo = TRUE}
 glm_wide <- glm(formula = proportion ~ isolation,
@@ -479,6 +507,7 @@ glm_wide <- glm(formula = proportion ~ isolation,
 
 glm_wide %>% coef()
 ```
+
 :::
 :::
 
@@ -512,13 +541,16 @@ A survey was done on 50 islands for the incidence of a bird species Grasshopper 
 ::: {.column width="50%"}
 ### Use long format as input
 
+
 ```{r}
 data_long
 ```
+
 :::
 
 ::: {.column width="50%"}
 ### Take a look at the group means
+
 
 ```{r}
 data_wide <- binomial_data %>%
@@ -532,6 +564,7 @@ data_wide <- binomial_data %>%
 
 data_wide
 ```
+
 :::
 :::
 
@@ -541,6 +574,7 @@ $$
 logit(p_i) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i}
 $$
 
+
 ```{r, echo = TRUE}
 incidence_binom <- glm(formula = incidence ~ isolation, 
                        data = data_long, 
@@ -548,6 +582,7 @@ incidence_binom <- glm(formula = incidence ~ isolation,
 
 incidence_binom %>% summary
 ```
+
 
 ## Coef. interpretation
 
@@ -611,11 +646,13 @@ $$
 
 ## Model goodness of fit: Likelihood ratio test
 
+
 ```{r, echo = TRUE}
 incidence_binom_null <- glm(formula = incidence ~ 1, 
                        data = data_long, 
                        family = "binomial")
 ```
+
 
 $H_0$: The model performance is the same as a null model (making predictions by chance)
 
@@ -625,17 +662,21 @@ $H_1$: The model performance is significantly different comparing to a null mode
 
 -   Use `lrtest()` function in the `lmtest` package
 
+
 ```{r, echo = TRUE}
 lrtest(incidence_binom, incidence_binom_null)
 ```
 
+
 ## Model goodness of fit: Likelihood ratio test
+
 
 ```{r, echo = TRUE}
 incidence_binom_null <- glm(formula = incidence ~ 1, 
                        data = data_long, 
                        family = "binomial")
 ```
+
 
 $H_0$: The model performance is the same as a null model (making predictions by chance)
 
@@ -645,9 +686,11 @@ $H_1$: The model performance is significantly different comparing to a null mode
 
 -   Or, Use `anova()` and specify `test = "Chisq"`
 
+
 ```{r, echo = TRUE}
 anova(incidence_binom, incidence_binom_null, test = "Chisq")
 ```
+
 
 ## Predictor significance: Likelihood ratio test
 
@@ -659,6 +702,7 @@ $H_1$: The full model performance is significantly different comparing to a redu
 
 . . .
 
+
 ```{r, echo = TRUE}
 incidence_binom_add <- glm(formula = incidence ~ isolation + area, 
                        data = data_long, 
@@ -667,9 +711,11 @@ incidence_binom_add <- glm(formula = incidence ~ isolation + area,
 lrtest(incidence_binom, incidence_binom_add)
 ```
 
+
 ## Model prediction
 
 -   Use `predict()` and specify `type = "response"` to get back transformed $y_i$
+
 
 ```{r, echo = TRUE}
 incidence_p <- data_long %>%
@@ -678,9 +724,11 @@ incidence_p <- data_long %>%
 incidence_p
 ```
 
+
 ## Model prediction
 
 -   Or, use `fitted()`, which provides back transformed $y_i$ by default
+
 
 ```{r, echo = TRUE}
 incidence_p <- data_long %>%
@@ -689,13 +737,16 @@ incidence_p <- data_long %>%
 incidence_p
 ```
 
+
 ## Model visualization
+
 
 ```{r, echo = TRUE}
 ggplot(aes(x = isolation, y = incidence_p), data = incidence_p) + 
   geom_boxplot() +
   labs(y = "Probability of incidence", x = "Isolation level of island")
 ```
+
 
 ## Research question (1 continuous x)
 
@@ -705,13 +756,16 @@ A survey was done on 50 islands for the incidence of a bird species Grasshopper 
 ::: {.column width="50%"}
 ### Use long format as input
 
+
 ```{r}
 data_long
 ```
+
 :::
 
 ::: {.column width="50%"}
 ### Take a look at the relationship
+
 
 ```{r}
 data_wide <- binomial_data %>%   
@@ -724,12 +778,14 @@ data_wide <- binomial_data %>%
   select(proportion, total, mean_area)  
 data_wide
 ```
+
 :::
 :::
 
 ## Model formulation
 
 $$ logit(p_i) = \beta_0 + \beta_1 x_{1i} $$
+
 
 ```{r, echo = TRUE}
 incidence_binom <- glm(formula = incidence ~ area,
@@ -738,6 +794,7 @@ incidence_binom <- glm(formula = incidence ~ area,
 
 incidence_binom %>% summary
 ```
+
 
 ## Coef. interpretation
 
@@ -783,11 +840,13 @@ $$ \frac{Odd(p_i')}{Odd(p_i)} = exp(\beta_1) = exp(0.62) = 1.87  $$
 
 ## Model goodness of fit: Likelihood ratio test
 
+
 ```{r, echo = TRUE}
 incidence_binom_null <- glm(formula = incidence ~ 1,
                             data = data_long,
                             family = "binomial")
 ```
+
 
 $H_0$: The model performance is the same as a null model (making predictions by chance)
 
@@ -797,13 +856,16 @@ $H_1$: The model performance is significantly different comparing to a null mode
 
 -   Use `lrtest()` function in the `lmtest` package
 
+
 ```{r, echo = TRUE}
 lrtest(incidence_binom, incidence_binom_null)
 ```
 
+
 ## Model prediction
 
 -   Use `predict()` and specify `type = "response"` to get back transformed $y_i$
+
 
 ```{r, echo = TRUE}
 incidence_p <- data_long %>%   
@@ -811,7 +873,9 @@ incidence_p <- data_long %>%
 incidence_p
 ```
 
+
 ## Model visualization
+
 
 ```{r, echo = TRUE}
 data_long %>%
@@ -824,6 +888,7 @@ data_long %>%
   labs(y = "Probability of incidence", x = "Area of an island")
   
 ```
+
 
 ## What we learned today
 
@@ -846,3 +911,4 @@ data_long %>%
 ### Next time
 
 -   Next Thursday morning 8 am lab, virtual on zoom
+
