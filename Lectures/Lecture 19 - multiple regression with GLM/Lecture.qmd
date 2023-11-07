@@ -1,6 +1,6 @@
 ---
 title: "NRES 776 Lecture 19"
-subtitle: "GLM - Simpson's Paradox"
+subtitle: "GLM - multiple variables and Simpson's paradox"
 author: Sunny Tseng
 format:
   revealjs: 
