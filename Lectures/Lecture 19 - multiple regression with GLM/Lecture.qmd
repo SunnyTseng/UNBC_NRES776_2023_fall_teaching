@@ -50,7 +50,7 @@ Aggregate data on applicants to graduate school at Berkeley for the six largest 
 data("UCBAdmissions")
 ```
 
-![](images/Screenshot 2023-11-07 091754.png){fig-align="center" width="669"}
+![](images/Screenshot%202023-11-07%20091754.png){fig-align="center" width="669"}
 
 ## Exploratory data visualization
 
