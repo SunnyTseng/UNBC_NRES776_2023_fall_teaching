@@ -94,7 +94,7 @@ binomial_data <- binomial_data %>%
 
 -   The probability of having $k$ coins facing up after tossing $n$ coins.
 
--   $f(k, n, p) = {n \choose x}p^k (1-p)^{1-k}$
+-   $f(k; n, p) = {n \choose x}p^k (1-p)^{1-k}$
 
 -   Bernoulli distribution is a special case of Binomial distribution when $n =1$.
 
@@ -163,7 +163,7 @@ $$
 ### From Odds to Odds Ratio (OR)
 
 -   Odd ratios compare the odds of an event in two different groups
--   $OR = \frac{Odds(A)}{Odds(B)}= \frac{p_A/(1-p_A)}{p_B/(1-p_B)}$
+-   $OR = \frac{Odds(B)}{Odds(A)}= \frac{p_B/(1-p_B)}{p_A/(1-p_A)}$
 -   $OR = 1$, no difference between groups
 -   $OR < 1$, treatment decreases odds
 -   $OR > 1$, treatment increases odds
