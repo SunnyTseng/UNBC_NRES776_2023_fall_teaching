@@ -22,7 +22,6 @@ editor: visual
 library(tidyverse)
 library(here)
 library(lmtest)
-library(graphics)
 
 binomial_data <- read_csv(here("Lectures", "Lecture 19 - multiple regression with GLM", "data", "isolation.csv"))
 
@@ -31,8 +30,6 @@ binomial_data <- binomial_data %>%
                          labels = c("low", "median", "high"))) %>%
   mutate(incidence = as_factor(incidence)) 
 
-data("UCBAdmissions")
-str(UCBAdmissions)
 ```
 
 ## Our schedule today
@@ -48,6 +45,47 @@ str(UCBAdmissions)
 ## UCB Admission data set
 
 Aggregate data on applicants to graduate school at Berkeley for the six largest departments in 1973 classified by admission and sex.
+
+```{r, echo = TRUE}
+data("UCBAdmissions")
+```
+
+![](images/Screenshot 2023-11-07 091754.png){fig-align="center" width="669"}
+
+## Exploratory data visualization
+
+```{r, echo = TRUE}
+apply(UCBAdmissions, c(1, 2), sum)
+mosaicplot(apply(UCBAdmissions, c(1, 2), sum),
+           main = "Student admissions at UC Berkeley")
+```
+
+## Model formulation (glm_1)
+
+$$
+logit(admission) = \beta_0 + \beta_1 genderF_i
+$$
+
+```{r, echo = TRUE}
+glm_1 <- glm(formula = admission ~ gender, 
+             data = UCBAdmissions, 
+             family = "binomial")
+```
+
+## Model formulation (glm_2)
+
+## What is actually going on
+
+```{r, echo = TRUE}
+opar <- par(mfrow = c(2, 3), oma = c(0, 0, 2, 0))
+for(i in 1:6)
+  mosaicplot(UCBAdmissions[,,i],
+    xlab = "Admit", ylab = "Sex",
+    main = paste("Department", LETTERS[i]))
+mtext(expression(bold("Student admissions at UC Berkeley")),
+      outer = TRUE, cex = 1.5)
+par(opar)
+```
 
 ## Overview of Binomial data
 
