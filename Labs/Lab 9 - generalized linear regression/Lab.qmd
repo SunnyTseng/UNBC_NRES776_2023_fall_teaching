@@ -1,0 +1,220 @@
+---
+title: "NRES 776 Lab 9"
+subtitle: "GLM with single predictor"
+author: Sunny Tseng
+format:
+  revealjs: 
+    slide-number: true
+    preview-links: auto
+    #css: styles.css
+    #footer: <https://quarto.org>
+    theme: [default, styles.scss]
+    #smaller: true
+    #scrollable: true
+    incremental: true
+    embed-resources: true
+    width: 1200
+    fontsize: 1.7em
+editor: visual
+---
+
+```{r setup}
+library(tidyverse)
+library(here)
+library(lmtest)
+
+binomial_data <- read_csv(here("data", "isolation.csv"))
+
+binomial_data <- binomial_data %>% 
+  mutate(isolation = cut(isolation, breaks = c(2, 5, 7, 10), 
+                         labels = c("low", "median", "high"))) %>%
+  mutate(incidence = as_factor(incidence)) 
+
+```
+
+## Our schedule today
+
+-   Discussion paper presentation (50 min)
+
+-   Binomial regression with single continuous $x$ (15 min)
+
+-   Lab intro - Poisson regression with single predictor variable (10 min)
+
+-   Lab intro - Binomial regression with single predictor variable (10 min)
+
+-   Practice (60 min)
+
+# Discussion paper presentation 
+
+-   Olivia Wilson
+
+-   Tina Watters
+
+-   Brett Gandy
+
+# Binomial regression
+
+## Research question (1 continuous x)
+
+A survey was done on 50 islands for the incidence of a bird species Grasshopper Warbler. Researchers want to know whether the incidence is related to the area and/or the isolation level of the islands.
+
+::: columns
+::: {.column width="50%"}
+### Use long format as input
+
+```{r}
+data_long <- binomial_data
+data_long
+```
+:::
+
+::: {.column width="50%"}
+### Take a look at the relationship
+
+```{r}
+data_wide <- binomial_data %>%   
+  group_by(isolation) %>%
+  summarize(presence = sum(incidence == 1),  
+            absence = sum(incidence == 0), 
+            total = n(),                   
+            proportion = presence/total,  
+            mean_area = mean(area)) %>%     
+  select(proportion, total, mean_area)   
+data_wide
+```
+:::
+:::
+
+## Model formulation
+
+$$ logit(p_i) = \beta_0 + \beta_1 x_{1i} $$
+
+```{r, echo = TRUE}
+incidence_binom <- glm(formula = incidence ~ area, 
+                       data = data_long,  
+                       family = "binomial")  
+incidence_binom %>% summary
+```
+
+## Coef. interpretation
+
+-   For island with area as 0 (baseline):
+
+$$ logit(p_i) = log(\frac{p_i}{1-p_i})= \beta_0 $$
+
+$$ \frac{p_i}{1-p_i} = Odd(p_i) = exp(\beta_0) = exp(-2.15) = 0.11 $$
+
+-   The odd for the intercept is not often interpreted by itself.
+
+## Coef. interpretation (con'd)
+
+-   For island with non-0 area:
+
+$$ logit(p_i) = \beta_0 + \beta_1 x_{1i}$$
+
+$$ logit(p_i') = \beta_0 + \beta_1 (x_{1i} + 1)$$
+
+$$ logit(p_i') - logit(p_i) = \beta_1 = log(\frac{Odd(p_i')}{Odd(p_i)}) $$
+
+$$ \frac{Odd(p_i')}{Odd(p_i)} = exp(\beta_1) = exp(0.62) = 1.87  $$
+
+-   For one unit increase in `area`, the odds of the bird species being present increase by a factor of 1.87.
+
+## Output interpretation
+
+### Odd ratio (OR)
+
+-   $OR = 1$, no difference between groups
+-   $OR < 1$, treatment decreases odds
+-   $OR > 1$, treatment increases odds
+
+### R output
+
+-   **Intercept (-2.15)**: The odd of the bird being present on 0 area island is $exp(-2.15)$
+
+-   **area (0.62)**: For one unit increase in `area`, the odds of the bird species being present increase by a factor of $exp(0.62)$
+
+-   **Dispersion parameter (1)**: wonderful. Need to consider other methods if dispersion larger than 1 (over-dispersion) or smaller than 1 (under-dispersion)
+
+-   **AIC (54.172)**: Can be used to compare the goodness of fit between models
+
+## Model goodness of fit: Likelihood ratio test
+
+```{r, echo = TRUE}
+incidence_binom_null <- glm(formula = incidence ~ 1,
+                            data = data_long,  
+                            family = "binomial")
+```
+
+$H_0$: The model performance is the same as a null model (making predictions by chance)
+
+$H_1$: The model performance is significantly different comparing to a null model
+
+. . .
+
+-   Use `lrtest()` function in the `lmtest` package
+
+```{r, echo = TRUE}
+lrtest(incidence_binom, incidence_binom_null)
+```
+
+## Model prediction
+
+-   Use `predict()` and specify `type = "response"` to get back transformed $y_i$
+
+```{r, echo = TRUE}
+incidence_p <- data_long %>% 
+  mutate(incidence_p = predict(incidence_binom, type = "response")) 
+incidence_p
+```
+
+## Model visualization
+
+```{r, echo = TRUE}
+data_long %>%   
+  mutate(incidence = incidence %>% as.numeric() - 1) %>%  
+  ggplot(aes(x = area, y = incidence), data = .) +   
+  geom_jitter(width = 0, height = 0.05) +  
+  geom_smooth(method =  "glm",                
+              method.args = list(family = "binomial"), 
+              se = FALSE) +   
+  labs(y = "Probability of incidence", x = "Area of an island")   
+```
+
+## Model visualization
+
+```{r, echo = TRUE}
+ggplot(aes(x = isolation, y = incidence_p),
+       data = incidence_p) +   
+  geom_boxplot() +   
+  labs(y = "Probability of incidence", x = "Isolation level of island")
+```
+
+## Lab 9 - GLM with single predictor
+
+## Get the lab assignment file
+
+1.  Download the file on Moodle `Lab 9 - assignment file`. You should get a `.Rmd` file after downloading
+2.  Open RStudio
+3.  Install and load `rmarkdown` package
+
+```{r, echo = TRUE, eval = FALSE}
+install.packages("rmarkdown")
+library(rmarkdown)
+```
+
+4.  Open the `.Rmd` file in Rstudio
+5.  Click `knit` and you should get a `html` output
+6.  You are all set!
+
+## Submission
+
+### Due next Wednesday 23:59 pm, Moodle
+
+### Evaluation
+
+-   File name and type (NRES776\_*firstname*\_*lastname*\_lab_9.**html**) (20%)
+
+-   Accuracy of code (60%)
+
+-   Readability, efficiency, and annotation of code (20%)
