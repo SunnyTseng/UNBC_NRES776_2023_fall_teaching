@@ -46,9 +46,143 @@ UCBAdmissions_clean <- UCBAdmissions %>%
 
     -   topic for next week's lab
 
--   Binomial regression with multiple variables (30 min)
-
 -   Wrap up (5 min)
+
+## Research question (1 continuous x)
+
+A survey was done on 50 islands for the incidence of a bird species Grasshopper Warbler. Researchers want to know whether the incidence is related to the area and/or the isolation level of the islands.
+
+::: columns
+::: {.column width="50%"}
+### Use long format as input
+
+```{r}
+data_long <- binomial_data
+data_long
+```
+:::
+
+::: {.column width="50%"}
+### Take a look at the relationship
+
+```{r}
+data_wide <- binomial_data %>%   
+  group_by(isolation) %>%
+  summarize(presence = sum(incidence == 1),  
+            absence = sum(incidence == 0), 
+            total = n(),                   
+            proportion = presence/total,  
+            mean_area = mean(area)) %>%     
+  select(proportion, total, mean_area)   
+data_wide
+```
+:::
+:::
+
+## Model formulation
+
+$$ logit(p_i) = \beta_0 + \beta_1 x_{1i} $$
+
+```{r, echo = TRUE}
+incidence_binom <- glm(formula = incidence ~ area, 
+                       data = data_long,  
+                       family = "binomial")  
+incidence_binom %>% summary
+```
+
+## Coef. interpretation
+
+-   For island with area as 0 (baseline):
+
+$$ logit(p_i) = log(\frac{p_i}{1-p_i})= \beta_0 $$
+
+$$ \frac{p_i}{1-p_i} = Odd(p_i) = exp(\beta_0) = exp(-2.15) = 0.11 $$
+
+-   The odd for the intercept is not often interpreted by itself.
+
+## Coef. interpretation (con'd)
+
+-   For island with non-0 area:
+
+$$ logit(p_i) = \beta_0 + \beta_1 x_{1i}$$
+
+$$ logit(p_i') = \beta_0 + \beta_1 (x_{1i} + 1)$$
+
+$$ logit(p_i') - logit(p_i) = \beta_1 = log(\frac{Odd(p_i')}{Odd(p_i)}) $$
+
+$$ \frac{Odd(p_i')}{Odd(p_i)} = exp(\beta_1) = exp(0.62) = 1.87  $$
+
+-   For one unit increase in `area`, the odds of the bird species being present increase by a factor of 1.87.
+
+## Output interpretation
+
+### Odd ratio (OR)
+
+-   $OR = 1$, no difference between groups
+-   $OR < 1$, treatment decreases odds
+-   $OR > 1$, treatment increases odds
+
+### R output
+
+-   **Intercept (-2.15)**: The odd of the bird being present on 0 area island is $exp(-2.15)$
+
+-   **area (0.62)**: For one unit increase in `area`, the odds of the bird species being present increase by a factor of $exp(0.62)$
+
+-   **Dispersion parameter (1)**: wonderful. Need to consider other methods if dispersion larger than 1 (over-dispersion) or smaller than 1 (under-dispersion)
+
+-   **AIC (54.172)**: Can be used to compare the goodness of fit between models
+
+## Model goodness of fit: Likelihood ratio test
+
+```{r, echo = TRUE}
+incidence_binom_null <- glm(formula = incidence ~ 1,
+                            data = data_long,  
+                            family = "binomial")
+```
+
+$H_0$: The model performance is the same as a null model (making predictions by chance)
+
+$H_1$: The model performance is significantly different comparing to a null model
+
+. . .
+
+-   Use `lrtest()` function in the `lmtest` package
+
+```{r, echo = TRUE}
+lrtest(incidence_binom, incidence_binom_null)
+```
+
+## Model prediction
+
+-   Use `predict()` and specify `type = "response"` to get back transformed $y_i$
+
+```{r, echo = TRUE}
+incidence_p <- data_long %>% 
+  mutate(incidence_p = predict(incidence_binom, type = "response")) 
+incidence_p
+```
+
+## Model visualization
+
+```{r, echo = TRUE}
+data_long %>%   
+  mutate(incidence = incidence %>% as.numeric() - 1) %>%  
+  ggplot(aes(x = area, y = incidence), data = .) +   
+  geom_jitter(width = 0, height = 0.05) +  
+  geom_smooth(method =  "glm",                
+              method.args = list(family = "binomial"), 
+              se = FALSE) +   
+  labs(y = "Probability of incidence", x = "Area of an island")   
+```
+
+## Model visualization
+
+```{r, echo = TRUE}
+ggplot(aes(x = isolation, y = incidence_p),
+       data = incidence_p) +   
+  geom_boxplot() +   
+  labs(y = "Probability of incidence", x = "Isolation level of island")
+```
 
 ## UCB Admission data set
 
@@ -58,22 +192,11 @@ Aggregate data on applicants to graduate school at Berkeley for the six largest 
 
 ## Exploratory data visualization
 
-::: columns
-::: {.column width="30%"}
 ```{r, echo = TRUE}
-apply(UCBAdmissions, 
-      c(1, 2), 
-      sum)
-```
-:::
-
-::: {.column width="70%"}
-```{r, echo = TRUE}
+apply(UCBAdmissions, c(1, 2), sum)
 mosaicplot(apply(UCBAdmissions, c(1, 2), sum),
            main = "Student admissions at UC Berkeley")
 ```
-:::
-:::
 
 ## Model formulation (glm_1)
 
@@ -215,7 +338,7 @@ $$
 
 -   Evidence of sex bias in admission practices! \<- no!
 
-## Comparison between models
+## Comparision between models
 
 ```{r, echo = TRUE}
 glm_3 <- glm(formula = cbind(Admitted, Rejected) ~ Dept,
@@ -231,25 +354,12 @@ glm_3 <- glm(formula = cbind(Admitted, Rejected) ~ Dept,
 
 -   `glm_3`: include Dept
 
-### Compare AIC values
-
-| GLM model  | AIC |
-|------------|-----|
-| `glm_null` | 948 |
-| `glm_1`    | 856 |
-| `glm_2`    | 103 |
-| `glm_3`    | 102 |
-
-## Comparison between models
-
-### Use likelihood ratio test for nested models
-
 ```{r, echo = TRUE}
-lrtest(glm_1, glm_2) # select glm_2
+lrtest(glm_1, glm_2)
 ```
 
 ```{r, echo = TRUE}
-lrtest(glm_2, glm_3) # select glm_3
+lrtest(glm_2, glm_3)
 ```
 
 ## What is actually going on
@@ -258,7 +368,7 @@ lrtest(glm_2, glm_3) # select glm_3
 
 -   Just happen to be that more male students applied to the department with higher admission rate
 
-```{r}
+```{r, echo = TRUE}
 opar <- par(mfrow = c(2, 3), oma = c(0, 0, 2, 0))
 for(i in 1:6)
   mosaicplot(UCBAdmissions[,,i],
@@ -277,17 +387,14 @@ Which means, in a easier language, missing of important variable in a model.
 
 ![](https://paulvanderlaken.files.wordpress.com/2017/09/simpsonsparadox.png?w=1200){fig-align="center"}
 
+## What we learned today
+
 ## Wrap up
 
-### What we learned today
+### Before we meet again
 
--   Multiple GLM with Binomial regression
-
--   Compare models using AIC and likelihood ratio test
-
--   The importance of including critical variable in the model
+-   
 
 ### Next time
 
--   Next Tuesday in person lecture with Lisa
--   Next Thursday lab 10, virtual on zoom
+-   Next Tuesday in person lecture with Lisa :)
