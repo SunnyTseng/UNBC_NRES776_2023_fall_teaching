@@ -44,7 +44,7 @@ binomial_data <- binomial_data %>%
 
 -   Practice (60 min)
 
-# Discussion paper presentation 
+# Discussion paper presentation
 
 -   Olivia Wilson
 
