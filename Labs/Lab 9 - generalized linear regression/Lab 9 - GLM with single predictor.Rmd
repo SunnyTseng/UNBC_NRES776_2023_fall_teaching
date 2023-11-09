@@ -73,7 +73,7 @@ Then, use the `summary()` function to print the model output. **(2 pt)**
 The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
 
 | parameter/statistics | estimated value          | exponential of estimated value |
-|--------------------|------------------------|----------------------------|
+|----------------------|--------------------------|--------------------------------|
 | $\beta_0$            | *Write your answer here* | *Write your answer here*       |
 | $\beta_1$            | *Write your answer here* | *Write your answer here*       |
 | $\beta_2$            | *Write your answer here* | *Write your answer here*       |
@@ -166,7 +166,7 @@ Then, use the `summary()` function to print the model output. **(2 pt)**
 The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
 
 | parameter/statistics | estimated value          | exponential of estimated value |
-|--------------------|------------------------|----------------------------|
+|----------------------|--------------------------|--------------------------------|
 | $\beta_0$            | *Write your answer here* | *Write your answer here*       |
 | $\beta_1$            | *Write your answer here* | *Write your answer here*       |
 | dispersion parameter | *Write your answer here* | NA                             |
@@ -288,7 +288,7 @@ Then, use the `summary()` function to print the model output. **(2 pt)**
 The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
 
 | parameter/statistics | estimated value          | exponential of estimated value |
-|--------------------|------------------------|----------------------------|
+|----------------------|--------------------------|--------------------------------|
 | $\beta_0$            | *Write your answer here* | *Write your answer here*       |
 | $\beta_1$            | *Write your answer here* | *Write your answer here*       |
 | $\beta_2$            | *Write your answer here* | *Write your answer here*       |
@@ -380,7 +380,7 @@ Then, use the `summary()` function to print the model output. **(2 pt)**
 The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
 
 | parameter/statistics | estimated value          | exponential of estimated value |
-|--------------------|------------------------|----------------------------|
+|----------------------|--------------------------|--------------------------------|
 | $\beta_0$            | *Write your answer here* | *Write your answer here*       |
 | $\beta_1$            | *Write your answer here* | *Write your answer here*       |
 | dispersion parameter | *Write your answer here* | NA                             |
