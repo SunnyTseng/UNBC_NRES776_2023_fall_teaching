@@ -190,31 +190,29 @@ ggplot(aes(x = isolation, y = incidence_p),
   labs(y = "Probability of incidence", x = "Isolation level of island")
 ```
 
-## Lab 9 - GLM with single predictor
+# Lab 9 - GLM with single predictor
 
 ## Get the lab assignment file
 
 1.  Download the file on Moodle `Lab 9 - assignment file`. You should get a `.Rmd` file after downloading
-2.  Open RStudio
-3.  Install and load `rmarkdown` package
+2.  Get the two data set, one crab data set and on titanic data set
+3.  Create a `R project` folder, and put `.Rmd`, two your data sets in the same folder
+
+### Run R markdown
+
+1.  Open the R project, open the `.Rmd` file
+2.  Install and load `rmarkdown` package
 
 ```{r, echo = TRUE, eval = FALSE}
 install.packages("rmarkdown")
 library(rmarkdown)
 ```
 
-4.  Open the `.Rmd` file in Rstudio
-5.  Click `knit` and you should get a `html` output
-6.  You are all set!
+3.  Click `knit` and you should get a `html` output
+4.  You are all set!
 
 ## Submission
 
 ### Due next Wednesday 23:59 pm, Moodle
 
-### Evaluation
-
--   File name and type (NRES776\_*firstname*\_*lastname*\_lab_9.**html**) (20%)
-
--   Accuracy of code (60%)
-
--   Readability, efficiency, and annotation of code (20%)
+-   File name and type (NRES776\_*firstname*\_*lastname*\_lab_9.**html**)
