@@ -1,6 +1,6 @@
 ---
 title: "NRES 776 Lab 9 - GLM with single predictor"
-author: "Your name here"
+author: "Sunny Tseng"
 date: "`r Sys.Date()`"
 output: html_document
 ---
@@ -52,7 +52,7 @@ $$
 log(\mu_i) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{3i}
 $$
 
-*The variable C (colour) has 4 different levels (Lite, Median, Dark, and Very Dark). Thus, by using dummy coding, we will need n-1 variables to represent n levels. Thus, we have 3 variables, 3 slope parameters, here.*
+*The variable C (colour) has 4 different levels (Lite, Median, Dark, and Very Dark). By using dummy coding, we will need n-1 variables to represent n levels. Thus, we have 3 dummy variables to represent 4 levels.*
 
 Fit a Poisson using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a log link. **(3 pt)**
 
@@ -146,7 +146,7 @@ $$
 
 Is your modelling result showing the same pattern as you observed in the boxplot? Is colour of female horseshoe crab significantly influencing the number of satellite? Explain why or why not, use the model output value as needed. **(3 pt)**
 
-*The colour of female horseshoe crab has significant association with the number of satellite, as tested by the likelihood ratio test. The Poisson regression shows the same pattern as what we observed in the boxplot. That is, the darker the colour, the less the number of satellites a female can get.*
+*The colour of female horseshoe crab has significant association with the number of satellite, as tested by the likelihood ratio test. The Poisson regression shows the same pattern as what we observed in the boxplot. That is, the darker the colour, the less the number of satellites a female can get. This is supported by that* estimated $\beta_1$, $\beta_2$, and $\beta_3$ were less than 0.
 
 ## 2. Poisson regression - horseshoe crab - continuous
 
@@ -185,58 +185,90 @@ glm_pois_2 %>% summary()
 
 The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
 
-| parameter/statistics | estimated value          | exponential of estimated value |
-|----------------------|--------------------------|--------------------------------|
-| $\beta_0$            | *Write your answer here* | *Write your answer here*       |
-| $\beta_1$            | *Write your answer here* | *Write your answer here*       |
-| dispersion parameter | *Write your answer here* | NA                             |
-| AIC                  | *Write your answer here* | NA                             |
+| parameter/statistics | estimated value | exponential of estimated value |
+|----------------------|-----------------|--------------------------------|
+| $\beta_0$            | *-0.42*         | *0.65*                         |
+| $\beta_1$            | 0.59            | *1.80*                         |
+| dispersion parameter | *1*             | NA                             |
+| AIC                  | *920.14*        | NA                             |
 
 ## Model goodness of fit
 
 Is the model including carapace width (W) as predictor variable better than a null model? Use a likelihood ratio test to test it. Write out the hypotheses of the likelihood ratio test (in words) **(1 pt)**
 
-$H_0$: *Write your answer here*
+$H_0$: *The model with carapace width as predictor has the same model performance as the null model*
 
-$H_a$: *Write your answer here*
+$H_a$: *The model with carapace width as predictor has different model performance compared to the null model*
 
 First, we need to fit a null model **(1 pt)**
 
 ```{r}
-### Write your answer here  
-
-# glm_pois_null <- glm(___)
+glm_pois_null <- glm(formula = Sa ~ 1, 
+                     data = data_crab_clean,
+                     family = "poisson")
 ```
 
 Then, run a likelihood ratio test **(1 pt)**
 
 ```{r}
-### Write your answer here  
-
-# ___(glm_pois_null, glm_pois_2)
+lrtest(glm_pois_null, glm_pois_2)
 ```
 
 What is your decision based on this likelihood ratio test? (Hint: provide the p-value, the $\alpha$ threshold you are comparing with, and your conclusion) **(1 pt)**
 
-*Write your answer here*
+*The p-value of teh likelihood ratio test is* $2.2 * 10^{-16}$*, which is smaller than the* $\alpha$ *value (0.05). Thus, we reject the null hypothesis. The model with carapace width as predictor has different model performance compared to the null model. The carapace variable contribute significantly in this model.*
 
 ## Model result interpretation
 
 Calculate the predicted mean number of satellites for horsecrab when `W = a`.Show the calculation process. (Hint: your answer should include $a$) **(2 pt)**
 
-*Write your answer here*
+*General equation:* $log(\mu_i) = \beta_0 + \beta_1 x_{1i} = \beta_0 + \beta_1W_i$
+
+*Put* $W = a$ *in the equation:*
+
+$$
+log(\mu_a) = \beta_0 + \beta_1*a
+$$
+
+$$
+\mu_a = exp(\beta_0 + \beta_1*a) = exp(\beta_0) * exp(\beta_1 * a)
+$$
 
 Calculate the predicted mean number of satellites for horsecrab when `W = a + 1`. Show the calculation process. (Hint: your answer should include $a$) **(3 pt)**
 
-*Write your answer here*
+*Put* $W = a + 1$ *in the equation:*
 
-Compare the number of satellites when `W = a` and `W = a + 1` (i.e., calculate $\frac{Sa(W = a+1)}{Sa(W = 1)}$). Base one this result, how can you interpret $\beta_1$? (Hint: "one unit increase in $x$ is associated in ...") **(3 pt)**
+$$ log(\mu_{a+1}) = \beta_0 + \beta_1*(a+1) $$
 
-*Write your answer here*
+$$ \mu_{a+1} = exp(\beta_0 + \beta_1*(a+1)) $$
+
+$$
+= exp(\beta_0 + \beta_1*a + \beta_1) 
+$$
+
+$$
+= exp(\beta_0) * exp(\beta_1 *a) * exp(\beta_1)
+$$
+
+Compare the number of satellites when `W = a` and `W = a + 1` (i.e., calculate $\frac{Sa(W = a+1)}{Sa(W = a)}$). Base one this result, how can you interpret $\beta_1$? (Hint: "one unit increase in $x$ is associated in ...") **(3 pt)**
+
+$$
+\frac{Sa_{W = a + 1}}{Sa_{W = a}} = \frac{\mu_{a + 1}}{\mu_{a}} = \frac{exp(\beta_0) * exp(\beta_1 *a) * exp(\beta_1)}{exp(\beta_0) * exp(\beta_1 * a)}
+$$
+
+$$
+= exp(\beta_1)
+$$
+
+$$
+= 1.80
+$$
+
+*Based on this calculation, we can conclude that: with one unit increase in the carapace width, the females are expected to have 1.8 times more number of satellites.*
 
 Is your modelling result showing the same pattern as you observed in the scatter plot? Is carapace width (W) of horseshoe crab significantly influencing the number of satellite? Explain why or why not, use the model output value, or your calculation above, as needed. **(3 pt)**
 
-*Write your answer here*
+*The carapace width has significant association with the number of satellites, as tested by the likelihood ratio test. The Poisson regression shows the same pattern as what we observed in the scatter plot. That is, the wider the carapace is, the more satellites that a female has. This is supported by the estimated* $\beta_1$ larger than 0.
 
 ## 3. Binomial regression - titanic
 
@@ -287,33 +319,31 @@ Write out the model equation. Explain why there are two predictor variables in t
 
 $$ logit(p_i) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} $$
 
-*Write your answer here*
+*Because the passenger class is a categorical variable, with 3 levels (First, Second, and Third). In dummy coding, we need two dummy variables to represent 3 levels in a categorical variable.*
 
 Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(3 pt)**
 
 ```{r}
-### Write your answer here  
-
-# glm_binom_1 <- glm(___)
+glm_binom_1 <- glm(formula = Survived ~ Pclass,
+                   data = data_titanic_clean,
+                   family = "binomial")
 ```
 
 Then, use the `summary()` function to print the model output. **(2 pt)**
 
 ```{r}
-### Write your answer here  
-
-# ___
+glm_binom_1 %>% summary()
 ```
 
 The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
 
-| parameter/statistics | estimated value          | exponential of estimated value |
-|----------------------|--------------------------|--------------------------------|
-| $\beta_0$            | *Write your answer here* | *Write your answer here*       |
-| $\beta_1$            | *Write your answer here* | *Write your answer here*       |
-| $\beta_2$            | *Write your answer here* | *Write your answer here*       |
-| dispersion parameter | *Write your answer here* | NA                             |
-| AIC                  | *Write your answer here* | NA                             |
+| parameter/statistics | estimated value | exponential of estimated value |
+|----------------------|-----------------|--------------------------------|
+| $\beta_0$            | 0.53            | *1.7*                          |
+| $\beta_1$            | *-0.63*         | *0.52*                         |
+| $\beta_2$            | *-1.65*         | *0.19*                         |
+| dispersion parameter | *1*             | NA                             |
+| AIC                  | *1086.9*        | NA                             |
 
 ## Model goodness of fit
 
@@ -321,49 +351,87 @@ Is the model including passenger class as predictor variable better than a null 
 
 Hypothesis of the likelihood ratio test (in words) **(1 pt)**
 
-$H_0$: *Write your answer here*
+$H_0$: *The model including passenger class as predictor performs the same as the null model*
 
-$H_a$: *Write your answer here*
+$H_a$: *The model including passenger class as predictor performs differently compared to the null model*
 
 First, we need to fit a null model **(1 pt)**
 
 ```{r}
-### Write your answer here  
-
-# glm_binom_null <- glm(___)
+glm_binom_null <- glm(formula = Survived ~ 1, 
+                      data = data_titanic_clean,
+                      family = "binomial")
 ```
 
 Then, run a likelihood ratio test **(1 pt)**
 
 ```{r}
-### Write your answer here  
-
-# ___(glm_binom_null, glm_binom_1)}
+lrtest(glm_binom_null, glm_binom_1)
 ```
 
 What is your decision based on this likelihood ratio test? (Hint: provide the p-value, the $\alpha$ threshold you are comparing with, and your conclusion) **(3 pt)**
 
-*Write your answer here*
+*The p-value of the likelihood ratio test is* $2.2 * 10 ^ {-16}$*, which is smaller than the* $\alpha$ *level (0.05). Thus, we reject the null hypothesis. The model including passenger class as predictor has significant different model performance compared to null model. The passenger class is significantly associated with the survival rate.*
 
 ## Model result interpretation
 
 Calculate the odds of a passenger being survived if they are sitting in first class. Show the calculation process. **(3 pt)**
 
-*Write your answer here*
+General equation: $logit(p_i) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i}$
+
+First class: $logit(p_i) = \beta_0$
+
+Second class: $logit(p_i) = \beta_0 + \beta_1$
+
+Third class: $logit(p_i) = \beta_0 + \beta_2$
+
+```{r}
+data_titanic_clean %>%
+  mutate(predicted = predict(glm_binom_1, type = "response")) %>%
+  summarize(prob_survival = mean(predicted), 
+            .by = Pclass) %>%
+  mutate(odds_survival = prob_survival/(1-prob_survival))
+```
+
+*The odds of the survival for the first class passenger:*
+
+$$
+Odds_{first} = exp(\beta_0) = 1.7
+$$
 
 Calculate the survival odds ratio of sitting in third class comparing to sitting in the first class. Show the calculation process. **(3 pt)**
 
-*Write your answer here*
+*The odds of survival for the third class passenger:*
+
+$$
+Odds_{third} = exp(\beta_0 + \beta_2)
+$$
+
+$$
+= exp(\beta_0) * \exp(\beta_2) = 0.323
+$$
+
+*Compare the Odds ratio between third and the first class:*
+
+$$
+\frac{Odds_{third}}{Odds_{first}} = \frac{exp(\beta_0) * \exp(\beta_2)}{exp(\beta_0)}
+$$
+
+$$
+= exp(\beta_2) = 0.19
+$$
+
+*Passengers sitting in the third class has 0.19 times less odds of survival compared to the passengers sitting in the first class.*
 
 Is your modelling result showing the same pattern as you observed in the scatter plot? Is passenger class a significant variable to explain survival rate? Explain why or why not, use the model output value as needed. **(3 pt)**
 
-*Write your answer here*
+*The passenger is a significant variable in the model based on the likelihood ratio test. And yes, the model result supports the observation as both the coefficient* $\beta_1$ *and* $\beta_2$ *are less than zero, which means the second class and third class has lower odds in survival comparing to the first class passengers.*
 
 ## 4. Binomial regression - titanic
 
 In this practice, we want to know whether the survival probability (`Survival`) is influence by the fare they paid (`Fare`).
 
-## Exploratory visualization - Survival vs Pclass
+## Exploratory visualization - Survival vs Fare
 
 Seems like the survival rate has positive relationship with the fare. We can use statistics to validate this observation.
 
@@ -379,75 +447,105 @@ Write out the model equation. Explain why there are two predictor variables in t
 
 $$ logit(p_i) = \beta_0 + \beta_1 x_{1i}$$
 
-*Write your answer here*
+*Because we only have 1 continuous variable in the model here.*
 
 Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(3 pt)**
 
 ```{r}
-### Write your answer here   
-
-# glm_binom_2 <- glm(___)
+glm_binom_2 <- glm(formula = Survived ~ Fare,
+                   data = data_titanic_clean,
+                   family = "binomial")
 ```
 
 Then, use the `summary()` function to print the model output. **(2 pt)**
 
 ```{r}
-### Write your answer here    
-
-# ___
+summary(glm_binom_2)
 ```
 
 The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
 
-| parameter/statistics | estimated value          | exponential of estimated value |
-|----------------------|--------------------------|--------------------------------|
-| $\beta_0$            | *Write your answer here* | *Write your answer here*       |
-| $\beta_1$            | *Write your answer here* | *Write your answer here*       |
-| dispersion parameter | *Write your answer here* | NA                             |
-| AIC                  | *Write your answer here* | NA                             |
+| parameter/statistics | estimated value | exponential of estimated value |
+|----------------------|-----------------|--------------------------------|
+| $\beta_0$            | *-0.93*         | *0.39*                         |
+| $\beta_1$            | *0.01*          | *1.015*                        |
+| dispersion parameter | *1*             | NA                             |
+| AIC                  | *1118.6*        | NA                             |
 
 ## Model goodness of fit
 
 Is the model including fare as predictor variable better than a null model? We use likelihood ratio test to answer this question. Hypothesis of the likelihood ratio test (in words) **(1 pt)**
 
-$H_0$: *Write your answer here*
+$H_0$: *The model with Fare as predictor performs the same as the null model*
 
-$H_a$: *Write your answer here*
+$H_a$: *The model with Fare as predictor has different model performance compared to the null model*
 
 First, we need to fit a null model **(1 pt)**
 
 ```{r}
-### Write your answer here    
-
-# glm_binom_null <- glm(___)
+glm_binom_null <- glm(Survived ~ 1, 
+                      data = data_titanic_clean,
+                      family = "binomial")
 ```
 
 Then, run a likelihood ratio test **(1 pt)**
 
 ```{r}
-### Write your answer here    
-
-# ___(glm_binom_null, glm_binom_1)
+lrtest(glm_binom_null, glm_binom_1)
 ```
 
 What is your decision based on this likelihood ratio test? (Hint: provide the p-value, the $\alpha$ threshold you are comparing with, and your conclusion) **(1 pt)**
 
-*Write your answer here*
+*The p-value of the likelihood ratio test is* $2.2*10^{-16}$*, which is smaller than the* $\alpha$ *value (0.05). Thus, we reject the null hypothesis. The model performances differently compared to the null model. The Fare variable is significant in the model.*
 
 ## Model result interpretation
 
 Calculate the odds of a passenger being survived if they are paying $a$ (`Fare = a`). Show the calculation process. **(2 pt)**
 
-*Write your answer here*
+*General equation:* $logit(p_i) = \beta_0 + \beta_1 x_{1i}$
+
+*Put* $Fare = a$ *in the equation:*
+
+$$
+logit(p_a) = \beta_0 + \beta_1*a
+$$
+
+$$
+Odds_a = exp(\beta_0 + \beta_1 * a) = exp(\beta_0) * exp(\beta_1 * a)
+$$
 
 Calculate the odds of a passenger being survived if they are paying $a + 1$ (`Fare = a + 1`). Show the calculation process. **(3 pt)**
 
-*Write your answer here*
+*Put* $Fare = a + 1$ *in the equation:*
+
+$$ logit(p_{a+1}) = \beta_0 + \beta_1*(a+1) $$
+
+$$ Odds_{a+1} = exp(\beta_0 + \beta_1 * (a+1)) $$
+
+$$
+= exp(\beta_0 + \beta_1 * a + \beta_1)
+$$
+
+$$
+= exp(\beta_0) * exp(\beta_1 * a) * exp(\beta_1)
+$$
 
 Compare the odds `Fare = a` and `Fare = a + 1` (i.e., calculate the odds ratio). Base one this result, how can you interpret $\beta_1$? (Hint: "one unit increase in $x$ is associated in ...") **(3 pt)**
 
-*Write your answer here*
+$$
+\frac{Odds_{a+1}}{Odds_a} = \frac{exp(\beta_0) * exp(\beta_1 * a) * exp(\beta_1)}{exp(\beta_0) * exp(\beta_1 * a)}
+$$
+
+$$
+= exp(\beta_1)
+$$
+
+$$
+= 1.015
+$$
+
+*One unit increase in Fare is associated with 1.015 times increase in the odds of survival. If you pay* $100$ *dollors more, you will have* $1.015^{100}$ *times, which is about 4 times, more odds of survival compared to the person who pays* $100$ *dollars less than you.*
 
 Is your modelling result showing the same pattern as you observed in the scatter plot? Is fare a significant variable to explain survival rate? Explain why or why not, use the model output value as needed. **(3 pt)**
 
-*Write your answer here*
+*Yes, the model result supported our observation in the scatter plot. That is, the Fare has positive relationship with the survival rate. This is supported by the fact that the estimated* $\beta_1$ *is a positive value.*
