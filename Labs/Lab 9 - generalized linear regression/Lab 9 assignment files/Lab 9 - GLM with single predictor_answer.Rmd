@@ -52,34 +52,32 @@ $$
 log(\mu_i) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{3i}
 $$
 
-*Write your answer here*
+*The variable C (colour) has 4 different levels (Lite, Median, Dark, and Very Dark). Thus, by using dummy coding, we will need n-1 variables to represent n levels. Thus, we have 3 variables, 3 slope parameters, here.*
 
 Fit a Poisson using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a log link. **(3 pt)**
 
 ```{r}
-### Write your answer here
-
-# glm_pois_1 <- glm(___)
+glm_pois_1 <- glm(formula = Sa ~ C, 
+                  data = data_crab_clean,
+                  family = "poisson")
 ```
 
 Then, use the `summary()` function to print the model output. **(2 pt)**
 
 ```{r}
-### Write your answer here
-
-# ___
+glm_pois_1 %>% summary()
 ```
 
 The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
 
-| parameter/statistics | estimated value          | exponential of estimated value |
-|----------------------|--------------------------|--------------------------------|
-| $\beta_0$            | *Write your answer here* | *Write your answer here*       |
-| $\beta_1$            | *Write your answer here* | *Write your answer here*       |
-| $\beta_2$            | *Write your answer here* | *Write your answer here*       |
-| $\beta_3$            | *Write your answer here* | *Write your answer here*       |
-| dispersion parameter | *Write your answer here* | NA                             |
-| AIC                  | *Write your answer here* | NA                             |
+| parameter/statistics | estimated value | exponential of estimated value |
+|----------------------|-----------------|--------------------------------|
+| $\beta_0$            | *1.40*          | *4.08*                         |
+| $\beta_1$            | *-0.21*         | *0.81*                         |
+| $\beta_2$            | *-0.61*         | *0.54*                         |
+| $\beta_3$            | *-0.69*         | *0.50*                         |
+| dispersion parameter | *1*             | NA                             |
+| AIC                  | *972.44*        | NA                             |
 
 ## Model goodness of fit
 
@@ -87,44 +85,68 @@ Is the model including colour as predictor variable better than a null model? If
 
 Hypothesis of the likelihood ratio test (in words) **(1 pt)**
 
-$H_0$: *Write your answer here*
+$H_0$: *The model with colour as predictor has the same performance as the null model*
 
-$H_a$: *Write your answer here*
+$H_a$*: The model with colour as predictor has different performance compared to null model*
 
 First, we need to fit a null model **(1 pt)**
 
 ```{r}
-### Write your answer here
-
-# glm_pois_null <- glm(___)
+glm_pois_null <- glm(formula = Sa ~ 1,
+                     data = data_crab_clean,
+                     family = "poisson")
 
 ```
 
 Then, run a likelihood ratio test **(1 pt)**
 
 ```{r}
-### Write your answer here
-
-# ___(glm_pois_null, glm_pois_1)
+lrtest(glm_pois_null, glm_pois_1)
 ```
 
 What is your decision based on this likelihood ratio test? (Hint: provide the p-value, the $\alpha$ threshold you are comparing with, and your conclusion) **(3 pt)**
 
-*Write your answer here*
+*The p-value of the likelihood ratio test is* $2.9 * 10 ^{-5}$*, which is smaller than the* $\alpha$ *value (0.05). Thus, we reject the null hypothesis. The model with colour as predictor has a better performance compared to the null model. The colour variable contribute significantly in this model.*
 
 ## Model result interpretation
 
 Calculate the predicted mean number of satellites for horsecrab with Light colour. Show the calculation process. **(3 pt)**
 
-*Write your answer here*
+*Here are the equations for calculating the predicted mean number of satellites for different colours of horsecrab:*
+
+*General equation:* $log(\mu_i) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{3i}$
+
+*Light colour:* $log(\mu) = \beta_0$
+
+*Median colour:* $log(\mu) = \beta_0 + \beta_1$
+
+*Dark colour:* $log(\mu) = \beta_0 + \beta_2$
+
+*Very dark colour:* $log(\mu) = \beta_0 + \beta_3$
+
+```{r, echo = TRUE}
+data_crab_clean %>%
+  mutate(predicted = predict(glm_pois_1, type = "response")) %>%
+  distinct(C, .keep_all = TRUE)
+```
+
+*Thus, for horsecrab with Light colour, the predicted mean number of satellites is:*
+
+$$
+\mu = exp(\beta_0) = 4.08
+$$
 
 Calculate the predicted mean number of satellites for horsecrab with Dark colour. Show the calculation process. **(3 pt)**
 
-*Write your answer here*
+*For hoursecrab with Dark colour, the predicted mean number of satellites is:*
+
+$$
+\mu = exp(\beta_0 + \beta_2) = exp(\beta_0) * exp(\beta_2) = 2.23
+$$
 
 Is your modelling result showing the same pattern as you observed in the boxplot? Is colour of female horseshoe crab significantly influencing the number of satellite? Explain why or why not, use the model output value as needed. **(3 pt)**
 
-*Write your answer here*
+*The colour of female horseshoe crab has significant association with the number of satellite, as tested by the likelihood ratio test. The Poisson regression shows the same pattern as what we observed in the boxplot. That is, the darker the colour, the less the number of satellites a female can get.*
 
 ## 2. Poisson regression - horseshoe crab - continuous
 
@@ -145,22 +167,20 @@ Write out the equation that we are going to fit using Poisson regression. Explai
 
 $$ log(\mu_i) = \beta_0 + \beta_1 x_{1i}$$
 
-*Write your answer here*
+*The equation is correct. We only have one predictor variable since the predictor now is a continuous variable.*
 
 Fit a Poisson using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a log link. **(3 pt)**
 
 ```{r}
-### Write your answer here  
-
-# glm_pois_2 <- glm(___)
+glm_pois_2 <- glm(formula = Sa ~ W, 
+                  data = data_crab_clean,
+                  family = "poisson")
 ```
 
 Then, use the `summary()` function to print the model output. **(2 pt)**
 
 ```{r}
-### Write your answer here  
-
-# ___
+glm_pois_2 %>% summary()
 ```
 
 The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
