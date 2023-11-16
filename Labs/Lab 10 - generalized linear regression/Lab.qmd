@@ -22,6 +22,7 @@ editor: visual
 library(tidyverse)
 library(here)
 library(lmtest)
+library(palmerpenguins)
 
 binomial_data <- read_csv(here("data", "isolation.csv"))
 
@@ -56,6 +57,116 @@ binomial_data <- binomial_data %>%
 
 # Lab 10 - GLM with multiple predictors
 
+## A mini review for additive vs interaction
+
+-   Response variable: `flipper_length_mm`
+
+-   Predictor variable: `body_mass_g`, `species`
+
+```{r, echo = TRUE}
+my_data <- penguins %>%
+  select(flipper_length_mm, body_mass_g, species) %>%
+  drop_na()
+
+my_data
+```
+
+## If there is only one predictor 
+
+$$
+FL_i = \beta_0 + \beta_1 Mass_{i}
+$$
+
+```{r}
+ggplot(aes(x = body_mass_g, y = flipper_length_mm), data = my_data) +
+  geom_point()
+```
+
+## Additive effect 
+
+$$
+FL_i = \beta_0 + \beta_1 Mass_{i} + \beta_2 SP_{1i} + \beta_3 SP_{2i}
+$$
+
+```{r, echo = TRUE}
+lm_1 <- lm(formula = flipper_length_mm ~ body_mass_g + species,
+           data = my_data)
+
+summary(lm_1)
+```
+
+## Additive effect 
+
+For species Adelie:
+
+$$
+FL_i = \beta_0 + \beta_1 Mass_{i} 
+$$
+
+For species Chinstrap:
+
+$$
+FL_i = \beta_0 + \beta_1 Mass_{i} + \beta_2
+$$
+
+For species Gentoo:
+$$
+FL_i = \beta_0 + \beta_1 Mass_{i} + \beta_3
+$$
+
+-   All three equations have the same slope! That is, $\beta_1$!
+
+-   They only have different intercepts!
+
+## Additive effect
+
+-   Parallel lines!
+
+```{r, echo = TRUE}
+ggplot(aes(x = body_mass_g, y = flipper_length_mm, group = species), data = my_data) +
+     geom_point() +
+     geom_line(aes(y = predict(lm_1)), size = 1)
+```
+
+## Interaction effect 
+
+$$ FL_i = \beta_0 + \beta_1 Mass_{i} + \beta_2 SP_{1i} + \beta_3 SP_{2i} + \beta_{12}Mass_i*SP_{1i} + \beta_{13}Mass_{i}*SP_{2i} $$
+
+```{r}
+lm_2 <- lm(formula = flipper_length_mm ~ body_mass_g * species,
+           data = my_data)
+
+summary(lm_2)
+```
+
+## Interaction effect 
+
+For species Adelie:
+
+$$ FL_i = \beta_0 + \beta_1 Mass_{i}$$
+
+For species Chinstrip:
+
+$$ FL_i = \beta_0 + \beta_1 Mass_{i} + \beta_2 + \beta_{12}Mass_i $$
+
+For species Gentoo:
+
+$$ FL_i = \beta_0 + \beta_1 Mass_{i} + \beta_3 +  \beta_{13}Mass_{i} $$
+
+-   All three equations have different slopes!
+
+-   They only have different intercepts!
+
+## Interaction effect 
+
+-   Non parallel lines modelling
+
+```{r, echo = TRUE}
+ggplot(aes(x = body_mass_g, y = flipper_length_mm, group = species), data = my_data) +
+  geom_point() + 
+  geom_smooth(method = "lm")
+```
+
 ## Get the lab assignment file
 
 1.  Download the files by clicking the link on Moodle `Lab 10 - assignment file`.
@@ -70,7 +181,7 @@ binomial_data <- binomial_data %>%
 
 -   File name and type (NRES776\_*firstname*\_*lastname*\_lab_10.**html**)
 
-## Thank you everyone :) 
+## Thank you everyone :)
 
 -   This is the first time in my life teaching a course.
 
