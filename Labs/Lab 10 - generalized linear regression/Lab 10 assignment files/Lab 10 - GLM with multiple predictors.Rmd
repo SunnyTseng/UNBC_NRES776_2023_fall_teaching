@@ -9,275 +9,64 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Load required libraries
+## Bird incidence on islands
+
+A field survey was done to record the presence or absence of Narcissus Flycatcher (*Ficedula narcissina*) across a set of islands in the western Pacific. The `area` ($km^2$) and the `isolation` (distance to the nearest island, in $km$) of the islands, and the `incidence` (presence/absence) of the bird were recorded.
+
+In this practice, we are going to explore the relationship between presence or absence of the birds (`incidence`) vs island area (`area`) and island isolation (`isolation`).
+
+![](https://cdn.download.ams.birds.cornell.edu/api/v1/asset/158687881/1800){width="412"}
+
+## Load required libraries and data set
 
 ```{r, warning=FALSE, message=FALSE}
 library(tidyverse)
 library(here)
 library(lmtest)
+
+data_bird <- read_csv(here("bird.csv"))
+
+data_bird_clean <- data_bird %>%
+  mutate(incidence = as_factor(incidence)) 
+
+data_bird_clean
 ```
 
-## Load data set
+## Exploratory visualization
+
+Seems like with the increase of the island area, there is a higher probability of detecting the species.
 
 ```{r}
-read_csv(here("bird.csv"))
+ggplot(aes(x = area, y = incidence), data = data_bird_clean) +
+  geom_point() + 
+  labs(title = "Incidence vs Area of islands")
 ```
 
-The file island2.csv contains information about the presence or absence of a particular species of bird across a set of islands in the Mediterranean sea. The format of the file is given below. Use this file to build a model relating species presence to the island characteristics. As the response (y) variable consists of presence/absences, you should use a binomial model, with the logit link function.
-
-## Poisson regression - horseshoe crab - categorical
-
-This problem refers to data from a study of nesting horseshoe crabs (J. Brockmann, Ethology 1996); see also Agresti (1996) Sec. 4.3 and Agresti (2002) Sec. 4.3. Each female horseshoe crab in the study had a male crab attached to her in her nest. The study investigated factors that affect whether the female crab had any other males, called satellites, residing near her. Explanatory variables that are thought to affect this included the female crab's color (C), spine condition (S), weight (Wt), and carapace width (W). The response outcome for each female crab is her number of satellites (Sa). There are 173 females in this study.
-
-In this practice, we are going to explore the relationship between number of satellites (Sa) vs color (C) using Poisson regression.
-
-```{r, warning=FALSE, message=FALSE}
-data_crab <- read_table(here("crab_dataset.txt")) 
-
-data_crab_clean <- data_crab %>%
-  mutate(C = factor(C, labels = c("Light", "Median", "Dark", "Very dark")))
-  
-```
+Very interesting! Seems like there is a pattern showing the negative relationship between isolation and the incidence of the bird!
 
 ```{r}
-data_crab_clean
+ggplot(aes(x = isolation, y = incidence), data = data_bird_clean) + 
+  geom_point() + 
+  labs(title = "Incidence vs Isolation of islands")
 ```
 
-## Exploratory visualization - Sa vs C
-
-Seems like the number of number of satellites (Sa) decreases as the color (C) gets darker. Interesting observation! We can use statistics to validate this observation.
+Finally, let's take a look to see whether two predictor variables are correlated. For example, are all the smaller island also less isolated? We try to understand this to prevent potential multicollinearity issue. There seems to be a slight trend line in scatter plot. And the correlation is -0.4. Need to be careful when fitting the model.
 
 ```{r}
-ggplot(aes(x = C, y = Sa), data = data_crab_clean) +
-  geom_boxplot()
+ggplot(aes(x = isolation, y = area), data = data_bird_clean) + 
+  geom_point() + 
+  labs(title = "Correlation between predictor variables")
 ```
 
-## Fit a Poisson regression
+## 1. Binomial regression with only `area`
 
-This is the model equation that we are going to fit. Explain why there are three parameters **(2 pt)**
+Here is the equation of the binomial model where we use `area` as the predictor variable to predict the probability of bird `incidence`.
 
 $$
-log(\mu_i) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{3i}
+logit(p_i) = \beta_0 + \beta_1 area_i
 $$
 
-*Write your answer here*
-
-Fit a Poisson using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a log link. **(3 pt)**
-
-```{r}
-### Write your answer here
-
-# glm_pois_1 <- glm(___)
-```
-
-Then, use the `summary()` function to print the model output. **(2 pt)**
-
-```{r}
-### Write your answer here
-
-# ___
-```
-
-The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
-
-| parameter/statistics | estimated value          | exponential of estimated value |
-|--------------------|------------------------|-----------------------------|
-| $\beta_0$            | *Write your answer here* | *Write your answer here*       |
-| $\beta_1$            | *Write your answer here* | *Write your answer here*       |
-| $\beta_2$            | *Write your answer here* | *Write your answer here*       |
-| $\beta_3$            | *Write your answer here* | *Write your answer here*       |
-| dispersion parameter | *Write your answer here* | NA                             |
-| AIC                  | *Write your answer here* | NA                             |
-
-## Model goodness of fit
-
-Is the model including colour as predictor variable better than a null model? If the model performs significantly better than a null model, then we keep the predictor variable; if not, then we say that the colour is not significantly associated with the number of satellite.
-
-Hypothesis of the likelihood ratio test (in words) **(1 pt)**
-
-$H_0$: *Write your answer here*
-
-$H_a$: *Write your answer here*
-
-First, we need to fit a null model **(1 pt)**
-
-```{r}
-### Write your answer here
-
-# glm_pois_null <- glm(___)
-
-```
-
-Then, run a likelihood ratio test **(1 pt)**
-
-```{r}
-### Write your answer here
-
-# ___(glm_pois_null, glm_pois_1)
-```
-
-What is your decision based on this likelihood ratio test? (Hint: provide the p-value, the $\alpha$ threshold you are comparing with, and your conclusion) **(3 pt)**
-
-*Write your answer here*
-
-## Model result interpretation
-
-Calculate the predicted mean number of satellites for horsecrab with Light colour. Show the calculation process. **(3 pt)**
-
-*Write your answer here*
-
-Calculate the predicted mean number of satellites for horsecrab with Dark colour. Show the calculation process. **(3 pt)**
-
-*Write your answer here*
-
-Is your modelling result showing the same pattern as you observed in the boxplot? Is colour of female horseshoe crab significantly influencing the number of satellite? Explain why or why not, use the model output value as needed. **(3 pt)**
-
-*Write your answer here*
-
-## 2. Poisson regression - horseshoe crab - continuous
-
-In this practice, we are going to explore the relationship between number of satellites (Sa) vs carapace width (W) using Poisson regression.
-
-## Exploratory visualization - Sa vs W
-
-Seems like the number of satellites (Sa) increases as the carapace width (W) increases. We can use statistics to validate this observation and quantify the effect.
-
-```{r}
-ggplot(aes(x = W, y = Sa), data = data_crab_clean) +   
-  geom_point()
-```
-
-## Fit a Poisson regression
-
-Write out the equation that we are going to fit using Poisson regression. Explain why we only have one predictor variable here. Is the following equation correct? If not, fix it. **(2 pt)**
-
-$$ log(\mu_i) = \beta_0 + \beta_1 x_{1i}$$
-
-*Write your answer here*
-
-Fit a Poisson using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a log link. **(3 pt)**
-
-```{r}
-### Write your answer here  
-
-# glm_pois_2 <- glm(___)
-```
-
-Then, use the `summary()` function to print the model output. **(2 pt)**
-
-```{r}
-### Write your answer here  
-
-# ___
-```
-
-The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
-
-| parameter/statistics | estimated value          | exponential of estimated value |
-|--------------------|------------------------|-----------------------------|
-| $\beta_0$            | *Write your answer here* | *Write your answer here*       |
-| $\beta_1$            | *Write your answer here* | *Write your answer here*       |
-| dispersion parameter | *Write your answer here* | NA                             |
-| AIC                  | *Write your answer here* | NA                             |
-
-## Model goodness of fit
-
-Is the model including carapace width (W) as predictor variable better than a null model? Use a likelihood ratio test to test it. Write out the hypotheses of the likelihood ratio test (in words) **(1 pt)**
-
-$H_0$: *Write your answer here*
-
-$H_a$: *Write your answer here*
-
-First, we need to fit a null model **(1 pt)**
-
-```{r}
-### Write your answer here  
-
-# glm_pois_null <- glm(___)
-```
-
-Then, run a likelihood ratio test **(1 pt)**
-
-```{r}
-### Write your answer here  
-
-# ___(glm_pois_null, glm_pois_2)
-```
-
-What is your decision based on this likelihood ratio test? (Hint: provide the p-value, the $\alpha$ threshold you are comparing with, and your conclusion) **(1 pt)**
-
-*Write your answer here*
-
-## Model result interpretation
-
-Calculate the predicted mean number of satellites for horsecrab when `W = a`.Show the calculation process. (Hint: your answer should include $a$) **(2 pt)**
-
-*Write your answer here*
-
-Calculate the predicted mean number of satellites for horsecrab when `W = a + 1`. Show the calculation process. (Hint: your answer should include $a$) **(3 pt)**
-
-*Write your answer here*
-
-Compare the number of satellites when `W = a` and `W = a + 1` (i.e., calculate $\frac{Sa(W = a+1)}{Sa(W = 1)}$). Base one this result, how can you interpret $\beta_1$? (Hint: "one unit increase in $x$ is associated in ...") **(3 pt)**
-
-*Write your answer here*
-
-Is your modelling result showing the same pattern as you observed in the scatter plot? Is carapace width (W) of horseshoe crab significantly influencing the number of satellite? Explain why or why not, use the model output value, or your calculation above, as needed. **(3 pt)**
-
-*Write your answer here*
-
-## 3. Binomial regression - titanic
-
-The Titanic data set contains information about 887 of the 2229 souls aboard the ill-fated ocean liner Titanic. Each passenger's record contains the following attributes:
-
--   Name
-
--   Passenger class (1/2/3)
-
--   Sex
-
--   Age
-
--   Whether the passenger was accompanied by siblings, parents or children
-
--   The Fare they paid, and most importantly,
-
--   **Whether they survived (1=Survived, 0=Died)**
-
-In this practice, we want to know whether the survival probability (`Survival`) is influence by the passenger class (`Pclass`).
-
-## Load required libraries and data set
-
-```{r, warning=FALSE, message=FALSE}
-data_titanic <- read_csv(here("titanic_dataset.csv"))   
-
-data_titanic_clean <- data_titanic %>%
-  mutate(Pclass = factor(Pclass, labels = c("First", "Second", "Third")))
-```
-
-```{r}
-data_titanic_clean
-```
-
-## Exploratory visualization - Survival vs Pclass
-
-Seems like the survival rate is lower in Third class comparing to First class. We can use statistics to validate this observation.
-
-```{r}
-ggplot(aes(x = Pclass, y = Survived), 
-       data = data_titanic_clean) +   
-  geom_jitter(height = 0.1)
-```
-
-## Fit a Binomial regression
-
-Write out the model equation. Explain why there are two predictor variables in the equation. **(2 pt)**
-
-$$ logit(p_i) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} $$
-
-*Write your answer here*
-
-Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(3 pt)**
+Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(pt)**
 
 ```{r}
 ### Write your answer here  
@@ -285,99 +74,73 @@ Fit a Binomial regression using `glm()` function. Specify the arguments: `formul
 # glm_binom_1 <- glm(___)
 ```
 
-Then, use the `summary()` function to print the model output. **(2 pt)**
-
-```{r}
-### Write your answer here  
-
-# ___
-```
-
-The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
-
-| parameter/statistics | estimated value          | exponential of estimated value |
-|--------------------|------------------------|-----------------------------|
-| $\beta_0$            | *Write your answer here* | *Write your answer here*       |
-| $\beta_1$            | *Write your answer here* | *Write your answer here*       |
-| $\beta_2$            | *Write your answer here* | *Write your answer here*       |
-| dispersion parameter | *Write your answer here* | NA                             |
-| AIC                  | *Write your answer here* | NA                             |
-
-## Model goodness of fit
-
-Is the model including passenger class as predictor variable better than a null model? If the model performs significantly better than a null model, then we keep the predictor variable; if not, then we say that the passenger class is not significantly associated with the survival rate.
-
-Hypothesis of the likelihood ratio test (in words) **(1 pt)**
-
-$H_0$: *Write your answer here*
-
-$H_a$: *Write your answer here*
-
-First, we need to fit a null model **(1 pt)**
-
-```{r}
-### Write your answer here  
-
-# glm_binom_null <- glm(___)
-```
-
-Then, run a likelihood ratio test **(1 pt)**
-
-```{r}
-### Write your answer here  
-
-# ___(glm_binom_null, glm_binom_1)}
-```
-
-What is your decision based on this likelihood ratio test? (Hint: provide the p-value, the $\alpha$ threshold you are comparing with, and your conclusion) **(3 pt)**
-
-*Write your answer here*
-
-## Model result interpretation
-
-Calculate the odds of a passenger being survived if they are sitting in first class. Show the calculation process. **(3 pt)**
-
-*Write your answer here*
-
-Calculate the survival odds ratio of sitting in third class comparing to sitting in the first class. Show the calculation process. **(3 pt)**
-
-*Write your answer here*
-
-Is your modelling result showing the same pattern as you observed in the scatter plot? Is passenger class a significant variable to explain survival rate? Explain why or why not, use the model output value as needed. **(3 pt)**
-
-*Write your answer here*
-
-## 4. Binomial regression - titanic
-
-In this practice, we want to know whether the survival probability (`Survival`) is influence by the fare they paid (`Fare`).
-
-## Exploratory visualization - Survival vs Pclass
-
-Seems like the survival rate has positive relationship with the fare. We can use statistics to validate this observation.
-
-```{r}
-ggplot(aes(x = Fare, y = Survived),     
-       data = data_titanic_clean) +     
-  geom_jitter(height = 0.1)
-```
-
-## Fit a Binomial regression
-
-Write out the model equation. Explain why there are two predictor variables in the equation. Explain why there is only one predictor variable in the equation. **(2 pt)**
-
-$$ logit(p_i) = \beta_0 + \beta_1 x_{1i}$$
-
-*Write your answer here*
-
-Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(3 pt)**
+Then, use the `summary()` function to print the model output. **(pt)**
 
 ```{r}
 ### Write your answer here   
 
+# ___
+```
+
+Is the model significant? Use a likelihood ratio test to test the model goodness of fit (i.e., to proof this model is better than null model). Write out the hypotheses, and your results. (Hint: fit a null model called `glm_binom_null` and use `lrtest()` function to conduct hypothesis test.) **(pt)**
+
+```{r}
+### Write your answer here  
+
+# glm_binom_null <- ___  
+
+# ___(glm_binom_null, ___)
+```
+
+*Write your answer here*
+
+## 2. Binomial regression with only `isolation`
+
+Write out the equation of the binomial model where you will use `isolation` as the predictor variable to predict the probability of bird `incidence`. **(pt)**
+
+*Write your answer here*
+
+Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(pt)**
+
+```{r}
+### Write your answer here    
+
 # glm_binom_2 <- glm(___)
 ```
 
-Then, use the `summary()` function to print the model output. **(2 pt)**
+Then, use the `summary()` function to print the model output. **(pt)**
+
+```{r}
+### Write your answer here  
+
+# ___
+```
+
+Is the model significant? Use a likelihood ratio test to test the model goodness of fit (i.e., to proof this model is better than null model). Write out the hypotheses, and your results. (Hint: use `lrtest()` function to conduct hypothesis test.) **(pt)**
+
+```{r}
+### Write your answer here  
+
+# ___(glm_binom_null, ___)
+```
+
+*Write your answer here*
+
+## 3. Binomial regression with `area` + `isolation`
+
+Write out the equation of the binomial model where you will use `area` and `isolation` as the predictor variables, without interaction, to predict the probability of bird `incidence`. **(pt)**
+
+*Write your answer here*
+
+Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(pt)**
+
+```{r}
+### Write your answer here   
+
+# glm_binom_3 <- glm(___)
+```
+
+Then, use the `summary()` function to print the model output. **(pt)**
 
 ```{r}
 ### Write your answer here    
@@ -385,57 +148,110 @@ Then, use the `summary()` function to print the model output. **(2 pt)**
 # ___
 ```
 
-The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
-
-| parameter/statistics | estimated value          | exponential of estimated value |
-|--------------------|------------------------|-----------------------------|
-| $\beta_0$            | *Write your answer here* | *Write your answer here*       |
-| $\beta_1$            | *Write your answer here* | *Write your answer here*       |
-| dispersion parameter | *Write your answer here* | NA                             |
-| AIC                  | *Write your answer here* | NA                             |
-
-## Model goodness of fit
-
-Is the model including fare as predictor variable better than a null model? We use likelihood ratio test to answer this question. Hypothesis of the likelihood ratio test (in words) **(1 pt)**
-
-$H_0$: *Write your answer here*
-
-$H_a$: *Write your answer here*
-
-First, we need to fit a null model **(1 pt)**
+Is the model significant? Use a likelihood ratio test to test the model goodness of fit (i.e., to proof this model is better than null model). Write out the hypotheses, and your results. (Hint: use `lrtest()` function to conduct hypothesis test.) **(pt)**
 
 ```{r}
-### Write your answer here    
+### Write your answer here
 
-# glm_binom_null <- glm(___)
+# ___(glm_binom_null, ___)
 ```
 
-Then, run a likelihood ratio test **(1 pt)**
+*Write your answer here*
+
+## 4. Binomial regression with `area` \* `isolation`
+
+Write out the equation of the binomial model where you will use `area` and `isolation` as the predictor variables, with interaction, to predict the probability of bird `incidence`. **(pt)**
+
+*Write your answer here*
+
+Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(pt)**
 
 ```{r}
-### Write your answer here    
+### Write your answer here   
 
-# ___(glm_binom_null, glm_binom_1)
+# glm_binom_4 <- glm(___)
 ```
 
-What is your decision based on this likelihood ratio test? (Hint: provide the p-value, the $\alpha$ threshold you are comparing with, and your conclusion) **(1 pt)**
+Then, use the `summary()` function to print the model output. **(pt)**
+
+```{r}
+### Write your answer here      
+
+# ___
+```
+
+Is the model significant? Use a likelihood ratio test to test the model goodness of fit (i.e., to proof this model is better than null model). Write out the hypotheses, and your results. (Hint: use `lrtest()` function to conduct hypothesis test.) **(pt)**
+
+```{r}
+### Write your answer here  
+
+# ___(glm_binom_null, ___)
+```
 
 *Write your answer here*
 
-## Model result interpretation
+## 5. Model comparison
 
-Calculate the odds of a passenger being survived if they are paying $a$ (`Fare = a`). Show the calculation process. **(2 pt)**
+Fill out the following table based on the model summaries **(pt)**
+
+| model            | predictor variable | model significantly different from null model? (Yes/No) | dispersion parameter     | AIC                      |
+|---------------|---------------|---------------|---------------|---------------|
+| `glm_binom_null` | None               | NA                                                      | *Write your answer here* | *Write your answer here* |
+| `glm_binom_1`    | area               | *Write your answer here*                                | *Write your answer here* | *Write your answer here* |
+| `glm_binom_2`    | isolation          | *Write your answer here*                                | *Write your answer here* | *Write your answer here* |
+| `glm_binom_3`    | area + isolation   | *Write your answer here*                                | *Write your answer here* | *Write your answer here* |
+| `glm_binom_4`    | area \* isolation  | *Write your answer here*                                | *Write your answer here* | *Write your answer here* |
+
+Use likelihood ratio test to compare nested models. Is the `area` variable contributing significantly in `glm_binom_3`? (Hint: compare `glm_binom_3` to `glm_binom_2`) **(pt)**
+
+```{r}
+### Write your answer here
+```
 
 *Write your answer here*
 
-Calculate the odds of a passenger being survived if they are paying $a + 1$ (`Fare = a + 1`). Show the calculation process. **(3 pt)**
+Use likelihood ratio test to compare nested models. Is the `isolation` variable contributing significantly in `glm_binom_3`? (Hint: compare `glm_binom_3` to `glm_binom_1`) **(pt)**
+
+```{r}
+### Write your answer here
+```
 
 *Write your answer here*
 
-Compare the odds `Fare = a` and `Fare = a + 1` (i.e., calculate the odds ratio). Base one this result, how can you interpret $\beta_1$? (Hint: "one unit increase in $x$ is associated in ...") **(3 pt)**
+Use likelihood ratio test to compare nested models. Is the interaction term significant between `isolation` and `area`? (Hint: compare `glm_binom_3` to `glm_binom_4`) **(pt)**
+
+```{r}
+### Write your answer here
+```
 
 *Write your answer here*
 
-Is your modelling result showing the same pattern as you observed in the scatter plot? Is fare a significant variable to explain survival rate? Explain why or why not, use the model output value as needed. **(3 pt)**
+Based on the reported goodness of fit metrics in the table, and all the model comparisons using likelihood ratio test, which model will you choose as your final model? Provide reasoning. **(pt)**
+
+*Write your answer here*
+
+## 6. Model prediction and interpretation
+
+Add one more column in the original data set to show the predicted probability of bird incidence, using the model that you selected in previous question. **(pt)**
+
+```{r}
+### Write your answer here
+
+# data_bird_clean <- data_bird_clean %>%
+#   mutate(predicted_prob = ___(___, type = ___))
+```
+
+Plot out the predicted probability and the observed incidence to show whether predicted value correspond well with observed value (i.e., island with absence of birds should have lower predicted probability). Can your model precisly predict the incidence of birds? **(pt)**
+
+```{r}
+### Write your answer here
+
+# ggplot(___(x = incidence, y = predicted_prob), data = ___) +
+#   geom_boxplot()
+```
+
+*Write your answer here*
+
+Finally, based on the estimated coefficients of the final model that you selected, how is the bird incidence influenced by `area` and/or `isolation`? Is it positive relationship or negative relationship? (Hint: you will need to use estimated parameter to support your answer here. For example, "since $\beta_1$ is larger than 0, $exp(\beta_1)$ is larger than 1, so the increase of area is associated with higher odds of incidence") **(pt)**
 
 *Write your answer here*
