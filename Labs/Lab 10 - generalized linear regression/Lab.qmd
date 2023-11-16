@@ -71,7 +71,7 @@ my_data <- penguins %>%
 my_data
 ```
 
-## If there is only one predictor 
+## If there is only one predictor
 
 $$
 FL_i = \beta_0 + \beta_1 Mass_{i}
@@ -82,7 +82,7 @@ ggplot(aes(x = body_mass_g, y = flipper_length_mm), data = my_data) +
   geom_point()
 ```
 
-## Additive effect 
+## Additive effect
 
 $$
 FL_i = \beta_0 + \beta_1 Mass_{i} + \beta_2 SP_{1i} + \beta_3 SP_{2i}
@@ -95,7 +95,7 @@ lm_1 <- lm(formula = flipper_length_mm ~ body_mass_g + species,
 summary(lm_1)
 ```
 
-## Additive effect 
+## Additive effect
 
 For species Adelie:
 
@@ -109,8 +109,7 @@ $$
 FL_i = \beta_0 + \beta_1 Mass_{i} + \beta_2
 $$
 
-For species Gentoo:
-$$
+For species Gentoo: $$
 FL_i = \beta_0 + \beta_1 Mass_{i} + \beta_3
 $$
 
@@ -128,7 +127,7 @@ ggplot(aes(x = body_mass_g, y = flipper_length_mm, group = species), data = my_d
      geom_line(aes(y = predict(lm_1)), size = 1)
 ```
 
-## Interaction effect 
+## Interaction effect
 
 $$ FL_i = \beta_0 + \beta_1 Mass_{i} + \beta_2 SP_{1i} + \beta_3 SP_{2i} + \beta_{12}Mass_i*SP_{1i} + \beta_{13}Mass_{i}*SP_{2i} $$
 
@@ -139,7 +138,7 @@ lm_2 <- lm(formula = flipper_length_mm ~ body_mass_g * species,
 summary(lm_2)
 ```
 
-## Interaction effect 
+## Interaction effect
 
 For species Adelie:
 
@@ -157,7 +156,7 @@ $$ FL_i = \beta_0 + \beta_1 Mass_{i} + \beta_3 +  \beta_{13}Mass_{i} $$
 
 -   They only have different intercepts!
 
-## Interaction effect 
+## Interaction effect
 
 -   Non parallel lines modelling
 
