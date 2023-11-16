@@ -1,0 +1,433 @@
+---
+title: "NRES 776 Lab 9 - GLM with single predictor"
+author: "Your name here"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load required libraries
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(here)
+library(lmtest)
+```
+
+## 1. Poisson regression - horseshoe crab - categorical
+
+This problem refers to data from a study of nesting horseshoe crabs (J. Brockmann, Ethology 1996); see also Agresti (1996) Sec. 4.3 and Agresti (2002) Sec. 4.3. Each female horseshoe crab in the study had a male crab attached to her in her nest. The study investigated factors that affect whether the female crab had any other males, called satellites, residing near her. Explanatory variables that are thought to affect this included the female crab's color (C), spine condition (S), weight (Wt), and carapace width (W). The response outcome for each female crab is her number of satellites (Sa). There are 173 females in this study.
+
+In this practice, we are going to explore the relationship between number of satellites (Sa) vs color (C) using Poisson regression.
+
+```{r, warning=FALSE, message=FALSE}
+data_crab <- read_table(here("crab_dataset.txt")) 
+
+data_crab_clean <- data_crab %>%
+  mutate(C = factor(C, labels = c("Light", "Median", "Dark", "Very dark")))
+  
+```
+
+```{r}
+data_crab_clean
+```
+
+## Exploratory visualization - Sa vs C
+
+Seems like the number of number of satellites (Sa) decreases as the color (C) gets darker. Interesting observation! We can use statistics to validate this observation.
+
+```{r}
+ggplot(aes(x = C, y = Sa), data = data_crab_clean) +
+  geom_boxplot()
+```
+
+## Fit a Poisson regression
+
+This is the model equation that we are going to fit. Explain why there are three parameters **(2 pt)**
+
+$$
+log(\mu_i) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{3i}
+$$
+
+*Write your answer here*
+
+Fit a Poisson using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a log link. **(3 pt)**
+
+```{r}
+### Write your answer here
+
+# glm_pois_1 <- glm(___)
+```
+
+Then, use the `summary()` function to print the model output. **(2 pt)**
+
+```{r}
+### Write your answer here
+
+# ___
+```
+
+The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
+
+| parameter/statistics | estimated value          | exponential of estimated value |
+|----------------------|--------------------------|--------------------------------|
+| $\beta_0$            | *Write your answer here* | *Write your answer here*       |
+| $\beta_1$            | *Write your answer here* | *Write your answer here*       |
+| $\beta_2$            | *Write your answer here* | *Write your answer here*       |
+| $\beta_3$            | *Write your answer here* | *Write your answer here*       |
+| dispersion parameter | *Write your answer here* | NA                             |
+| AIC                  | *Write your answer here* | NA                             |
+
+## Model goodness of fit
+
+Is the model including colour as predictor variable better than a null model? If the model performs significantly better than a null model, then we keep the predictor variable; if not, then we say that the colour is not significantly associated with the number of satellite.
+
+Hypothesis of the likelihood ratio test (in words) **(1 pt)**
+
+$H_0$: *Write your answer here*
+
+$H_a$: *Write your answer here*
+
+First, we need to fit a null model **(1 pt)**
+
+```{r}
+### Write your answer here
+
+# glm_pois_null <- glm(___)
+
+```
+
+Then, run a likelihood ratio test **(1 pt)**
+
+```{r}
+### Write your answer here
+
+# ___(glm_pois_null, glm_pois_1)
+```
+
+What is your decision based on this likelihood ratio test? (Hint: provide the p-value, the $\alpha$ threshold you are comparing with, and your conclusion) **(3 pt)**
+
+*Write your answer here*
+
+## Model result interpretation
+
+Calculate the predicted mean number of satellites for horsecrab with Light colour. Show the calculation process. **(3 pt)**
+
+*Write your answer here*
+
+Calculate the predicted mean number of satellites for horsecrab with Dark colour. Show the calculation process. **(3 pt)**
+
+*Write your answer here*
+
+Is your modelling result showing the same pattern as you observed in the boxplot? Is colour of female horseshoe crab significantly influencing the number of satellite? Explain why or why not, use the model output value as needed. **(3 pt)**
+
+*Write your answer here*
+
+## 2. Poisson regression - horseshoe crab - continuous
+
+In this practice, we are going to explore the relationship between number of satellites (Sa) vs carapace width (W) using Poisson regression.
+
+## Exploratory visualization - Sa vs W
+
+Seems like the number of satellites (Sa) increases as the carapace width (W) increases. We can use statistics to validate this observation and quantify the effect.
+
+```{r}
+ggplot(aes(x = W, y = Sa), data = data_crab_clean) +   
+  geom_point()
+```
+
+## Fit a Poisson regression
+
+Write out the equation that we are going to fit using Poisson regression. Explain why we only have one predictor variable here. Is the following equation correct? If not, fix it. **(2 pt)**
+
+$$ log(\mu_i) = \beta_0 + \beta_1 x_{1i}$$
+
+*Write your answer here*
+
+Fit a Poisson using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a log link. **(3 pt)**
+
+```{r}
+### Write your answer here  
+
+# glm_pois_2 <- glm(___)
+```
+
+Then, use the `summary()` function to print the model output. **(2 pt)**
+
+```{r}
+### Write your answer here  
+
+# ___
+```
+
+The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
+
+| parameter/statistics | estimated value          | exponential of estimated value |
+|----------------------|--------------------------|--------------------------------|
+| $\beta_0$            | *Write your answer here* | *Write your answer here*       |
+| $\beta_1$            | *Write your answer here* | *Write your answer here*       |
+| dispersion parameter | *Write your answer here* | NA                             |
+| AIC                  | *Write your answer here* | NA                             |
+
+## Model goodness of fit
+
+Is the model including carapace width (W) as predictor variable better than a null model? Use a likelihood ratio test to test it. Write out the hypotheses of the likelihood ratio test (in words) **(1 pt)**
+
+$H_0$: *Write your answer here*
+
+$H_a$: *Write your answer here*
+
+First, we need to fit a null model **(1 pt)**
+
+```{r}
+### Write your answer here  
+
+# glm_pois_null <- glm(___)
+```
+
+Then, run a likelihood ratio test **(1 pt)**
+
+```{r}
+### Write your answer here  
+
+# ___(glm_pois_null, glm_pois_2)
+```
+
+What is your decision based on this likelihood ratio test? (Hint: provide the p-value, the $\alpha$ threshold you are comparing with, and your conclusion) **(1 pt)**
+
+*Write your answer here*
+
+## Model result interpretation
+
+Calculate the predicted mean number of satellites for horsecrab when `W = a`.Show the calculation process. (Hint: your answer should include $a$) **(2 pt)**
+
+*Write your answer here*
+
+Calculate the predicted mean number of satellites for horsecrab when `W = a + 1`. Show the calculation process. (Hint: your answer should include $a$) **(3 pt)**
+
+*Write your answer here*
+
+Compare the number of satellites when `W = a` and `W = a + 1` (i.e., calculate $\frac{Sa(W = a+1)}{Sa(W = 1)}$). Base one this result, how can you interpret $\beta_1$? (Hint: "one unit increase in $x$ is associated in ...") **(3 pt)**
+
+*Write your answer here*
+
+Is your modelling result showing the same pattern as you observed in the scatter plot? Is carapace width (W) of horseshoe crab significantly influencing the number of satellite? Explain why or why not, use the model output value, or your calculation above, as needed. **(3 pt)**
+
+*Write your answer here*
+
+## 3. Binomial regression - titanic
+
+The Titanic data set contains information about 887 of the 2229 souls aboard the ill-fated ocean liner Titanic. Each passenger's record contains the following attributes:
+
+-   Name
+
+-   Passenger class (1/2/3)
+
+-   Sex
+
+-   Age
+
+-   Whether the passenger was accompanied by siblings, parents or children
+
+-   The Fare they paid, and most importantly,
+
+-   **Whether they survived (1=Survived, 0=Died)**
+
+In this practice, we want to know whether the survival probability (`Survival`) is influence by the passenger class (`Pclass`).
+
+## Load required libraries and data set
+
+```{r, warning=FALSE, message=FALSE}
+data_titanic <- read_csv(here("titanic_dataset.csv"))   
+
+data_titanic_clean <- data_titanic %>%
+  mutate(Pclass = factor(Pclass, labels = c("First", "Second", "Third")))
+```
+
+```{r}
+data_titanic_clean
+```
+
+## Exploratory visualization - Survival vs Pclass
+
+Seems like the survival rate is lower in Third class comparing to First class. We can use statistics to validate this observation.
+
+```{r}
+ggplot(aes(x = Pclass, y = Survived), 
+       data = data_titanic_clean) +   
+  geom_jitter(height = 0.1)
+```
+
+## Fit a Binomial regression
+
+Write out the model equation. Explain why there are two predictor variables in the equation. **(2 pt)**
+
+$$ logit(p_i) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} $$
+
+*Write your answer here*
+
+Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(3 pt)**
+
+```{r}
+### Write your answer here  
+
+# glm_binom_1 <- glm(___)
+```
+
+Then, use the `summary()` function to print the model output. **(2 pt)**
+
+```{r}
+### Write your answer here  
+
+# ___
+```
+
+The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
+
+| parameter/statistics | estimated value          | exponential of estimated value |
+|----------------------|--------------------------|--------------------------------|
+| $\beta_0$            | *Write your answer here* | *Write your answer here*       |
+| $\beta_1$            | *Write your answer here* | *Write your answer here*       |
+| $\beta_2$            | *Write your answer here* | *Write your answer here*       |
+| dispersion parameter | *Write your answer here* | NA                             |
+| AIC                  | *Write your answer here* | NA                             |
+
+## Model goodness of fit
+
+Is the model including passenger class as predictor variable better than a null model? If the model performs significantly better than a null model, then we keep the predictor variable; if not, then we say that the passenger class is not significantly associated with the survival rate.
+
+Hypothesis of the likelihood ratio test (in words) **(1 pt)**
+
+$H_0$: *Write your answer here*
+
+$H_a$: *Write your answer here*
+
+First, we need to fit a null model **(1 pt)**
+
+```{r}
+### Write your answer here  
+
+# glm_binom_null <- glm(___)
+```
+
+Then, run a likelihood ratio test **(1 pt)**
+
+```{r}
+### Write your answer here  
+
+# ___(glm_binom_null, glm_binom_1)}
+```
+
+What is your decision based on this likelihood ratio test? (Hint: provide the p-value, the $\alpha$ threshold you are comparing with, and your conclusion) **(3 pt)**
+
+*Write your answer here*
+
+## Model result interpretation
+
+Calculate the odds of a passenger being survived if they are sitting in first class. Show the calculation process. **(3 pt)**
+
+*Write your answer here*
+
+Calculate the survival odds ratio of sitting in third class comparing to sitting in the first class. Show the calculation process. **(3 pt)**
+
+*Write your answer here*
+
+Is your modelling result showing the same pattern as you observed in the scatter plot? Is passenger class a significant variable to explain survival rate? Explain why or why not, use the model output value as needed. **(3 pt)**
+
+*Write your answer here*
+
+## 4. Binomial regression - titanic
+
+In this practice, we want to know whether the survival probability (`Survival`) is influence by the fare they paid (`Fare`).
+
+## Exploratory visualization - Survival vs Pclass
+
+Seems like the survival rate has positive relationship with the fare. We can use statistics to validate this observation.
+
+```{r}
+ggplot(aes(x = Fare, y = Survived),     
+       data = data_titanic_clean) +     
+  geom_jitter(height = 0.1)
+```
+
+## Fit a Binomial regression
+
+Write out the model equation. Explain why there are two predictor variables in the equation. Explain why there is only one predictor variable in the equation. **(2 pt)**
+
+$$ logit(p_i) = \beta_0 + \beta_1 x_{1i}$$
+
+*Write your answer here*
+
+Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(3 pt)**
+
+```{r}
+### Write your answer here   
+
+# glm_binom_2 <- glm(___)
+```
+
+Then, use the `summary()` function to print the model output. **(2 pt)**
+
+```{r}
+### Write your answer here    
+
+# ___
+```
+
+The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
+
+| parameter/statistics | estimated value          | exponential of estimated value |
+|----------------------|--------------------------|--------------------------------|
+| $\beta_0$            | *Write your answer here* | *Write your answer here*       |
+| $\beta_1$            | *Write your answer here* | *Write your answer here*       |
+| dispersion parameter | *Write your answer here* | NA                             |
+| AIC                  | *Write your answer here* | NA                             |
+
+## Model goodness of fit
+
+Is the model including fare as predictor variable better than a null model? We use likelihood ratio test to answer this question. Hypothesis of the likelihood ratio test (in words) **(1 pt)**
+
+$H_0$: *Write your answer here*
+
+$H_a$: *Write your answer here*
+
+First, we need to fit a null model **(1 pt)**
+
+```{r}
+### Write your answer here    
+
+# glm_binom_null <- glm(___)
+```
+
+Then, run a likelihood ratio test **(1 pt)**
+
+```{r}
+### Write your answer here    
+
+# ___(glm_binom_null, glm_binom_1)
+```
+
+What is your decision based on this likelihood ratio test? (Hint: provide the p-value, the $\alpha$ threshold you are comparing with, and your conclusion) **(1 pt)**
+
+*Write your answer here*
+
+## Model result interpretation
+
+Calculate the odds of a passenger being survived if they are paying $a$ (`Fare = a`). Show the calculation process. **(2 pt)**
+
+*Write your answer here*
+
+Calculate the odds of a passenger being survived if they are paying $a + 1$ (`Fare = a + 1`). Show the calculation process. **(3 pt)**
+
+*Write your answer here*
+
+Compare the odds `Fare = a` and `Fare = a + 1` (i.e., calculate the odds ratio). Base one this result, how can you interpret $\beta_1$? (Hint: "one unit increase in $x$ is associated in ...") **(3 pt)**
+
+*Write your answer here*
+
+Is your modelling result showing the same pattern as you observed in the scatter plot? Is fare a significant variable to explain survival rate? Explain why or why not, use the model output value as needed. **(3 pt)**
+
+*Write your answer here*
