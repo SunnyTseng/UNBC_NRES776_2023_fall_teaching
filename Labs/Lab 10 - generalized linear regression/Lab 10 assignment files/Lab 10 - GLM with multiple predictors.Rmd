@@ -66,7 +66,7 @@ $$
 logit(p_i) = \beta_0 + \beta_1 area_i
 $$
 
-Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(pt)**
+Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(4 pt)**
 
 ```{r}
 ### Write your answer here  
@@ -74,7 +74,7 @@ Fit a Binomial regression using `glm()` function. Specify the arguments: `formul
 # glm_binom_1 <- glm(___)
 ```
 
-Then, use the `summary()` function to print the model output. **(pt)**
+Then, use the `summary()` function to print the model output. **(4 pt)**
 
 ```{r}
 ### Write your answer here   
@@ -82,7 +82,7 @@ Then, use the `summary()` function to print the model output. **(pt)**
 # ___
 ```
 
-Is the model significant? Use a likelihood ratio test to test the model goodness of fit (i.e., to proof this model is better than null model). Write out the hypotheses, and your results. (Hint: fit a null model called `glm_binom_null` and use `lrtest()` function to conduct hypothesis test.) **(pt)**
+Is the model significant? Use a likelihood ratio test to test the model goodness of fit (i.e., to proof this model is better than null model). Write out the hypotheses, and your results. (Hint: fit a null model called `glm_binom_null` and use `lrtest()` function to conduct hypothesis test.) **(4 pt)**
 
 ```{r}
 ### Write your answer here  
@@ -100,7 +100,7 @@ Write out the equation of the binomial model where you will use `isolation` as t
 
 *Write your answer here*
 
-Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(pt)**
+Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(4 pt)**
 
 ```{r}
 ### Write your answer here    
@@ -108,7 +108,7 @@ Fit a Binomial regression using `glm()` function. Specify the arguments: `formul
 # glm_binom_2 <- glm(___)
 ```
 
-Then, use the `summary()` function to print the model output. **(pt)**
+Then, use the `summary()` function to print the model output. **(4 pt)**
 
 ```{r}
 ### Write your answer here  
@@ -116,7 +116,7 @@ Then, use the `summary()` function to print the model output. **(pt)**
 # ___
 ```
 
-Is the model significant? Use a likelihood ratio test to test the model goodness of fit (i.e., to proof this model is better than null model). Write out the hypotheses, and your results. (Hint: use `lrtest()` function to conduct hypothesis test.) **(pt)**
+Is the model significant? Use a likelihood ratio test to test the model goodness of fit (i.e., to proof this model is better than null model). Write out the hypotheses, and your results. (Hint: use `lrtest()` function to conduct hypothesis test.) **(4 pt)**
 
 ```{r}
 ### Write your answer here  
@@ -128,11 +128,11 @@ Is the model significant? Use a likelihood ratio test to test the model goodness
 
 ## 3. Binomial regression with `area` + `isolation`
 
-Write out the equation of the binomial model where you will use `area` and `isolation` as the predictor variables, without interaction, to predict the probability of bird `incidence`. **(pt)**
+Write out the equation of the binomial model where you will use `area` and `isolation` as the predictor variables, without interaction, to predict the probability of bird `incidence`. **(4 pt)**
 
 *Write your answer here*
 
-Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(pt)**
+Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(4 pt)**
 
 ```{r}
 ### Write your answer here   
@@ -140,7 +140,7 @@ Fit a Binomial regression using `glm()` function. Specify the arguments: `formul
 # glm_binom_3 <- glm(___)
 ```
 
-Then, use the `summary()` function to print the model output. **(pt)**
+Then, use the `summary()` function to print the model output. **(4 pt)**
 
 ```{r}
 ### Write your answer here    
@@ -148,7 +148,7 @@ Then, use the `summary()` function to print the model output. **(pt)**
 # ___
 ```
 
-Is the model significant? Use a likelihood ratio test to test the model goodness of fit (i.e., to proof this model is better than null model). Write out the hypotheses, and your results. (Hint: use `lrtest()` function to conduct hypothesis test.) **(pt)**
+Is the model significant? Use a likelihood ratio test to test the model goodness of fit (i.e., to proof this model is better than null model). Write out the hypotheses, and your results. (Hint: use `lrtest()` function to conduct hypothesis test.) **(4 pt)**
 
 ```{r}
 ### Write your answer here
@@ -160,11 +160,11 @@ Is the model significant? Use a likelihood ratio test to test the model goodness
 
 ## 4. Binomial regression with `area` \* `isolation`
 
-Write out the equation of the binomial model where you will use `area` and `isolation` as the predictor variables, with interaction, to predict the probability of bird `incidence`. **(pt)**
+Write out the equation of the binomial model where you will use `area` and `isolation` as the predictor variables, with interaction, to predict the probability of bird `incidence`. **(4 pt)**
 
 *Write your answer here*
 
-Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(pt)**
+Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(4 pt)**
 
 ```{r}
 ### Write your answer here   
@@ -172,7 +172,7 @@ Fit a Binomial regression using `glm()` function. Specify the arguments: `formul
 # glm_binom_4 <- glm(___)
 ```
 
-Then, use the `summary()` function to print the model output. **(pt)**
+Then, use the `summary()` function to print the model output. **(4 pt)**
 
 ```{r}
 ### Write your answer here      
@@ -180,7 +180,7 @@ Then, use the `summary()` function to print the model output. **(pt)**
 # ___
 ```
 
-Is the model significant? Use a likelihood ratio test to test the model goodness of fit (i.e., to proof this model is better than null model). Write out the hypotheses, and your results. (Hint: use `lrtest()` function to conduct hypothesis test.) **(pt)**
+Is the model significant? Use a likelihood ratio test to test the model goodness of fit (i.e., to proof this model is better than null model). Write out the hypotheses, and your results. (Hint: use `lrtest()` function to conduct hypothesis test.) **(4 pt)**
 
 ```{r}
 ### Write your answer here  
@@ -192,7 +192,7 @@ Is the model significant? Use a likelihood ratio test to test the model goodness
 
 ## 5. Model comparison
 
-Fill out the following table based on the model summaries **(pt)**
+Fill out the following table based on the model summaries **(5 pt)**
 
 | model            | predictor variable | model significantly different from null model? (Yes/No) | dispersion parameter     | AIC                      |
 |---------------|---------------|---------------|---------------|---------------|
@@ -202,7 +202,7 @@ Fill out the following table based on the model summaries **(pt)**
 | `glm_binom_3`    | area + isolation   | *Write your answer here*                                | *Write your answer here* | *Write your answer here* |
 | `glm_binom_4`    | area \* isolation  | *Write your answer here*                                | *Write your answer here* | *Write your answer here* |
 
-Use likelihood ratio test to compare nested models. Is the `area` variable contributing significantly in `glm_binom_3`? (Hint: compare `glm_binom_3` to `glm_binom_2`) **(pt)**
+Use likelihood ratio test to compare nested models. Is the `area` variable contributing significantly in `glm_binom_3`? (Hint: compare `glm_binom_3` to `glm_binom_2`) **(5 pt)**
 
 ```{r}
 ### Write your answer here
@@ -210,7 +210,7 @@ Use likelihood ratio test to compare nested models. Is the `area` variable contr
 
 *Write your answer here*
 
-Use likelihood ratio test to compare nested models. Is the `isolation` variable contributing significantly in `glm_binom_3`? (Hint: compare `glm_binom_3` to `glm_binom_1`) **(pt)**
+Use likelihood ratio test to compare nested models. Is the `isolation` variable contributing significantly in `glm_binom_3`? (Hint: compare `glm_binom_3` to `glm_binom_1`) **(5 pt)**
 
 ```{r}
 ### Write your answer here
@@ -218,7 +218,7 @@ Use likelihood ratio test to compare nested models. Is the `isolation` variable 
 
 *Write your answer here*
 
-Use likelihood ratio test to compare nested models. Is the interaction term significant between `isolation` and `area`? (Hint: compare `glm_binom_3` to `glm_binom_4`) **(pt)**
+Use likelihood ratio test to compare nested models. Is the interaction term significant between `isolation` and `area`? (Hint: compare `glm_binom_3` to `glm_binom_4`) **(5 pt)**
 
 ```{r}
 ### Write your answer here
@@ -226,13 +226,13 @@ Use likelihood ratio test to compare nested models. Is the interaction term sign
 
 *Write your answer here*
 
-Based on the reported goodness of fit metrics in the table, and all the model comparisons using likelihood ratio test, which model will you choose as your final model? Provide reasoning. **(pt)**
+Based on the reported goodness of fit metrics in the table, and all the model comparisons using likelihood ratio test, which model will you choose as your final model? Provide reasoning. **(5 pt)**
 
 *Write your answer here*
 
 ## 6. Model prediction and interpretation
 
-Add one more column in the original data set to show the predicted probability of bird incidence, using the model that you selected in previous question. **(pt)**
+Add one more column in the original data set to show the predicted probability of bird incidence, using the model that you selected in previous question. **(5 pt)**
 
 ```{r}
 ### Write your answer here
@@ -241,7 +241,7 @@ Add one more column in the original data set to show the predicted probability o
 #   mutate(predicted_prob = ___(___, type = ___))
 ```
 
-Plot out the predicted probability and the observed incidence to show whether predicted value correspond well with observed value (i.e., island with absence of birds should have lower predicted probability). Can your model precisly predict the incidence of birds? **(pt)**
+Plot out the predicted probability and the observed incidence to show whether predicted value correspond well with observed value (i.e., island with absence of birds should have lower predicted probability). Can your model precisly predict the incidence of birds? **(5 pt)**
 
 ```{r}
 ### Write your answer here
@@ -252,6 +252,6 @@ Plot out the predicted probability and the observed incidence to show whether pr
 
 *Write your answer here*
 
-Finally, based on the estimated coefficients of the final model that you selected, how is the bird incidence influenced by `area` and/or `isolation`? Is it positive relationship or negative relationship? (Hint: you will need to use estimated parameter to support your answer here. For example, "since $\beta_1$ is larger than 0, $exp(\beta_1)$ is larger than 1, so the increase of area is associated with higher odds of incidence") **(pt)**
+Finally, based on the estimated coefficients of the final model that you selected, how is the bird incidence influenced by `area` and/or `isolation`? Is it positive relationship or negative relationship? (Hint: you will need to use estimated parameter to support your answer here. For example, "since $\beta_1$ is larger than 0, $exp(\beta_1)$ is larger than 1, so the increase of area is associated with higher odds of incidence") **(5 pt)**
 
 *Write your answer here*
