@@ -1,6 +1,6 @@
 ---
-title: "NRES 776 Lab 9"
-subtitle: "GLM with single predictor"
+title: "NRES 776 Lab 10"
+subtitle: "GLM with multiple predictors"
 author: Sunny Tseng
 format:
   revealjs: 
@@ -36,183 +36,46 @@ binomial_data <- binomial_data %>%
 
 -   Discussion paper presentation (50 min)
 
--   Binomial regression with single continuous $x$ (15 min)
+-   Lab 9 - GLM with single predictor - answer (30 min)
 
--   Lab intro - Poisson regression with single predictor variable (10 min)
-
--   Lab intro - Binomial regression with single predictor variable (10 min)
+-   Lab 10 - GLM with multiple predictors - intro (30 min)
 
 -   Practice (60 min)
 
 # Discussion paper presentation
 
--   Olivia Wilson
+-   Candyce Huxter
 
--   Tina Watters
+-   Meng Wang
 
--   Brett Gandy
-
-# Binomial regression
-
-## Research question (1 continuous x)
-
-A survey was done on 50 islands for the incidence of a bird species Grasshopper Warbler. Researchers want to know whether the incidence is related to the area and/or the isolation level of the islands.
-
-::: columns
-::: {.column width="50%"}
-### Use long format as input
-
-```{r}
-data_long <- binomial_data
-data_long
-```
-:::
-
-::: {.column width="50%"}
-### Take a look at the relationship
-
-```{r}
-data_wide <- binomial_data %>%   
-  group_by(isolation) %>%
-  summarize(presence = sum(incidence == 1),  
-            absence = sum(incidence == 0), 
-            total = n(),                   
-            proportion = presence/total,  
-            mean_area = mean(area)) %>%     
-  select(proportion, total, mean_area)   
-data_wide
-```
-:::
-:::
-
-## Model formulation
-
-$$ logit(p_i) = \beta_0 + \beta_1 x_{1i} $$
-
-```{r, echo = TRUE}
-incidence_binom <- glm(formula = incidence ~ area, 
-                       data = data_long,  
-                       family = "binomial")  
-incidence_binom %>% summary
-```
-
-## Coef. interpretation
-
--   For island with area as 0 (baseline):
-
-$$ logit(p_i) = log(\frac{p_i}{1-p_i})= \beta_0 $$
-
-$$ \frac{p_i}{1-p_i} = Odd(p_i) = exp(\beta_0) = exp(-2.15) = 0.11 $$
-
--   The odd for the intercept is not often interpreted by itself.
-
-## Coef. interpretation (con'd)
-
--   For island with non-0 area:
-
-$$ logit(p_i) = \beta_0 + \beta_1 x_{1i}$$
-
-$$ logit(p_i') = \beta_0 + \beta_1 (x_{1i} + 1)$$
-
-$$ logit(p_i') - logit(p_i) = \beta_1 = log(\frac{Odd(p_i')}{Odd(p_i)}) $$
-
-$$ \frac{Odd(p_i')}{Odd(p_i)} = exp(\beta_1) = exp(0.62) = 1.87  $$
-
--   For one unit increase in `area`, the odds of the bird species being present increase by a factor of 1.87.
-
-## Output interpretation
-
-### Odd ratio (OR)
-
--   $OR = 1$, no difference between groups
--   $OR < 1$, treatment decreases odds
--   $OR > 1$, treatment increases odds
-
-### R output
-
--   **Intercept (-2.15)**: The odd of the bird being present on 0 area island is $exp(-2.15)$
-
--   **area (0.62)**: For one unit increase in `area`, the odds of the bird species being present increase by a factor of $exp(0.62)$
-
--   **Dispersion parameter (1)**: wonderful. Need to consider other methods if dispersion larger than 1 (over-dispersion) or smaller than 1 (under-dispersion)
-
--   **AIC (54.172)**: Can be used to compare the goodness of fit between models
-
-## Model goodness of fit: Likelihood ratio test
-
-```{r, echo = TRUE}
-incidence_binom_null <- glm(formula = incidence ~ 1,
-                            data = data_long,  
-                            family = "binomial")
-```
-
-$H_0$: The model performance is the same as a null model (making predictions by chance)
-
-$H_1$: The model performance is significantly different comparing to a null model
-
-. . .
-
--   Use `lrtest()` function in the `lmtest` package
-
-```{r, echo = TRUE}
-lrtest(incidence_binom, incidence_binom_null)
-```
-
-## Model prediction
-
--   Use `predict()` and specify `type = "response"` to get back transformed $y_i$
-
-```{r, echo = TRUE}
-incidence_p <- data_long %>% 
-  mutate(incidence_p = predict(incidence_binom, type = "response")) 
-incidence_p
-```
-
-## Model visualization
-
-```{r, echo = TRUE}
-data_long %>%   
-  mutate(incidence = incidence %>% as.numeric() - 1) %>%  
-  ggplot(aes(x = area, y = incidence), data = .) +   
-  geom_jitter(width = 0, height = 0.05) +  
-  geom_smooth(method =  "glm",                
-              method.args = list(family = "binomial"), 
-              se = FALSE) +   
-  labs(y = "Probability of incidence", x = "Area of an island")   
-```
-
-## Model visualization
-
-```{r, echo = TRUE}
-ggplot(aes(x = isolation, y = incidence_p),
-       data = incidence_p) +   
-  geom_boxplot() +   
-  labs(y = "Probability of incidence", x = "Isolation level of island")
-```
+-   Carolyn Knapper
 
 # Lab 9 - GLM with single predictor
 
+-   Answer key has been uploaded on Moodle, under lab 9 folder
+
+# Lab 10 - GLM with multiple predictors
+
 ## Get the lab assignment file
 
-1.  Download the file on Moodle `Lab 9 - assignment file`. You should get a `.Rmd` file after downloading
-2.  Get the two data set, one crab data set and on titanic data set
-3.  Create a `R project` folder, and put `.Rmd`, two your data sets in the same folder
-
-### Run R markdown
-
-1.  Open the R project, open the `.Rmd` file
-2.  Install and load `rmarkdown` package
-
-```{r, echo = TRUE, eval = FALSE}
-install.packages("rmarkdown")
-library(rmarkdown)
-```
-
-3.  Click `knit` and you should get a `html` output
-4.  You are all set!
+1.  Download the files by clicking the link on Moodle `Lab 10 - assignment file`.
+2.  Save everything in the same folder.
+3.  Open the `R project` file, which should open a RStudio for you. From there, open the `.Rmd` file.
+4.  Click `knit` and you should get a `html` output
+5.  You are all set!
 
 ## Submission
 
 ### Due next Wednesday 23:59 pm, Moodle
 
--   File name and type (NRES776\_*firstname*\_*lastname*\_lab_9.**html**)
+-   File name and type (NRES776\_*firstname*\_*lastname*\_lab_10.**html**)
+
+## Thank you everyone :) 
+
+-   This is the first time in my life teaching a course.
+
+-   I had a LOT of fun this semester. And I learned SO much! I hope you did as well!
+
+-   And I know I haven't finished marking project 1 yet... I am on my way!
+
+![](images/Snapseed.jpg){fig-align="center"}
