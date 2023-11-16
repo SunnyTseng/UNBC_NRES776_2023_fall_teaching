@@ -1,5 +1,5 @@
 ---
-title: "NRES 776 Lab 9 - GLM with single predictor"
+title: "NRES 776 Lab 10 - GLM with multiple predictors"
 author: "Your name here"
 date: "`r Sys.Date()`"
 output: html_document
@@ -17,7 +17,15 @@ library(here)
 library(lmtest)
 ```
 
-## 1. Poisson regression - horseshoe crab - categorical
+## Load data set
+
+```{r}
+read_csv(here("bird.csv"))
+```
+
+The file island2.csv contains information about the presence or absence of a particular species of bird across a set of islands in the Mediterranean sea. The format of the file is given below. Use this file to build a model relating species presence to the island characteristics. As the response (y) variable consists of presence/absences, you should use a binomial model, with the logit link function.
+
+## Poisson regression - horseshoe crab - categorical
 
 This problem refers to data from a study of nesting horseshoe crabs (J. Brockmann, Ethology 1996); see also Agresti (1996) Sec. 4.3 and Agresti (2002) Sec. 4.3. Each female horseshoe crab in the study had a male crab attached to her in her nest. The study investigated factors that affect whether the female crab had any other males, called satellites, residing near her. Explanatory variables that are thought to affect this included the female crab's color (C), spine condition (S), weight (Wt), and carapace width (W). The response outcome for each female crab is her number of satellites (Sa). There are 173 females in this study.
 
@@ -73,7 +81,7 @@ Then, use the `summary()` function to print the model output. **(2 pt)**
 The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
 
 | parameter/statistics | estimated value          | exponential of estimated value |
-|----------------------|--------------------------|--------------------------------|
+|--------------------|------------------------|-----------------------------|
 | $\beta_0$            | *Write your answer here* | *Write your answer here*       |
 | $\beta_1$            | *Write your answer here* | *Write your answer here*       |
 | $\beta_2$            | *Write your answer here* | *Write your answer here*       |
@@ -166,7 +174,7 @@ Then, use the `summary()` function to print the model output. **(2 pt)**
 The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
 
 | parameter/statistics | estimated value          | exponential of estimated value |
-|----------------------|--------------------------|--------------------------------|
+|--------------------|------------------------|-----------------------------|
 | $\beta_0$            | *Write your answer here* | *Write your answer here*       |
 | $\beta_1$            | *Write your answer here* | *Write your answer here*       |
 | dispersion parameter | *Write your answer here* | NA                             |
@@ -288,7 +296,7 @@ Then, use the `summary()` function to print the model output. **(2 pt)**
 The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
 
 | parameter/statistics | estimated value          | exponential of estimated value |
-|----------------------|--------------------------|--------------------------------|
+|--------------------|------------------------|-----------------------------|
 | $\beta_0$            | *Write your answer here* | *Write your answer here*       |
 | $\beta_1$            | *Write your answer here* | *Write your answer here*       |
 | $\beta_2$            | *Write your answer here* | *Write your answer here*       |
@@ -380,7 +388,7 @@ Then, use the `summary()` function to print the model output. **(2 pt)**
 The model output indicated the estimated values for the parameters, and model statistics. Report these values. (Hint: use `exp()` function and `coef()` function to get exponential value easier) **(3 pt)**
 
 | parameter/statistics | estimated value          | exponential of estimated value |
-|----------------------|--------------------------|--------------------------------|
+|--------------------|------------------------|-----------------------------|
 | $\beta_0$            | *Write your answer here* | *Write your answer here*       |
 | $\beta_1$            | *Write your answer here* | *Write your answer here*       |
 | dispersion parameter | *Write your answer here* | NA                             |
