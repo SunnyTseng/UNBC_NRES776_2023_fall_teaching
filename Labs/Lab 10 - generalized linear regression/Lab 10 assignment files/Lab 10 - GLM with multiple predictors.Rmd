@@ -1,0 +1,257 @@
+---
+title: "NRES 776 Lab 10 - GLM with multiple predictors"
+author: "Your name here"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Bird incidence on islands
+
+A field survey was done to record the presence or absence of Narcissus Flycatcher (*Ficedula narcissina*) across a set of islands in the western Pacific. The `area` ($km^2$) and the `isolation` (distance to the nearest island, in $km$) of the islands, and the `incidence` (presence/absence) of the bird were recorded.
+
+In this practice, we are going to explore the relationship between presence or absence of the birds (`incidence`) vs island area (`area`) and island isolation (`isolation`).
+
+![](https://cdn.download.ams.birds.cornell.edu/api/v1/asset/158687881/1800){width="412"}
+
+## Load required libraries and data set
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(here)
+library(lmtest)
+
+data_bird <- read_csv(here("bird.csv"))
+
+data_bird_clean <- data_bird %>%
+  mutate(incidence = as_factor(incidence)) 
+
+data_bird_clean
+```
+
+## Exploratory visualization
+
+Seems like with the increase of the island area, there is a higher probability of detecting the species.
+
+```{r}
+ggplot(aes(x = area, y = incidence), data = data_bird_clean) +
+  geom_point() + 
+  labs(title = "Incidence vs Area of islands")
+```
+
+Very interesting! Seems like there is a pattern showing the negative relationship between isolation and the incidence of the bird!
+
+```{r}
+ggplot(aes(x = isolation, y = incidence), data = data_bird_clean) + 
+  geom_point() + 
+  labs(title = "Incidence vs Isolation of islands")
+```
+
+Finally, let's take a look to see whether two predictor variables are correlated. For example, are all the smaller island also less isolated? We try to understand this to prevent potential multicollinearity issue. There seems to be a slight trend line in scatter plot. And the correlation is -0.4. Need to be careful when fitting the model.
+
+```{r}
+ggplot(aes(x = isolation, y = area), data = data_bird_clean) + 
+  geom_point() + 
+  labs(title = "Correlation between predictor variables")
+```
+
+## 1. Binomial regression with only `area`
+
+Here is the equation of the binomial model where we use `area` as the predictor variable to predict the probability of bird `incidence`.
+
+$$
+logit(p_i) = \beta_0 + \beta_1 area_i
+$$
+
+Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(4 pt)**
+
+```{r}
+### Write your answer here  
+
+# glm_binom_1 <- glm(___)
+```
+
+Then, use the `summary()` function to print the model output. **(4 pt)**
+
+```{r}
+### Write your answer here   
+
+# ___
+```
+
+Is the model significant? Use a likelihood ratio test to test the model goodness of fit (i.e., to proof this model is better than null model). Write out the hypotheses, and your results. (Hint: fit a null model called `glm_binom_null` and use `lrtest()` function to conduct hypothesis test.) **(4 pt)**
+
+```{r}
+### Write your answer here  
+
+# glm_binom_null <- ___  
+
+# ___(glm_binom_null, ___)
+```
+
+*Write your answer here*
+
+## 2. Binomial regression with only `isolation`
+
+Write out the equation of the binomial model where you will use `isolation` as the predictor variable to predict the probability of bird `incidence`. **(pt)**
+
+*Write your answer here*
+
+Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(4 pt)**
+
+```{r}
+### Write your answer here    
+
+# glm_binom_2 <- glm(___)
+```
+
+Then, use the `summary()` function to print the model output. **(4 pt)**
+
+```{r}
+### Write your answer here  
+
+# ___
+```
+
+Is the model significant? Use a likelihood ratio test to test the model goodness of fit (i.e., to proof this model is better than null model). Write out the hypotheses, and your results. (Hint: use `lrtest()` function to conduct hypothesis test.) **(4 pt)**
+
+```{r}
+### Write your answer here  
+
+# ___(glm_binom_null, ___)
+```
+
+*Write your answer here*
+
+## 3. Binomial regression with `area` + `isolation`
+
+Write out the equation of the binomial model where you will use `area` and `isolation` as the predictor variables, without interaction, to predict the probability of bird `incidence`. **(4 pt)**
+
+*Write your answer here*
+
+Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(4 pt)**
+
+```{r}
+### Write your answer here   
+
+# glm_binom_3 <- glm(___)
+```
+
+Then, use the `summary()` function to print the model output. **(4 pt)**
+
+```{r}
+### Write your answer here    
+
+# ___
+```
+
+Is the model significant? Use a likelihood ratio test to test the model goodness of fit (i.e., to proof this model is better than null model). Write out the hypotheses, and your results. (Hint: use `lrtest()` function to conduct hypothesis test.) **(4 pt)**
+
+```{r}
+### Write your answer here
+
+# ___(glm_binom_null, ___)
+```
+
+*Write your answer here*
+
+## 4. Binomial regression with `area` \* `isolation`
+
+Write out the equation of the binomial model where you will use `area` and `isolation` as the predictor variables, with interaction, to predict the probability of bird `incidence`. **(4 pt)**
+
+*Write your answer here*
+
+Fit a Binomial regression using `glm()` function. Specify the arguments: `formula`, `data`, and `family`. We will use the default link function, which is a logit link. **(4 pt)**
+
+```{r}
+### Write your answer here   
+
+# glm_binom_4 <- glm(___)
+```
+
+Then, use the `summary()` function to print the model output. **(4 pt)**
+
+```{r}
+### Write your answer here      
+
+# ___
+```
+
+Is the model significant? Use a likelihood ratio test to test the model goodness of fit (i.e., to proof this model is better than null model). Write out the hypotheses, and your results. (Hint: use `lrtest()` function to conduct hypothesis test.) **(4 pt)**
+
+```{r}
+### Write your answer here  
+
+# ___(glm_binom_null, ___)
+```
+
+*Write your answer here*
+
+## 5. Model comparison
+
+Fill out the following table based on the model summaries **(5 pt)**
+
+| model            | predictor variable | model significantly different from null model? (Yes/No) | dispersion parameter     | AIC                      |
+|---------------|---------------|---------------|---------------|---------------|
+| `glm_binom_null` | None               | NA                                                      | *Write your answer here* | *Write your answer here* |
+| `glm_binom_1`    | area               | *Write your answer here*                                | *Write your answer here* | *Write your answer here* |
+| `glm_binom_2`    | isolation          | *Write your answer here*                                | *Write your answer here* | *Write your answer here* |
+| `glm_binom_3`    | area + isolation   | *Write your answer here*                                | *Write your answer here* | *Write your answer here* |
+| `glm_binom_4`    | area \* isolation  | *Write your answer here*                                | *Write your answer here* | *Write your answer here* |
+
+Use likelihood ratio test to compare nested models. Is the `area` variable contributing significantly in `glm_binom_3`? (Hint: compare `glm_binom_3` to `glm_binom_2`) **(5 pt)**
+
+```{r}
+### Write your answer here
+```
+
+*Write your answer here*
+
+Use likelihood ratio test to compare nested models. Is the `isolation` variable contributing significantly in `glm_binom_3`? (Hint: compare `glm_binom_3` to `glm_binom_1`) **(5 pt)**
+
+```{r}
+### Write your answer here
+```
+
+*Write your answer here*
+
+Use likelihood ratio test to compare nested models. Is the interaction term significant between `isolation` and `area`? (Hint: compare `glm_binom_3` to `glm_binom_4`) **(5 pt)**
+
+```{r}
+### Write your answer here
+```
+
+*Write your answer here*
+
+Based on the reported goodness of fit metrics in the table, and all the model comparisons using likelihood ratio test, which model will you choose as your final model? Provide reasoning. **(5 pt)**
+
+*Write your answer here*
+
+## 6. Model prediction and interpretation
+
+Add one more column in the original data set to show the predicted probability of bird incidence, using the model that you selected in previous question. **(5 pt)**
+
+```{r}
+### Write your answer here
+
+# data_bird_clean <- data_bird_clean %>%
+#   mutate(predicted_prob = ___(___, type = ___))
+```
+
+Plot out the predicted probability and the observed incidence to show whether predicted value correspond well with observed value (i.e., island with absence of birds should have lower predicted probability). Can your model precisly predict the incidence of birds? **(5 pt)**
+
+```{r}
+### Write your answer here
+
+# ggplot(___(x = incidence, y = predicted_prob), data = ___) +
+#   geom_boxplot()
+```
+
+*Write your answer here*
+
+Finally, based on the estimated coefficients of the final model that you selected, how is the bird incidence influenced by `area` and/or `isolation`? Is it positive relationship or negative relationship? (Hint: you will need to use estimated parameter to support your answer here. For example, "since $\beta_1$ is larger than 0, $exp(\beta_1)$ is larger than 1, so the increase of area is associated with higher odds of incidence") **(5 pt)**
+
+*Write your answer here*

@@ -1,0 +1,191 @@
+---
+title: "NRES 776 Lab 10"
+subtitle: "GLM with multiple predictors"
+author: Sunny Tseng
+format:
+  revealjs: 
+    slide-number: true
+    preview-links: auto
+    #css: styles.css
+    #footer: <https://quarto.org>
+    theme: [default, styles.scss]
+    #smaller: true
+    #scrollable: true
+    incremental: true
+    embed-resources: true
+    width: 1200
+    fontsize: 1.7em
+editor: visual
+---
+
+```{r setup}
+library(tidyverse)
+library(here)
+library(lmtest)
+library(palmerpenguins)
+
+binomial_data <- read_csv(here("data", "isolation.csv"))
+
+binomial_data <- binomial_data %>% 
+  mutate(isolation = cut(isolation, breaks = c(2, 5, 7, 10), 
+                         labels = c("low", "median", "high"))) %>%
+  mutate(incidence = as_factor(incidence)) 
+
+```
+
+## Our schedule today
+
+-   Discussion paper presentation (50 min)
+
+-   Lab 9 - GLM with single predictor - answer (30 min)
+
+-   Lab 10 - GLM with multiple predictors - intro (30 min)
+
+-   Practice (60 min)
+
+# Discussion paper presentation
+
+-   Candyce Huxter
+
+-   Meng Wang
+
+-   Carolyn Knapper
+
+# Lab 9 - GLM with single predictor
+
+-   Answer key has been uploaded on Moodle, under lab 9 folder
+
+# Lab 10 - GLM with multiple predictors
+
+## A mini review for additive vs interaction
+
+-   Response variable: `flipper_length_mm`
+
+-   Predictor variable: `body_mass_g`, `species`
+
+```{r, echo = TRUE}
+my_data <- penguins %>%
+  select(flipper_length_mm, body_mass_g, species) %>%
+  drop_na()
+
+my_data
+```
+
+## If there is only one predictor
+
+$$
+FL_i = \beta_0 + \beta_1 Mass_{i}
+$$
+
+```{r}
+ggplot(aes(x = body_mass_g, y = flipper_length_mm), data = my_data) +
+  geom_point()
+```
+
+## Additive effect
+
+$$
+FL_i = \beta_0 + \beta_1 Mass_{i} + \beta_2 SP_{1i} + \beta_3 SP_{2i}
+$$
+
+```{r, echo = TRUE}
+lm_1 <- lm(formula = flipper_length_mm ~ body_mass_g + species,
+           data = my_data)
+
+summary(lm_1)
+```
+
+## Additive effect
+
+For species Adelie:
+
+$$
+FL_i = \beta_0 + \beta_1 Mass_{i} 
+$$
+
+For species Chinstrap:
+
+$$
+FL_i = \beta_0 + \beta_1 Mass_{i} + \beta_2
+$$
+
+For species Gentoo: $$
+FL_i = \beta_0 + \beta_1 Mass_{i} + \beta_3
+$$
+
+-   All three equations have the same slope! That is, $\beta_1$!
+
+-   They only have different intercepts!
+
+## Additive effect
+
+-   Parallel lines!
+
+```{r, echo = TRUE}
+ggplot(aes(x = body_mass_g, y = flipper_length_mm, group = species), data = my_data) +
+     geom_point() +
+     geom_line(aes(y = predict(lm_1)), size = 1)
+```
+
+## Interaction effect
+
+$$ FL_i = \beta_0 + \beta_1 Mass_{i} + \beta_2 SP_{1i} + \beta_3 SP_{2i} + \beta_{12}Mass_i*SP_{1i} + \beta_{13}Mass_{i}*SP_{2i} $$
+
+```{r}
+lm_2 <- lm(formula = flipper_length_mm ~ body_mass_g * species,
+           data = my_data)
+
+summary(lm_2)
+```
+
+## Interaction effect
+
+For species Adelie:
+
+$$ FL_i = \beta_0 + \beta_1 Mass_{i}$$
+
+For species Chinstrip:
+
+$$ FL_i = \beta_0 + \beta_1 Mass_{i} + \beta_2 + \beta_{12}Mass_i $$
+
+For species Gentoo:
+
+$$ FL_i = \beta_0 + \beta_1 Mass_{i} + \beta_3 +  \beta_{13}Mass_{i} $$
+
+-   All three equations have different slopes!
+
+-   They only have different intercepts!
+
+## Interaction effect
+
+-   Non parallel lines modelling
+
+```{r, echo = TRUE}
+ggplot(aes(x = body_mass_g, y = flipper_length_mm, group = species), data = my_data) +
+  geom_point() + 
+  geom_smooth(method = "lm")
+```
+
+## Get the lab assignment file
+
+1.  Download the files by clicking the link on Moodle `Lab 10 - assignment file`.
+2.  Save everything in the same folder.
+3.  Open the `R project` file, which should open a RStudio for you. From there, open the `.Rmd` file.
+4.  Click `knit` and you should get a `html` output
+5.  You are all set!
+
+## Submission
+
+### Due next Wednesday 23:59 pm, Moodle
+
+-   File name and type (NRES776\_*firstname*\_*lastname*\_lab_10.**html**)
+
+## Thank you everyone :)
+
+-   This is the first time in my life teaching a course.
+
+-   I had a LOT of fun this semester. And I learned SO much! I hope you did as well!
+
+-   And I know I haven't finished marking project 1 yet... I am on my way!
+
+![](images/Snapseed.jpg){fig-align="center"}
